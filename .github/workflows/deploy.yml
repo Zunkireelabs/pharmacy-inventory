@@ -1,6 +1,6 @@
 name: Deploy to Production
 
-# Manual-only until the placeholders (<NEXA_HOST>, <VPS_PATH>) are replaced and
+# Manual-only until the server is prepared (see docs/nexa/DEPLOY.md) and
 # the VPS_HOST / VPS_USER / VPS_SSH_KEY secrets exist. Then re-enable:
 #   push:
 #     branches: [main]
@@ -59,7 +59,7 @@ jobs:
           command_timeout: 15m
           script: |
             set -e
-            cd <VPS_PATH>
+            cd /root/devprojects/nexa-inventory
             git fetch --all --prune
             git checkout -B main origin/main
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
@@ -85,7 +85,7 @@ jobs:
       - name: Verify site
         run: |
           for i in $(seq 1 18); do
-            CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 15 https://<NEXA_HOST>/api/system/health/) || CODE=000
+            CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 15 https://nexa-inventory.zunkireelabs.com/api/system/health/) || CODE=000
             if [ "$CODE" = "200" ]; then echo "OK (HTTP $CODE)"; exit 0; fi
             echo "Attempt $i/18: HTTP $CODE — waiting 10s..."
             sleep 10

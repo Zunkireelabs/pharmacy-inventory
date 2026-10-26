@@ -15,11 +15,11 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=hosting"
-      - "traefik.http.routers.nexa-app-prod.rule=Host(`<NEXA_HOST>`)"
+      - "traefik.http.routers.nexa-app-prod.rule=Host(`nexa-inventory.zunkireelabs.com`)"
       - "traefik.http.routers.nexa-app-prod.entrypoints=websecure"
       - "traefik.http.routers.nexa-app-prod.tls=true"
       - "traefik.http.routers.nexa-app-prod.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.nexa-app-prod-http.rule=Host(`<NEXA_HOST>`)"
+      - "traefik.http.routers.nexa-app-prod-http.rule=Host(`nexa-inventory.zunkireelabs.com`)"
       - "traefik.http.routers.nexa-app-prod-http.entrypoints=web"
       - "traefik.http.routers.nexa-app-prod-http.middlewares=nexa-app-prod-redirect"
       - "traefik.http.middlewares.nexa-app-prod-redirect.redirectscheme.scheme=https"
