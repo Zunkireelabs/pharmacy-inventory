@@ -70,6 +70,14 @@ class MedicineInfo(models.Model):
     part = models.OneToOneField('part.Part', on_delete=models.CASCADE, related_name='medicine_info')
     requires_prescription = models.BooleanField(default=False)
     is_controlled = models.BooleanField(default=False)
+    # Catalogue details (from the medicine master sheet)
+    generic_name = models.CharField(max_length=255, blank=True)
+    strength = models.CharField(max_length=100, blank=True)
+    dosage_form = models.CharField(max_length=100, blank=True)
+    brand = models.CharField(max_length=255, blank=True)
+    manufacturer = models.CharField(max_length=255, blank=True)
+    mrp = models.DecimalField(max_digits=15, decimal_places=2, null=True, blank=True)
+    selling_price = models.DecimalField(max_digits=15, decimal_places=2, null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):

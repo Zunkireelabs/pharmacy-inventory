@@ -10,6 +10,7 @@ import {
   SimpleGrid,
   Stack,
   Text,
+  TextInput,
   Textarea,
   ThemeIcon
 } from '@mantine/core';
@@ -19,23 +20,31 @@ import {
   IconAlertCircle,
   IconCash,
   IconCircleCheck,
+  IconPill,
   IconPlus,
   IconReceipt2,
   IconTrash,
   IconWorld
 } from '@tabler/icons-react';
 import { useMutation } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { api } from '../../App';
 import { CustomerPicker } from './CustomerPicker';
 import { formatMoney } from './format';
-import { ProductPicker, StockAvailabilityHint } from './ProductPicker';
+import {
+  BatchPreview,
+  ProductPicker,
+  flagsFor,
+  sellableQuantity,
+  useBatches,
+  useMedicineFlags
+} from './ProductPicker';
 import { TransactionStatusBadge } from './TransactionStatusBadge';
 import { TransactionTypeCard } from './TransactionTypeCard';
 
-type SaleType = 'b2b_credit' | 'b2c_cash' | 'b2c_online';
+type SaleType = 'b2b_credit' | 'b2c_cash' | 'b2c_online' | 'prescription';
 
 const TYPE_OPTIONS: {
   value: SaleType;
@@ -44,20 +53,26 @@ const TYPE_OPTIONS: {
   color: string;
 }[] = [
   {
-    value: 'b2b_credit',
-    label: t`B2B Credit`,
-    icon: <IconReceipt2 size={28} />,
-    color: 'blue'
-  },
-  {
     value: 'b2c_cash',
-    label: t`Cash Sale`,
+    label: t`Cash Sale (OTC)`,
     icon: <IconCash size={28} />,
     color: 'green'
   },
   {
+    value: 'prescription',
+    label: t`Prescription`,
+    icon: <IconPill size={28} />,
+    color: 'orange'
+  },
+  {
+    value: 'b2b_credit',
+    label: t`Credit Sale`,
+    icon: <IconReceipt2 size={28} />,
+    color: 'blue'
+  },
+  {
     value: 'b2c_online',
-    label: t`Online Sale`,
+    label: t`Online / Mobile`,
     icon: <IconWorld size={28} />,
     color: 'teal'
   }
@@ -65,22 +80,116 @@ const TYPE_OPTIONS: {
 
 type LineItem = {
   key: string;
-  stockItemId: number | null;
-  stockQty: number | null;
+  partId: number | null;
   partName: string | null;
   quantity: number | '';
   unitValue: number | '';
+  // filled in by LineEditor once batches / flags are known
+  sellable: number | null;
+  rx: boolean;
+  controlled: boolean;
 };
 
 function newLine(): LineItem {
   return {
     key: Math.random().toString(36).slice(2),
-    stockItemId: null,
-    stockQty: null,
+    partId: null,
     partName: null,
     quantity: '',
-    unitValue: ''
+    unitValue: '',
+    sellable: null,
+    rx: false,
+    controlled: false
   };
+}
+
+/**
+ * One product line: medicine picker, the batches that will be used (earliest
+ * expiry first), quantity and price. Reports sellable stock and the
+ * prescription flags up to the form for validation.
+ */
+function LineEditor({
+  line,
+  index,
+  count,
+  onChange,
+  onRemove
+}: Readonly<{
+  line: LineItem;
+  index: number;
+  count: number;
+  onChange: (patch: Partial<LineItem>) => void;
+  onRemove: () => void;
+}>) {
+  const batches = useBatches(line.partId);
+  const flags = flagsFor(useMedicineFlags(), line.partId);
+  const sellable = line.partId === null ? null : sellableQuantity(batches.data);
+
+  useEffect(() => {
+    if (
+      line.sellable !== sellable ||
+      line.rx !== flags.requiresPrescription ||
+      line.controlled !== flags.isControlled
+    ) {
+      onChange({
+        sellable,
+        rx: flags.requiresPrescription,
+        controlled: flags.isControlled
+      });
+    }
+  }, [sellable, flags.requiresPrescription, flags.isControlled]);
+
+  const tooMany =
+    typeof line.quantity === 'number' &&
+    sellable !== null &&
+    line.quantity > sellable;
+
+  return (
+    <Stack gap='xs'>
+      {count > 1 && (
+        <Group justify='space-between'>
+          <Text size='xs' c='dimmed' fw={700}>
+            {t`Medicine`} {index + 1}
+          </Text>
+          <ActionIcon
+            color='red'
+            variant='subtle'
+            size='sm'
+            onClick={onRemove}
+            aria-label={t`Remove medicine`}
+          >
+            <IconTrash size={14} />
+          </ActionIcon>
+        </Group>
+      )}
+      <ProductPicker
+        value={line.partId}
+        onChange={(partId, partName) =>
+          onChange({ partId, partName, sellable: null, quantity: '' })
+        }
+      />
+      {line.partId !== null && <BatchPreview batches={batches.data} />}
+      <SimpleGrid cols={{ base: 1, xs: 2 }}>
+        <NumberInput
+          label={t`Quantity`}
+          value={line.quantity}
+          onChange={(v) => onChange({ quantity: v as number })}
+          min={0}
+          required
+          error={tooMany ? t`More than the ${sellable} available` : undefined}
+        />
+        <NumberInput
+          label={t`Unit Value`}
+          value={line.unitValue}
+          onChange={(v) => onChange({ unitValue: v as number })}
+          min={0}
+          decimalScale={2}
+          required
+        />
+      </SimpleGrid>
+      {index < count - 1 && <Divider variant='dashed' />}
+    </Stack>
+  );
 }
 
 type MovementSummary = { partName: string; quantity: string; total: string };
@@ -92,7 +201,9 @@ type SuccessState =
 const INITIAL_FORM = {
   customerId: null as number | null,
   dueDate: null as string | null,
-  notes: ''
+  notes: '',
+  prescriber: '',
+  prescriptionRef: ''
 };
 
 /**
@@ -141,14 +252,29 @@ export default function RecordSaleButton({
 
   const linesValid = lines.every(
     (l) =>
-      !!l.stockItemId &&
+      !!l.partId &&
       typeof l.quantity === 'number' &&
       l.quantity > 0 &&
+      (l.sellable === null || l.quantity <= l.sellable) &&
       typeof l.unitValue === 'number' &&
       l.unitValue > 0
   );
 
-  const canSubmit = linesValid && (!isB2B || !!form.customerId);
+  const isRx = saleType === 'prescription';
+  const anyRx = lines.some((l) => l.rx || l.controlled);
+  const anyControlled = lines.some((l) => l.controlled);
+  const otcBlockedByRx =
+    (saleType === 'b2c_cash' || saleType === 'b2c_online') && anyRx;
+  const rxFieldsMissing =
+    isRx &&
+    (!form.prescriber.trim() ||
+      (anyControlled && !form.prescriptionRef.trim()));
+
+  const canSubmit =
+    linesValid &&
+    (!isB2B || !!form.customerId) &&
+    !otcBlockedByRx &&
+    !rxFieldsMissing;
 
   const mutation = useMutation({
     mutationFn: async () => {
@@ -157,7 +283,7 @@ export default function RecordSaleButton({
       if (isB2B) {
         const response = await api.post('/plugin/nexainventory/record-b2b-sale/', {
           items: lines.map((l) => ({
-            stock_item_id: l.stockItemId,
+            part_id: l.partId,
             quantity: l.quantity,
             unit_value: l.unitValue || 0
           })),
@@ -171,11 +297,13 @@ export default function RecordSaleButton({
       const summaries: MovementSummary[] = [];
       for (const l of lines) {
         await api.post('/plugin/nexainventory/record-sale/', {
-          stock_item_id: l.stockItemId,
+          part_id: l.partId,
           sale_type: saleType,
           quantity: l.quantity,
           unit_value: l.unitValue || 0,
-          notes: form.notes
+          notes: form.notes,
+          prescriber: isRx ? form.prescriber.trim() : undefined,
+          prescription_ref: isRx ? form.prescriptionRef.trim() : undefined
         });
         summaries.push({
           partName: l.partName ?? '',
@@ -334,49 +462,14 @@ export default function RecordSaleButton({
 
             <Stack gap='md'>
               {lines.map((line, index) => (
-                <Stack key={line.key} gap='xs'>
-                  {lines.length > 1 && (
-                    <Group justify='space-between'>
-                      <Text size='xs' c='dimmed' fw={700}>
-                        {t`Product`} {index + 1}
-                      </Text>
-                      <ActionIcon
-                        color='red'
-                        variant='subtle'
-                        size='sm'
-                        onClick={() => removeLine(line.key)}
-                        aria-label={t`Remove product`}
-                      >
-                        <IconTrash size={14} />
-                      </ActionIcon>
-                    </Group>
-                  )}
-                  <ProductPicker
-                    value={line.stockItemId}
-                    onChange={(stockItemId, stockQty, partName) =>
-                      updateLine(line.key, { stockItemId, stockQty, partName })
-                    }
-                  />
-                  <StockAvailabilityHint quantity={line.stockQty} />
-                  <SimpleGrid cols={{ base: 1, xs: 2 }}>
-                    <NumberInput
-                      label={t`Quantity`}
-                      value={line.quantity}
-                      onChange={(v) => updateLine(line.key, { quantity: v as number })}
-                      min={0}
-                      required
-                    />
-                    <NumberInput
-                      label={t`Unit Value`}
-                      value={line.unitValue}
-                      onChange={(v) => updateLine(line.key, { unitValue: v as number })}
-                      min={0}
-                      decimalScale={2}
-                      required
-                    />
-                  </SimpleGrid>
-                  {index < lines.length - 1 && <Divider variant='dashed' />}
-                </Stack>
+                <LineEditor
+                  key={line.key}
+                  line={line}
+                  index={index}
+                  count={lines.length}
+                  onChange={(patch) => updateLine(line.key, patch)}
+                  onRemove={() => removeLine(line.key)}
+                />
               ))}
 
               <Button
@@ -385,9 +478,44 @@ export default function RecordSaleButton({
                 leftSection={<IconPlus size={16} />}
                 onClick={() => setLines((ls) => [...ls, newLine()])}
               >
-                {t`Add Product`}
+                {t`Add Medicine`}
               </Button>
             </Stack>
+
+            {otcBlockedByRx && (
+              <Alert color='orange' icon={<IconAlertCircle size={16} />}>
+                {t`Prescription-only medicine in this sale. Choose Prescription as the sale type.`}
+              </Alert>
+            )}
+
+            {isRx && (
+              <SimpleGrid cols={{ base: 1, xs: 2 }}>
+                <TextInput
+                  label={t`Prescriber`}
+                  placeholder={t`Doctor's name`}
+                  value={form.prescriber}
+                  onChange={(e) =>
+                    setForm((f) => ({ ...f, prescriber: e.currentTarget.value }))
+                  }
+                  required
+                />
+                <TextInput
+                  label={t`Prescription Reference`}
+                  placeholder={t`Prescription no.`}
+                  value={form.prescriptionRef}
+                  onChange={(e) =>
+                    setForm((f) => ({
+                      ...f,
+                      prescriptionRef: e.currentTarget.value
+                    }))
+                  }
+                  required={anyControlled}
+                  description={
+                    anyControlled ? t`Required for controlled medicines` : undefined
+                  }
+                />
+              </SimpleGrid>
+            )}
 
             {isB2B && (
               <DateInput

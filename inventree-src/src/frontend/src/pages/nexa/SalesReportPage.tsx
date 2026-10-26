@@ -29,9 +29,10 @@ type SalesSummaryResponse = {
 };
 
 const TYPE_LABEL: Record<string, string> = {
-  b2b_credit: t`B2B Credit`,
-  b2c_cash: t`B2C Cash`,
-  b2c_online: t`B2C Online`
+  b2b_credit: t`Credit`,
+  b2c_cash: t`Cash (OTC)`,
+  b2c_online: t`Online / Mobile`,
+  prescription: t`Prescription`
 };
 
 export default function SalesReportPage() {

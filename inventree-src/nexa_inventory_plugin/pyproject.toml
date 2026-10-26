@@ -12,4 +12,4 @@ requires-python = ">=3.9"
 NexaInventoryPlugin = "nexa_inventory.plugin:NexaInventoryPlugin"
 
 [tool.setuptools]
-packages = ["nexa_inventory", "nexa_inventory.migrations"]
+packages = ["nexa_inventory", "nexa_inventory.migrations", "nexa_inventory.management", "nexa_inventory.management.commands"]

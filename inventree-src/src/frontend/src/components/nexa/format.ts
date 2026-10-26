@@ -1,16 +1,24 @@
 import { formatCurrency, formatDecimal } from '../../defaults/formatters';
+import { useGlobalSettingsState } from '../../states/SettingsStates';
 
 /**
- * Money values for this tenant: Nepali Rupees, Indian-style digit grouping
- * (lakh/crore — e.g. 1,00,000 not 100,000), capped at 2 decimal places.
- * en-IN produces the same grouping used in Nepal; Intl has no dedicated
- * en-NP locale.
+ * Money values in the shop's currency, taken from the server's
+ * INVENTREE_DEFAULT_CURRENCY global setting (Settings > Pricing; NPR if the
+ * setting is not loaded yet). Indian-style digit grouping (lakh/crore, e.g.
+ * 1,00,000) is used for NPR and INR; other currencies use the browser default.
  */
 export function formatMoney(value: number | string | null | undefined) {
+  const currency = String(
+    useGlobalSettingsState
+      .getState()
+      .getSetting('INVENTREE_DEFAULT_CURRENCY', 'NPR') || 'NPR'
+  );
+  const indianGrouping = currency === 'NPR' || currency === 'INR';
+
   return (
     formatCurrency(value, {
-      currency: 'NPR',
-      locale: 'en-IN',
+      currency,
+      locale: indianGrouping ? 'en-IN' : undefined,
       digits: 2,
       minDigits: 2
     }) ?? '-'

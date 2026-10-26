@@ -832,10 +832,20 @@ class MedicineInfoView(APIView):
 
     @staticmethod
     def _serialize(part_id, info):
+        def money(value):
+            return None if value is None else str(value)
+
         return {
             'part_id': part_id,
             'requires_prescription': bool(info and info.requires_prescription),
             'is_controlled': bool(info and info.is_controlled),
+            'generic_name': info.generic_name if info else '',
+            'strength': info.strength if info else '',
+            'dosage_form': info.dosage_form if info else '',
+            'brand': info.brand if info else '',
+            'manufacturer': info.manufacturer if info else '',
+            'mrp': money(info.mrp) if info else None,
+            'selling_price': money(info.selling_price) if info else None,
         }
 
     def get(self, request, part_id=None):

@@ -30,3 +30,8 @@ temp-ss/
 # Supabase CLI link state / Claude Code local state
 supabase/.temp/
 .claude/*.lock
+
+# Business data drafts (contain PAN / DDA registration) - never commit
+temp_ss/
+temp-ss/
+*.xlsx

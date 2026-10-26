@@ -1,4 +1,5 @@
 import { t } from '@lingui/core/macro';
+import MedicineFlagsPanel from '../../components/nexa/MedicineFlagsPanel';
 import {
   ActionIcon,
   Alert,
@@ -19,6 +20,7 @@ import {
   IconCurrencyDollar,
   IconExclamationCircle,
   IconInfoCircle,
+  IconPill,
   IconLayersLinked,
   IconListDetails,
   IconListTree,
@@ -298,6 +300,12 @@ export default function PartDetail() {
             additionalContent={revisionSelector}
           />
         )
+      },
+      {
+        name: 'pharmacy',
+        label: t`Pharmacy`,
+        icon: <IconPill />,
+        content: <MedicineFlagsPanel partId={part.pk} />
       },
       {
         name: 'stock',

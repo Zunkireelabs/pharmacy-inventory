@@ -30,6 +30,9 @@ export const SalesReportPage = Loadable(
 export const ReceivablesReportPage = Loadable(
   lazy(() => import('./pages/nexa/ReceivablesReportPage'))
 );
+export const ExpiryReportPage = Loadable(
+  lazy(() => import('./pages/nexa/ExpiryReportPage'))
+);
 
 export const CompanyDetail = Loadable(
   lazy(() => import('./pages/company/CompanyDetail'))
@@ -236,6 +239,7 @@ export const routes = (
         <Route index element={<Navigate to='sales/' />} />
         <Route path='sales/' element={<SalesReportPage />} />
         <Route path='receivables/' element={<ReceivablesReportPage />} />
+        <Route path='expiry/' element={<ExpiryReportPage />} />
       </Route>
       <Route path='core/'>
         <Route index element={<Navigate to='index/' />} />

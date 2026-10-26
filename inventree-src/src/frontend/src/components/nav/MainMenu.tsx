@@ -11,7 +11,10 @@ import {
   IconChevronDown,
   IconLogout,
   IconMoonStars,
-  IconSun
+  IconSettings,
+  IconShieldLock,
+  IconSun,
+  IconUserCog
 } from '@tabler/icons-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useShallow } from 'zustand/react/shallow';
@@ -22,7 +25,9 @@ import { vars } from '../../theme';
 
 export function MainMenu() {
   const navigate = useNavigate();
-  const [username] = useUserState(useShallow((state) => [state.username]));
+  const [username, isStaff] = useUserState(
+    useShallow((state) => [state.username, state.isStaff])
+  );
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
 
   return (
@@ -46,6 +51,32 @@ export function MainMenu() {
           <Menu.Label>
             <Trans>Settings</Trans>
           </Menu.Label>
+          <Menu.Item
+            component={Link}
+            to='/settings/user'
+            leftSection={<IconUserCog />}
+          >
+            <Trans>Account Settings</Trans>
+          </Menu.Item>
+          {isStaff() && (
+            <>
+              <Menu.Item
+                component={Link}
+                to='/settings/system'
+                leftSection={<IconSettings />}
+              >
+                <Trans>System Settings</Trans>
+              </Menu.Item>
+              <Menu.Item
+                component={Link}
+                to='/settings/admin'
+                leftSection={<IconShieldLock />}
+              >
+                <Trans>Admin Center</Trans>
+              </Menu.Item>
+            </>
+          )}
+          <Menu.Divider />
           <Menu.Item
             onClick={toggleColorScheme}
             leftSection={

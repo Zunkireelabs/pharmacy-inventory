@@ -12,6 +12,7 @@ import {
 } from '@mantine/core';
 import {
   IconAlertTriangle,
+  IconCalendarDue,
   IconCash,
   IconCoin,
   IconPackages
@@ -21,6 +22,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { api } from '../../App';
 import { CustomerBalanceBadge } from './CustomerBalanceBadge';
+import AdjustStockButton from './AdjustStockButton';
 import { formatMoney } from './format';
 import { MetricCard } from './MetricCard';
 import ReceivePaymentButton from './ReceivePaymentButton';
@@ -31,13 +33,15 @@ import RestockButton from './RestockButton';
 const TYPE_COLOR: Record<string, string> = {
   b2b_credit: 'blue',
   b2c_cash: 'green',
-  b2c_online: 'teal'
+  b2c_online: 'teal',
+  prescription: 'orange'
 };
 
 const TYPE_LABEL: Record<string, string> = {
-  b2b_credit: t`B2B Credit`,
-  b2c_cash: t`Cash`,
-  b2c_online: t`Online`
+  b2b_credit: t`Credit`,
+  b2c_cash: t`Cash (OTC)`,
+  b2c_online: t`Online / Mobile`,
+  prescription: t`Prescription`
 };
 
 function todayIso(): string {
@@ -76,6 +80,19 @@ export default function NexaDashboard() {
     }
   });
 
+  const expiry = useQuery({
+    queryKey: ['nexa-dashboard-expiry'],
+    queryFn: async () => {
+      const response = await api.get('/plugin/nexainventory/reports/expiry/', {
+        params: { days: 90 }
+      });
+      return response.data.totals as {
+        expired_batches: number;
+        expiring_batches: number;
+      };
+    }
+  });
+
   const recentMovements = useQuery({
     queryKey: ['nexa-dashboard-recent-movements'],
     queryFn: async () => {
@@ -100,7 +117,7 @@ export default function NexaDashboard() {
   return (
     <Stack gap='lg'>
       {/* Primary actions — always first, per the product spec: staff act before they read numbers */}
-      <SimpleGrid cols={{ base: 1, xs: 3 }} spacing='sm'>
+      <SimpleGrid cols={{ base: 1, xs: 2, md: 4 }} spacing='sm'>
         <RecordSaleButton
           fullWidth
           onSuccess={() => {
@@ -111,10 +128,11 @@ export default function NexaDashboard() {
         />
         <ReceivePaymentButton fullWidth />
         <RestockButton fullWidth />
+        <AdjustStockButton fullWidth />
       </SimpleGrid>
 
       {/* Headline metrics */}
-      <SimpleGrid cols={{ base: 1, xs: 2, md: 4 }}>
+      <SimpleGrid cols={{ base: 1, xs: 2, md: 3 }}>
         <MetricCard
           label={t`Today's Sales`}
           value={salesToday.isFetching ? '' : formatMoney(salesTotals?.transaction_value ?? '0')}
@@ -147,6 +165,20 @@ export default function NexaDashboard() {
           loading={lowStock.isFetching}
           icon={<IconPackages size={20} />}
           color={lowStock.isError ? 'gray' : 'orange'}
+        />
+        <MetricCard
+          label={t`Expiring in 90 Days`}
+          value={expiry.isFetching ? '' : (expiry.data?.expiring_batches ?? 0)}
+          loading={expiry.isFetching}
+          icon={<IconCalendarDue size={20} />}
+          color='yellow'
+        />
+        <MetricCard
+          label={t`Expired (still in stock)`}
+          value={expiry.isFetching ? '' : (expiry.data?.expired_batches ?? 0)}
+          loading={expiry.isFetching}
+          icon={<IconCalendarDue size={20} />}
+          color={(expiry.data?.expired_batches ?? 0) > 0 ? 'red' : 'gray'}
         />
       </SimpleGrid>
 
