@@ -600,21 +600,20 @@ export default function RecordSaleButton({
                   label={t`Prescriber`}
                   placeholder={t`Doctor's name`}
                   value={form.prescriber}
-                  onChange={(e) =>
-                    setForm((f) => ({ ...f, prescriber: e.currentTarget.value }))
-                  }
+                  onChange={(e) => {
+                    const value = e.currentTarget.value;
+                    setForm((f) => ({ ...f, prescriber: value }));
+                  }}
                   required
                 />
                 <TextInput
                   label={t`Prescription Reference`}
                   placeholder={t`Prescription no.`}
                   value={form.prescriptionRef}
-                  onChange={(e) =>
-                    setForm((f) => ({
-                      ...f,
-                      prescriptionRef: e.currentTarget.value
-                    }))
-                  }
+                  onChange={(e) => {
+                    const value = e.currentTarget.value;
+                    setForm((f) => ({ ...f, prescriptionRef: value }));
+                  }}
                   required={anyControlled}
                   description={
                     anyControlled ? t`Required for controlled medicines` : undefined
@@ -639,30 +638,34 @@ export default function RecordSaleButton({
                   <TextInput
                     label={t`Customer Name`}
                     value={form.customerName}
-                    onChange={(e) =>
-                      setForm((f) => ({ ...f, customerName: e.currentTarget.value }))
-                    }
+                    onChange={(e) => {
+                    const value = e.currentTarget.value;
+                    setForm((f) => ({ ...f, customerName: value }));
+                  }}
                   />
                   <TextInput
                     label={t`Phone`}
                     value={form.customerPhone}
-                    onChange={(e) =>
-                      setForm((f) => ({ ...f, customerPhone: e.currentTarget.value }))
-                    }
+                    onChange={(e) => {
+                    const value = e.currentTarget.value;
+                    setForm((f) => ({ ...f, customerPhone: value }));
+                  }}
                   />
                   <TextInput
                     label={t`Address`}
                     value={form.customerAddress}
-                    onChange={(e) =>
-                      setForm((f) => ({ ...f, customerAddress: e.currentTarget.value }))
-                    }
+                    onChange={(e) => {
+                    const value = e.currentTarget.value;
+                    setForm((f) => ({ ...f, customerAddress: value }));
+                  }}
                   />
                   <TextInput
                     label={t`Customer PAN`}
                     value={form.customerPan}
-                    onChange={(e) =>
-                      setForm((f) => ({ ...f, customerPan: e.currentTarget.value }))
-                    }
+                    onChange={(e) => {
+                    const value = e.currentTarget.value;
+                    setForm((f) => ({ ...f, customerPan: value }));
+                  }}
                   />
                 </SimpleGrid>
                 <SimpleGrid cols={{ base: 1, xs: 3 }}>
@@ -690,9 +693,10 @@ export default function RecordSaleButton({
                   <TextInput
                     label={t`Reason for Discount`}
                     value={form.discountReason}
-                    onChange={(e) =>
-                      setForm((f) => ({ ...f, discountReason: e.currentTarget.value }))
-                    }
+                    onChange={(e) => {
+                    const value = e.currentTarget.value;
+                    setForm((f) => ({ ...f, discountReason: value }));
+                  }}
                     required={discountValue > 0}
                   />
                 </SimpleGrid>
@@ -702,9 +706,10 @@ export default function RecordSaleButton({
             <Textarea
               label={t`Notes`}
               value={form.notes}
-              onChange={(e) =>
-                setForm((f) => ({ ...f, notes: e.currentTarget.value }))
-              }
+              onChange={(e) => {
+                    const value = e.currentTarget.value;
+                    setForm((f) => ({ ...f, notes: value }));
+                  }}
               autosize
               minRows={1}
             />
