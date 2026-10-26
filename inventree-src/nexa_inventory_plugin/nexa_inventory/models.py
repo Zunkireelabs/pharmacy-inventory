@@ -15,6 +15,49 @@ from InvenTree.helpers import pui_url
 from .validators import generate_next_invoice_reference, validate_invoice_reference
 
 
+class SaleBill(models.Model):
+    """A customer bill: groups the lines of one over-the-counter, prescription
+    or online sale, with customer details, payment mode and a discount."""
+
+    class PaymentMode(models.TextChoices):
+        CASH = 'cash', 'Cash'
+        ONLINE = 'online', 'Online'
+        QR = 'qr', 'QR'
+        OTHER = 'other', 'Other'
+
+    reference = models.CharField(max_length=32, unique=True, blank=True)
+    customer_name = models.CharField(max_length=255, blank=True)
+    customer_address = models.CharField(max_length=255, blank=True)
+    customer_phone = models.CharField(max_length=50, blank=True)
+    customer_pan = models.CharField(max_length=50, blank=True)
+    prescriber = models.CharField(max_length=255, blank=True)
+    prescription_ref = models.CharField(max_length=255, blank=True)
+    payment_mode = models.CharField(
+        max_length=20, choices=PaymentMode.choices, default=PaymentMode.CASH
+    )
+    subtotal = models.DecimalField(max_digits=15, decimal_places=2, default=0)
+    discount = models.DecimalField(max_digits=15, decimal_places=2, default=0)
+    discount_reason = models.CharField(max_length=255, blank=True)
+    net_amount = models.DecimalField(max_digits=15, decimal_places=2, default=0)
+    remarks = models.TextField(blank=True)
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='+'
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at', '-pk']
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if not self.reference:
+            self.reference = f'BILL-{self.pk:05d}'
+            super().save(update_fields=['reference'])
+
+    def __str__(self):
+        return self.reference or f'Bill {self.pk}'
+
+
 class SaleTypeMovement(models.Model):
     """One row per sale-type-tagged stock movement, linked 1:1 to the InvenTree
     StockItemTracking entry it corresponds to. InvenTree's own tracking entry
@@ -46,6 +89,9 @@ class SaleTypeMovement(models.Model):
         'company.Company', on_delete=models.PROTECT, related_name='+', null=True, blank=True
     )
     notes = models.TextField(blank=True)
+    bill = models.ForeignKey(
+        'SaleBill', on_delete=models.PROTECT, related_name='lines', null=True, blank=True
+    )
     # Light prescription record (no compliance register yet)
     prescriber = models.CharField(max_length=255, blank=True)
     prescription_ref = models.CharField(max_length=255, blank=True)

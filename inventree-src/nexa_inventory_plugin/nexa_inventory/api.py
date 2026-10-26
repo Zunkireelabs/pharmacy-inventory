@@ -17,13 +17,15 @@ from company.models import Company
 from part.models import Part
 from stock.models import StockItem
 
-from .models import Invoice, InvoiceLineItem, MedicineInfo, Payment, SaleTypeMovement
+from .models import Invoice, InvoiceLineItem, MedicineInfo, Payment, SaleBill, SaleTypeMovement
 from .services import (
     OUTBOUND_TYPES,
     SELLING_TYPES,
     SaleRecordingError,
     SaleValidationError,
+    amount_in_words,
     check_prescription_rules,
+    pharmacy_header,
     plain_quantity,
     record_sale_movement,
     resolve_allocations,
@@ -934,4 +936,226 @@ class ExpiryReportView(APIView):
             'expired': expired,
             'expiring': expiring,
             'totals': {'expired_batches': len(expired), 'expiring_batches': len(expiring)},
+        })
+
+
+BILL_SALE_TYPES = {
+    SaleTypeMovement.SaleType.B2C_CASH,
+    SaleTypeMovement.SaleType.B2C_ONLINE,
+    SaleTypeMovement.SaleType.PRESCRIPTION,
+}
+
+
+def _money(value):
+    return str(Decimal(value).quantize(Decimal('0.01')))
+
+
+def _bill_payload(bill):
+    """Everything the printed bill needs: header, customer, lines, totals."""
+    lines = []
+    movements = bill.lines.select_related('part', 'tracking_entry__item').order_by('pk')
+    for index, m in enumerate(movements, start=1):
+        info = MedicineInfo.objects.filter(part=m.part).first()
+        item = m.tracking_entry.item
+        lines.append({
+            'sn': index,
+            'part_id': m.part_id,
+            'particulars': m.part.name,
+            'brand': info.brand if info else '',
+            'batch': item.batch if item else '',
+            'expiry_date': item.expiry_date.isoformat() if item and item.expiry_date else None,
+            'quantity': plain_quantity(m.quantity),
+            'rate': _money(m.unit_value),
+            'amount': _money(m.total_value),
+        })
+
+    return {
+        'id': bill.pk,
+        'reference': bill.reference,
+        'created_at': bill.created_at.isoformat(),
+        'sale_type': movements[0].sale_type if lines else None,
+        'header': pharmacy_header(),
+        'customer': {
+            'name': bill.customer_name,
+            'address': bill.customer_address,
+            'phone': bill.customer_phone,
+            'pan': bill.customer_pan,
+        },
+        'prescriber': bill.prescriber,
+        'prescription_ref': bill.prescription_ref,
+        'payment_mode': bill.payment_mode,
+        'lines': lines,
+        'subtotal': _money(bill.subtotal),
+        'discount': _money(bill.discount),
+        'discount_reason': bill.discount_reason,
+        'net_amount': _money(bill.net_amount),
+        'amount_in_words': amount_in_words(bill.net_amount),
+        'remarks': bill.remarks,
+        'dispensed_by': bill.created_by.get_full_name() or bill.created_by.get_username(),
+    }
+
+
+class RecordBillView(APIView):
+    """POST: record one customer bill with several lines.
+
+    Body: sale_type (b2c_cash | b2c_online | prescription), items (array of
+    {part_id or stock_item_id, quantity, unit_value}), customer_name /
+    customer_address / customer_phone / customer_pan (optional), prescriber,
+    prescription_ref, payment_mode (cash | online | qr | other), discount
+    (amount, needs discount_reason), remarks.
+
+    Stock is taken earliest-expiry first for part_id lines. All-or-nothing.
+    Returns the full bill (same shape as GET bills/<id>/).
+    """
+
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        data = request.data
+
+        sale_type = data.get('sale_type')
+        if sale_type not in BILL_SALE_TYPES:
+            return Response(
+                {'detail': 'sale_type must be b2c_cash, b2c_online or prescription'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        items, error = _parse_line_items(data.get('items'))
+        if error:
+            return error
+
+        payment_mode = data.get('payment_mode', SaleBill.PaymentMode.CASH)
+        if payment_mode not in SaleBill.PaymentMode.values:
+            return Response({'detail': 'Invalid payment_mode'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            discount = Decimal(str(data.get('discount') or 0)).quantize(Decimal('0.01'))
+        except InvalidOperation:
+            return Response({'detail': 'Invalid discount'}, status=status.HTTP_400_BAD_REQUEST)
+        if discount < 0:
+            return Response(
+                {'detail': 'discount must not be negative'}, status=status.HTTP_400_BAD_REQUEST
+            )
+        discount_reason = (data.get('discount_reason') or '').strip()
+        if discount > 0 and not discount_reason:
+            return Response(
+                {'detail': 'discount_reason is required when a discount is given'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        def text(key):
+            return (data.get(key) or '').strip()
+
+        prescriber = text('prescriber')
+        prescription_ref = text('prescription_ref')
+        remarks = text('remarks')
+
+        try:
+            with transaction.atomic():
+                for item in items:
+                    check_prescription_rules(
+                        item['part'] or item['stock_item'].part,
+                        sale_type, prescriber, prescription_ref,
+                    )
+
+                bill = SaleBill.objects.create(
+                    customer_name=text('customer_name'),
+                    customer_address=text('customer_address'),
+                    customer_phone=text('customer_phone'),
+                    customer_pan=text('customer_pan'),
+                    prescriber=prescriber,
+                    prescription_ref=prescription_ref,
+                    payment_mode=payment_mode,
+                    discount=discount,
+                    discount_reason=discount_reason,
+                    remarks=remarks,
+                    created_by=request.user,
+                )
+
+                movements = [
+                    record_sale_movement(
+                        stock_item=batch,
+                        sale_type=sale_type,
+                        quantity=qty,
+                        unit_value=item['unit_value'],
+                        customer=None,
+                        user=request.user,
+                        notes=remarks,
+                        prescriber=prescriber,
+                        prescription_ref=prescription_ref,
+                        bill=bill,
+                    )
+                    for item in items
+                    for batch, qty in resolve_allocations(
+                        stock_item=item['stock_item'],
+                        part=item['part'],
+                        quantity=item['quantity'],
+                    )
+                ]
+
+                subtotal = sum((m.total_value for m in movements), Decimal('0'))
+                if discount > subtotal:
+                    raise SaleValidationError('discount cannot be more than the bill total')
+                bill.subtotal = subtotal
+                bill.net_amount = subtotal - discount
+                bill.save(update_fields=['subtotal', 'net_amount'])
+        except SaleValidationError as exc:
+            return Response({'detail': str(exc)}, status=status.HTTP_400_BAD_REQUEST)
+        except SaleRecordingError:
+            return Response({'detail': 'Stock update failed'}, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response(_bill_payload(bill), status=status.HTTP_201_CREATED)
+
+
+class BillDetailView(APIView):
+    """GET bills/<id>/: one bill with pharmacy header, lines (batch, expiry),
+    totals and the net amount in words."""
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, pk):
+        try:
+            bill = SaleBill.objects.select_related('created_by').get(pk=pk)
+        except SaleBill.DoesNotExist:
+            return Response({'detail': 'Bill not found'}, status=status.HTTP_404_NOT_FOUND)
+        return Response(_bill_payload(bill))
+
+
+class BillListView(APIView):
+    """GET bills/?limit=20&search=: recent bills, newest first."""
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        try:
+            limit = int(request.query_params.get('limit', 20))
+        except ValueError:
+            return Response({'detail': 'Invalid limit'}, status=status.HTTP_400_BAD_REQUEST)
+        if limit <= 0 or limit > 200:
+            return Response(
+                {'detail': 'limit must be between 1 and 200'}, status=status.HTTP_400_BAD_REQUEST
+            )
+
+        bills = SaleBill.objects.all()
+        search = (request.query_params.get('search') or '').strip()
+        if search:
+            bills = bills.filter(
+                Q(reference__icontains=search)
+                | Q(customer_name__icontains=search)
+                | Q(customer_phone__icontains=search)
+            )
+
+        return Response({
+            'count': bills.count(),
+            'results': [
+                {
+                    'id': b.pk,
+                    'reference': b.reference,
+                    'customer_name': b.customer_name,
+                    'payment_mode': b.payment_mode,
+                    'net_amount': _money(b.net_amount),
+                    'created_at': b.created_at.isoformat(),
+                }
+                for b in bills[:limit]
+            ],
         })

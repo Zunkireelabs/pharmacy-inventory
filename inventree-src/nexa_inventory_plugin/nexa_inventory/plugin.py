@@ -28,7 +28,41 @@ class NexaInventoryPlugin(ScheduleMixin, SettingsMixin, AppMixin, UrlsMixin, Inv
                 "Must include the '{ref}' placeholder."
             ),
             'default': 'INV-{ref:04d}',
-        }
+        },
+        'PHARMACY_NAME': {
+            'name': 'Pharmacy Name',
+            'description': 'Shown at the top of printed bills',
+            'default': 'Nexa Pharmacia',
+        },
+        'PHARMACY_ADDRESS': {
+            'name': 'Pharmacy Address',
+            'description': 'Shown on printed bills',
+            'default': '',
+        },
+        'PHARMACY_PAN': {
+            'name': 'Pharmacy PAN',
+            'description': 'PAN number shown on printed bills',
+            'default': '',
+        },
+        'PHARMACY_DDA_REG': {
+            'name': 'DDA Registration No.',
+            'description': 'DDA registration number shown on printed bills',
+            'default': '',
+        },
+        'PHARMACY_PHONE': {
+            'name': 'Pharmacy Phone',
+            'description': 'Phone number shown on printed bills',
+            'default': '',
+        },
+        'BILL_FOOTER': {
+            'name': 'Bill Footer',
+            'description': 'Return / refund policy text printed at the bottom of bills',
+            'default': (
+                'Return & Refund Policy: The original bill is mandatory for all eligible '
+                'returns or refunds within 15 days of purchase. Cold chain medicines are '
+                'non-returnable and non-exchangeable.'
+            ),
+        },
     }
 
     SCHEDULED_TASKS = {
@@ -105,6 +139,24 @@ class NexaInventoryPlugin(ScheduleMixin, SettingsMixin, AppMixin, UrlsMixin, Inv
             return ReceivablesSummaryReportView.as_view()(request, *args, **kwargs)
 
         @csrf_exempt
+        def record_bill_view(request, *args, **kwargs):
+            from nexa_inventory.api import RecordBillView
+
+            return RecordBillView.as_view()(request, *args, **kwargs)
+
+        @csrf_exempt
+        def bill_detail_view(request, *args, **kwargs):
+            from nexa_inventory.api import BillDetailView
+
+            return BillDetailView.as_view()(request, *args, **kwargs)
+
+        @csrf_exempt
+        def bill_list_view(request, *args, **kwargs):
+            from nexa_inventory.api import BillListView
+
+            return BillListView.as_view()(request, *args, **kwargs)
+
+        @csrf_exempt
         def medicine_info_view(request, *args, **kwargs):
             from nexa_inventory.api import MedicineInfoView
 
@@ -131,6 +183,9 @@ class NexaInventoryPlugin(ScheduleMixin, SettingsMixin, AppMixin, UrlsMixin, Inv
             path('customers/<int:pk>/receivables/', customer_receivables_view, name='customer-receivables'),
             path('reports/sales/', sales_summary_report_view, name='reports-sales'),
             path('reports/receivables/', receivables_summary_report_view, name='reports-receivables'),
+            path('record-bill/', record_bill_view, name='record-bill'),
+            path('bills/', bill_list_view, name='bill-list'),
+            path('bills/<int:pk>/', bill_detail_view, name='bill-detail'),
             path('reports/expiry/', expiry_report_view, name='reports-expiry'),
             path('medicine/', medicine_info_view, name='medicine-list'),
             path('medicine/<int:part_id>/', medicine_info_view, name='medicine-detail'),

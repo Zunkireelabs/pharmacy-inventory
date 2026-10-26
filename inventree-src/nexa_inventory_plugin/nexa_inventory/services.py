@@ -152,7 +152,7 @@ class SaleRecordingError(Exception):
 
 def record_sale_movement(
     *, stock_item, sale_type, quantity, unit_value, customer, user, notes='',
-    prescriber='', prescription_ref=''
+    prescriber='', prescription_ref='', bill=None
 ):
     """Mutate stock and create the corresponding SaleTypeMovement row.
 
@@ -209,5 +209,92 @@ def record_sale_movement(
         notes=notes,
         prescriber=prescriber,
         prescription_ref=prescription_ref,
+        bill=bill,
         created_by=user,
     )
+
+
+# ---------------------------------------------------------------- bills
+
+_ONES = [
+    '', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten',
+    'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen',
+    'Eighteen', 'Nineteen',
+]
+_TENS = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety']
+
+
+def _words_below_100(n):
+    if n < 20:
+        return _ONES[n]
+    return (_TENS[n // 10] + (' ' + _ONES[n % 10] if n % 10 else '')).strip()
+
+
+def _words_below_1000(n):
+    parts = []
+    if n >= 100:
+        parts.append(_ONES[n // 100] + ' Hundred')
+        n %= 100
+    if n:
+        parts.append(_words_below_100(n))
+    return ' '.join(parts)
+
+
+def number_to_words(n):
+    """Whole number in words using the Indian system (thousand, lakh, crore)."""
+    n = int(n)
+    if n == 0:
+        return 'Zero'
+    parts = []
+    for size, name in ((10_000_000, 'Crore'), (100_000, 'Lakh'), (1000, 'Thousand')):
+        if n >= size:
+            parts.append(_words_below_1000(n // size) + ' ' + name)
+            n %= size
+    if n:
+        parts.append(_words_below_1000(n))
+    return ' '.join(parts)
+
+
+def amount_in_words(amount):
+    """'Rupees One Thousand Two Hundred and Fifty Paisa Fifty Only'."""
+    amount = Decimal(amount).quantize(Decimal('0.01'))
+    whole = int(amount)
+    fraction = int((amount - whole) * 100)
+    currency = str(get_global_setting('INVENTREE_DEFAULT_CURRENCY') or 'NPR')
+    major, minor = ('Rupees', 'Paisa') if currency in ('NPR', 'INR') else (currency, 'Cents')
+    text = f'{major} {number_to_words(whole)}'
+    if fraction:
+        text += f' and {minor} {number_to_words(fraction)}'
+    return text + ' Only'
+
+
+PHARMACY_HEADER_DEFAULTS = {
+    'PHARMACY_NAME': 'Nexa Pharmacia',
+    'PHARMACY_ADDRESS': '',
+    'PHARMACY_PAN': '',
+    'PHARMACY_DDA_REG': '',
+    'PHARMACY_PHONE': '',
+    'BILL_FOOTER': (
+        'Return & Refund Policy: The original bill is mandatory for all eligible returns '
+        'or refunds within 15 days of purchase. Cold chain medicines are non-returnable '
+        'and non-exchangeable.'
+    ),
+}
+
+
+def pharmacy_header():
+    """Pharmacy name, address, PAN, DDA registration, phone and bill footer.
+
+    Stored as plugin settings in the database (editable in the UI), never in
+    code: the repository is public.
+    """
+    from plugin.models import PluginConfig, PluginSetting
+
+    config = PluginConfig.objects.filter(key='nexainventory').first()
+    header = {}
+    for key, default in PHARMACY_HEADER_DEFAULTS.items():
+        value = default
+        if config:
+            value = PluginSetting.get_setting(key, plugin=config, backup_value=default)
+        header[key.lower()] = (value if value is not None else default) or ''
+    return header
