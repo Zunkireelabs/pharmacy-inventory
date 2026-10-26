@@ -1,8 +1,11 @@
 name: Deploy to Production
 
+# Manual-only until the placeholders (<NEXA_HOST>, <VPS_PATH>) are replaced and
+# the VPS_HOST / VPS_USER / VPS_SSH_KEY secrets exist. Then re-enable:
+#   push:
+#     branches: [main]
 on:
-  push:
-    branches: [main]
+  workflow_dispatch:
 
 concurrency:
   group: deploy-production
