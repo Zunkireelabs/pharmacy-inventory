@@ -20,6 +20,7 @@ import { useEffect, useState } from 'react';
 import { api } from '../../App';
 import { formatMoney } from './format';
 import { ProductPicker } from './ProductPicker';
+import { SLOW_REQUEST } from './slow';
 
 function toIsoDate(value: Date | string | null): string | null {
   if (!value) return null;
@@ -133,7 +134,7 @@ export default function RestockButton({
         invoice_no: invoiceNo.trim(),
         purchase_date: toIsoDate(purchaseDate),
         payment_status: paymentStatus
-      });
+      }, SLOW_REQUEST);
     },
     onSuccess: () => {
       notifications.show({ message: t`Stock received`, color: 'green' });

@@ -45,6 +45,7 @@ import {
 } from './ProductPicker';
 import { TransactionStatusBadge } from './TransactionStatusBadge';
 import { TransactionTypeCard } from './TransactionTypeCard';
+import { SLOW_REQUEST } from './slow';
 
 type SaleType = 'b2b_credit' | 'b2c_cash' | 'b2c_online' | 'prescription';
 
@@ -357,7 +358,7 @@ export default function RecordSaleButton({
           branch_id: form.branchId ? Number(form.branchId) : undefined,
           due_date: form.dueDate || undefined,
           notes: form.notes
-        });
+        }, SLOW_REQUEST);
         return { kind: 'b2b' as const, data: response.data };
       }
 
@@ -379,7 +380,7 @@ export default function RecordSaleButton({
         remarks: form.notes,
         prescriber: isRx ? form.prescriber.trim() : undefined,
         prescription_ref: isRx ? form.prescriptionRef.trim() : undefined
-      });
+      }, SLOW_REQUEST);
       return { kind: 'bill' as const, data: response.data };
     },
     onSuccess: (result) => {

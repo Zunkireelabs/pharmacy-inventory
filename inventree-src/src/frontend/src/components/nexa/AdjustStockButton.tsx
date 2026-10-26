@@ -19,6 +19,7 @@ import { useMemo, useState } from 'react';
 import { api } from '../../App';
 import { formatQty } from './format';
 import { ProductPicker, useBatches } from './ProductPicker';
+import { SLOW_REQUEST } from './slow';
 
 type Mode = 'expiry_writeoff' | 'adjustment';
 
@@ -78,7 +79,7 @@ export default function AdjustStockButton({
           sale_type: 'expiry_writeoff',
           quantity,
           notes: reason || notes
-        });
+        }, SLOW_REQUEST);
       }
       return api.post('/plugin/nexainventory/adjust-stock/', {
         stock_item_id: Number(stockItemId),
@@ -87,7 +88,7 @@ export default function AdjustStockButton({
         approved_by: approvedBy.trim(),
         reference_no: reference.trim(),
         remarks: notes
-      });
+      }, SLOW_REQUEST);
     },
     onSuccess: () => {
       notifications.show({

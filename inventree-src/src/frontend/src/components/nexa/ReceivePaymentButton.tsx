@@ -17,6 +17,7 @@ import { useState } from 'react';
 import { api } from '../../App';
 import { CustomerPicker } from './CustomerPicker';
 import { formatMoney } from './format';
+import { SLOW_REQUEST } from './slow';
 
 const METHOD_OPTIONS = [
   { value: 'cash', label: t`Cash` },
@@ -74,7 +75,7 @@ export default function ReceivePaymentButton({
       return api.post(
         `/plugin/nexainventory/invoices/${invoiceId}/payments/`,
         { amount, method, reference }
-      );
+      , SLOW_REQUEST);
     },
     onSuccess: () => {
       notifications.show({ message: t`Payment recorded`, color: 'green' });

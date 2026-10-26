@@ -19,6 +19,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { api } from '../../App';
 import { formatMoney, formatQty } from '../../components/nexa/format';
+import { SLOW_REQUEST } from '../../components/nexa/slow';
 
 type Bill = {
   id: number;
@@ -96,7 +97,7 @@ function ReturnDialog({
         quantity,
         reason: reason.trim(),
         disposition
-      }),
+      }, SLOW_REQUEST),
     onSuccess: (response) => {
       notifications.show({
         message: t`Return ${response.data.reference} recorded — refund ${response.data.refund_amount}`,
