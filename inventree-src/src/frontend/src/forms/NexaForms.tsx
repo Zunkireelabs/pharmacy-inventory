@@ -4,7 +4,7 @@ import { ModelType } from '@lib/enums/ModelType';
 import type { ApiFormFieldSet } from '@lib/types/Forms';
 
 /**
- * Field definitions for the stationery_sales plugin's record-sale /
+ * Field definitions for the nexa_inventory plugin's record-sale /
  * record-b2b-sale / payment endpoints. These are plain DRF APIViews with no
  * serializer, so there is no OPTIONS-introspectable schema — every field is
  * fully defined here rather than relying on ApiForm's auto-introspection
@@ -19,7 +19,7 @@ export type NonB2BSaleType =
   | 'correction';
 
 /**
- * Fields for POST /plugin/stationerysales/record-sale/ — covers every sale
+ * Fields for POST /plugin/nexainventory/record-sale/ — covers every sale
  * type except b2b_credit (which has its own endpoint + field set below).
  * sale_type is preset/hidden to the chosen type rather than re-selected in
  * the form, since the type was already chosen to get here (see
@@ -66,7 +66,7 @@ export function nonB2BSaleFields(saleType: NonB2BSaleType): ApiFormFieldSet {
   };
 }
 
-/** Fields for POST /plugin/stationerysales/record-b2b-sale/. */
+/** Fields for POST /plugin/nexainventory/record-b2b-sale/. */
 export function b2bSaleFields(): ApiFormFieldSet {
   return {
     stock_item_id: {

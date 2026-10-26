@@ -16,15 +16,15 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { api } from '../../App';
 import { PageDetail } from '../../components/nav/PageDetail';
-import { formatMoney, formatQty } from '../../components/stationery/format';
-import { AgingBadge, InvoiceStatusBadge } from '../../components/stationery/InvoiceStatusBadge';
-import { StatCard } from '../../components/stationery/StatCard';
-import { recordPaymentFields } from '../../forms/StationeryForms';
+import { formatMoney, formatQty } from '../../components/nexa/format';
+import { AgingBadge, InvoiceStatusBadge } from '../../components/nexa/InvoiceStatusBadge';
+import { StatCard } from '../../components/nexa/StatCard';
+import { recordPaymentFields } from '../../forms/NexaForms';
 import { useCreateApiFormModal } from '../../hooks/UseForm';
 import {
   PaymentHistoryTable,
   type PaymentRow
-} from '../../tables/stationery/PaymentHistoryTable';
+} from '../../tables/nexa/PaymentHistoryTable';
 
 type InvoiceLine = {
   id: number;
@@ -54,10 +54,10 @@ export default function InvoiceDetailPage() {
   const navigate = useNavigate();
 
   const invoiceQuery = useQuery({
-    queryKey: ['stationery-invoice-detail', id],
+    queryKey: ['nexa-invoice-detail', id],
     queryFn: async () => {
       const response = await api.get<InvoiceDetail>(
-        `/plugin/stationerysales/invoices/${id}/`
+        `/plugin/nexainventory/invoices/${id}/`
       );
       return response.data;
     },
@@ -65,10 +65,10 @@ export default function InvoiceDetailPage() {
   });
 
   const paymentsQuery = useQuery({
-    queryKey: ['stationery-invoice-payments', id],
+    queryKey: ['nexa-invoice-payments', id],
     queryFn: async () => {
       const response = await api.get<PaymentRow[]>(
-        `/plugin/stationerysales/invoices/${id}/payments/`
+        `/plugin/nexainventory/invoices/${id}/payments/`
       );
       return response.data;
     },
@@ -78,7 +78,7 @@ export default function InvoiceDetailPage() {
   const paymentFields = useMemo(() => recordPaymentFields(), []);
 
   const recordPaymentModal = useCreateApiFormModal({
-    url: `/plugin/stationerysales/invoices/${id}/payments/`,
+    url: `/plugin/nexainventory/invoices/${id}/payments/`,
     title: t`Record Payment`,
     fields: paymentFields,
     ignorePermissionCheck: true,

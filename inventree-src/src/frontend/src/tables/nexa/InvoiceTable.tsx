@@ -3,8 +3,8 @@ import { Anchor, Table } from '@mantine/core';
 import { DataTable, type DataTableColumn } from 'mantine-datatable';
 import { useNavigate } from 'react-router-dom';
 
-import { formatMoney } from '../../components/stationery/format';
-import { AgingBadge, InvoiceStatusBadge } from '../../components/stationery/InvoiceStatusBadge';
+import { formatMoney } from '../../components/nexa/format';
+import { AgingBadge, InvoiceStatusBadge } from '../../components/nexa/InvoiceStatusBadge';
 
 export type InvoiceRow = {
   id: number;

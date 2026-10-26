@@ -5,14 +5,14 @@ import { useQuery } from '@tanstack/react-query';
 import { useMemo, useState } from 'react';
 
 import { api } from '../../App';
-import { formatMoney, formatQty } from '../../components/stationery/format';
-import { StatCard } from '../../components/stationery/StatCard';
+import { formatMoney, formatQty } from '../../components/nexa/format';
+import { StatCard } from '../../components/nexa/StatCard';
 import {
   ReportDateRangeFilter,
   formatDateParam
-} from '../../components/stationery/ReportDateRangeFilter';
+} from '../../components/nexa/ReportDateRangeFilter';
 import { PageDetail } from '../../components/nav/PageDetail';
-import { ReportTabs } from '../../components/stationery/ReportTabs';
+import { ReportTabs } from '../../components/nexa/ReportTabs';
 
 type SaleTypeSummary = {
   transaction_count: number;
@@ -47,10 +47,10 @@ export default function SalesReportPage() {
   );
 
   const query = useQuery({
-    queryKey: ['stationery-sales-report', params],
+    queryKey: ['nexa-sales-report', params],
     queryFn: async () => {
       const response = await api.get<SalesSummaryResponse>(
-        '/plugin/stationerysales/reports/sales/',
+        '/plugin/nexainventory/reports/sales/',
         { params }
       );
       return response.data;

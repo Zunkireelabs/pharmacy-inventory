@@ -45,10 +45,10 @@ export default function ReceivePaymentButton({
   const [errorDetail, setErrorDetail] = useState<string | null>(null);
 
   const invoicesQuery = useQuery({
-    queryKey: ['stationery-customer-invoices', customerId],
+    queryKey: ['nexa-customer-invoices', customerId],
     queryFn: async () => {
       const response = await api.get(
-        `/plugin/stationerysales/customers/${customerId}/receivables/`
+        `/plugin/nexainventory/customers/${customerId}/receivables/`
       );
       return response.data.invoices as {
         id: number;
@@ -72,7 +72,7 @@ export default function ReceivePaymentButton({
     mutationFn: async () => {
       setErrorDetail(null);
       return api.post(
-        `/plugin/stationerysales/invoices/${invoiceId}/payments/`,
+        `/plugin/nexainventory/invoices/${invoiceId}/payments/`,
         { amount, method, reference }
       );
     },

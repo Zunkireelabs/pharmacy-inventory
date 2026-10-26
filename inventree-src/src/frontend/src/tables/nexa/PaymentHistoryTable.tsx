@@ -2,7 +2,7 @@ import { t } from '@lingui/core/macro';
 import { Badge, Table } from '@mantine/core';
 import { DataTable, type DataTableColumn } from 'mantine-datatable';
 
-import { formatMoney } from '../../components/stationery/format';
+import { formatMoney } from '../../components/nexa/format';
 
 export type PaymentRow = {
   id: number;

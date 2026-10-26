@@ -4,7 +4,7 @@ import { DateInput, type DateValue } from '@mantine/dates';
 
 /**
  * date_from/date_to filter, matching the API contract of all three
- * stationery reporting endpoints exactly (ISO YYYY-MM-DD, both optional).
+ * Nexa reporting endpoints exactly (ISO YYYY-MM-DD, both optional).
  */
 export function ReportDateRangeFilter({
   dateFrom,

@@ -7,13 +7,13 @@ import { useNavigate } from 'react-router-dom';
 
 import { api } from '../../App';
 import { PageDetail } from '../../components/nav/PageDetail';
-import { formatMoney } from '../../components/stationery/format';
+import { formatMoney } from '../../components/nexa/format';
 import {
   ReportDateRangeFilter,
   formatDateParam
-} from '../../components/stationery/ReportDateRangeFilter';
-import { ReportTabs } from '../../components/stationery/ReportTabs';
-import { StatCard } from '../../components/stationery/StatCard';
+} from '../../components/nexa/ReportDateRangeFilter';
+import { ReportTabs } from '../../components/nexa/ReportTabs';
+import { StatCard } from '../../components/nexa/StatCard';
 
 type AgingBucket = { invoice_count: number; outstanding: string };
 
@@ -54,10 +54,10 @@ export default function ReceivablesReportPage() {
   );
 
   const query = useQuery({
-    queryKey: ['stationery-receivables-report', params],
+    queryKey: ['nexa-receivables-report', params],
     queryFn: async () => {
       const response = await api.get<ReceivablesSummaryResponse>(
-        '/plugin/stationerysales/reports/receivables/',
+        '/plugin/nexainventory/reports/receivables/',
         { params }
       );
       return response.data;

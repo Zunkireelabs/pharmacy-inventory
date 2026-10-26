@@ -3,8 +3,8 @@ import { SimpleGrid, Stack } from '@mantine/core';
 import { useQuery } from '@tanstack/react-query';
 
 import { api } from '../../App';
-import type { InvoiceRow } from '../../tables/stationery/InvoiceTable';
-import { InvoiceTable } from '../../tables/stationery/InvoiceTable';
+import type { InvoiceRow } from '../../tables/nexa/InvoiceTable';
+import { InvoiceTable } from '../../tables/nexa/InvoiceTable';
 import { formatMoney } from './format';
 import { StatCard } from './StatCard';
 
@@ -32,10 +32,10 @@ export function CustomerReceivablesPanel({
   customerId
 }: Readonly<{ customerId: number }>) {
   const query = useQuery({
-    queryKey: ['stationery-customer-receivables', customerId],
+    queryKey: ['nexa-customer-receivables', customerId],
     queryFn: async () => {
       const response = await api.get<CustomerReceivablesResponse>(
-        `/plugin/stationerysales/customers/${customerId}/receivables/`
+        `/plugin/nexainventory/customers/${customerId}/receivables/`
       );
       return response.data;
     },

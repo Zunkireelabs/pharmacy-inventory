@@ -37,7 +37,7 @@ export default function RestockButton({
   const mutation = useMutation({
     mutationFn: async () => {
       setErrorDetail(null);
-      return api.post('/plugin/stationerysales/record-sale/', {
+      return api.post('/plugin/nexainventory/record-sale/', {
         stock_item_id: stockItemId,
         sale_type: 'restock',
         quantity,

@@ -57,7 +57,7 @@ export function getNavTabs(user: UserStateProps): NavTab[] {
       name: 'manufacturing',
       title: t`Manufacturing`,
       icon: <IconBuildingFactory2 />,
-      // Hidden for the stationary-shop tenant: manufacturing/BOM is not used.
+      // Hidden for the pharmacy tenant: manufacturing/BOM is not used.
       visible: false
     },
     {

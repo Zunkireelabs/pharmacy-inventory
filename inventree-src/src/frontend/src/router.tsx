@@ -17,21 +17,21 @@ export const LoginLayoutComponent = EagerLoadable(
 
 export const Home = Loadable(lazy(() => import('./pages/Index/Home')));
 
-// Stationery sales plugin UI (invoices, receivables/sales/gift reports)
+// Nexa inventory plugin UI (invoices, receivables/sales/gift reports)
 export const InvoiceListPage = Loadable(
-  lazy(() => import('./pages/stationery/InvoiceListPage'))
+  lazy(() => import('./pages/nexa/InvoiceListPage'))
 );
 export const InvoiceDetailPage = Loadable(
-  lazy(() => import('./pages/stationery/InvoiceDetailPage'))
+  lazy(() => import('./pages/nexa/InvoiceDetailPage'))
 );
 export const SalesReportPage = Loadable(
-  lazy(() => import('./pages/stationery/SalesReportPage'))
+  lazy(() => import('./pages/nexa/SalesReportPage'))
 );
 export const ReceivablesReportPage = Loadable(
-  lazy(() => import('./pages/stationery/ReceivablesReportPage'))
+  lazy(() => import('./pages/nexa/ReceivablesReportPage'))
 );
 export const GiftReportPage = Loadable(
-  lazy(() => import('./pages/stationery/GiftReportPage'))
+  lazy(() => import('./pages/nexa/GiftReportPage'))
 );
 
 export const CompanyDetail = Loadable(

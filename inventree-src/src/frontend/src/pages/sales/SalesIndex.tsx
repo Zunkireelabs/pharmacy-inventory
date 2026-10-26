@@ -21,7 +21,7 @@ import OrderCalendarToolTip from '../../components/calendar/OrderCalendarToolTip
 import PermissionDenied from '../../components/errors/PermissionDenied';
 import { PageDetail } from '../../components/nav/PageDetail';
 import { PanelGroup } from '../../components/panels/PanelGroup';
-import RecordSaleButton from '../../components/stationery/RecordSaleButton';
+import RecordSaleButton from '../../components/nexa/RecordSaleButton';
 import SegmentedControlPanel from '../../components/panels/SegmentedControlPanel';
 import { useGlobalSettingsState } from '../../states/SettingsStates';
 import { useUserState } from '../../states/UserState';

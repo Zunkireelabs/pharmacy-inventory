@@ -172,7 +172,7 @@ export default function PurchasingIndex() {
         name: 'manufacturer',
         label: t`Manufacturers`,
         icon: <IconBuildingFactory2 />,
-        // Hidden for the stationary-shop tenant: no manufacturer tracking.
+        // Hidden for the pharmacy tenant: no manufacturer tracking.
         hidden: true,
         selection: manufacturerView,
         onChange: setManufacturerView,
@@ -203,7 +203,7 @@ export default function PurchasingIndex() {
         name: 'manufacturer-parts',
         label: t`Manufacturer Parts`,
         icon: <IconBuildingWarehouse />,
-        // Hidden for the stationary-shop tenant: no manufacturer tracking.
+        // Hidden for the pharmacy tenant: no manufacturer tracking.
         hidden: true,
         selection: manufacturerPartsView,
         onChange: setManufacturerPartsView,

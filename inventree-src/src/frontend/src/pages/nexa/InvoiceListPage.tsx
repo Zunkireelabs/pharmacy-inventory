@@ -4,15 +4,15 @@ import { useQuery } from '@tanstack/react-query';
 
 import { api } from '../../App';
 import { PageDetail } from '../../components/nav/PageDetail';
-import RecordSaleButton from '../../components/stationery/RecordSaleButton';
-import { InvoiceTable, type InvoiceRow } from '../../tables/stationery/InvoiceTable';
+import RecordSaleButton from '../../components/nexa/RecordSaleButton';
+import { InvoiceTable, type InvoiceRow } from '../../tables/nexa/InvoiceTable';
 
 export default function InvoiceListPage() {
   const query = useQuery({
-    queryKey: ['stationery-invoice-list'],
+    queryKey: ['nexa-invoice-list'],
     queryFn: async () => {
       const response = await api.get<InvoiceRow[]>(
-        '/plugin/stationerysales/invoices/'
+        '/plugin/nexainventory/invoices/'
       );
       return response.data;
     }

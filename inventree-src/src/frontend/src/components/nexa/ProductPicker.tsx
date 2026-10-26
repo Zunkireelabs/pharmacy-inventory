@@ -38,7 +38,7 @@ export function ProductPicker({
   }, [search]);
 
   const query = useQuery({
-    queryKey: ['stationery-stock-picker', debounced],
+    queryKey: ['nexa-stock-picker', debounced],
     queryFn: async () => {
       const response = await api.get('/api/stock/', {
         params: { search: debounced || undefined, part_detail: true, limit: 20 }

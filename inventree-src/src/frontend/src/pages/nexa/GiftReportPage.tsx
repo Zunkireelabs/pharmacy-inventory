@@ -6,13 +6,13 @@ import { useMemo, useState } from 'react';
 
 import { api } from '../../App';
 import { PageDetail } from '../../components/nav/PageDetail';
-import { formatMoney, formatQty } from '../../components/stationery/format';
+import { formatMoney, formatQty } from '../../components/nexa/format';
 import {
   ReportDateRangeFilter,
   formatDateParam
-} from '../../components/stationery/ReportDateRangeFilter';
-import { ReportTabs } from '../../components/stationery/ReportTabs';
-import { StatCard } from '../../components/stationery/StatCard';
+} from '../../components/nexa/ReportDateRangeFilter';
+import { ReportTabs } from '../../components/nexa/ReportTabs';
+import { StatCard } from '../../components/nexa/StatCard';
 
 type GiftSummaryResponse = {
   date_from: string | null;
@@ -43,10 +43,10 @@ export default function GiftReportPage() {
   );
 
   const query = useQuery({
-    queryKey: ['stationery-gift-report', params],
+    queryKey: ['nexa-gift-report', params],
     queryFn: async () => {
       const response = await api.get<GiftSummaryResponse>(
-        '/plugin/stationerysales/reports/gifts/',
+        '/plugin/nexainventory/reports/gifts/',
         { params }
       );
       return response.data;

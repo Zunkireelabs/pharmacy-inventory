@@ -163,7 +163,7 @@ export default function RecordSaleButton({
       setErrorDetail(null);
 
       if (isB2B) {
-        const response = await api.post('/plugin/stationerysales/record-b2b-sale/', {
+        const response = await api.post('/plugin/nexainventory/record-b2b-sale/', {
           items: lines.map((l) => ({
             stock_item_id: l.stockItemId,
             quantity: l.quantity,
@@ -178,7 +178,7 @@ export default function RecordSaleButton({
 
       const summaries: MovementSummary[] = [];
       for (const l of lines) {
-        await api.post('/plugin/stationerysales/record-sale/', {
+        await api.post('/plugin/nexainventory/record-sale/', {
           stock_item_id: l.stockItemId,
           sale_type: saleType,
           quantity: l.quantity,

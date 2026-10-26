@@ -35,7 +35,7 @@ import AttachmentPanel from '../../components/panels/AttachmentPanel';
 import NotesPanel from '../../components/panels/NotesPanel';
 import { PanelGroup } from '../../components/panels/PanelGroup';
 import ParametersPanel from '../../components/panels/ParametersPanel';
-import { CustomerReceivablesPanel } from '../../components/stationery/CustomerReceivablesPanel';
+import { CustomerReceivablesPanel } from '../../components/nexa/CustomerReceivablesPanel';
 import { companyFields } from '../../forms/CompanyForms';
 import {
   useCreateApiFormModal,

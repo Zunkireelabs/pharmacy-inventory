@@ -83,7 +83,7 @@ function DrawerContent({ closeFunc }: Readonly<{ closeFunc?: () => void }>) {
         id: 'build',
         title: t`Manufacturing`,
         link: '/manufacturing/',
-        // Hidden for the stationary-shop tenant: manufacturing/BOM is not used.
+        // Hidden for the pharmacy tenant: manufacturing/BOM is not used.
         hidden: true,
         icon: 'build'
       },

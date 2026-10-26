@@ -25,7 +25,7 @@ export function CustomerPicker({
   }, [search]);
 
   const query = useQuery({
-    queryKey: ['stationery-customer-picker', debounced],
+    queryKey: ['nexa-customer-picker', debounced],
     queryFn: async () => {
       const response = await api.get('/api/company/', {
         params: { search: debounced || undefined, is_customer: true, limit: 20 }

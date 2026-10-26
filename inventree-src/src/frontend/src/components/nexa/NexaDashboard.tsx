@@ -44,14 +44,14 @@ function todayIso(): string {
   return new Date().toISOString().slice(0, 10);
 }
 
-export default function StationeryDashboard() {
+export default function NexaDashboard() {
   const navigate = useNavigate();
   const today = todayIso();
 
   const salesToday = useQuery({
-    queryKey: ['stationery-dashboard-sales-today', today],
+    queryKey: ['nexa-dashboard-sales-today', today],
     queryFn: async () => {
-      const response = await api.get('/plugin/stationerysales/reports/sales/', {
+      const response = await api.get('/plugin/nexainventory/reports/sales/', {
         params: { date_from: today, date_to: today }
       });
       return response.data;
@@ -59,15 +59,15 @@ export default function StationeryDashboard() {
   });
 
   const receivables = useQuery({
-    queryKey: ['stationery-dashboard-receivables'],
+    queryKey: ['nexa-dashboard-receivables'],
     queryFn: async () => {
-      const response = await api.get('/plugin/stationerysales/reports/receivables/');
+      const response = await api.get('/plugin/nexainventory/reports/receivables/');
       return response.data;
     }
   });
 
   const lowStock = useQuery({
-    queryKey: ['stationery-dashboard-low-stock'],
+    queryKey: ['nexa-dashboard-low-stock'],
     queryFn: async () => {
       const response = await api.get('/api/part/', {
         params: { low_stock: true, limit: 1 }
@@ -77,9 +77,9 @@ export default function StationeryDashboard() {
   });
 
   const recentMovements = useQuery({
-    queryKey: ['stationery-dashboard-recent-movements'],
+    queryKey: ['nexa-dashboard-recent-movements'],
     queryFn: async () => {
-      const response = await api.get('/plugin/stationerysales/movements/', {
+      const response = await api.get('/plugin/nexainventory/movements/', {
         params: { limit: 8 }
       });
       return response.data.results as RecentTransaction[];
