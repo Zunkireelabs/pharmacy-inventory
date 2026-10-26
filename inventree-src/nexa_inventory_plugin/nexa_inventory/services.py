@@ -14,14 +14,12 @@ OUTBOUND_TYPES = {
     SaleTypeMovement.SaleType.B2B_CREDIT,
     SaleTypeMovement.SaleType.B2C_CASH,
     SaleTypeMovement.SaleType.B2C_ONLINE,
-    SaleTypeMovement.SaleType.GIFT,
 }
 
 TRACKING_CODE_BY_SALE_TYPE = {
     SaleTypeMovement.SaleType.B2B_CREDIT: StockHistoryCode.SENT_TO_CUSTOMER,
     SaleTypeMovement.SaleType.B2C_CASH: StockHistoryCode.STOCK_REMOVE,
     SaleTypeMovement.SaleType.B2C_ONLINE: StockHistoryCode.STOCK_REMOVE,
-    SaleTypeMovement.SaleType.GIFT: StockHistoryCode.STOCK_REMOVE,
     SaleTypeMovement.SaleType.RESTOCK: StockHistoryCode.STOCK_ADD,
     SaleTypeMovement.SaleType.CORRECTION: StockHistoryCode.STOCK_COUNT,
 }

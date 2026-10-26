@@ -19,7 +19,6 @@ import {
   IconAlertCircle,
   IconCash,
   IconCircleCheck,
-  IconGift,
   IconPlus,
   IconReceipt2,
   IconTrash,
@@ -36,7 +35,7 @@ import { ProductPicker, StockAvailabilityHint } from './ProductPicker';
 import { TransactionStatusBadge } from './TransactionStatusBadge';
 import { TransactionTypeCard } from './TransactionTypeCard';
 
-type SaleType = 'b2b_credit' | 'b2c_cash' | 'b2c_online' | 'gift';
+type SaleType = 'b2b_credit' | 'b2c_cash' | 'b2c_online';
 
 const TYPE_OPTIONS: {
   value: SaleType;
@@ -61,12 +60,6 @@ const TYPE_OPTIONS: {
     label: t`Online Sale`,
     icon: <IconWorld size={28} />,
     color: 'teal'
-  },
-  {
-    value: 'gift',
-    label: t`Gift`,
-    icon: <IconGift size={28} />,
-    color: 'grape'
   }
 ];
 
@@ -113,7 +106,7 @@ const INITIAL_FORM = {
  * simpler to build directly than to bend a generic form renderer around.
  *
  * B2B credit sends all lines in one atomic request (one invoice, one
- * InvoiceLineItem per line). Cash/Online/Gift have no grouping document —
+ * InvoiceLineItem per line). Cash/Online have no grouping document —
  * each line is its own independent stock movement, so those are recorded
  * with one record-sale/ call per line, sequentially.
  */
@@ -131,7 +124,6 @@ export default function RecordSaleButton({
   const [errorDetail, setErrorDetail] = useState<string | null>(null);
 
   const isB2B = saleType === 'b2b_credit';
-  const isGift = saleType === 'gift';
 
   const updateLine = (key: string, patch: Partial<LineItem>) => {
     setLines((ls) => ls.map((l) => (l.key === key ? { ...l, ...patch } : l)));
@@ -375,13 +367,12 @@ export default function RecordSaleButton({
                       required
                     />
                     <NumberInput
-                      label={isGift ? t`Gift Value` : t`Unit Value`}
+                      label={t`Unit Value`}
                       value={line.unitValue}
                       onChange={(v) => updateLine(line.key, { unitValue: v as number })}
                       min={0}
                       decimalScale={2}
                       required
-                      description={isGift ? t`Required for gifts` : undefined}
                     />
                   </SimpleGrid>
                   {index < lines.length - 1 && <Divider variant='dashed' />}

@@ -25,18 +25,18 @@ class SaleTypeMovementTest(TestCase):
             item=self.stock_item, tracking_type=StockHistoryCode.STOCK_REMOVE
         )
 
-    def test_create_gift_movement(self):
+    def test_create_b2c_cash_movement(self):
         movement = SaleTypeMovement.objects.create(
             tracking_entry=self.tracking,
             part=self.part,
-            sale_type=SaleTypeMovement.SaleType.GIFT,
+            sale_type=SaleTypeMovement.SaleType.B2C_CASH,
             quantity=Decimal('2'),
             unit_value=Decimal('50.00'),
             total_value=Decimal('100.00'),
-            notes='test gift',
+            notes='test sale',
             created_by=self.user,
         )
-        self.assertEqual(movement.sale_type, 'gift')
+        self.assertEqual(movement.sale_type, 'b2c_cash')
         self.assertIsNone(movement.customer)
 
     def test_create_b2b_credit_movement_requires_customer_at_app_layer(self):
@@ -151,7 +151,7 @@ class InvoiceLineItemTest(TestCase):
         self.assertEqual(line.line_total, Decimal('60.00'))
 
     def test_non_b2b_movement_rejected_by_clean(self):
-        movement = self._make_movement(sale_type=SaleTypeMovement.SaleType.GIFT)
+        movement = self._make_movement(sale_type=SaleTypeMovement.SaleType.B2C_CASH)
         invoice = Invoice.objects.create(
             customer=self.customer,
             due_date=timezone.localdate(),

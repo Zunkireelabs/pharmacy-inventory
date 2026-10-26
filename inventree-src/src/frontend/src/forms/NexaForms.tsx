@@ -14,7 +14,6 @@ import type { ApiFormFieldSet } from '@lib/types/Forms';
 export type NonB2BSaleType =
   | 'b2c_cash'
   | 'b2c_online'
-  | 'gift'
   | 'restock'
   | 'correction';
 
@@ -42,15 +41,7 @@ export function nonB2BSaleFields(saleType: NonB2BSaleType): ApiFormFieldSet {
     unit_value: {
       label: t`Unit Value`,
       field_type: 'decimal',
-      // Backend requires a positive unit_value for gifts (so gift value is
-      // always recorded for reporting); mirrored here for UX only — the
-      // backend remains authoritative and will still reject an empty/zero
-      // value if this client-side check is somehow bypassed.
-      required: saleType === 'gift',
-      description:
-        saleType === 'gift'
-          ? t`Required for gifts — the value given away, for reporting`
-          : undefined
+      required: false
     },
     notes: {
       label: t`Notes`,

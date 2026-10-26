@@ -25,15 +25,15 @@ class RecordSaleApiTest(APITestCase):
         self.stock_item = StockItem.objects.create(part=self.part, quantity=10)
         self.url = reverse('plugin:nexainventory:record-sale')
 
-    def test_record_gift_reduces_stock_and_creates_movement(self):
+    def test_record_b2c_cash_reduces_stock_and_creates_movement(self):
         response = self.client.post(
             self.url,
             {
                 'stock_item_id': self.stock_item.pk,
-                'sale_type': 'gift',
+                'sale_type': 'b2c_cash',
                 'quantity': '2',
                 'unit_value': '50.00',
-                'notes': 'test gift',
+                'notes': 'test sale',
             },
             format='json',
         )
@@ -41,37 +41,8 @@ class RecordSaleApiTest(APITestCase):
         self.stock_item.refresh_from_db()
         self.assertEqual(self.stock_item.quantity, 8)
         movement = SaleTypeMovement.objects.get(id=response.data['id'])
-        self.assertEqual(movement.sale_type, 'gift')
+        self.assertEqual(movement.sale_type, 'b2c_cash')
         self.assertEqual(movement.total_value, Decimal('100.00'))
-
-    def test_gift_with_zero_value_rejected(self):
-        response = self.client.post(
-            self.url,
-            {
-                'stock_item_id': self.stock_item.pk,
-                'sale_type': 'gift',
-                'quantity': '1',
-                'unit_value': '0',
-            },
-            format='json',
-        )
-        self.assertEqual(response.status_code, 400)
-        self.stock_item.refresh_from_db()
-        self.assertEqual(self.stock_item.quantity, 10)
-        self.assertEqual(SaleTypeMovement.objects.count(), 0)
-
-    def test_gift_with_missing_value_rejected(self):
-        response = self.client.post(
-            self.url,
-            {
-                'stock_item_id': self.stock_item.pk,
-                'sale_type': 'gift',
-                'quantity': '1',
-            },
-            format='json',
-        )
-        self.assertEqual(response.status_code, 400)
-        self.assertEqual(SaleTypeMovement.objects.count(), 0)
 
     def test_b2c_cash_still_allows_zero_value(self):
         response = self.client.post(

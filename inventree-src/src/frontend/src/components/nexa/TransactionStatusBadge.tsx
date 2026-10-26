@@ -11,7 +11,6 @@ const TYPE_COLOR: Record<string, string> = {
   b2b_credit: 'blue',
   b2c_cash: 'green',
   b2c_online: 'teal',
-  gift: 'grape',
   restock: 'gray',
   correction: 'gray'
 };
@@ -20,7 +19,6 @@ const TYPE_LABEL: Record<string, string> = {
   b2b_credit: t`B2B`,
   b2c_cash: t`Cash`,
   b2c_online: t`Online`,
-  gift: t`Gift`,
   restock: t`Restock`,
   correction: t`Correction`
 };

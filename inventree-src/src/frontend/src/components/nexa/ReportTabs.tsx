@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 export function ReportTabs({
   active
-}: Readonly<{ active: 'sales' | 'receivables' | 'gifts' }>) {
+}: Readonly<{ active: 'sales' | 'receivables' }>) {
   const navigate = useNavigate();
 
   return (
@@ -15,7 +15,6 @@ export function ReportTabs({
       <Tabs.List>
         <Tabs.Tab value='sales'>{t`Sales`}</Tabs.Tab>
         <Tabs.Tab value='receivables'>{t`Receivables`}</Tabs.Tab>
-        <Tabs.Tab value='gifts'>{t`Gifts`}</Tabs.Tab>
       </Tabs.List>
     </Tabs>
   );

@@ -26,7 +26,6 @@ class SaleTypeMovement(models.Model):
         B2B_CREDIT = 'b2b_credit', 'B2B Credit'
         B2C_CASH = 'b2c_cash', 'B2C Cash'
         B2C_ONLINE = 'b2c_online', 'B2C Online'
-        GIFT = 'gift', 'Gift'
         RESTOCK = 'restock', 'Restock'
         CORRECTION = 'correction', 'Correction'
 

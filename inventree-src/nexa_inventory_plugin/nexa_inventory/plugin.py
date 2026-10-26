@@ -8,7 +8,7 @@ from plugin.mixins import AppMixin, ScheduleMixin, SettingsMixin, UrlsMixin
 
 
 class NexaInventoryPlugin(ScheduleMixin, SettingsMixin, AppMixin, UrlsMixin, InvenTreePlugin):
-    """Adds sale-type tracking (B2B credit / B2C cash / B2C online / Gift /
+    """Adds sale-type tracking (B2B credit / B2C cash / B2C online /
     Restock / Correction) and B2B receivables (invoices/payments) on top of
     InvenTree's stock model, without modifying core.
     """
@@ -105,12 +105,6 @@ class NexaInventoryPlugin(ScheduleMixin, SettingsMixin, AppMixin, UrlsMixin, Inv
             return ReceivablesSummaryReportView.as_view()(request, *args, **kwargs)
 
         @csrf_exempt
-        def gift_summary_report_view(request, *args, **kwargs):
-            from nexa_inventory.api import GiftSummaryReportView
-
-            return GiftSummaryReportView.as_view()(request, *args, **kwargs)
-
-        @csrf_exempt
         def movement_list_view(request, *args, **kwargs):
             from nexa_inventory.api import MovementListView
 
@@ -125,6 +119,5 @@ class NexaInventoryPlugin(ScheduleMixin, SettingsMixin, AppMixin, UrlsMixin, Inv
             path('customers/<int:pk>/receivables/', customer_receivables_view, name='customer-receivables'),
             path('reports/sales/', sales_summary_report_view, name='reports-sales'),
             path('reports/receivables/', receivables_summary_report_view, name='reports-receivables'),
-            path('reports/gifts/', gift_summary_report_view, name='reports-gifts'),
             path('movements/', movement_list_view, name='movement-list'),
         ]

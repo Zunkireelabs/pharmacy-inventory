@@ -17,7 +17,7 @@ export const LoginLayoutComponent = EagerLoadable(
 
 export const Home = Loadable(lazy(() => import('./pages/Index/Home')));
 
-// Nexa inventory plugin UI (invoices, receivables/sales/gift reports)
+// Nexa inventory plugin UI (invoices, receivables/sales reports)
 export const InvoiceListPage = Loadable(
   lazy(() => import('./pages/nexa/InvoiceListPage'))
 );
@@ -29,9 +29,6 @@ export const SalesReportPage = Loadable(
 );
 export const ReceivablesReportPage = Loadable(
   lazy(() => import('./pages/nexa/ReceivablesReportPage'))
-);
-export const GiftReportPage = Loadable(
-  lazy(() => import('./pages/nexa/GiftReportPage'))
 );
 
 export const CompanyDetail = Loadable(
@@ -239,7 +236,6 @@ export const routes = (
         <Route index element={<Navigate to='sales/' />} />
         <Route path='sales/' element={<SalesReportPage />} />
         <Route path='receivables/' element={<ReceivablesReportPage />} />
-        <Route path='gifts/' element={<GiftReportPage />} />
       </Route>
       <Route path='core/'>
         <Route index element={<Navigate to='index/' />} />

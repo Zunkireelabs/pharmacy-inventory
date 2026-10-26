@@ -90,12 +90,6 @@ class RecordSaleView(APIView):
         except InvalidOperation:
             return Response({'detail': 'Invalid unit_value'}, status=status.HTTP_400_BAD_REQUEST)
 
-        if sale_type == SaleTypeMovement.SaleType.GIFT and unit_value <= 0:
-            return Response(
-                {'detail': 'unit_value is required and must be greater than zero for gift movements'},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
         customer = None
         if sale_type == SaleTypeMovement.SaleType.B2B_CREDIT:
             customer_id = data.get('customer_id')
@@ -472,7 +466,7 @@ SALES_REPORT_TYPES = [
 
 class SalesSummaryReportView(APIView):
     """GET: aggregate sales totals (b2b_credit/b2c_cash/b2c_online only —
-    gift/restock/correction are never sales) over an optional date range.
+    restock/correction are never sales) over an optional date range.
 
     Date filtering is on SaleTypeMovement.created_at (the sale event date).
     'transaction_value' is the booked value at time of sale for all three
@@ -633,52 +627,6 @@ class ReceivablesSummaryReportView(APIView):
         })
 
 
-class GiftSummaryReportView(APIView):
-    """GET: gift movement totals + per-part breakdown over an optional date
-    range, filtered on SaleTypeMovement.created_at. Valuation always comes
-    from the immutable unit_value/total_value snapshot on each movement —
-    never from current Part/StockItem pricing.
-    """
-
-    permission_classes = [IsAuthenticated]
-
-    def get(self, request):
-        date_from, date_to, error = _parse_date_range(request.query_params)
-        if error:
-            return error
-
-        movements = SaleTypeMovement.objects.filter(sale_type=SaleTypeMovement.SaleType.GIFT)
-        if date_from:
-            movements = movements.filter(created_at__date__gte=date_from)
-        if date_to:
-            movements = movements.filter(created_at__date__lte=date_to)
-
-        totals = movements.aggregate(count=Count('id'), qty=Sum('quantity'), value=Sum('total_value'))
-
-        by_part_rows = movements.values('part_id', 'part__name').annotate(
-            qty=Sum('quantity'), value=Sum('total_value')
-        ).order_by('-value')
-
-        return Response({
-            'date_from': date_from.isoformat() if date_from else None,
-            'date_to': date_to.isoformat() if date_to else None,
-            'totals': {
-                'gift_count': totals['count'] or 0,
-                'total_quantity': str(totals['qty'] or Decimal('0')),
-                'total_value': str(totals['value'] or Decimal('0')),
-            },
-            'by_part': [
-                {
-                    'part_id': row['part_id'],
-                    'part_name': row['part__name'],
-                    'quantity': str(row['qty']),
-                    'value': str(row['value']),
-                }
-                for row in by_part_rows
-            ],
-        })
-
-
 DEFAULT_MOVEMENT_LIST_LIMIT = 50
 MAX_MOVEMENT_LIST_LIMIT = 200
 
@@ -690,7 +638,7 @@ class MovementListView(APIView):
 
     Query params: date_from, date_to (ISO date, filtered on created_at —
     the movement date, same semantics as the reporting endpoints),
-    sale_type (comma-separated, e.g. 'gift,restock'), customer (customer_id
+    sale_type (comma-separated, e.g. 'b2c_cash,restock'), customer (customer_id
     exact match), limit/offset (pagination — see plan doc for why this
     endpoint paginates when the other plugin list endpoints don't).
     """

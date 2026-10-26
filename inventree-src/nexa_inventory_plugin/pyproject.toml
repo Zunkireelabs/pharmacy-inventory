@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "inventree-nexa-inventory"
 version = "0.1.0"
-description = "First-class sale-type dimension for stock movements (B2B credit / B2C cash / B2C online / Gift / Restock / Correction)"
+description = "First-class sale-type dimension for stock movements (B2B credit / B2C cash / B2C online / Restock / Correction)"
 requires-python = ">=3.9"
 
 [project.entry-points.inventree_plugins]
