@@ -168,9 +168,7 @@ export function ProductPicker({
       const parts = response.data.results ?? response.data;
       return parts.map((part: any) => ({
         value: String(part.pk),
-        label: `${part.full_name || part.name}${
-          part.IPN ? ` (${part.IPN})` : ''
-        }`,
+        label: `${part.name}${part.IPN ? ` (${part.IPN})` : ''}`,
         partName: part.name
       })) as PartOption[];
     },
