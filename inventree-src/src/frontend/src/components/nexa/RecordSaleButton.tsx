@@ -7,6 +7,7 @@ import {
   Group,
   Modal,
   NumberInput,
+  Select,
   SimpleGrid,
   Stack,
   Text,
@@ -26,7 +27,7 @@ import {
   IconTrash,
   IconWorld
 } from '@tabler/icons-react';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -125,6 +126,21 @@ function LineEditor({
   const flags = flagsFor(useMedicineFlags(), line.partId);
   const sellable = line.partId === null ? null : sellableQuantity(batches.data);
 
+  // Prefill the unit price from the medicine's selling price (editable)
+  const info = useQuery({
+    queryKey: ['nexa-medicine', line.partId],
+    enabled: line.partId !== null,
+    queryFn: async () =>
+      (await api.get(`/plugin/nexainventory/medicine/${line.partId}/`)).data
+  });
+  const sellingPrice = info.data?.selling_price;
+
+  useEffect(() => {
+    if (sellingPrice && line.unitValue === '') {
+      onChange({ unitValue: Number(sellingPrice) });
+    }
+  }, [sellingPrice, line.partId]);
+
   useEffect(() => {
     if (
       line.sellable !== sellable ||
@@ -165,7 +181,13 @@ function LineEditor({
       <ProductPicker
         value={line.partId}
         onChange={(partId, partName) =>
-          onChange({ partId, partName, sellable: null, quantity: '' })
+          onChange({
+            partId,
+            partName,
+            sellable: null,
+            quantity: '',
+            unitValue: ''
+          })
         }
       />
       {line.partId !== null && <BatchPreview batches={batches.data} />}
@@ -192,18 +214,41 @@ function LineEditor({
   );
 }
 
-type MovementSummary = { partName: string; quantity: string; total: string };
+type BillLine = { particulars: string; batch: string; quantity: string; amount: string };
 
 type SuccessState =
   | { kind: 'b2b'; reference: string; total: string; outstanding: string; invoiceId: number }
-  | { kind: 'movement'; saleType: SaleType; lines: MovementSummary[]; total: string };
+  | {
+      kind: 'bill';
+      saleType: SaleType;
+      billId: number;
+      reference: string;
+      lines: BillLine[];
+      subtotal: string;
+      discount: string;
+      net: string;
+    };
+
+const PAYMENT_MODES = [
+  { value: 'cash', label: t`Cash` },
+  { value: 'online', label: t`Online` },
+  { value: 'qr', label: t`QR` },
+  { value: 'other', label: t`Other` }
+];
 
 const INITIAL_FORM = {
   customerId: null as number | null,
   dueDate: null as string | null,
   notes: '',
   prescriber: '',
-  prescriptionRef: ''
+  prescriptionRef: '',
+  customerName: '',
+  customerPhone: '',
+  customerAddress: '',
+  customerPan: '',
+  paymentMode: 'cash',
+  discount: '' as number | '',
+  discountReason: ''
 };
 
 /**
@@ -270,8 +315,17 @@ export default function RecordSaleButton({
     (!form.prescriber.trim() ||
       (anyControlled && !form.prescriptionRef.trim()));
 
+  const discountValue = typeof form.discount === 'number' ? form.discount : 0;
+  const discountInvalid =
+    !isB2B &&
+    (discountValue < 0 ||
+      discountValue > runningTotal ||
+      (discountValue > 0 && !form.discountReason.trim()));
+  const netTotal = Math.max(0, runningTotal - (isB2B ? 0 : discountValue));
+
   const canSubmit =
     linesValid &&
+    !discountInvalid &&
     (!isB2B || !!form.customerId) &&
     !otcBlockedByRx &&
     !rxFieldsMissing;
@@ -294,24 +348,25 @@ export default function RecordSaleButton({
         return { kind: 'b2b' as const, data: response.data };
       }
 
-      const summaries: MovementSummary[] = [];
-      for (const l of lines) {
-        await api.post('/plugin/nexainventory/record-sale/', {
+      const response = await api.post('/plugin/nexainventory/record-bill/', {
+        sale_type: saleType,
+        items: lines.map((l) => ({
           part_id: l.partId,
-          sale_type: saleType,
           quantity: l.quantity,
-          unit_value: l.unitValue || 0,
-          notes: form.notes,
-          prescriber: isRx ? form.prescriber.trim() : undefined,
-          prescription_ref: isRx ? form.prescriptionRef.trim() : undefined
-        });
-        summaries.push({
-          partName: l.partName ?? '',
-          quantity: String(l.quantity),
-          total: String(lineTotal(l))
-        });
-      }
-      return { kind: 'movement' as const, summaries };
+          unit_value: l.unitValue || 0
+        })),
+        customer_name: form.customerName.trim(),
+        customer_phone: form.customerPhone.trim(),
+        customer_address: form.customerAddress.trim(),
+        customer_pan: form.customerPan.trim(),
+        payment_mode: form.paymentMode,
+        discount: discountValue || undefined,
+        discount_reason: form.discountReason.trim(),
+        remarks: form.notes,
+        prescriber: isRx ? form.prescriber.trim() : undefined,
+        prescription_ref: isRx ? form.prescriptionRef.trim() : undefined
+      });
+      return { kind: 'bill' as const, data: response.data };
     },
     onSuccess: (result) => {
       if (result.kind === 'b2b') {
@@ -323,11 +378,21 @@ export default function RecordSaleButton({
           invoiceId: result.data.invoice_id
         });
       } else {
+        const bill = result.data;
         setSuccess({
-          kind: 'movement',
+          kind: 'bill',
           saleType,
-          lines: result.summaries,
-          total: String(runningTotal)
+          billId: bill.id,
+          reference: bill.reference,
+          lines: bill.lines.map((l: any) => ({
+            particulars: l.particulars,
+            batch: l.batch,
+            quantity: l.quantity,
+            amount: l.amount
+          })),
+          subtotal: bill.subtotal,
+          discount: bill.discount,
+          net: bill.net_amount
         });
       }
       onSuccess?.();
@@ -398,18 +463,24 @@ export default function RecordSaleButton({
                 <Group gap='xs'>
                   <TransactionStatusBadge saleType={success.saleType} />
                   <Text fw={700} size='lg'>
-                    {t`Sale recorded`}
+                    {t`Bill ${success.reference} saved`}
                   </Text>
                 </Group>
                 <Stack gap={0} align='center'>
                   {success.lines.map((l, i) => (
                     <Text key={i} c='dimmed' size='sm'>
-                      {l.partName} × {l.quantity} — {formatMoney(l.total)}
+                      {l.particulars} ({l.batch || '-'}) × {l.quantity} —{' '}
+                      {formatMoney(l.amount)}
                     </Text>
                   ))}
                 </Stack>
-                <Text fw={600}>
-                  {t`Total`}: {formatMoney(success.total)}
+                {Number(success.discount) > 0 && (
+                  <Text size='sm' c='dimmed'>
+                    {t`Discount`}: −{formatMoney(success.discount)}
+                  </Text>
+                )}
+                <Text fw={700} size='lg'>
+                  {t`Net Amount`}: {formatMoney(success.net)}
                 </Text>
               </Stack>
             )}
@@ -426,6 +497,16 @@ export default function RecordSaleButton({
                   }}
                 >
                   {t`View Invoice`}
+                </Button>
+              )}
+              {success.kind === 'bill' && (
+                <Button
+                  onClick={() => {
+                    closeModal();
+                    navigate(`/bills/${success.billId}`);
+                  }}
+                >
+                  {t`View / Print Bill`}
                 </Button>
               )}
             </Group>
@@ -527,6 +608,72 @@ export default function RecordSaleButton({
               />
             )}
 
+            {!isB2B && (
+              <>
+                <SimpleGrid cols={{ base: 1, xs: 2 }}>
+                  <TextInput
+                    label={t`Customer Name`}
+                    value={form.customerName}
+                    onChange={(e) =>
+                      setForm((f) => ({ ...f, customerName: e.currentTarget.value }))
+                    }
+                  />
+                  <TextInput
+                    label={t`Phone`}
+                    value={form.customerPhone}
+                    onChange={(e) =>
+                      setForm((f) => ({ ...f, customerPhone: e.currentTarget.value }))
+                    }
+                  />
+                  <TextInput
+                    label={t`Address`}
+                    value={form.customerAddress}
+                    onChange={(e) =>
+                      setForm((f) => ({ ...f, customerAddress: e.currentTarget.value }))
+                    }
+                  />
+                  <TextInput
+                    label={t`Customer PAN`}
+                    value={form.customerPan}
+                    onChange={(e) =>
+                      setForm((f) => ({ ...f, customerPan: e.currentTarget.value }))
+                    }
+                  />
+                </SimpleGrid>
+                <SimpleGrid cols={{ base: 1, xs: 3 }}>
+                  <Select
+                    label={t`Payment Mode`}
+                    data={PAYMENT_MODES}
+                    value={form.paymentMode}
+                    onChange={(v) =>
+                      setForm((f) => ({ ...f, paymentMode: v ?? 'cash' }))
+                    }
+                    allowDeselect={false}
+                  />
+                  <NumberInput
+                    label={t`Discount`}
+                    value={form.discount}
+                    onChange={(v) => setForm((f) => ({ ...f, discount: v as number }))}
+                    min={0}
+                    decimalScale={2}
+                    error={
+                      discountValue > runningTotal
+                        ? t`More than the bill total`
+                        : undefined
+                    }
+                  />
+                  <TextInput
+                    label={t`Reason for Discount`}
+                    value={form.discountReason}
+                    onChange={(e) =>
+                      setForm((f) => ({ ...f, discountReason: e.currentTarget.value }))
+                    }
+                    required={discountValue > 0}
+                  />
+                </SimpleGrid>
+              </>
+            )}
+
             <Textarea
               label={t`Notes`}
               value={form.notes}
@@ -539,12 +686,22 @@ export default function RecordSaleButton({
 
             <Divider />
 
+            {!isB2B && discountValue > 0 && (
+              <Group justify='space-between'>
+                <Text size='sm' c='dimmed'>
+                  {t`Sub-total`}: {formatMoney(runningTotal)}
+                </Text>
+                <Text size='sm' c='dimmed'>
+                  {t`Discount`}: −{formatMoney(discountValue)}
+                </Text>
+              </Group>
+            )}
             <Group justify='space-between' align='center'>
               <Text size='sm' c='dimmed'>
-                {t`Total`}
+                {isB2B ? t`Total` : t`Net Amount`}
               </Text>
               <Text size='xl' fw={800}>
-                {formatMoney(runningTotal)}
+                {formatMoney(netTotal)}
               </Text>
             </Group>
 

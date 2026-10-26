@@ -102,6 +102,12 @@ function DrawerContent({ closeFunc }: Readonly<{ closeFunc?: () => void }>) {
         icon: 'sales_orders'
       },
       {
+        id: 'bills',
+        title: t`Bills`,
+        link: '/bills/',
+        icon: 'history'
+      },
+      {
         id: 'receivables',
         title: t`Receivables`,
         link: '/receivables/',
