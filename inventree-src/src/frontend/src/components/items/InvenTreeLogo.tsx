@@ -21,9 +21,9 @@ export const InvenTreeLogoHomeButton = forwardRef<HTMLDivElement>(
 );
 
 /*
- * Render the ITS logo
+ * Render the Nexa logo
  * - Uses the custom logo if one is defined on the server
- * - Otherwise, uses the default ITS wordmark
+ * - Otherwise, uses the default Nexa wordmark
  */
 export function InvenTreeLogo(): ReactNode {
   const [server] = useServerApiState(
@@ -31,7 +31,7 @@ export function InvenTreeLogo(): ReactNode {
   );
 
   if (server.server && server.customize?.logo) {
-    return <img src={server.customize.logo} alt={t`ITS Logo`} height={28} />;
+    return <img src={server.customize.logo} alt={t`Nexa Logo`} height={28} />;
   }
 
   return (
@@ -49,9 +49,9 @@ export function InvenTreeLogo(): ReactNode {
         fontSize: 12,
         letterSpacing: '-0.5px'
       }}
-      aria-label={t`ITS Logo`}
+      aria-label={t`Nexa Logo`}
     >
-      ITS
+      NX
     </div>
   );
 }
