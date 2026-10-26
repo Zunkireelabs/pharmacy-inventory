@@ -1,5 +1,5 @@
-# Production image for this tenant's InvenTree deployment.
-# Adapted from contrib/container/Dockerfile — adds the stationery_sales plugin
+# Production image for the Nexa Inventory deployment.
+# Adapted from contrib/container/Dockerfile — adds the nexa_inventory plugin
 # into the image build so it's baked into the InvenTree production target
 # instead of relying on plugins.txt / pip-at-runtime install.
 #
@@ -75,7 +75,7 @@ FROM inventree_base AS builder_stage
 
 COPY src ${INVENTREE_HOME}/src
 COPY tasks.py ${INVENTREE_HOME}/tasks.py
-COPY stationery_sales_plugin ${INVENTREE_HOME}/stationery_sales_plugin
+COPY nexa_inventory_plugin ${INVENTREE_HOME}/nexa_inventory_plugin
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     pkg-config build-essential \
@@ -89,8 +89,8 @@ RUN pip install --user --require-hashes -r base_requirements.txt --no-cache-dir 
     pip cache purge && \
     rm -rf /root/.cache/pip
 
-# Install the stationery_sales plugin (registers via its inventree_plugins entry point)
-RUN pip install --user --no-cache-dir ./stationery_sales_plugin
+# Install the nexa_inventory plugin (registers via its inventree_plugins entry point)
+RUN pip install --user --no-cache-dir ./nexa_inventory_plugin
 
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/1889911f0841e669de0be5bd02c737a3f1fd20fa/install.sh | bash && \
     bash -c "export NVM_DIR="$HOME/.nvm" && source $HOME/.nvm/nvm.sh && \

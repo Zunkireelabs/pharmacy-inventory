@@ -9,7 +9,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  IMAGE: ghcr.io/zunkireelabs/inventory
+  IMAGE: ghcr.io/<GITHUB_OWNER>/pharmacy-inventory
 
 jobs:
   build-push:
@@ -56,7 +56,7 @@ jobs:
           command_timeout: 15m
           script: |
             set -e
-            cd /root/devprojects/inventory-app-prod
+            cd <VPS_PATH>
             git fetch --all --prune
             git checkout -B main origin/main
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
@@ -66,12 +66,12 @@ jobs:
             echo "Waiting for container to be healthy..."
             sleep 10
             for i in $(seq 1 27); do
-              STATUS=$(docker inspect --format='{{.State.Health.Status}}' inventory-app-prod 2>/dev/null || echo "unknown")
+              STATUS=$(docker inspect --format='{{.State.Health.Status}}' nexa-app-prod 2>/dev/null || echo "unknown")
               if [ "$STATUS" = "healthy" ]; then echo "Healthy!"; exit 0; fi
               echo "Attempt $i/27: $STATUS — waiting 10s..."
               sleep 10
             done
-            docker logs inventory-app-prod --tail 50
+            docker logs nexa-app-prod --tail 50
             exit 1
 
   health-check:
@@ -82,7 +82,7 @@ jobs:
       - name: Verify site
         run: |
           for i in $(seq 1 18); do
-            CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 15 https://inventory-a.zunkireelabs.com/api/system/health/) || CODE=000
+            CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 15 https://<NEXA_HOST>/api/system/health/) || CODE=000
             if [ "$CODE" = "200" ]; then echo "OK (HTTP $CODE)"; exit 0; fi
             echo "Attempt $i/18: HTTP $CODE — waiting 10s..."
             sleep 10

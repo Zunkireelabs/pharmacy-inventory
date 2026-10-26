@@ -2,28 +2,28 @@
 # Runtime secrets (DB creds, secret key, etc) come from .env.local on the VPS — never committed.
 
 services:
-  inventory-app-prod:
-    image: ghcr.io/zunkireelabs/inventory:main
-    container_name: inventory-app-prod
+  nexa-app-prod:
+    image: ghcr.io/<GITHUB_OWNER>/pharmacy-inventory:main
+    container_name: nexa-app-prod
     restart: unless-stopped
     env_file:
       - .env.local
     volumes:
-      - inventory_data:/home/inventree/data
+      - nexa_data:/home/inventree/data
     networks:
       - hosting
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=hosting"
-      - "traefik.http.routers.inventory-app-prod.rule=Host(`inventory-a.zunkireelabs.com`)"
-      - "traefik.http.routers.inventory-app-prod.entrypoints=websecure"
-      - "traefik.http.routers.inventory-app-prod.tls=true"
-      - "traefik.http.routers.inventory-app-prod.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.inventory-app-prod-http.rule=Host(`inventory-a.zunkireelabs.com`)"
-      - "traefik.http.routers.inventory-app-prod-http.entrypoints=web"
-      - "traefik.http.routers.inventory-app-prod-http.middlewares=inventory-app-prod-redirect"
-      - "traefik.http.middlewares.inventory-app-prod-redirect.redirectscheme.scheme=https"
-      - "traefik.http.services.inventory-app-prod.loadbalancer.server.port=8000"
+      - "traefik.http.routers.nexa-app-prod.rule=Host(`<NEXA_HOST>`)"
+      - "traefik.http.routers.nexa-app-prod.entrypoints=websecure"
+      - "traefik.http.routers.nexa-app-prod.tls=true"
+      - "traefik.http.routers.nexa-app-prod.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.nexa-app-prod-http.rule=Host(`<NEXA_HOST>`)"
+      - "traefik.http.routers.nexa-app-prod-http.entrypoints=web"
+      - "traefik.http.routers.nexa-app-prod-http.middlewares=nexa-app-prod-redirect"
+      - "traefik.http.middlewares.nexa-app-prod-redirect.redirectscheme.scheme=https"
+      - "traefik.http.services.nexa-app-prod.loadbalancer.server.port=8000"
     healthcheck:
       test: ["CMD-SHELL", "invoke server-health --address \"http://localhost:8000\""]
       interval: 20s
@@ -31,18 +31,18 @@ services:
       retries: 10
       start_period: 60s
 
-  inventory-worker-prod:
-    image: ghcr.io/zunkireelabs/inventory:main
-    container_name: inventory-worker-prod
+  nexa-worker-prod:
+    image: ghcr.io/<GITHUB_OWNER>/pharmacy-inventory:main
+    container_name: nexa-worker-prod
     command: invoke worker
     restart: unless-stopped
     depends_on:
-      inventory-app-prod:
+      nexa-app-prod:
         condition: service_healthy
     env_file:
       - .env.local
     volumes:
-      - inventory_data:/home/inventree/data
+      - nexa_data:/home/inventree/data
     networks:
       - hosting
     healthcheck:
@@ -57,4 +57,4 @@ networks:
     external: true
 
 volumes:
-  inventory_data:
+  nexa_data:
