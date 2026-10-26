@@ -1,4 +1,5 @@
 import { StylishText } from '@lib/components/StylishText';
+import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import {
   Button,
@@ -12,6 +13,7 @@ import {
 } from '@mantine/core';
 import { Outlet, useNavigate } from 'react-router-dom';
 import SplashScreen from '../../components/SplashScreen';
+import { InvenTreeLogo } from '../../components/items/InvenTreeLogo';
 import { doLogout } from '../../functions/auth';
 
 export default function LoginLayoutComponent() {
@@ -19,7 +21,13 @@ export default function LoginLayoutComponent() {
     <SplashScreen>
       <Center mih='100vh' p='lg'>
         <Container>
-          <Outlet />
+          <Stack align='center' gap='lg'>
+            <Stack align='center' gap={6}>
+              <InvenTreeLogo size={96} large />
+              <StylishText size='xl'>{t`Nexa Inventory`}</StylishText>
+            </Stack>
+            <Outlet />
+          </Stack>
         </Container>
       </Center>
     </SplashScreen>

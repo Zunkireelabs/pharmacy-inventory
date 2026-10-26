@@ -1692,7 +1692,7 @@ msgid "An unknown error occurred while rendering the preview."
 msgstr "An unknown error occurred while rendering the preview."
 
 #: src/components/editors/TemplateEditor/TemplateEditor.tsx:279
-#: src/components/nexa/MedicineFlagsPanel.tsx:34
+#: src/components/nexa/MedicineFlagsPanel.tsx:36
 msgid "Saved"
 msgstr "Saved"
 
@@ -2390,8 +2390,8 @@ msgstr "Unknown error"
 msgid "None"
 msgstr "None"
 
-#: src/components/items/InvenTreeLogo.tsx:34
 #: src/components/items/InvenTreeLogo.tsx:52
+#: src/components/items/InvenTreeLogo.tsx:62
 msgid "Nexa Logo"
 msgstr "Nexa Logo"
 
@@ -3077,7 +3077,7 @@ msgid "More than the {0} in this batch"
 msgstr "More than the {0} in this batch"
 
 #: src/components/nexa/AdjustStockButton.tsx:195
-#: src/pages/nexa/BillPage.tsx:134
+#: src/pages/nexa/BillPage.tsx:135
 msgid "Reason"
 msgstr "Reason"
 
@@ -3193,31 +3193,35 @@ msgstr "61-90 days"
 msgid "90+ days"
 msgstr "90+ days"
 
-#: src/components/nexa/MedicineFlagsPanel.tsx:37
+#: src/components/nexa/MedicineFlagsPanel.tsx:39
 msgid "Could not save"
 msgstr "Could not save"
 
-#: src/components/nexa/MedicineFlagsPanel.tsx:43
+#: src/components/nexa/MedicineFlagsPanel.tsx:45
 msgid "Could not load the pharmacy settings for this medicine"
 msgstr "Could not load the pharmacy settings for this medicine"
 
-#: src/components/nexa/MedicineFlagsPanel.tsx:53
+#: src/components/nexa/MedicineFlagsPanel.tsx:55
 msgid "Prescription control"
 msgstr "Prescription control"
 
-#: src/components/nexa/MedicineFlagsPanel.tsx:55
+#: src/components/nexa/MedicineFlagsPanel.tsx:58
+msgid "Only an owner or admin can change these settings."
+msgstr "Only an owner or admin can change these settings."
+
+#: src/components/nexa/MedicineFlagsPanel.tsx:62
 msgid "Prescription only (Rx)"
 msgstr "Prescription only (Rx)"
 
-#: src/components/nexa/MedicineFlagsPanel.tsx:56
+#: src/components/nexa/MedicineFlagsPanel.tsx:63
 msgid "Cannot be sold over the counter; sell it as a Prescription."
 msgstr "Cannot be sold over the counter; sell it as a Prescription."
 
-#: src/components/nexa/MedicineFlagsPanel.tsx:66
+#: src/components/nexa/MedicineFlagsPanel.tsx:73
 msgid "Controlled medicine"
 msgstr "Controlled medicine"
 
-#: src/components/nexa/MedicineFlagsPanel.tsx:67
+#: src/components/nexa/MedicineFlagsPanel.tsx:74
 msgid "Always prescription-only, and the prescription reference is mandatory."
 msgstr "Always prescription-only, and the prescription reference is mandatory."
 
@@ -3749,7 +3753,7 @@ msgstr "B2B"
 
 #: src/components/nexa/TransactionStatusBadge.tsx:26
 #: src/forms/StockForms.tsx:1564
-#: src/pages/nexa/BillPage.tsx:285
+#: src/pages/nexa/BillPage.tsx:286
 msgid "Return"
 msgstr "Return"
 
@@ -6266,7 +6270,11 @@ msgstr "Confirm your new password"
 msgid "Confirm"
 msgstr "Confirm"
 
-#: src/pages/Auth/Layout.tsx:59
+#: src/pages/Auth/Layout.tsx:27
+msgid "Nexa Inventory"
+msgstr "Nexa Inventory"
+
+#: src/pages/Auth/Layout.tsx:67
 msgid "Log off"
 msgstr "Log off"
 
@@ -8193,59 +8201,59 @@ msgstr "Payment"
 
 #. placeholder {0}: response.data.reference
 #. placeholder {1}: response.data.refund_amount
-#: src/pages/nexa/BillPage.tsx:103
+#: src/pages/nexa/BillPage.tsx:104
 msgid "Return {0} recorded — refund {1}"
 msgstr "Return {0} recorded — refund {1}"
 
-#: src/pages/nexa/BillPage.tsx:112
+#: src/pages/nexa/BillPage.tsx:113
 msgid "Could not record the return"
 msgstr "Could not record the return"
 
-#: src/pages/nexa/BillPage.tsx:118
+#: src/pages/nexa/BillPage.tsx:119
 msgid "Return items"
 msgstr "Return items"
 
-#: src/pages/nexa/BillPage.tsx:123
+#: src/pages/nexa/BillPage.tsx:124
 msgid "batch"
 msgstr "batch"
 
-#: src/pages/nexa/BillPage.tsx:123
+#: src/pages/nexa/BillPage.tsx:124
 msgid "up to"
 msgstr "up to"
 
-#: src/pages/nexa/BillPage.tsx:126
+#: src/pages/nexa/BillPage.tsx:127
 msgid "Quantity returned"
 msgstr "Quantity returned"
 
-#: src/pages/nexa/BillPage.tsx:140
+#: src/pages/nexa/BillPage.tsx:141
 msgid "Stock disposition"
 msgstr "Stock disposition"
 
-#: src/pages/nexa/BillPage.tsx:142
+#: src/pages/nexa/BillPage.tsx:143
 msgid "Resalable — back to stock"
 msgstr "Resalable — back to stock"
 
-#: src/pages/nexa/BillPage.tsx:143
+#: src/pages/nexa/BillPage.tsx:144
 msgid "Not resalable — damaged / expired"
 msgstr "Not resalable — damaged / expired"
 
-#: src/pages/nexa/BillPage.tsx:150
+#: src/pages/nexa/BillPage.tsx:151
 msgid "Refund"
 msgstr "Refund"
 
-#: src/pages/nexa/BillPage.tsx:157
+#: src/pages/nexa/BillPage.tsx:158
 msgid "Record Return"
 msgstr "Record Return"
 
-#: src/pages/nexa/BillPage.tsx:183
+#: src/pages/nexa/BillPage.tsx:184
 msgid "Bill not found"
 msgstr "Bill not found"
 
-#: src/pages/nexa/BillPage.tsx:208
+#: src/pages/nexa/BillPage.tsx:209
 msgid "All Bills"
 msgstr "All Bills"
 
-#: src/pages/nexa/BillPage.tsx:211
+#: src/pages/nexa/BillPage.tsx:212
 msgid "Print Bill"
 msgstr "Print Bill"
 

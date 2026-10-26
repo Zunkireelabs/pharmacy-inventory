@@ -1696,7 +1696,7 @@ msgid "An unknown error occurred while rendering the preview."
 msgstr "Při vykreslování náhledu došlo k neznámé chybě."
 
 #: src/components/editors/TemplateEditor/TemplateEditor.tsx:279
-#: src/components/nexa/MedicineFlagsPanel.tsx:34
+#: src/components/nexa/MedicineFlagsPanel.tsx:36
 msgid "Saved"
 msgstr "Uloženo"
 
@@ -2394,8 +2394,8 @@ msgstr "Neznámá chyba"
 msgid "None"
 msgstr "Žádné"
 
-#: src/components/items/InvenTreeLogo.tsx:34
 #: src/components/items/InvenTreeLogo.tsx:52
+#: src/components/items/InvenTreeLogo.tsx:62
 msgid "Nexa Logo"
 msgstr ""
 
@@ -3081,7 +3081,7 @@ msgid "More than the {0} in this batch"
 msgstr ""
 
 #: src/components/nexa/AdjustStockButton.tsx:195
-#: src/pages/nexa/BillPage.tsx:134
+#: src/pages/nexa/BillPage.tsx:135
 msgid "Reason"
 msgstr ""
 
@@ -3197,31 +3197,35 @@ msgstr ""
 msgid "90+ days"
 msgstr ""
 
-#: src/components/nexa/MedicineFlagsPanel.tsx:37
+#: src/components/nexa/MedicineFlagsPanel.tsx:39
 msgid "Could not save"
 msgstr ""
 
-#: src/components/nexa/MedicineFlagsPanel.tsx:43
+#: src/components/nexa/MedicineFlagsPanel.tsx:45
 msgid "Could not load the pharmacy settings for this medicine"
 msgstr ""
 
-#: src/components/nexa/MedicineFlagsPanel.tsx:53
+#: src/components/nexa/MedicineFlagsPanel.tsx:55
 msgid "Prescription control"
 msgstr ""
 
-#: src/components/nexa/MedicineFlagsPanel.tsx:55
+#: src/components/nexa/MedicineFlagsPanel.tsx:58
+msgid "Only an owner or admin can change these settings."
+msgstr ""
+
+#: src/components/nexa/MedicineFlagsPanel.tsx:62
 msgid "Prescription only (Rx)"
 msgstr ""
 
-#: src/components/nexa/MedicineFlagsPanel.tsx:56
+#: src/components/nexa/MedicineFlagsPanel.tsx:63
 msgid "Cannot be sold over the counter; sell it as a Prescription."
 msgstr ""
 
-#: src/components/nexa/MedicineFlagsPanel.tsx:66
+#: src/components/nexa/MedicineFlagsPanel.tsx:73
 msgid "Controlled medicine"
 msgstr ""
 
-#: src/components/nexa/MedicineFlagsPanel.tsx:67
+#: src/components/nexa/MedicineFlagsPanel.tsx:74
 msgid "Always prescription-only, and the prescription reference is mandatory."
 msgstr ""
 
@@ -3753,7 +3757,7 @@ msgstr ""
 
 #: src/components/nexa/TransactionStatusBadge.tsx:26
 #: src/forms/StockForms.tsx:1564
-#: src/pages/nexa/BillPage.tsx:285
+#: src/pages/nexa/BillPage.tsx:286
 msgid "Return"
 msgstr "Vrátit"
 
@@ -6270,7 +6274,11 @@ msgstr "Potvrďte nové heslo"
 msgid "Confirm"
 msgstr "Potvrdit"
 
-#: src/pages/Auth/Layout.tsx:59
+#: src/pages/Auth/Layout.tsx:27
+msgid "Nexa Inventory"
+msgstr ""
+
+#: src/pages/Auth/Layout.tsx:67
 msgid "Log off"
 msgstr "Odhlásit se"
 
@@ -8197,59 +8205,59 @@ msgstr ""
 
 #. placeholder {0}: response.data.reference
 #. placeholder {1}: response.data.refund_amount
-#: src/pages/nexa/BillPage.tsx:103
+#: src/pages/nexa/BillPage.tsx:104
 msgid "Return {0} recorded — refund {1}"
 msgstr ""
 
-#: src/pages/nexa/BillPage.tsx:112
+#: src/pages/nexa/BillPage.tsx:113
 msgid "Could not record the return"
 msgstr ""
 
-#: src/pages/nexa/BillPage.tsx:118
+#: src/pages/nexa/BillPage.tsx:119
 msgid "Return items"
 msgstr ""
 
-#: src/pages/nexa/BillPage.tsx:123
+#: src/pages/nexa/BillPage.tsx:124
 msgid "batch"
 msgstr ""
 
-#: src/pages/nexa/BillPage.tsx:123
+#: src/pages/nexa/BillPage.tsx:124
 msgid "up to"
 msgstr ""
 
-#: src/pages/nexa/BillPage.tsx:126
+#: src/pages/nexa/BillPage.tsx:127
 msgid "Quantity returned"
 msgstr ""
 
-#: src/pages/nexa/BillPage.tsx:140
+#: src/pages/nexa/BillPage.tsx:141
 msgid "Stock disposition"
 msgstr ""
 
-#: src/pages/nexa/BillPage.tsx:142
+#: src/pages/nexa/BillPage.tsx:143
 msgid "Resalable — back to stock"
 msgstr ""
 
-#: src/pages/nexa/BillPage.tsx:143
+#: src/pages/nexa/BillPage.tsx:144
 msgid "Not resalable — damaged / expired"
 msgstr ""
 
-#: src/pages/nexa/BillPage.tsx:150
+#: src/pages/nexa/BillPage.tsx:151
 msgid "Refund"
 msgstr ""
 
-#: src/pages/nexa/BillPage.tsx:157
+#: src/pages/nexa/BillPage.tsx:158
 msgid "Record Return"
 msgstr ""
 
-#: src/pages/nexa/BillPage.tsx:183
+#: src/pages/nexa/BillPage.tsx:184
 msgid "Bill not found"
 msgstr ""
 
-#: src/pages/nexa/BillPage.tsx:208
+#: src/pages/nexa/BillPage.tsx:209
 msgid "All Bills"
 msgstr ""
 
-#: src/pages/nexa/BillPage.tsx:211
+#: src/pages/nexa/BillPage.tsx:212
 msgid "Print Bill"
 msgstr ""
 

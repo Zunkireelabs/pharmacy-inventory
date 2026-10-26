@@ -1,17 +1,17 @@
 import { t } from '@lingui/core/macro';
-import { ActionIcon } from '@mantine/core';
-import { type ReactNode, forwardRef } from 'react';
+import { ActionIcon, useComputedColorScheme } from '@mantine/core';
+import { type ReactNode, forwardRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { useShallow } from 'zustand/react/shallow';
-import { useServerApiState } from '../../states/ServerApiState';
+import logo128 from '../../assets/nexa-logo-128.png';
+import logo256 from '../../assets/nexa-logo-256.png';
 
 export const InvenTreeLogoHomeButton = forwardRef<HTMLDivElement>(
   (props, ref) => {
     return (
       <div ref={ref} {...props}>
         <NavLink to={'/'}>
-          <ActionIcon size={28} variant='transparent'>
+          <ActionIcon size={32} variant='transparent'>
             <InvenTreeLogo />
           </ActionIcon>
         </NavLink>
@@ -21,37 +21,53 @@ export const InvenTreeLogoHomeButton = forwardRef<HTMLDivElement>(
 );
 
 /*
- * Render the Nexa logo
- * - Uses the custom logo if one is defined on the server
- * - Otherwise, uses the default Nexa wordmark
+ * Render the product logo (the Zunkireelabs mark).
+ * The artwork is black line-art on a transparent background, so it is
+ * inverted to white in dark mode. If the image cannot load, fall back to
+ * the small "NX" mark instead of leaving a blank space.
  */
-export function InvenTreeLogo(): ReactNode {
-  const [server] = useServerApiState(
-    useShallow((state) => [state.server, state.fetchServerApiState])
-  );
+export function InvenTreeLogo({
+  size = 32,
+  large = false
+}: Readonly<{ size?: number; large?: boolean }>): ReactNode {
+  const colorScheme = useComputedColorScheme('light');
+  const [failed, setFailed] = useState(false);
 
-  if (server.server && server.customize?.logo) {
-    return <img src={server.customize.logo} alt={t`Nexa Logo`} height={28} />;
+  if (failed) {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: size,
+          width: size,
+          borderRadius: 6,
+          background: '#1c7ed6',
+          color: 'white',
+          fontWeight: 700,
+          fontSize: Math.round(size * 0.43),
+          letterSpacing: '-0.5px'
+        }}
+        aria-label={t`Nexa Logo`}
+      >
+        NX
+      </div>
+    );
   }
 
   return (
-    <div
+    <img
+      src={large ? logo256 : logo128}
+      alt={t`Nexa Logo`}
+      width={size}
+      height={size}
       style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: 28,
-        width: 28,
-        borderRadius: 6,
-        background: '#1c7ed6',
-        color: 'white',
-        fontWeight: 700,
-        fontSize: 12,
-        letterSpacing: '-0.5px'
+        display: 'block',
+        objectFit: 'contain',
+        filter: colorScheme === 'dark' ? 'invert(1)' : undefined
       }}
-      aria-label={t`Nexa Logo`}
-    >
-      NX
-    </div>
+      onError={() => setFailed(true)}
+    />
   );
 }
