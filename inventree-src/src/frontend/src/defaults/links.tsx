@@ -12,7 +12,9 @@ import {
   IconChartBar,
   IconCurrencyDollar,
   IconDashboard,
+  IconPackageImport,
   IconPackages,
+  IconReceipt2,
   IconShoppingCart,
   IconTruckDelivery
 } from '@tabler/icons-react';
@@ -65,6 +67,16 @@ export function getNavTabs(user: UserStateProps): NavTab[] {
       title: t`Purchasing`,
       icon: <IconShoppingCart />,
       visible: user.hasViewVisible(UserRoles.purchase_order)
+    },
+    {
+      name: 'purchase-entries',
+      title: t`Purchase Entries`,
+      icon: <IconPackageImport />
+    },
+    {
+      name: 'bills',
+      title: t`Bills`,
+      icon: <IconReceipt2 />
     },
     {
       name: 'sales',

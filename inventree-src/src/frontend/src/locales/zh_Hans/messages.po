@@ -171,7 +171,7 @@ msgstr "零件"
 #: lib/enums/ModelInformation.tsx:62
 #: lib/enums/Roles.tsx:37
 #: src/components/nav/NavigationDrawer.tsx:70
-#: src/defaults/links.tsx:41
+#: src/defaults/links.tsx:43
 #: src/pages/Index/Settings/SystemSettings.tsx:217
 #: src/pages/part/CategoryDetail.tsx:218
 #: src/pages/part/CategoryDetail.tsx:279
@@ -505,7 +505,7 @@ msgid "Transfer Order Line Items"
 msgstr "调拨单行明细"
 
 #: lib/enums/ModelInformation.tsx:271
-#: src/components/nexa/RecordSaleButton.tsx:654
+#: src/components/nexa/RecordSaleButton.tsx:656
 #: src/tables/company/AddressTable.tsx:52
 msgid "Address"
 msgstr "地址"
@@ -1084,7 +1084,7 @@ msgstr "接受布局"
 #: src/components/dashboard/DashboardMenu.tsx:94
 #: src/components/nav/NavigationDrawer.tsx:64
 #: src/defaults/actions.tsx:60
-#: src/defaults/links.tsx:36
+#: src/defaults/links.tsx:38
 #: src/pages/Index/Home.tsx:11
 msgid "Dashboard"
 msgstr "仪表盘"
@@ -1304,12 +1304,12 @@ msgstr "显示分配给您的退货订单数量"
 
 #: src/components/dashboard/DashboardWidgetLibrary.tsx:224
 #: src/components/dashboard/widgets/GetStartedWidget.tsx:15
-#: src/defaults/links.tsx:111
+#: src/defaults/links.tsx:123
 msgid "Getting Started"
 msgstr "快速上手"
 
 #: src/components/dashboard/DashboardWidgetLibrary.tsx:225
-#: src/defaults/links.tsx:114
+#: src/defaults/links.tsx:126
 msgid "Getting started with InvenTree"
 msgstr "开始使用 InvenTree"
 
@@ -1623,8 +1623,8 @@ msgid "Delete table"
 msgstr ""
 
 #: src/components/editors/NotesEditor.tsx:701
-#: src/components/nexa/AdjustStockButton.tsx:214
-#: src/components/nexa/RecordSaleButton.tsx:703
+#: src/components/nexa/AdjustStockButton.tsx:215
+#: src/components/nexa/RecordSaleButton.tsx:708
 #: src/components/panels/NotesPanel.tsx:24
 #: src/forms/NexaForms.tsx:47
 #: src/forms/NexaForms.tsx:95
@@ -2153,7 +2153,7 @@ msgid "Select..."
 msgstr "选择..."
 
 #: src/components/forms/fields/TreeField.tsx:414
-#: src/components/nexa/ReceivePaymentButton.tsx:135
+#: src/components/nexa/ReceivePaymentButton.tsx:136
 #: src/components/wizards/ImportPartWizard.tsx:221
 #: src/forms/StockForms.tsx:1306
 #: src/pages/nexa/BillListPage.tsx:54
@@ -2550,7 +2550,7 @@ msgstr "链接"
 
 #: src/components/modals/AboutInvenTreeModal.tsx:176
 #: src/defaults/actions.tsx:67
-#: src/defaults/links.tsx:193
+#: src/defaults/links.tsx:205
 msgid "Documentation"
 msgstr "文档"
 
@@ -2805,7 +2805,7 @@ msgstr "登出"
 #: src/components/nav/NavigationDrawer.tsx:77
 #: src/components/render/Part.tsx:36
 #: src/components/wizards/ImportPartWizard.tsx:808
-#: src/defaults/links.tsx:49
+#: src/defaults/links.tsx:51
 #: src/forms/StockForms.tsx:1515
 #: src/pages/Index/Settings/SystemSettings.tsx:259
 #: src/pages/part/PartDetail.tsx:312
@@ -2818,7 +2818,7 @@ msgid "Stock"
 msgstr "库存"
 
 #: src/components/nav/NavigationDrawer.tsx:84
-#: src/defaults/links.tsx:58
+#: src/defaults/links.tsx:60
 #: src/pages/Index/Settings/SystemSettings.tsx:319
 #: src/pages/build/BuildDetail.tsx:602
 #: src/pages/build/BuildIndex.tsx:121
@@ -2826,7 +2826,7 @@ msgid "Manufacturing"
 msgstr "生产"
 
 #: src/components/nav/NavigationDrawer.tsx:92
-#: src/defaults/links.tsx:65
+#: src/defaults/links.tsx:67
 #: src/pages/Index/Settings/SystemSettings.tsx:348
 #: src/pages/company/ManufacturerDetail.tsx:9
 #: src/pages/company/ManufacturerPartDetail.tsx:193
@@ -2839,7 +2839,7 @@ msgstr "采购"
 
 #: src/components/nav/NavigationDrawer.tsx:99
 #: src/components/nexa/ReportTabs.tsx:16
-#: src/defaults/links.tsx:71
+#: src/defaults/links.tsx:83
 #: src/pages/Index/Settings/SystemSettings.tsx:366
 #: src/pages/company/CustomerDetail.tsx:9
 #: src/pages/sales/ReturnOrderDetail.tsx:362
@@ -2850,25 +2850,27 @@ msgid "Sales"
 msgstr "销售"
 
 #: src/components/nav/NavigationDrawer.tsx:106
+#: src/defaults/links.tsx:73
 #: src/pages/nexa/PurchaseListPage.tsx:57
 msgid "Purchase Entries"
 msgstr ""
 
 #: src/components/nav/NavigationDrawer.tsx:112
+#: src/defaults/links.tsx:78
 #: src/pages/nexa/BillListPage.tsx:46
 msgid "Bills"
 msgstr ""
 
 #: src/components/nav/NavigationDrawer.tsx:118
 #: src/components/nexa/ReportTabs.tsx:17
-#: src/defaults/links.tsx:79
+#: src/defaults/links.tsx:91
 #: src/pages/company/CompanyDetail.tsx:192
 #: src/pages/nexa/InvoiceListPage.tsx:24
 msgid "Receivables"
 msgstr ""
 
 #: src/components/nav/NavigationDrawer.tsx:124
-#: src/defaults/links.tsx:84
+#: src/defaults/links.tsx:96
 msgid "Reports"
 msgstr "Reports"
 
@@ -2993,51 +2995,47 @@ msgstr "无结果"
 msgid "No results available for search query"
 msgstr "没有可供搜索查询的结果"
 
-#: src/components/nexa/AdjustStockButton.tsx:53
-#: src/components/nexa/ProductPicker.tsx:245
+#: src/components/nexa/AdjustStockButton.tsx:54
+#: src/components/nexa/ProductPicker.tsx:243
 msgid "(no batch)"
 msgstr ""
 
-#: src/components/nexa/AdjustStockButton.tsx:53
-#: src/components/nexa/ProductPicker.tsx:247
+#: src/components/nexa/AdjustStockButton.tsx:54
+#: src/components/nexa/ProductPicker.tsx:245
 msgid "no expiry"
 msgstr ""
 
-#: src/components/nexa/AdjustStockButton.tsx:54
-#: src/components/nexa/ProductPicker.tsx:248
+#: src/components/nexa/AdjustStockButton.tsx:55
+#: src/components/nexa/ProductPicker.tsx:246
 msgid "EXPIRED"
 msgstr ""
 
-#: src/components/nexa/AdjustStockButton.tsx:94
+#: src/components/nexa/AdjustStockButton.tsx:95
 msgid "Write-off recorded"
 msgstr ""
 
-#: src/components/nexa/AdjustStockButton.tsx:94
+#: src/components/nexa/AdjustStockButton.tsx:95
 msgid "Adjustment recorded"
 msgstr ""
 
-#: src/components/nexa/AdjustStockButton.tsx:104
+#: src/components/nexa/AdjustStockButton.tsx:105
 msgid "Could not record this change"
 msgstr ""
 
-#: src/components/nexa/AdjustStockButton.tsx:130
-#: src/components/nexa/AdjustStockButton.tsx:138
+#: src/components/nexa/AdjustStockButton.tsx:131
+#: src/components/nexa/AdjustStockButton.tsx:139
 msgid "Adjust / Write-off"
 msgstr ""
 
-#: src/components/nexa/AdjustStockButton.tsx:157
+#: src/components/nexa/AdjustStockButton.tsx:158
 msgid "Expiry Write-off"
 msgstr ""
 
-#: src/components/nexa/AdjustStockButton.tsx:158
+#: src/components/nexa/AdjustStockButton.tsx:159
 msgid "Stock Adjustment"
 msgstr ""
 
-#: src/components/nexa/AdjustStockButton.tsx:169
-msgid "Expired batch"
-msgstr ""
-
-#: src/components/nexa/AdjustStockButton.tsx:169
+#: src/components/nexa/AdjustStockButton.tsx:170
 #: src/components/render/Stock.tsx:115
 #: src/forms/BuildForms.tsx:385
 #: src/forms/BuildForms.tsx:468
@@ -3057,49 +3055,53 @@ msgstr ""
 msgid "Batch"
 msgstr "批次"
 
-#: src/components/nexa/AdjustStockButton.tsx:175
+#: src/components/nexa/AdjustStockButton.tsx:170
+msgid "Expired batch"
+msgstr ""
+
+#: src/components/nexa/AdjustStockButton.tsx:176
 msgid "No expired batches in stock"
 msgstr ""
 
-#: src/components/nexa/AdjustStockButton.tsx:175
+#: src/components/nexa/AdjustStockButton.tsx:176
 msgid "No batches of this medicine"
 msgstr ""
 
-#: src/components/nexa/AdjustStockButton.tsx:180
+#: src/components/nexa/AdjustStockButton.tsx:181
 msgid "Quantity to write off"
 msgstr ""
 
-#: src/components/nexa/AdjustStockButton.tsx:180
+#: src/components/nexa/AdjustStockButton.tsx:181
 msgid "Quantity change (+ add, − remove)"
 msgstr ""
 
 #. placeholder {0}: selected.quantity
-#: src/components/nexa/AdjustStockButton.tsx:187
+#: src/components/nexa/AdjustStockButton.tsx:188
 msgid "More than the {0} in this batch"
 msgstr ""
 
-#: src/components/nexa/AdjustStockButton.tsx:194
-#: src/pages/nexa/BillPage.tsx:133
+#: src/components/nexa/AdjustStockButton.tsx:195
+#: src/pages/nexa/BillPage.tsx:134
 msgid "Reason"
 msgstr ""
 
-#: src/components/nexa/AdjustStockButton.tsx:195
+#: src/components/nexa/AdjustStockButton.tsx:196
 msgid "Stock-take difference, damage, breakage..."
 msgstr ""
 
-#: src/components/nexa/AdjustStockButton.tsx:201
+#: src/components/nexa/AdjustStockButton.tsx:202
 msgid "Approved By"
 msgstr ""
 
-#: src/components/nexa/AdjustStockButton.tsx:207
+#: src/components/nexa/AdjustStockButton.tsx:208
 msgid "Reference No."
 msgstr ""
 
-#: src/components/nexa/AdjustStockButton.tsx:226
+#: src/components/nexa/AdjustStockButton.tsx:227
 msgid "Write Off"
 msgstr ""
 
-#: src/components/nexa/AdjustStockButton.tsx:226
+#: src/components/nexa/AdjustStockButton.tsx:227
 msgid "Record Adjustment"
 msgstr ""
 
@@ -3132,7 +3134,7 @@ msgid "Search for a customer..."
 msgstr ""
 
 #: src/components/nexa/CustomerPicker.tsx:63
-#: src/components/nexa/ProductPicker.tsx:206
+#: src/components/nexa/ProductPicker.tsx:204
 msgid "Searching..."
 msgstr ""
 
@@ -3150,21 +3152,21 @@ msgid "Outstanding Invoices"
 msgstr ""
 
 #: src/components/nexa/InvoiceStatusBadge.tsx:12
-#: src/components/nexa/RestockButton.tsx:66
+#: src/components/nexa/RestockButton.tsx:67
 #: src/pages/nexa/PurchaseListPage.tsx:67
 #: src/pages/nexa/ReceivablesReportPage.tsx:94
 msgid "Unpaid"
 msgstr ""
 
 #: src/components/nexa/InvoiceStatusBadge.tsx:13
-#: src/components/nexa/RestockButton.tsx:67
+#: src/components/nexa/RestockButton.tsx:68
 #: src/pages/nexa/PurchaseListPage.tsx:68
 #: src/pages/nexa/ReceivablesReportPage.tsx:96
 msgid "Partially Paid"
 msgstr ""
 
 #: src/components/nexa/InvoiceStatusBadge.tsx:14
-#: src/components/nexa/RestockButton.tsx:68
+#: src/components/nexa/RestockButton.tsx:69
 #: src/pages/nexa/InvoiceDetailPage.tsx:129
 #: src/pages/nexa/PurchaseListPage.tsx:69
 #: src/pages/nexa/ReceivablesReportPage.tsx:99
@@ -3234,13 +3236,13 @@ msgid "Cash (OTC)"
 msgstr ""
 
 #: src/components/nexa/NexaDashboard.tsx:43
-#: src/components/nexa/RecordSaleButton.tsx:77
+#: src/components/nexa/RecordSaleButton.tsx:78
 #: src/pages/nexa/SalesReportPage.tsx:34
 msgid "Online / Mobile"
 msgstr ""
 
 #: src/components/nexa/NexaDashboard.tsx:44
-#: src/components/nexa/RecordSaleButton.tsx:65
+#: src/components/nexa/RecordSaleButton.tsx:66
 #: src/components/nexa/TransactionStatusBadge.tsx:25
 #: src/pages/nexa/SalesReportPage.tsx:35
 msgid "Prescription"
@@ -3255,8 +3257,8 @@ msgid "Collected Today"
 msgstr ""
 
 #: src/components/nexa/NexaDashboard.tsx:151
-#: src/components/nexa/ReceivePaymentButton.tsx:93
-#: src/components/nexa/RecordSaleButton.tsx:471
+#: src/components/nexa/ReceivePaymentButton.tsx:94
+#: src/components/nexa/RecordSaleButton.tsx:472
 #: src/components/tables/Filter.tsx:186
 #: src/pages/nexa/InvoiceDetailPage.tsx:134
 #: src/pages/nexa/ReceivablesReportPage.tsx:112
@@ -3325,99 +3327,99 @@ msgstr ""
 msgid "Controlled"
 msgstr ""
 
-#: src/components/nexa/ProductPicker.tsx:188
-#: src/components/nexa/RecordSaleButton.tsx:171
+#: src/components/nexa/ProductPicker.tsx:186
+#: src/components/nexa/RecordSaleButton.tsx:172
 #: src/pages/nexa/ExpiryReportPage.tsx:63
 #: src/pages/nexa/PurchaseListPage.tsx:88
 msgid "Medicine"
 msgstr ""
 
-#: src/components/nexa/ProductPicker.tsx:189
+#: src/components/nexa/ProductPicker.tsx:187
 msgid "Search for a medicine..."
 msgstr ""
 
-#: src/components/nexa/ProductPicker.tsx:206
+#: src/components/nexa/ProductPicker.tsx:204
 msgid "No medicines found"
 msgstr ""
 
-#: src/components/nexa/ProductPicker.tsx:225
+#: src/components/nexa/ProductPicker.tsx:223
 msgid "Out of stock"
 msgstr ""
 
-#: src/components/nexa/ProductPicker.tsx:238
+#: src/components/nexa/ProductPicker.tsx:236
 msgid "{sellableText} available to sell — earliest expiry is sold first"
 msgstr ""
 
-#: src/components/nexa/ProductPicker.tsx:239
+#: src/components/nexa/ProductPicker.tsx:237
 msgid "Only expired stock is left — nothing can be sold"
 msgstr ""
 
-#: src/components/nexa/ProductPicker.tsx:257
+#: src/components/nexa/ProductPicker.tsx:255
 msgid "+ {more} more batches"
 msgstr ""
 
-#: src/components/nexa/ReceivePaymentButton.tsx:22
-#: src/components/nexa/RecordSaleButton.tsx:236
+#: src/components/nexa/ReceivePaymentButton.tsx:23
+#: src/components/nexa/RecordSaleButton.tsx:237
 #: src/components/nexa/TransactionStatusBadge.tsx:23
 #: src/forms/NexaForms.tsx:114
 #: src/tables/nexa/PaymentHistoryTable.tsx:18
 msgid "Cash"
 msgstr ""
 
-#: src/components/nexa/ReceivePaymentButton.tsx:23
-#: src/components/nexa/RecordSaleButton.tsx:237
+#: src/components/nexa/ReceivePaymentButton.tsx:24
+#: src/components/nexa/RecordSaleButton.tsx:238
 #: src/components/nexa/TransactionStatusBadge.tsx:24
 #: src/forms/NexaForms.tsx:115
 #: src/tables/nexa/PaymentHistoryTable.tsx:19
 msgid "Online"
 msgstr ""
 
-#: src/components/nexa/ReceivePaymentButton.tsx:24
+#: src/components/nexa/ReceivePaymentButton.tsx:25
 #: src/forms/NexaForms.tsx:116
 #: src/tables/nexa/PaymentHistoryTable.tsx:20
 msgid "Cheque"
 msgstr ""
 
-#: src/components/nexa/ReceivePaymentButton.tsx:80
+#: src/components/nexa/ReceivePaymentButton.tsx:81
 #: src/pages/nexa/InvoiceDetailPage.tsx:85
 msgid "Payment recorded"
 msgstr ""
 
-#: src/components/nexa/ReceivePaymentButton.tsx:86
+#: src/components/nexa/ReceivePaymentButton.tsx:87
 msgid "Could not record payment"
 msgstr ""
 
-#: src/components/nexa/ReceivePaymentButton.tsx:105
-#: src/components/nexa/ReceivePaymentButton.tsx:113
+#: src/components/nexa/ReceivePaymentButton.tsx:106
+#: src/components/nexa/ReceivePaymentButton.tsx:114
 msgid "Receive Payment"
 msgstr ""
 
-#: src/components/nexa/ReceivePaymentButton.tsx:132
+#: src/components/nexa/ReceivePaymentButton.tsx:133
 #: src/pages/nexa/PurchaseListPage.tsx:86
 msgid "Invoice"
 msgstr ""
 
-#: src/components/nexa/ReceivePaymentButton.tsx:136
+#: src/components/nexa/ReceivePaymentButton.tsx:137
 msgid "Select an outstanding invoice"
 msgstr ""
 
-#: src/components/nexa/ReceivePaymentButton.tsx:141
+#: src/components/nexa/ReceivePaymentButton.tsx:142
 msgid "No outstanding invoices for this customer"
 msgstr ""
 
-#: src/components/nexa/ReceivePaymentButton.tsx:146
+#: src/components/nexa/ReceivePaymentButton.tsx:147
 #: src/forms/NexaForms.tsx:105
 #: src/tables/nexa/PaymentHistoryTable.tsx:31
 msgid "Amount"
 msgstr ""
 
-#: src/components/nexa/ReceivePaymentButton.tsx:154
+#: src/components/nexa/ReceivePaymentButton.tsx:155
 #: src/pages/Index/Settings/AccountSettings/SecurityContent.tsx:152
 #: src/tables/nexa/PaymentHistoryTable.tsx:37
 msgid "Method"
 msgstr "认证方式"
 
-#: src/components/nexa/ReceivePaymentButton.tsx:161
+#: src/components/nexa/ReceivePaymentButton.tsx:162
 #: src/components/tables/ColumnRenderers.tsx:541
 #: src/forms/NexaForms.tsx:126
 #: src/pages/build/BuildOrderDetailsPanel.tsx:90
@@ -3433,25 +3435,25 @@ msgstr "认证方式"
 msgid "Reference"
 msgstr "参考"
 
-#: src/components/nexa/ReceivePaymentButton.tsx:171
+#: src/components/nexa/ReceivePaymentButton.tsx:172
 #: src/pages/nexa/InvoiceDetailPage.tsx:82
 #: src/pages/nexa/InvoiceDetailPage.tsx:116
 msgid "Record Payment"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:59
+#: src/components/nexa/RecordSaleButton.tsx:60
 msgid "Cash Sale (OTC)"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:71
+#: src/components/nexa/RecordSaleButton.tsx:72
 msgid "Credit Sale"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:178
+#: src/components/nexa/RecordSaleButton.tsx:179
 msgid "Remove medicine"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:199
+#: src/components/nexa/RecordSaleButton.tsx:200
 #: src/components/render/Stock.tsx:100
 #: src/components/wizards/OrderPartsWizard.tsx:389
 #: src/forms/BomForms.tsx:42
@@ -3491,41 +3493,41 @@ msgstr ""
 msgid "Quantity"
 msgstr "数量"
 
-#: src/components/nexa/RecordSaleButton.tsx:204
+#: src/components/nexa/RecordSaleButton.tsx:205
 msgid "More than the {sellable} available"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:207
+#: src/components/nexa/RecordSaleButton.tsx:208
 #: src/forms/NexaForms.tsx:42
 #: src/forms/NexaForms.tsx:76
 msgid "Unit Value"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:238
+#: src/components/nexa/RecordSaleButton.tsx:239
 msgid "QR"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:239
+#: src/components/nexa/RecordSaleButton.tsx:240
 msgid "Other"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:416
+#: src/components/nexa/RecordSaleButton.tsx:417
 msgid "Something went wrong recording this sale"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:441
-#: src/components/nexa/RecordSaleButton.tsx:447
-#: src/components/nexa/RecordSaleButton.tsx:504
+#: src/components/nexa/RecordSaleButton.tsx:442
+#: src/components/nexa/RecordSaleButton.tsx:448
+#: src/components/nexa/RecordSaleButton.tsx:505
 msgid "New Sale"
 msgstr ""
 
 #. placeholder {0}: success.reference
-#: src/components/nexa/RecordSaleButton.tsx:468
+#: src/components/nexa/RecordSaleButton.tsx:469
 msgid "Invoice {0} created"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:471
-#: src/components/nexa/RecordSaleButton.tsx:726
+#: src/components/nexa/RecordSaleButton.tsx:472
+#: src/components/nexa/RecordSaleButton.tsx:732
 #: src/pages/nexa/InvoiceDetailPage.tsx:127
 #: src/pages/nexa/PurchaseListPage.tsx:92
 #: src/tables/nexa/InvoiceTable.tsx:76
@@ -3533,14 +3535,14 @@ msgid "Total"
 msgstr "Total"
 
 #. placeholder {0}: success.reference
-#: src/components/nexa/RecordSaleButton.tsx:480
+#: src/components/nexa/RecordSaleButton.tsx:481
 msgid "Bill {0} saved"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:493
-#: src/components/nexa/RecordSaleButton.tsx:679
-#: src/components/nexa/RecordSaleButton.tsx:720
-#: src/components/nexa/RestockButton.tsx:261
+#: src/components/nexa/RecordSaleButton.tsx:494
+#: src/components/nexa/RecordSaleButton.tsx:683
+#: src/components/nexa/RecordSaleButton.tsx:726
+#: src/components/nexa/RestockButton.tsx:262
 #: src/tables/general/ExtraLineItemTable.tsx:81
 #: src/tables/purchasing/PurchaseOrderLineItemTable.tsx:270
 #: src/tables/sales/ReturnOrderLineItemTable.tsx:201
@@ -3548,45 +3550,45 @@ msgstr ""
 msgid "Discount"
 msgstr "折扣"
 
-#: src/components/nexa/RecordSaleButton.tsx:497
-#: src/components/nexa/RecordSaleButton.tsx:726
+#: src/components/nexa/RecordSaleButton.tsx:498
+#: src/components/nexa/RecordSaleButton.tsx:732
 #: src/pages/nexa/BillListPage.tsx:64
 msgid "Net Amount"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:513
+#: src/components/nexa/RecordSaleButton.tsx:514
 msgid "View Invoice"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:523
+#: src/components/nexa/RecordSaleButton.tsx:524
 msgid "View / Print Bill"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:553
+#: src/components/nexa/RecordSaleButton.tsx:554
 msgid "Branch"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:587
+#: src/components/nexa/RecordSaleButton.tsx:588
 msgid "Add Medicine"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:593
+#: src/components/nexa/RecordSaleButton.tsx:594
 msgid "Prescription-only medicine in this sale. Choose Prescription as the sale type."
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:600
+#: src/components/nexa/RecordSaleButton.tsx:601
 msgid "Prescriber"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:601
+#: src/components/nexa/RecordSaleButton.tsx:602
 msgid "Doctor's name"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:609
+#: src/components/nexa/RecordSaleButton.tsx:611
 msgid "Prescription Reference"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:610
+#: src/components/nexa/RecordSaleButton.tsx:612
 msgid "Prescription no."
 msgstr ""
 
@@ -3609,31 +3611,31 @@ msgstr ""
 msgid "Customer Name"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:647
+#: src/components/nexa/RecordSaleButton.tsx:648
 msgid "Phone"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:661
+#: src/components/nexa/RecordSaleButton.tsx:664
 msgid "Customer PAN"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:670
+#: src/components/nexa/RecordSaleButton.tsx:674
 msgid "Payment Mode"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:686
+#: src/components/nexa/RecordSaleButton.tsx:690
 msgid "More than the bill total"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:691
+#: src/components/nexa/RecordSaleButton.tsx:695
 msgid "Reason for Discount"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:717
+#: src/components/nexa/RecordSaleButton.tsx:723
 msgid "Sub-total"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:740
+#: src/components/nexa/RecordSaleButton.tsx:746
 msgid "Complete Sale"
 msgstr ""
 
@@ -3653,20 +3655,20 @@ msgstr "到"
 msgid "Expiry"
 msgstr "到期"
 
-#: src/components/nexa/RestockButton.tsx:139
+#: src/components/nexa/RestockButton.tsx:140
 msgid "Stock received"
 msgstr ""
 
-#: src/components/nexa/RestockButton.tsx:146
+#: src/components/nexa/RestockButton.tsx:147
 msgid "Could not receive stock"
 msgstr ""
 
-#: src/components/nexa/RestockButton.tsx:174
-#: src/components/nexa/RestockButton.tsx:182
+#: src/components/nexa/RestockButton.tsx:175
+#: src/components/nexa/RestockButton.tsx:183
 msgid "Receive Stock"
 msgstr ""
 
-#: src/components/nexa/RestockButton.tsx:195
+#: src/components/nexa/RestockButton.tsx:196
 #: src/components/tables/Filter.tsx:467
 #: src/components/wizards/ImportPartWizard.tsx:205
 #: src/pages/company/CompanyDetailsPanel.tsx:72
@@ -3684,62 +3686,62 @@ msgstr ""
 msgid "Supplier"
 msgstr "供应商"
 
-#: src/components/nexa/RestockButton.tsx:201
+#: src/components/nexa/RestockButton.tsx:202
 msgid "No suppliers — add one under Purchasing"
 msgstr ""
 
-#: src/components/nexa/RestockButton.tsx:204
+#: src/components/nexa/RestockButton.tsx:205
 msgid "Purchase Invoice No."
 msgstr ""
 
-#: src/components/nexa/RestockButton.tsx:209
+#: src/components/nexa/RestockButton.tsx:210
 msgid "Purchase Date"
 msgstr ""
 
-#: src/components/nexa/RestockButton.tsx:215
+#: src/components/nexa/RestockButton.tsx:216
 msgid "Payment Status"
 msgstr ""
 
-#: src/components/nexa/RestockButton.tsx:228
+#: src/components/nexa/RestockButton.tsx:229
 msgid "Batch Number"
 msgstr ""
 
-#: src/components/nexa/RestockButton.tsx:234
+#: src/components/nexa/RestockButton.tsx:235
 #: src/forms/PurchaseOrderForms.tsx:812
 #: src/pages/stock/StockDetailsPanel.tsx:316
 #: src/tables/stock/StockItemTable.tsx:171
 msgid "Expiry Date"
 msgstr "有效期至"
 
-#: src/components/nexa/RestockButton.tsx:241
+#: src/components/nexa/RestockButton.tsx:242
 msgid "Quantity Received"
 msgstr ""
 
-#: src/components/nexa/RestockButton.tsx:248
+#: src/components/nexa/RestockButton.tsx:249
 msgid "Free / Bonus Quantity"
 msgstr ""
 
-#: src/components/nexa/RestockButton.tsx:254
+#: src/components/nexa/RestockButton.tsx:255
 msgid "Unit Purchase Cost"
 msgstr ""
 
-#: src/components/nexa/RestockButton.tsx:268
+#: src/components/nexa/RestockButton.tsx:269
 msgid "Tax"
 msgstr ""
 
-#: src/components/nexa/RestockButton.tsx:276
+#: src/components/nexa/RestockButton.tsx:277
 msgid "Line total"
 msgstr ""
 
-#: src/components/nexa/RestockButton.tsx:279
+#: src/components/nexa/RestockButton.tsx:280
 msgid "Received Into"
 msgstr ""
 
-#: src/components/nexa/RestockButton.tsx:285
+#: src/components/nexa/RestockButton.tsx:286
 msgid "No stock locations — create one under Stock"
 msgstr ""
 
-#: src/components/nexa/RestockButton.tsx:293
+#: src/components/nexa/RestockButton.tsx:294
 #: src/forms/StockForms.tsx:1999
 #: src/hooks/UseStockAdjustActions.tsx:112
 msgid "Add Stock"
@@ -3751,7 +3753,7 @@ msgstr ""
 
 #: src/components/nexa/TransactionStatusBadge.tsx:26
 #: src/forms/StockForms.tsx:1564
-#: src/pages/nexa/BillPage.tsx:284
+#: src/pages/nexa/BillPage.tsx:285
 msgid "Return"
 msgstr "退货"
 
@@ -5178,13 +5180,13 @@ msgid "Server Information"
 msgstr "服务器信息"
 
 #: src/defaults/actions.tsx:77
-#: src/defaults/links.tsx:201
+#: src/defaults/links.tsx:213
 msgid "About this InvenTree instance"
 msgstr "关于 InvenTree 实例"
 
 #: src/defaults/actions.tsx:83
-#: src/defaults/links.tsx:178
-#: src/defaults/links.tsx:207
+#: src/defaults/links.tsx:190
+#: src/defaults/links.tsx:219
 msgid "License Information"
 msgstr "许可信息"
 
@@ -5283,57 +5285,57 @@ msgstr "InvenTree 演示版"
 msgid "Current Server"
 msgstr "当前服务器"
 
-#: src/defaults/links.tsx:118
+#: src/defaults/links.tsx:130
 msgid "API"
 msgstr "API"
 
-#: src/defaults/links.tsx:121
+#: src/defaults/links.tsx:133
 msgid "InvenTree API documentation"
 msgstr "InvenTree API 文档"
 
-#: src/defaults/links.tsx:125
+#: src/defaults/links.tsx:137
 msgid "Developer Manual"
 msgstr "开发者手册"
 
-#: src/defaults/links.tsx:128
+#: src/defaults/links.tsx:140
 msgid "InvenTree developer manual"
 msgstr "InvenTree 开发者手册"
 
-#: src/defaults/links.tsx:132
+#: src/defaults/links.tsx:144
 msgid "FAQ"
 msgstr "FAQ"
 
-#: src/defaults/links.tsx:135
+#: src/defaults/links.tsx:147
 msgid "Frequently asked questions"
 msgstr "常见问题"
 
-#: src/defaults/links.tsx:139
+#: src/defaults/links.tsx:151
 msgid "GitHub Repository"
 msgstr "GitHub 存储库"
 
-#: src/defaults/links.tsx:142
+#: src/defaults/links.tsx:154
 msgid "InvenTree source code on GitHub"
 msgstr "GitHub 上的 InvenTree 源代码"
 
-#: src/defaults/links.tsx:152
-#: src/defaults/links.tsx:200
+#: src/defaults/links.tsx:164
+#: src/defaults/links.tsx:212
 msgid "System Information"
 msgstr "系统信息"
 
-#: src/defaults/links.tsx:165
-#: src/defaults/links.tsx:218
+#: src/defaults/links.tsx:177
+#: src/defaults/links.tsx:230
 msgid "About InvenTree"
 msgstr "关于 InvenTree"
 
-#: src/defaults/links.tsx:194
+#: src/defaults/links.tsx:206
 msgid "InvenTree documentation"
 msgstr "InvenTree 文档"
 
-#: src/defaults/links.tsx:208
+#: src/defaults/links.tsx:220
 msgid "Licenses for dependencies of the InvenTree software"
 msgstr "InvenTree软件依赖许可"
 
-#: src/defaults/links.tsx:219
+#: src/defaults/links.tsx:231
 msgid "About the InvenTree Project"
 msgstr "关于InvenTree项目"
 
@@ -8195,59 +8197,59 @@ msgstr ""
 
 #. placeholder {0}: response.data.reference
 #. placeholder {1}: response.data.refund_amount
-#: src/pages/nexa/BillPage.tsx:102
+#: src/pages/nexa/BillPage.tsx:103
 msgid "Return {0} recorded — refund {1}"
 msgstr ""
 
-#: src/pages/nexa/BillPage.tsx:111
+#: src/pages/nexa/BillPage.tsx:112
 msgid "Could not record the return"
 msgstr ""
 
-#: src/pages/nexa/BillPage.tsx:117
+#: src/pages/nexa/BillPage.tsx:118
 msgid "Return items"
 msgstr ""
 
-#: src/pages/nexa/BillPage.tsx:122
+#: src/pages/nexa/BillPage.tsx:123
 msgid "batch"
 msgstr ""
 
-#: src/pages/nexa/BillPage.tsx:122
+#: src/pages/nexa/BillPage.tsx:123
 msgid "up to"
 msgstr ""
 
-#: src/pages/nexa/BillPage.tsx:125
+#: src/pages/nexa/BillPage.tsx:126
 msgid "Quantity returned"
 msgstr ""
 
-#: src/pages/nexa/BillPage.tsx:139
+#: src/pages/nexa/BillPage.tsx:140
 msgid "Stock disposition"
 msgstr ""
 
-#: src/pages/nexa/BillPage.tsx:141
+#: src/pages/nexa/BillPage.tsx:142
 msgid "Resalable — back to stock"
 msgstr ""
 
-#: src/pages/nexa/BillPage.tsx:142
+#: src/pages/nexa/BillPage.tsx:143
 msgid "Not resalable — damaged / expired"
 msgstr ""
 
-#: src/pages/nexa/BillPage.tsx:149
+#: src/pages/nexa/BillPage.tsx:150
 msgid "Refund"
 msgstr ""
 
-#: src/pages/nexa/BillPage.tsx:156
+#: src/pages/nexa/BillPage.tsx:157
 msgid "Record Return"
 msgstr ""
 
-#: src/pages/nexa/BillPage.tsx:182
+#: src/pages/nexa/BillPage.tsx:183
 msgid "Bill not found"
 msgstr ""
 
-#: src/pages/nexa/BillPage.tsx:207
+#: src/pages/nexa/BillPage.tsx:208
 msgid "All Bills"
 msgstr ""
 
-#: src/pages/nexa/BillPage.tsx:210
+#: src/pages/nexa/BillPage.tsx:211
 msgid "Print Bill"
 msgstr ""
 
