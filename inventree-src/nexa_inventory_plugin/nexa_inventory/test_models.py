@@ -59,7 +59,7 @@ class SaleTypeMovementTest(TestCase):
 class InvoiceTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_user('invoice-tester', password='pw')
-        self.customer = Company.objects.create(name='Acme Stationers', is_customer=True)
+        self.customer = Company.objects.create(name='Acme Pharma', is_customer=True)
 
     def test_reference_auto_generates_with_default_pattern(self):
         invoice = Invoice.objects.create(
@@ -118,7 +118,7 @@ class InvoiceTest(TestCase):
 class InvoiceLineItemTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_user('line-tester', password='pw')
-        self.customer = Company.objects.create(name='Acme Stationers', is_customer=True)
+        self.customer = Company.objects.create(name='Acme Pharma', is_customer=True)
         self.part = Part.objects.create(name='Test Pad', description='Test', active=True)
         self.stock_item = StockItem.objects.create(part=self.part, quantity=10)
 
@@ -166,7 +166,7 @@ class InvoiceLineItemTest(TestCase):
 class PaymentTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_user('pay-tester', password='pw')
-        self.customer = Company.objects.create(name='Acme Stationers', is_customer=True)
+        self.customer = Company.objects.create(name='Acme Pharma', is_customer=True)
         self.invoice = Invoice.objects.create(
             customer=self.customer,
             due_date=timezone.localdate(),

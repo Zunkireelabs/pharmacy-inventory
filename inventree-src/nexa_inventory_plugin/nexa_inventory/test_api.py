@@ -23,7 +23,7 @@ class RecordSaleApiTest(APITestCase):
             name='Test Pen', description='Test', active=True, purchaseable=True, salable=True
         )
         self.stock_item = StockItem.objects.create(part=self.part, quantity=10)
-        self.url = reverse('plugin:stationerysales:record-sale')
+        self.url = reverse('plugin:nexainventory:record-sale')
 
     def test_record_gift_reduces_stock_and_creates_movement(self):
         response = self.client.post(
@@ -137,8 +137,8 @@ class RecordB2BSaleApiTest(APITestCase):
             name='Test Notebook', description='Test', active=True, purchaseable=True, salable=True
         )
         self.stock_item = StockItem.objects.create(part=self.part, quantity=50)
-        self.customer = Company.objects.create(name='Acme Stationers', is_customer=True)
-        self.url = reverse('plugin:stationerysales:record-b2b-sale')
+        self.customer = Company.objects.create(name='Acme Pharma', is_customer=True)
+        self.url = reverse('plugin:nexainventory:record-b2b-sale')
 
     def test_valid_b2b_sale_creates_invoice_and_reduces_stock(self):
         response = self.client.post(
@@ -278,14 +278,14 @@ class InvoicePaymentsApiTest(APITestCase):
     def setUp(self):
         self.user = User.objects.create_user('pay-api-tester', password='pw', is_staff=True)
         self.client.force_authenticate(self.user)
-        self.customer = Company.objects.create(name='Acme Stationers', is_customer=True)
+        self.customer = Company.objects.create(name='Acme Pharma', is_customer=True)
         self.invoice = Invoice.objects.create(
             customer=self.customer,
             due_date=timezone.localdate(),
             total=Decimal('50000'),
             created_by=self.user,
         )
-        self.url = reverse('plugin:stationerysales:invoice-payments', args=[self.invoice.pk])
+        self.url = reverse('plugin:nexainventory:invoice-payments', args=[self.invoice.pk])
 
     def test_partial_then_full_payment_flow(self):
         r1 = self.client.post(self.url, {'amount': '10000', 'method': 'cash'}, format='json')
@@ -330,7 +330,7 @@ class InvoiceListApiTest(APITestCase):
     def setUp(self):
         self.user = User.objects.create_user('list-tester', password='pw', is_staff=True)
         self.client.force_authenticate(self.user)
-        self.customer = Company.objects.create(name='Acme Stationers', is_customer=True)
+        self.customer = Company.objects.create(name='Acme Pharma', is_customer=True)
         self.invoice1 = Invoice.objects.create(
             customer=self.customer,
             due_date=timezone.localdate(),
@@ -346,7 +346,7 @@ class InvoiceListApiTest(APITestCase):
         )
 
     def test_list_returns_all_invoices_with_expected_fields(self):
-        url = reverse('plugin:stationerysales:invoice-list')
+        url = reverse('plugin:nexainventory:invoice-list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 2)
@@ -366,14 +366,14 @@ class InvoiceListApiTest(APITestCase):
     def test_list_includes_cancelled_invoices(self):
         # This is a general listing endpoint, not the receivables report —
         # cancelled invoices should still be visible here.
-        url = reverse('plugin:stationerysales:invoice-list')
+        url = reverse('plugin:nexainventory:invoice-list')
         response = self.client.get(url)
         ids = [r['id'] for r in response.data]
         self.assertIn(self.invoice2.id, ids)
 
     def test_unauthenticated_rejected(self):
         self.client.force_authenticate(user=None)
-        url = reverse('plugin:stationerysales:invoice-list')
+        url = reverse('plugin:nexainventory:invoice-list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 401)
 
@@ -382,7 +382,7 @@ class InvoiceDetailApiTest(APITestCase):
     def setUp(self):
         self.user = User.objects.create_user('detail-tester', password='pw', is_staff=True)
         self.client.force_authenticate(self.user)
-        self.customer = Company.objects.create(name='Acme Stationers', is_customer=True)
+        self.customer = Company.objects.create(name='Acme Pharma', is_customer=True)
         self.invoice = Invoice.objects.create(
             customer=self.customer,
             due_date=timezone.localdate() - timedelta(days=45),
@@ -391,7 +391,7 @@ class InvoiceDetailApiTest(APITestCase):
         )
 
     def test_retrieve_invoice(self):
-        url = reverse('plugin:stationerysales:invoice-detail', args=[self.invoice.pk])
+        url = reverse('plugin:nexainventory:invoice-detail', args=[self.invoice.pk])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data['reference'], self.invoice.reference)
@@ -399,7 +399,7 @@ class InvoiceDetailApiTest(APITestCase):
         self.assertEqual(response.data['aging_bucket'], '31-60')
 
     def test_retrieve_missing_invoice_404(self):
-        url = reverse('plugin:stationerysales:invoice-detail', args=[999999])
+        url = reverse('plugin:nexainventory:invoice-detail', args=[999999])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 404)
 
@@ -408,7 +408,7 @@ class CustomerReceivablesApiTest(APITestCase):
     def setUp(self):
         self.user = User.objects.create_user('receivables-tester', password='pw', is_staff=True)
         self.client.force_authenticate(self.user)
-        self.customer = Company.objects.create(name='Acme Stationers', is_customer=True)
+        self.customer = Company.objects.create(name='Acme Pharma', is_customer=True)
         self.paid = Invoice.objects.create(
             customer=self.customer, due_date=timezone.localdate(), total=Decimal('100'),
             created_by=self.user, status=Invoice.Status.PAID,
@@ -423,7 +423,7 @@ class CustomerReceivablesApiTest(APITestCase):
         )
 
     def test_receivables_excludes_paid_and_cancelled(self):
-        url = reverse('plugin:stationerysales:customer-receivables', args=[self.customer.pk])
+        url = reverse('plugin:nexainventory:customer-receivables', args=[self.customer.pk])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Decimal(response.data['total_outstanding']), Decimal('300'))
@@ -435,7 +435,7 @@ class MovementListApiTest(APITestCase):
     def setUp(self):
         self.user = User.objects.create_user('movement-tester', password='pw', is_staff=True)
         self.client.force_authenticate(self.user)
-        self.url = reverse('plugin:stationerysales:movement-list')
+        self.url = reverse('plugin:nexainventory:movement-list')
 
     def test_unauthenticated_rejected(self):
         self.client.force_authenticate(user=None)

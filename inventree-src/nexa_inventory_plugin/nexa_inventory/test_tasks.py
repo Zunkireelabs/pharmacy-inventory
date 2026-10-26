@@ -22,7 +22,7 @@ class CheckInvoiceDueDatesTest(TestCase):
             'inactive-user', password='pw', is_active=False
         )
         self.creator = User.objects.create_user('creator', password='pw', is_active=False)
-        self.customer = Company.objects.create(name='Acme Stationers', is_customer=True)
+        self.customer = Company.objects.create(name='Acme Pharma', is_customer=True)
 
     def _make_invoice(self, due_date, status=Invoice.Status.UNPAID):
         return Invoice.objects.create(
@@ -39,7 +39,7 @@ class CheckInvoiceDueDatesTest(TestCase):
 
         check_invoice_due_dates()
 
-        messages = NotificationMessage.objects.filter(category='stationerysales.invoice_due_soon')
+        messages = NotificationMessage.objects.filter(category='nexainventory.invoice_due_soon')
         self.assertEqual(messages.count(), 1)
         message = messages.first()
         self.assertEqual(message.user, self.active_user)
@@ -53,7 +53,7 @@ class CheckInvoiceDueDatesTest(TestCase):
 
         check_invoice_due_dates()
 
-        messages = NotificationMessage.objects.filter(category='stationerysales.invoice_due_soon')
+        messages = NotificationMessage.objects.filter(category='nexainventory.invoice_due_soon')
         self.assertFalse(messages.filter(user=self.inactive_user).exists())
 
     def test_notifies_active_users_when_invoice_just_went_overdue(self):
@@ -62,7 +62,7 @@ class CheckInvoiceDueDatesTest(TestCase):
 
         check_invoice_due_dates()
 
-        messages = NotificationMessage.objects.filter(category='stationerysales.invoice_overdue')
+        messages = NotificationMessage.objects.filter(category='nexainventory.invoice_overdue')
         self.assertEqual(messages.count(), 1)
         message = messages.first()
         self.assertEqual(message.user, self.active_user)
@@ -78,12 +78,12 @@ class CheckInvoiceDueDatesTest(TestCase):
 
         self.assertFalse(
             NotificationMessage.objects.filter(
-                category='stationerysales.invoice_due_soon'
+                category='nexainventory.invoice_due_soon'
             ).exists()
         )
         self.assertFalse(
             NotificationMessage.objects.filter(
-                category='stationerysales.invoice_overdue'
+                category='nexainventory.invoice_overdue'
             ).exists()
         )
 
@@ -95,7 +95,7 @@ class CheckInvoiceDueDatesTest(TestCase):
 
         self.assertFalse(
             NotificationMessage.objects.filter(
-                category='stationerysales.invoice_overdue'
+                category='nexainventory.invoice_overdue'
             ).exists()
         )
 
@@ -106,5 +106,5 @@ class CheckInvoiceDueDatesTest(TestCase):
         check_invoice_due_dates()
         check_invoice_due_dates()
 
-        messages = NotificationMessage.objects.filter(category='stationerysales.invoice_overdue')
+        messages = NotificationMessage.objects.filter(category='nexainventory.invoice_overdue')
         self.assertEqual(messages.count(), 1)

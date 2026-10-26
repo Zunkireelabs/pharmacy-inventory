@@ -1,4 +1,4 @@
-"""Plugin definition for stationery_sales."""
+"""Plugin definition for nexa_inventory."""
 
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
@@ -7,15 +7,15 @@ from plugin import InvenTreePlugin
 from plugin.mixins import AppMixin, ScheduleMixin, SettingsMixin, UrlsMixin
 
 
-class StationerySalesPlugin(ScheduleMixin, SettingsMixin, AppMixin, UrlsMixin, InvenTreePlugin):
+class NexaInventoryPlugin(ScheduleMixin, SettingsMixin, AppMixin, UrlsMixin, InvenTreePlugin):
     """Adds sale-type tracking (B2B credit / B2C cash / B2C online / Gift /
     Restock / Correction) and B2B receivables (invoices/payments) on top of
     InvenTree's stock model, without modifying core.
     """
 
-    NAME = 'StationerySales'
-    SLUG = 'stationerysales'
-    TITLE = 'Stationery Sales'
+    NAME = 'NexaInventory'
+    SLUG = 'nexainventory'
+    TITLE = 'Nexa Inventory'
     AUTHOR = 'internal'
     DESCRIPTION = 'Sale-type dimension + B2B receivables for stock movements'
     VERSION = '0.2.0'
@@ -38,7 +38,7 @@ class StationerySalesPlugin(ScheduleMixin, SettingsMixin, AppMixin, UrlsMixin, I
     def check_invoice_due_dates(self):
         # Deferred import: see setup_urls() below for why - plugin app isn't
         # registered in INSTALLED_APPS yet when this class is instantiated.
-        from stationery_sales.tasks import check_invoice_due_dates
+        from nexa_inventory.tasks import check_invoice_due_dates
 
         check_invoice_due_dates()
 
@@ -58,61 +58,61 @@ class StationerySalesPlugin(ScheduleMixin, SettingsMixin, AppMixin, UrlsMixin, I
         # calling View.as_view() internally. Decorate explicitly.
         @csrf_exempt
         def record_sale_view(request, *args, **kwargs):
-            from stationery_sales.api import RecordSaleView
+            from nexa_inventory.api import RecordSaleView
 
             return RecordSaleView.as_view()(request, *args, **kwargs)
 
         @csrf_exempt
         def record_b2b_sale_view(request, *args, **kwargs):
-            from stationery_sales.api import RecordB2BSaleView
+            from nexa_inventory.api import RecordB2BSaleView
 
             return RecordB2BSaleView.as_view()(request, *args, **kwargs)
 
         @csrf_exempt
         def invoice_list_view(request, *args, **kwargs):
-            from stationery_sales.api import InvoiceListView
+            from nexa_inventory.api import InvoiceListView
 
             return InvoiceListView.as_view()(request, *args, **kwargs)
 
         @csrf_exempt
         def invoice_detail_view(request, *args, **kwargs):
-            from stationery_sales.api import InvoiceDetailView
+            from nexa_inventory.api import InvoiceDetailView
 
             return InvoiceDetailView.as_view()(request, *args, **kwargs)
 
         @csrf_exempt
         def invoice_payments_view(request, *args, **kwargs):
-            from stationery_sales.api import InvoicePaymentsView
+            from nexa_inventory.api import InvoicePaymentsView
 
             return InvoicePaymentsView.as_view()(request, *args, **kwargs)
 
         @csrf_exempt
         def customer_receivables_view(request, *args, **kwargs):
-            from stationery_sales.api import CustomerReceivablesView
+            from nexa_inventory.api import CustomerReceivablesView
 
             return CustomerReceivablesView.as_view()(request, *args, **kwargs)
 
         @csrf_exempt
         def sales_summary_report_view(request, *args, **kwargs):
-            from stationery_sales.api import SalesSummaryReportView
+            from nexa_inventory.api import SalesSummaryReportView
 
             return SalesSummaryReportView.as_view()(request, *args, **kwargs)
 
         @csrf_exempt
         def receivables_summary_report_view(request, *args, **kwargs):
-            from stationery_sales.api import ReceivablesSummaryReportView
+            from nexa_inventory.api import ReceivablesSummaryReportView
 
             return ReceivablesSummaryReportView.as_view()(request, *args, **kwargs)
 
         @csrf_exempt
         def gift_summary_report_view(request, *args, **kwargs):
-            from stationery_sales.api import GiftSummaryReportView
+            from nexa_inventory.api import GiftSummaryReportView
 
             return GiftSummaryReportView.as_view()(request, *args, **kwargs)
 
         @csrf_exempt
         def movement_list_view(request, *args, **kwargs):
-            from stationery_sales.api import MovementListView
+            from nexa_inventory.api import MovementListView
 
             return MovementListView.as_view()(request, *args, **kwargs)
 

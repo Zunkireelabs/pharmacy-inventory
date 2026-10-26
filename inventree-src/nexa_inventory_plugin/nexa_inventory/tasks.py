@@ -55,7 +55,7 @@ def check_invoice_due_dates():
     for invoice in open_invoices.filter(due_date=today + timedelta(days=DUE_SOON_LEAD_DAYS)):
         _notify_invoice(
             invoice,
-            'stationerysales.invoice_due_soon',
+            'nexainventory.invoice_due_soon',
             _('Invoice due soon'),
             _(
                 f'Invoice {invoice.reference} for {invoice.customer.name} '
@@ -66,7 +66,7 @@ def check_invoice_due_dates():
     for invoice in open_invoices.filter(due_date=today):
         _notify_invoice(
             invoice,
-            'stationerysales.invoice_overdue',
+            'nexainventory.invoice_overdue',
             _('Invoice overdue'),
             _(f'Invoice {invoice.reference} for {invoice.customer.name} is now overdue'),
         )

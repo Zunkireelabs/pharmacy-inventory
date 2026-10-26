@@ -3,13 +3,13 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "inventree-stationery-sales"
+name = "inventree-nexa-inventory"
 version = "0.1.0"
 description = "First-class sale-type dimension for stock movements (B2B credit / B2C cash / B2C online / Gift / Restock / Correction)"
 requires-python = ">=3.9"
 
 [project.entry-points.inventree_plugins]
-StationerySalesPlugin = "stationery_sales.plugin:StationerySalesPlugin"
+NexaInventoryPlugin = "nexa_inventory.plugin:NexaInventoryPlugin"
 
 [tool.setuptools]
-packages = ["stationery_sales", "stationery_sales.migrations"]
+packages = ["nexa_inventory", "nexa_inventory.migrations"]

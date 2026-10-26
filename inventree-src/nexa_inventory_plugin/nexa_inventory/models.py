@@ -120,7 +120,7 @@ class Invoice(InvenTree.models.ReferenceIndexingMixin, models.Model):
         """
         from plugin.models import PluginConfig, PluginSetting
 
-        plugin_config = PluginConfig.objects.filter(key='stationerysales').first()
+        plugin_config = PluginConfig.objects.filter(key='nexainventory').first()
         if not plugin_config:
             return cls.DEFAULT_REFERENCE_PATTERN
 
