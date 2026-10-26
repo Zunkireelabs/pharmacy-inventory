@@ -21,6 +21,7 @@ import { useShallow } from 'zustand/react/shallow';
 import { doLogout } from '../../functions/auth';
 import * as classes from '../../main.css';
 import { useUserState } from '../../states/UserState';
+import { SHOW_SETTINGS_MENU } from '../../defaults/nexaFlags';
 import { vars } from '../../theme';
 
 export function MainMenu() {
@@ -51,32 +52,36 @@ export function MainMenu() {
           <Menu.Label>
             <Trans>Settings</Trans>
           </Menu.Label>
-          <Menu.Item
-            component={Link}
-            to='/settings/user'
-            leftSection={<IconUserCog />}
-          >
-            <Trans>Account Settings</Trans>
-          </Menu.Item>
-          {isStaff() && (
+          {SHOW_SETTINGS_MENU && (
             <>
               <Menu.Item
                 component={Link}
-                to='/settings/system'
-                leftSection={<IconSettings />}
+                to='/settings/user'
+                leftSection={<IconUserCog />}
               >
-                <Trans>System Settings</Trans>
+                <Trans>Account Settings</Trans>
               </Menu.Item>
-              <Menu.Item
-                component={Link}
-                to='/settings/admin'
-                leftSection={<IconShieldLock />}
-              >
-                <Trans>Admin Center</Trans>
-              </Menu.Item>
+              {isStaff() && (
+                <>
+                  <Menu.Item
+                    component={Link}
+                    to='/settings/system'
+                    leftSection={<IconSettings />}
+                  >
+                    <Trans>System Settings</Trans>
+                  </Menu.Item>
+                  <Menu.Item
+                    component={Link}
+                    to='/settings/admin'
+                    leftSection={<IconShieldLock />}
+                  >
+                    <Trans>Admin Center</Trans>
+                  </Menu.Item>
+                </>
+              )}
+              <Menu.Divider />
             </>
           )}
-          <Menu.Divider />
           <Menu.Item
             onClick={toggleColorScheme}
             leftSection={

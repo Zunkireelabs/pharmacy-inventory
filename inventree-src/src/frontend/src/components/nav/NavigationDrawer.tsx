@@ -7,6 +7,7 @@ import { StylishText } from '@lib/components/StylishText';
 import { ModelType } from '@lib/enums/ModelType';
 import { UserRoles } from '@lib/enums/Roles';
 import { AboutLinks } from '../../defaults/links';
+import { SHOW_SETTINGS_MENU } from '../../defaults/nexaFlags';
 import useInstanceName from '../../hooks/UseInstanceName';
 import * as classes from '../../main.css';
 import { useGlobalSettingsState } from '../../states/SettingsStates';
@@ -164,21 +165,22 @@ function DrawerContent({ closeFunc }: Readonly<{ closeFunc?: () => void }>) {
         id: 'user-settings',
         title: t`User Settings`,
         link: '/settings/user',
-        icon: 'user'
+        icon: 'user',
+        hidden: !SHOW_SETTINGS_MENU
       },
       {
         id: 'system-settings',
         title: t`System Settings`,
         link: '/settings/system',
         icon: 'system',
-        hidden: !user.isStaff()
+        hidden: !SHOW_SETTINGS_MENU || !user.isStaff()
       },
       {
         id: 'admin-center',
         title: t`Admin Center`,
         link: '/settings/admin',
         icon: 'admin',
-        hidden: !user.isStaff()
+        hidden: !SHOW_SETTINGS_MENU || !user.isStaff()
       }
     ];
   }, [user]);
