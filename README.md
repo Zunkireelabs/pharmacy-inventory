@@ -1,105 +1,57 @@
-# Inventory Stationary — InvenTree Deployment
+# Nexa Inventory
 
-Inventory tracking for a stationary shop, built on
-[InvenTree](https://github.com/inventree/InvenTree). Single tenant
-today; architecture supports adding more tenants later without core
-code changes (see Decision below).
+Pharmacy inventory built on [InvenTree](https://github.com/inventree/InvenTree)
+with one custom plugin (`nexa_inventory_plugin`) and a Nexa UI layer in the
+frontend. One deployment = one pharmacy business; each branch is a top-level
+stock location.
 
-Full design rationale: `docs/superpowers/specs/2026-09-18-stationary-inventory-design.md`
+Roadmap and decisions: [`docs/nexa/ROADMAP.md`](docs/nexa/ROADMAP.md)
 
-## Current Setup (this tenant: "stationary")
+## Layout
 
-- **Runtime**: Native Python (venv), not Docker. Docker Desktop
-  requires macOS 14+; this machine runs macOS 13.7 and Colima/qemu
-  fails to build/run on this OS version. InvenTree runs fine as a
-  plain Django app via `invoke`/`manage.py`.
-- **Source**: `inventree-src/` — shallow clone of the official
-  InvenTree repo, Python 3.12 venv at `inventree-src/.venv`.
-- **Database**: Supabase-hosted Postgres (not local). Connection
-  config lives in `inventree-src/.env` (gitignored — has DB
-  password). `~/.pgpass` on this machine also has the Supabase
-  credentials for passwordless `psql` access.
-- **URL**: http://localhost:8000
-- **Accounts**:
-  - Admin: `anishbalami` (full access)
-  - Staff: `shop_staff` (view + adjust stock only, via the "Staff"
-    permission group — no delete, no settings access)
-- **Data configured**: 6 Part Categories (Pens & Writing, Notebooks &
-  Paper, Files & Folders, Art Supplies, Office Consumables, Stationery
-  Sets), root Stock Location "Main Store".
+| Path | What it is |
+|---|---|
+| `inventree-src/` | InvenTree source (tracked, not a submodule) |
+| `inventree-src/nexa_inventory_plugin/` | Plugin: sale-type movements, B2B invoices, payments, receivables, reports (API prefix `/plugin/nexainventory/`) |
+| `inventree-src/src/frontend/src/{pages,tables,components}/nexa/` | Nexa UI (dashboard, sales, invoices, reports) |
+| `docker-compose.prod.yml`, `.github/workflows/deploy.yml` | Production deploy (Traefik + GHCR) |
 
-## Running It
+## Local development
+
+Database: a Supabase-hosted Postgres project dedicated to Nexa. Use the
+**session pooler / direct connection (port 5432)**, not the transaction pooler
+(6543) - Django tests need to create a temporary database.
 
 ```bash
 cd inventree-src
+python3.12 -m venv .venv && source .venv/bin/activate
+pip install invoke
+invoke install
+pip install -e nexa_inventory_plugin
+
+# copy the variables from ../.env.example into inventree-src/.env
+# (gitignored) and fill in the Supabase connection + local data paths
 set -a; source .env; set +a
-source .venv/bin/activate
 
-# web server
+invoke update                                  # migrate, build frontend, collect static
 python3 src/backend/InvenTree/manage.py runserver 0.0.0.0:8000
-
-# background worker (separate terminal/process)
-invoke worker
+invoke worker                                  # separate terminal
 ```
 
-## Tenant Isolation Model
+Run the plugin tests:
 
-**Instance-per-tenant.** Each tenant (shop / future industry) gets its
-own InvenTree deployment and its own database. No InvenTree core code
-is modified to support multiple tenants — isolation comes from running
-separate instances, not from shared multi-tenant application logic.
-Full reasoning in the design spec linked above.
+```bash
+python3 src/backend/InvenTree/manage.py test nexa_inventory -v 2
+```
 
-This was chosen over schema-per-tenant or shared-DB-with-tenant_id
-because InvenTree (Django) has no built-in tenant-routing layer;
-either of those alternatives would mean forking and maintaining
-changes to InvenTree's core against every upstream update.
+## Deployment
 
-## Provisioning a New Tenant
+CI builds `inventree-src/Dockerfile.prod` into `ghcr.io/<GITHUB_OWNER>/pharmacy-inventory`
+and deploys over SSH. Before the first deploy, replace the placeholders
+`<GITHUB_OWNER>`, `<NEXA_HOST>`, `<VPS_PATH>`, `<SUPABASE_REF>` and
+`<SUPABASE_POOLER_HOST>` in `docker-compose.prod.yml`, `.github/workflows/deploy.yml`
+and `.env.example`, and add `VPS_HOST`, `VPS_USER`, `VPS_SSH_KEY` secrets to the
+GitHub repo. Runtime secrets live in `.env.local` on the VPS and are never committed.
 
-To stand up another tenant (another shop, or a different industry
-vertical later):
-
-1. **New database**: create a new Supabase project (or any Postgres
-   instance) for that tenant. Note host, port, db name, user,
-   password.
-2. **New working copy**: `git clone` InvenTree fresh (or copy
-   `inventree-src/` minus `.venv` and `.env`) into a new directory for
-   that tenant.
-3. **New `.env`**: copy `inventree-src/.env` as a starting point, swap
-   in the new tenant's DB connection details. Keep
-   `INVENTREE_CACHE_ENABLED=False` (or stand up Redis per-tenant if
-   you want caching) and set fresh local
-   `INVENTREE_STATIC_ROOT` / `INVENTREE_MEDIA_ROOT` /
-   `INVENTREE_BACKUP_DIR` / `INVENTREE_SECRET_KEY_FILE` paths inside
-   that tenant's own directory (don't share these across tenants).
-4. **Python env**: `python3.12 -m venv .venv`, activate, `pip install
-   invoke`, then `invoke install`.
-5. **First boot**: `invoke update` (runs migrations, builds frontend,
-   collects static files), then `manage.py createsuperuser --noinput`
-   with `DJANGO_SUPERUSER_USERNAME` / `_EMAIL` / `_PASSWORD` env vars
-   set for that tenant's admin.
-6. **Configure the vertical**: create that industry's Part Categories
-   and Stock Location tree via the Django shell or the UI — this is
-   where "stationary shop" vs. some other industry actually differs;
-   no code changes needed, just different category/location data.
-7. **Roles**: recreate a "Staff" permission group (or whatever roles
-   that tenant needs) — see `docs/superpowers/specs/2026-09-18-stationary-inventory-design.md`
-   for the exact permission set used for the stationary tenant's Staff
-   group.
-8. **Run** the new instance on its own port (e.g. `runserver
-   0.0.0.0:8001` for the second tenant) so it doesn't collide with an
-   existing running instance.
-
-No shared code changes are required to onboard a tenant under this
-model — every step above is "repeat the process with new config," not
-"write new application logic."
-
-## Deferred / Not Yet Done
-
-- Production deployment (Zunkiree VPS via CI/CD) — currently local
-  only.
-- InvenTree plugin/frontend customization — none yet; revisit once
-  real usage surfaces concrete needs.
-- Purchase orders / supplier / manufacturing workflows — not set up,
-  add only if needed.
+`docker-compose.yml` is the stock InvenTree recipe and does not include the
+plugin; only `Dockerfile.prod` bakes it in.

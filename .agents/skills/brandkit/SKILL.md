@@ -444,7 +444,7 @@ Visual cues:
 - small serif labels
 - seals / badges
 - color wheel / palette object
-- calm stationery
+- calm paper goods
 - deep blue, red, gold accents
 
 Logo logic:
