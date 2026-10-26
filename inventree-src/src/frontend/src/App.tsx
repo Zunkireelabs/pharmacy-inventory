@@ -15,7 +15,9 @@ export function setApiDefaults() {
   const { getHost } = useLocalState.getState();
 
   api.defaults.baseURL = getHost();
-  api.defaults.timeout = 5000;
+  // Raised from 5s: the server and database can be far apart, and a slow
+  // answer must not be reported as a failure (it still gets saved).
+  api.defaults.timeout = 60000;
 
   api.defaults.withCredentials = true;
   api.defaults.withXSRFToken = true;

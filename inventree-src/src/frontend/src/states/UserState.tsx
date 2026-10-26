@@ -90,7 +90,7 @@ export const useUserState = create<UserStateProps>((set, get) => ({
     const response = await api
       .get(apiUrl(ApiEndpoints.user_me), {
         params: { roles: true },
-        timeout: 2000
+        timeout: 60000
       })
       .catch(() => undefined);
 
