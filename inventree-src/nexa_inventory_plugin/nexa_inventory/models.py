@@ -23,9 +23,12 @@ class SaleTypeMovement(models.Model):
     """
 
     class SaleType(models.TextChoices):
-        B2B_CREDIT = 'b2b_credit', 'B2B Credit'
-        B2C_CASH = 'b2c_cash', 'B2C Cash'
-        B2C_ONLINE = 'b2c_online', 'B2C Online'
+        B2B_CREDIT = 'b2b_credit', 'Credit Sale'
+        B2C_CASH = 'b2c_cash', 'Cash Sale (OTC)'
+        B2C_ONLINE = 'b2c_online', 'Online / Mobile Payment'
+        PRESCRIPTION = 'prescription', 'Prescription Sale'
+        RETURN = 'return', 'Customer Return'
+        EXPIRY_WRITEOFF = 'expiry_writeoff', 'Expiry Write-off'
         RESTOCK = 'restock', 'Restock'
         CORRECTION = 'correction', 'Correction'
 
@@ -43,6 +46,9 @@ class SaleTypeMovement(models.Model):
         'company.Company', on_delete=models.PROTECT, related_name='+', null=True, blank=True
     )
     notes = models.TextField(blank=True)
+    # Light prescription record (no compliance register yet)
+    prescriber = models.CharField(max_length=255, blank=True)
+    prescription_ref = models.CharField(max_length=255, blank=True)
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='+'
     )
@@ -53,6 +59,22 @@ class SaleTypeMovement(models.Model):
 
     def __str__(self):
         return f'{self.get_sale_type_display()} — {self.part} x{self.quantity}'
+
+
+class MedicineInfo(models.Model):
+    """Pharmacy-specific flags for a Part: prescription-only and controlled.
+
+    A part without a row is an ordinary over-the-counter item.
+    """
+
+    part = models.OneToOneField('part.Part', on_delete=models.CASCADE, related_name='medicine_info')
+    requires_prescription = models.BooleanField(default=False)
+    is_controlled = models.BooleanField(default=False)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        flags = [f for f, on in (('Rx', self.requires_prescription), ('controlled', self.is_controlled)) if on]
+        return f'{self.part}: {", ".join(flags) or "OTC"}'
 
 
 class Invoice(InvenTree.models.ReferenceIndexingMixin, models.Model):

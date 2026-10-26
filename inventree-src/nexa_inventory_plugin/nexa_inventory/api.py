@@ -6,7 +6,7 @@ from datetime import date, timedelta
 from decimal import Decimal, InvalidOperation
 
 from django.db import transaction
-from django.db.models import Count, Sum
+from django.db.models import Count, Q, Sum
 from django.utils import timezone
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
@@ -17,11 +17,13 @@ from company.models import Company
 from part.models import Part
 from stock.models import StockItem
 
-from .models import Invoice, InvoiceLineItem, Payment, SaleTypeMovement
+from .models import Invoice, InvoiceLineItem, MedicineInfo, Payment, SaleTypeMovement
 from .services import (
     OUTBOUND_TYPES,
+    SELLING_TYPES,
     SaleRecordingError,
     SaleValidationError,
+    check_prescription_rules,
     plain_quantity,
     record_sale_movement,
     resolve_allocations,
@@ -84,9 +86,9 @@ class RecordSaleView(APIView):
 
         stock_item = part = None
         if data.get('stock_item_id') in (None, '') and data.get('part_id') not in (None, ''):
-            if sale_type not in OUTBOUND_TYPES:
+            if sale_type not in SELLING_TYPES:
                 return Response(
-                    {'detail': 'part_id is only supported for outbound sale types'},
+                    {'detail': 'part_id is only supported for sale types that sell stock'},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
             try:
@@ -142,7 +144,13 @@ class RecordSaleView(APIView):
 
         try:
             with transaction.atomic():
-                if sale_type in OUTBOUND_TYPES:
+                prescriber = (data.get('prescriber') or '').strip()
+                prescription_ref = (data.get('prescription_ref') or '').strip()
+                check_prescription_rules(
+                    part or stock_item.part, sale_type, prescriber, prescription_ref
+                )
+
+                if sale_type in SELLING_TYPES:
                     allocations = resolve_allocations(
                         stock_item=stock_item, part=part, quantity=quantity
                     )
@@ -158,6 +166,8 @@ class RecordSaleView(APIView):
                         customer=customer,
                         user=request.user,
                         notes=data.get('notes', ''),
+                        prescriber=prescriber,
+                        prescription_ref=prescription_ref,
                     )
                     for item, qty in allocations
                 ]
@@ -535,6 +545,7 @@ SALES_REPORT_TYPES = [
     SaleTypeMovement.SaleType.B2B_CREDIT,
     SaleTypeMovement.SaleType.B2C_CASH,
     SaleTypeMovement.SaleType.B2C_ONLINE,
+    SaleTypeMovement.SaleType.PRESCRIPTION,
 ]
 
 
@@ -809,3 +820,108 @@ class MovementListView(APIView):
             })
 
         return Response({'count': count, 'results': results})
+
+
+class MedicineInfoView(APIView):
+    """GET medicine/ (all flagged medicines) or medicine/<part_id>/ (one part,
+    defaults to over-the-counter). PUT/PATCH medicine/<part_id>/ sets
+    requires_prescription and/or is_controlled.
+    """
+
+    permission_classes = [IsAuthenticated]
+
+    @staticmethod
+    def _serialize(part_id, info):
+        return {
+            'part_id': part_id,
+            'requires_prescription': bool(info and info.requires_prescription),
+            'is_controlled': bool(info and info.is_controlled),
+        }
+
+    def get(self, request, part_id=None):
+        if part_id is None:
+            rows = MedicineInfo.objects.filter(
+                Q(requires_prescription=True) | Q(is_controlled=True)
+            )
+            return Response([self._serialize(r.part_id, r) for r in rows])
+        if not Part.objects.filter(pk=part_id).exists():
+            return Response({'detail': 'Part not found'}, status=status.HTTP_404_NOT_FOUND)
+        return Response(self._serialize(part_id, MedicineInfo.objects.filter(part_id=part_id).first()))
+
+    def put(self, request, part_id=None):
+        if part_id is None:
+            return Response({'detail': 'part_id required'}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            part = Part.objects.get(pk=part_id)
+        except Part.DoesNotExist:
+            return Response({'detail': 'Part not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        info, _ = MedicineInfo.objects.get_or_create(part=part)
+        for field in ('requires_prescription', 'is_controlled'):
+            if field in request.data:
+                value = request.data[field]
+                if not isinstance(value, bool):
+                    return Response(
+                        {'detail': f'{field} must be true or false'},
+                        status=status.HTTP_400_BAD_REQUEST,
+                    )
+                setattr(info, field, value)
+        # a controlled medicine is always prescription-only
+        if info.is_controlled:
+            info.requires_prescription = True
+        info.save()
+        return Response(self._serialize(part.pk, info))
+
+    patch = put
+
+
+DEFAULT_EXPIRY_WINDOW_DAYS = 90
+
+
+class ExpiryReportView(APIView):
+    """GET reports/expiry/?days=90: in-stock batches already expired, and
+    batches expiring within `days` days (default 90), soonest first.
+    """
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        try:
+            days = int(request.query_params.get('days', DEFAULT_EXPIRY_WINDOW_DAYS))
+        except ValueError:
+            return Response({'detail': 'Invalid days'}, status=status.HTTP_400_BAD_REQUEST)
+        if days < 0 or days > 3650:
+            return Response(
+                {'detail': 'days must be between 0 and 3650'}, status=status.HTTP_400_BAD_REQUEST
+            )
+
+        today = timezone.localdate()
+        batches = (
+            StockItem.objects.filter(StockItem.IN_STOCK_FILTER, quantity__gt=0)
+            .exclude(expiry_date=None)
+            .filter(expiry_date__lte=today + timedelta(days=days))
+            .select_related('part', 'location')
+            .order_by('expiry_date', 'pk')
+        )
+
+        def row(item):
+            return {
+                'stock_item_id': item.pk,
+                'part_id': item.part_id,
+                'part_name': item.part.name,
+                'batch': item.batch,
+                'expiry_date': item.expiry_date.isoformat(),
+                'days_left': (item.expiry_date - today).days,
+                'quantity': plain_quantity(item.quantity),
+                'location': item.location.name if item.location else None,
+            }
+
+        expired = [row(i) for i in batches if i.expiry_date < today]
+        expiring = [row(i) for i in batches if i.expiry_date >= today]
+        return Response({
+            'as_of': today.isoformat(),
+            'window_days': days,
+            'expired': expired,
+            'expiring': expiring,
+            'totals': {'expired_batches': len(expired), 'expiring_batches': len(expiring)},
+        })

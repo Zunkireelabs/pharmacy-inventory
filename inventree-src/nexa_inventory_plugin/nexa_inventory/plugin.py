@@ -105,6 +105,18 @@ class NexaInventoryPlugin(ScheduleMixin, SettingsMixin, AppMixin, UrlsMixin, Inv
             return ReceivablesSummaryReportView.as_view()(request, *args, **kwargs)
 
         @csrf_exempt
+        def medicine_info_view(request, *args, **kwargs):
+            from nexa_inventory.api import MedicineInfoView
+
+            return MedicineInfoView.as_view()(request, *args, **kwargs)
+
+        @csrf_exempt
+        def expiry_report_view(request, *args, **kwargs):
+            from nexa_inventory.api import ExpiryReportView
+
+            return ExpiryReportView.as_view()(request, *args, **kwargs)
+
+        @csrf_exempt
         def movement_list_view(request, *args, **kwargs):
             from nexa_inventory.api import MovementListView
 
@@ -119,5 +131,8 @@ class NexaInventoryPlugin(ScheduleMixin, SettingsMixin, AppMixin, UrlsMixin, Inv
             path('customers/<int:pk>/receivables/', customer_receivables_view, name='customer-receivables'),
             path('reports/sales/', sales_summary_report_view, name='reports-sales'),
             path('reports/receivables/', receivables_summary_report_view, name='reports-receivables'),
+            path('reports/expiry/', expiry_report_view, name='reports-expiry'),
+            path('medicine/', medicine_info_view, name='medicine-list'),
+            path('medicine/<int:part_id>/', medicine_info_view, name='medicine-detail'),
             path('movements/', movement_list_view, name='movement-list'),
         ]

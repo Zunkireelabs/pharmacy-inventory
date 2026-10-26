@@ -6,6 +6,7 @@ from datetime import date, timedelta
 from decimal import Decimal
 
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 from django.test import override_settings
 from django.urls import reverse
 from rest_framework.test import APITestCase
@@ -30,6 +31,7 @@ class ExpiryApiTestBase(PluginRegistryMixin, APITestCase):
     def setUp(self):
         self.user = User.objects.create_user('pharmacist', password='pw', is_staff=True)
         self.client.force_login(self.user)
+        cache.clear()  # reset DRF throttle counters shared across the suite
         InvenTreeSetting.set_setting('STOCK_ENABLE_EXPIRY', True, None)
         InvenTreeSetting.set_setting('STOCK_ALLOW_EXPIRED_SALE', False, None)
         self.part = Part.objects.create(

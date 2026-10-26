@@ -13,19 +13,32 @@ from common.settings import get_global_setting
 from stock.models import StockItem
 from stock.status_codes import StockHistoryCode
 
-from .models import SaleTypeMovement
+from .models import MedicineInfo, SaleTypeMovement
 
 # Sale types that decrease stock (StockItem.take_stock)
 OUTBOUND_TYPES = {
     SaleTypeMovement.SaleType.B2B_CREDIT,
     SaleTypeMovement.SaleType.B2C_CASH,
     SaleTypeMovement.SaleType.B2C_ONLINE,
+    SaleTypeMovement.SaleType.PRESCRIPTION,
+    SaleTypeMovement.SaleType.EXPIRY_WRITEOFF,
 }
+
+# Outbound types that are real sales: expired stock is blocked, and part_id
+# (earliest-expiry-first) allocation is available. Write-offs deliberately
+# target a named (usually expired) batch instead.
+SELLING_TYPES = OUTBOUND_TYPES - {SaleTypeMovement.SaleType.EXPIRY_WRITEOFF}
+
+# Sale types that need a prescriber and prescription reference
+PRESCRIPTION_TYPES = {SaleTypeMovement.SaleType.PRESCRIPTION}
 
 TRACKING_CODE_BY_SALE_TYPE = {
     SaleTypeMovement.SaleType.B2B_CREDIT: StockHistoryCode.SENT_TO_CUSTOMER,
     SaleTypeMovement.SaleType.B2C_CASH: StockHistoryCode.STOCK_REMOVE,
     SaleTypeMovement.SaleType.B2C_ONLINE: StockHistoryCode.STOCK_REMOVE,
+    SaleTypeMovement.SaleType.PRESCRIPTION: StockHistoryCode.STOCK_REMOVE,
+    SaleTypeMovement.SaleType.EXPIRY_WRITEOFF: StockHistoryCode.STOCK_REMOVE,
+    SaleTypeMovement.SaleType.RETURN: StockHistoryCode.STOCK_ADD,
     SaleTypeMovement.SaleType.RESTOCK: StockHistoryCode.STOCK_ADD,
     SaleTypeMovement.SaleType.CORRECTION: StockHistoryCode.STOCK_COUNT,
 }
@@ -85,6 +98,35 @@ def allocate_fefo(part, quantity):
     return picked
 
 
+def check_prescription_rules(part, sale_type, prescriber='', prescription_ref=''):
+    """Light prescription control (no compliance register).
+
+    - Prescription-only or controlled medicines cannot be sold over the counter
+      (cash / online); they need a Prescription Sale. Credit sales to
+      institutions are not restricted.
+    - A Prescription Sale needs the prescriber; controlled medicines also need
+      the prescription reference.
+    """
+    info = MedicineInfo.objects.filter(part=part).first()
+    restricted = bool(info and (info.requires_prescription or info.is_controlled))
+
+    if restricted and sale_type in (
+        SaleTypeMovement.SaleType.B2C_CASH,
+        SaleTypeMovement.SaleType.B2C_ONLINE,
+    ):
+        raise SaleValidationError(
+            f'{part.name} is prescription-only: record it as a Prescription Sale'
+        )
+
+    if sale_type in PRESCRIPTION_TYPES:
+        if not (prescriber or '').strip():
+            raise SaleValidationError('prescriber is required for a prescription sale')
+        if info and info.is_controlled and not (prescription_ref or '').strip():
+            raise SaleValidationError(
+                f'{part.name} is a controlled medicine: prescription_ref is required'
+            )
+
+
 def plain_quantity(value):
     """Decimal as a clean string for API output: 4.00000 -> '4', 2.50 -> '2.5'."""
     value = Decimal(value)
@@ -108,7 +150,10 @@ class SaleRecordingError(Exception):
     """
 
 
-def record_sale_movement(*, stock_item, sale_type, quantity, unit_value, customer, user, notes=''):
+def record_sale_movement(
+    *, stock_item, sale_type, quantity, unit_value, customer, user, notes='',
+    prescriber='', prescription_ref=''
+):
     """Mutate stock and create the corresponding SaleTypeMovement row.
 
     Caller is responsible for: validating sale_type is a known value,
@@ -162,5 +207,7 @@ def record_sale_movement(*, stock_item, sale_type, quantity, unit_value, custome
         total_value=unit_value * quantity,
         customer=customer,
         notes=notes,
+        prescriber=prescriber,
+        prescription_ref=prescription_ref,
         created_by=user,
     )

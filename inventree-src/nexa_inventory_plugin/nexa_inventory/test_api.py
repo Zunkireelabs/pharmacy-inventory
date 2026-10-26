@@ -2,6 +2,7 @@ from datetime import timedelta
 from decimal import Decimal
 
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 from django.test import override_settings
 from django.urls import reverse
 from django.utils import timezone
@@ -22,6 +23,7 @@ class RecordSaleApiTest(PluginRegistryMixin, APITestCase):
     def setUp(self):
         self.user = User.objects.create_user('tester', password='pw', is_staff=True)
         self.client.force_login(self.user)
+        cache.clear()  # reset DRF throttle counters shared across the suite
         self.part = Part.objects.create(
             name='Test Pen', description='Test', active=True, purchaseable=True, salable=True
         )
@@ -108,6 +110,7 @@ class RecordB2BSaleApiTest(PluginRegistryMixin, APITestCase):
     def setUp(self):
         self.user = User.objects.create_user('b2b-tester', password='pw', is_staff=True)
         self.client.force_login(self.user)
+        cache.clear()  # reset DRF throttle counters shared across the suite
         self.part = Part.objects.create(
             name='Test Notebook', description='Test', active=True, purchaseable=True, salable=True
         )
@@ -254,6 +257,7 @@ class InvoicePaymentsApiTest(PluginRegistryMixin, APITestCase):
     def setUp(self):
         self.user = User.objects.create_user('pay-api-tester', password='pw', is_staff=True)
         self.client.force_login(self.user)
+        cache.clear()  # reset DRF throttle counters shared across the suite
         self.customer = Company.objects.create(name='Acme Pharma', is_customer=True)
         self.invoice = Invoice.objects.create(
             customer=self.customer,
@@ -307,6 +311,7 @@ class InvoiceListApiTest(PluginRegistryMixin, APITestCase):
     def setUp(self):
         self.user = User.objects.create_user('list-tester', password='pw', is_staff=True)
         self.client.force_login(self.user)
+        cache.clear()  # reset DRF throttle counters shared across the suite
         self.customer = Company.objects.create(name='Acme Pharma', is_customer=True)
         self.invoice1 = Invoice.objects.create(
             customer=self.customer,
@@ -360,6 +365,7 @@ class InvoiceDetailApiTest(PluginRegistryMixin, APITestCase):
     def setUp(self):
         self.user = User.objects.create_user('detail-tester', password='pw', is_staff=True)
         self.client.force_login(self.user)
+        cache.clear()  # reset DRF throttle counters shared across the suite
         self.customer = Company.objects.create(name='Acme Pharma', is_customer=True)
         self.invoice = Invoice.objects.create(
             customer=self.customer,
@@ -387,6 +393,7 @@ class CustomerReceivablesApiTest(PluginRegistryMixin, APITestCase):
     def setUp(self):
         self.user = User.objects.create_user('receivables-tester', password='pw', is_staff=True)
         self.client.force_login(self.user)
+        cache.clear()  # reset DRF throttle counters shared across the suite
         self.customer = Company.objects.create(name='Acme Pharma', is_customer=True)
         self.paid = Invoice.objects.create(
             customer=self.customer, due_date=timezone.localdate(), total=Decimal('100'),
@@ -419,6 +426,7 @@ class MovementListApiTest(PluginRegistryMixin, APITestCase):
     def setUp(self):
         self.user = User.objects.create_user('movement-tester', password='pw', is_staff=True)
         self.client.force_login(self.user)
+        cache.clear()  # reset DRF throttle counters shared across the suite
         self.url = reverse('plugin:nexainventory:movement-list')
 
     def test_unauthenticated_rejected(self):
