@@ -577,6 +577,16 @@ logger.debug('Configuring database backend:')
 database = db_backend.get_db_backend()
 DB_ENGINE = database['ENGINE']
 
+# Reuse database connections between requests. Without this every request opens
+# a brand new connection (TCP + TLS + login), which is slow when the database is
+# remote (e.g. a hosted Postgres in another region). Not applied to SQLite.
+if 'sqlite' not in str(DB_ENGINE):
+    database.setdefault(
+        'CONN_MAX_AGE',
+        get_setting('INVENTREE_DB_CONN_MAX_AGE', 'database.conn_max_age', 600, typecast=int),
+    )
+    database.setdefault('CONN_HEALTH_CHECKS', True)
+
 DATABASES = {'default': database}
 
 # login settings

@@ -1,17 +1,48 @@
 # VPS production deploy — Traefik-fronted, GHCR image, no staging tier.
 # Runtime secrets (DB creds, secret key, etc) come from .env.local on the VPS — never committed.
 
+# Settings that are not secret live here (they override .env.local):
+#  - Redis cache: InvenTree otherwise re-reads its settings from the (remote)
+#    database on every request
+#  - 2 gunicorn workers x 4 threads: bounds the number of long-lived database
+#    connections to the Supabase pooler
+x-nexa-env: &nexa-env
+  INVENTREE_CACHE_ENABLED: "True"
+  INVENTREE_CACHE_HOST: nexa-cache
+  INVENTREE_CACHE_PORT: "6379"
+  INVENTREE_GUNICORN_WORKERS: "2"
+
 services:
+  nexa-cache:
+    image: redis:7-alpine
+    container_name: nexa-cache
+    # in-memory only: it is a cache, nothing here needs to survive a restart
+    command: redis-server --save "" --appendonly no
+    restart: unless-stopped
+    networks:
+      - nexa_internal
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
   nexa-app-prod:
     image: ghcr.io/zunkireelabs/pharmacy-inventory:main
     container_name: nexa-app-prod
     restart: unless-stopped
+    depends_on:
+      nexa-cache:
+        condition: service_healthy
     env_file:
       - .env.local
+    environment: *nexa-env
     volumes:
       - nexa_data:/home/inventree/data
     networks:
       - hosting
+      - nexa_internal
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=hosting"
@@ -41,10 +72,12 @@ services:
         condition: service_healthy
     env_file:
       - .env.local
+    environment: *nexa-env
     volumes:
       - nexa_data:/home/inventree/data
     networks:
       - hosting
+      - nexa_internal
     healthcheck:
       test: ["CMD-SHELL", "invoke worker-health"]
       interval: 60s
@@ -55,6 +88,7 @@ services:
 networks:
   hosting:
     external: true
+  nexa_internal:
 
 volumes:
   nexa_data:
