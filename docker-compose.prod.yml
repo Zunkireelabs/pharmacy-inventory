@@ -3,7 +3,7 @@
 
 services:
   nexa-app-prod:
-    image: ghcr.io/<GITHUB_OWNER>/pharmacy-inventory:main
+    image: ghcr.io/zunkireelabs/pharmacy-inventory:main
     container_name: nexa-app-prod
     restart: unless-stopped
     env_file:
@@ -32,7 +32,7 @@ services:
       start_period: 60s
 
   nexa-worker-prod:
-    image: ghcr.io/<GITHUB_OWNER>/pharmacy-inventory:main
+    image: ghcr.io/zunkireelabs/pharmacy-inventory:main
     container_name: nexa-worker-prod
     command: invoke worker
     restart: unless-stopped

@@ -51,9 +51,9 @@ not found, `export DYLD_FALLBACK_LIBRARY_PATH=/opt/homebrew/lib`.
 
 ## Deployment
 
-CI builds `inventree-src/Dockerfile.prod` into `ghcr.io/<GITHUB_OWNER>/pharmacy-inventory`
+CI builds `inventree-src/Dockerfile.prod` into `ghcr.io/zunkireelabs/pharmacy-inventory`
 and deploys over SSH. Before the first deploy, replace the placeholders
-`<GITHUB_OWNER>`, `<NEXA_HOST>`, `<VPS_PATH>`, `<SUPABASE_REF>` and
+`<NEXA_HOST>`, `<VPS_PATH>`, `<SUPABASE_REF>` and
 `<SUPABASE_POOLER_HOST>` in `docker-compose.prod.yml`, `.github/workflows/deploy.yml`
 and `.env.example`, and add `VPS_HOST`, `VPS_USER`, `VPS_SSH_KEY` secrets to the
 GitHub repo. Runtime secrets live in `.env.local` on the VPS and are never committed.

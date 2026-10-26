@@ -9,7 +9,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  IMAGE: ghcr.io/<GITHUB_OWNER>/pharmacy-inventory
+  IMAGE: ghcr.io/zunkireelabs/pharmacy-inventory
 
 jobs:
   build-push:
