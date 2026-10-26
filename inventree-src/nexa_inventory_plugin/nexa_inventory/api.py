@@ -24,7 +24,9 @@ from .models import (
     Payment,
     PurchaseReceipt,
     SaleBill,
+    SalesReturn,
     SaleTypeMovement,
+    StockAdjustment,
 )
 from .services import (
     OUTBOUND_TYPES,
@@ -994,8 +996,11 @@ def _bill_payload(bill):
     for index, m in enumerate(movements, start=1):
         info = MedicineInfo.objects.filter(part=m.part).first()
         item = m.tracking_entry.item
+        returned = sum((r.quantity for r in m.returns.all()), Decimal('0'))
         lines.append({
             'sn': index,
+            'movement_id': m.pk,
+            'returned_quantity': plain_quantity(returned),
             'part_id': m.part_id,
             'particulars': m.part.name,
             'brand': info.brand if info else '',
@@ -1390,4 +1395,223 @@ class PurchaseListView(APIView):
         return Response({
             'count': rows.count(),
             'results': [_receipt_payload(r) for r in rows[:limit]],
+        })
+
+
+class AdjustStockView(APIView):
+    """POST adjust-stock/: signed manual change to one batch.
+
+    Body: stock_item_id, quantity_change (positive adds, negative removes,
+    not zero), reason (required), approved_by (required), reference_no,
+    remarks. A removal cannot exceed what the batch holds.
+    """
+
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        data = request.data
+        try:
+            item = StockItem.objects.select_related('part').get(pk=data.get('stock_item_id'))
+        except (StockItem.DoesNotExist, ValueError, TypeError):
+            return Response({'detail': 'stock_item_id must reference an existing batch'}, status=400)
+
+        try:
+            change = Decimal(str(data.get('quantity_change')))
+        except InvalidOperation:
+            return Response({'detail': 'quantity_change must be a number'}, status=400)
+        if change == 0:
+            return Response({'detail': 'quantity_change must not be zero'}, status=400)
+
+        reason = (data.get('reason') or '').strip()
+        approved_by = (data.get('approved_by') or '').strip()
+        if not reason:
+            return Response({'detail': 'reason is required'}, status=400)
+        if not approved_by:
+            return Response({'detail': 'approved_by is required'}, status=400)
+        if change < 0 and -change > item.quantity:
+            return Response(
+                {'detail': f'Cannot remove {-change}: the batch holds {plain_quantity(item.quantity)}'},
+                status=400,
+            )
+
+        note = f'Adjustment: {reason} (approved by {approved_by})'
+        with transaction.atomic():
+            if item.delete_on_deplete:
+                item.delete_on_deplete = False
+                item.save(update_fields=['delete_on_deplete'])
+            ok = (
+                item.add_stock(change, request.user, notes=note)
+                if change > 0
+                else item.take_stock(-change, request.user, notes=note)
+            )
+            if not ok:
+                return Response({'detail': 'Stock update failed'}, status=400)
+            adjustment = StockAdjustment.objects.create(
+                part=item.part,
+                stock_item=item,
+                batch=item.batch or '',
+                quantity_change=change,
+                reason=reason,
+                approved_by=approved_by,
+                reference_no=(data.get('reference_no') or '').strip(),
+                remarks=(data.get('remarks') or '').strip(),
+                created_by=request.user,
+            )
+        item.refresh_from_db()
+        return Response(
+            {
+                'id': adjustment.pk,
+                'part_name': item.part.name,
+                'batch': item.batch,
+                'quantity_change': plain_quantity(change),
+                'new_quantity': plain_quantity(item.quantity),
+            },
+            status=status.HTTP_201_CREATED,
+        )
+
+
+class AdjustmentListView(APIView):
+    """GET adjustments/?limit=50: recent stock adjustments."""
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        rows = StockAdjustment.objects.select_related('part', 'created_by')[:100]
+        return Response({
+            'results': [
+                {
+                    'id': a.pk,
+                    'date': a.created_at.isoformat(),
+                    'part_name': a.part.name,
+                    'batch': a.batch,
+                    'quantity_change': plain_quantity(a.quantity_change),
+                    'reason': a.reason,
+                    'approved_by': a.approved_by,
+                    'reference_no': a.reference_no,
+                    'by': a.created_by.get_username(),
+                }
+                for a in rows
+            ]
+        })
+
+
+class SalesReturnView(APIView):
+    """POST sales-return/: return part of one bill line.
+
+    Body: movement_id (a line of a bill: see bills/<id>/), quantity,
+    reason (required), disposition (resalable | not_resalable),
+    unit_refund_rate (optional, default the sold rate, never above it),
+    remarks. Resalable stock goes back into the original batch.
+    """
+
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        data = request.data
+        try:
+            movement = SaleTypeMovement.objects.select_related(
+                'bill', 'part', 'tracking_entry__item'
+            ).get(pk=data.get('movement_id'), bill__isnull=False)
+        except (SaleTypeMovement.DoesNotExist, ValueError, TypeError):
+            return Response({'detail': 'movement_id must be a line of a bill'}, status=400)
+
+        try:
+            quantity = Decimal(str(data.get('quantity')))
+            if quantity <= 0:
+                raise InvalidOperation
+        except (InvalidOperation, TypeError):
+            return Response({'detail': 'quantity must be a positive number'}, status=400)
+
+        returned = sum((r.quantity for r in movement.returns.all()), Decimal('0'))
+        remaining = movement.quantity - returned
+        if quantity > remaining:
+            return Response(
+                {'detail': f'Only {plain_quantity(remaining)} of this line can still be returned'},
+                status=400,
+            )
+
+        reason = (data.get('reason') or '').strip()
+        if not reason:
+            return Response({'detail': 'reason is required'}, status=400)
+        disposition = data.get('disposition')
+        if disposition not in SalesReturn.Disposition.values:
+            return Response({'detail': 'disposition must be resalable or not_resalable'}, status=400)
+
+        try:
+            rate = Decimal(str(data.get('unit_refund_rate') or movement.unit_value)).quantize(
+                Decimal('0.01')
+            )
+        except InvalidOperation:
+            return Response({'detail': 'Invalid unit_refund_rate'}, status=400)
+        if rate < 0 or rate > movement.unit_value:
+            return Response({'detail': 'unit_refund_rate cannot be more than the sold rate'}, status=400)
+
+        item = movement.tracking_entry.item
+        if disposition == SalesReturn.Disposition.RESALABLE and item is None:
+            return Response({'detail': 'The original batch no longer exists'}, status=400)
+
+        with transaction.atomic():
+            if disposition == SalesReturn.Disposition.RESALABLE:
+                record_sale_movement(
+                    stock_item=item,
+                    sale_type=SaleTypeMovement.SaleType.RETURN,
+                    quantity=quantity,
+                    unit_value=rate,
+                    customer=None,
+                    user=request.user,
+                    notes=f'Return against {movement.bill.reference}: {reason}',
+                )
+            sales_return = SalesReturn.objects.create(
+                bill=movement.bill,
+                movement=movement,
+                part=movement.part,
+                batch=item.batch if item else '',
+                quantity=quantity,
+                unit_refund_rate=rate,
+                refund_amount=(quantity * rate).quantize(Decimal('0.01')),
+                reason=reason,
+                disposition=disposition,
+                remarks=(data.get('remarks') or '').strip(),
+                processed_by=request.user,
+            )
+
+        return Response(
+            {
+                'id': sales_return.pk,
+                'reference': sales_return.reference,
+                'bill': movement.bill.reference,
+                'part_name': movement.part.name,
+                'batch': sales_return.batch,
+                'quantity': plain_quantity(quantity),
+                'refund_amount': _money(sales_return.refund_amount),
+                'disposition': disposition,
+            },
+            status=status.HTTP_201_CREATED,
+        )
+
+
+class SalesReturnListView(APIView):
+    """GET sales-returns/: recent customer returns."""
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        rows = SalesReturn.objects.select_related('bill', 'part', 'processed_by')[:100]
+        return Response({
+            'results': [
+                {
+                    'id': r.pk,
+                    'reference': r.reference,
+                    'bill': r.bill.reference,
+                    'date': r.created_at.isoformat(),
+                    'part_name': r.part.name,
+                    'batch': r.batch,
+                    'quantity': plain_quantity(r.quantity),
+                    'refund_amount': _money(r.refund_amount),
+                    'reason': r.reason,
+                    'disposition': r.disposition,
+                    'processed_by': r.processed_by.get_username(),
+                }
+                for r in rows
+            ]
         })

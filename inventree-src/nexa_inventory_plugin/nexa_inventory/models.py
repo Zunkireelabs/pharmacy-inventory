@@ -152,6 +152,72 @@ class PurchaseReceipt(models.Model):
         return f'{self.invoice_no or "purchase"}: {self.part} x{self.quantity}'
 
 
+class StockAdjustment(models.Model):
+    """A signed manual change to a batch's quantity (stock-take, damage,
+    breakage...). Needs a reason and who approved it."""
+
+    part = models.ForeignKey('part.Part', on_delete=models.PROTECT, related_name='+')
+    stock_item = models.ForeignKey(
+        'stock.StockItem', on_delete=models.SET_NULL, related_name='+', null=True, blank=True
+    )
+    batch = models.CharField(max_length=100, blank=True)
+    quantity_change = models.DecimalField(max_digits=15, decimal_places=5)
+    reason = models.CharField(max_length=255)
+    approved_by = models.CharField(max_length=255)
+    reference_no = models.CharField(max_length=100, blank=True)
+    remarks = models.TextField(blank=True)
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='+'
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at', '-pk']
+
+    def __str__(self):
+        return f'{self.part} {self.quantity_change:+}'
+
+
+class SalesReturn(models.Model):
+    """A customer return against one line of an original bill. A resalable
+    return puts the stock back into the original batch; otherwise it is only
+    recorded (and refunded)."""
+
+    class Disposition(models.TextChoices):
+        RESALABLE = 'resalable', 'Resalable (back to stock)'
+        NOT_RESALABLE = 'not_resalable', 'Not resalable (damaged / expired)'
+
+    reference = models.CharField(max_length=32, unique=True, blank=True)
+    bill = models.ForeignKey('SaleBill', on_delete=models.PROTECT, related_name='returns')
+    movement = models.ForeignKey(
+        'SaleTypeMovement', on_delete=models.PROTECT, related_name='returns'
+    )
+    part = models.ForeignKey('part.Part', on_delete=models.PROTECT, related_name='+')
+    batch = models.CharField(max_length=100, blank=True)
+    quantity = models.DecimalField(max_digits=15, decimal_places=5)
+    unit_refund_rate = models.DecimalField(max_digits=15, decimal_places=2)
+    refund_amount = models.DecimalField(max_digits=15, decimal_places=2)
+    reason = models.CharField(max_length=255)
+    disposition = models.CharField(max_length=20, choices=Disposition.choices)
+    remarks = models.TextField(blank=True)
+    processed_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='+'
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at', '-pk']
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if not self.reference:
+            self.reference = f'RET-{self.pk:05d}'
+            super().save(update_fields=['reference'])
+
+    def __str__(self):
+        return self.reference or f'Return {self.pk}'
+
+
 class MedicineInfo(models.Model):
     """Pharmacy-specific flags for a Part: prescription-only and controlled.
 

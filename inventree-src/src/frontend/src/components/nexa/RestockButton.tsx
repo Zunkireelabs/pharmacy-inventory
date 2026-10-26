@@ -7,6 +7,7 @@ import {
   Select,
   SimpleGrid,
   Stack,
+  Text,
   TextInput
 } from '@mantine/core';
 import { DateInput } from '@mantine/dates';
@@ -17,6 +18,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 
 import { api } from '../../App';
+import { formatMoney } from './format';
 import { ProductPicker } from './ProductPicker';
 
 function toIsoDate(value: Date | string | null): string | null {
@@ -43,6 +45,29 @@ function useLocations() {
   });
 }
 
+/** Suppliers for the "supplier" selector. */
+function useSuppliers() {
+  return useQuery({
+    queryKey: ['nexa-suppliers'],
+    queryFn: async () => {
+      const response = await api.get('/api/company/', {
+        params: { is_supplier: true, active: true, limit: 200 }
+      });
+      return (response.data.results ?? response.data).map((c: any) => ({
+        value: String(c.pk),
+        label: c.name
+      })) as { value: string; label: string }[];
+    },
+    staleTime: 60_000
+  });
+}
+
+const PAYMENT_STATUS = [
+  { value: 'unpaid', label: t`Unpaid` },
+  { value: 'partial', label: t`Partially Paid` },
+  { value: 'paid', label: t`Paid` }
+];
+
 /**
  * Receive stock: records a NEW batch (batch code + expiry date) of a
  * medicine into a location. Each delivery is its own batch so that
@@ -54,12 +79,20 @@ export default function RestockButton({
   const isMobile = useMediaQuery('(max-width: 48em)');
   const queryClient = useQueryClient();
   const locations = useLocations();
+  const suppliers = useSuppliers();
   const [opened, setOpened] = useState(false);
   const [partId, setPartId] = useState<number | null>(null);
   const [batch, setBatch] = useState('');
   const [expiry, setExpiry] = useState<Date | string | null>(null);
   const [quantity, setQuantity] = useState<number | ''>('');
   const [price, setPrice] = useState<number | ''>('');
+  const [bonus, setBonus] = useState<number | ''>('');
+  const [discount, setDiscount] = useState<number | ''>('');
+  const [tax, setTax] = useState<number | ''>('');
+  const [supplier, setSupplier] = useState<string | null>(null);
+  const [invoiceNo, setInvoiceNo] = useState('');
+  const [purchaseDate, setPurchaseDate] = useState<Date | string | null>(new Date());
+  const [paymentStatus, setPaymentStatus] = useState('unpaid');
   const [location, setLocation] = useState<string | null>(null);
   const [errorDetail, setErrorDetail] = useState<string | null>(null);
 
@@ -76,19 +109,30 @@ export default function RestockButton({
     setExpiry(null);
     setQuantity('');
     setPrice('');
+    setBonus('');
+    setDiscount('');
+    setTax('');
+    setInvoiceNo('');
     setErrorDetail(null);
   };
 
   const mutation = useMutation({
     mutationFn: async () => {
       setErrorDetail(null);
-      return api.post('/api/stock/', {
-        part: partId,
+      return api.post('/plugin/nexainventory/receive-stock/', {
+        part_id: partId,
         quantity,
+        bonus_quantity: bonus === '' ? undefined : bonus,
         batch: batch.trim(),
         expiry_date: toIsoDate(expiry),
-        location: location ? Number(location) : undefined,
-        purchase_price: price === '' ? undefined : price
+        location_id: location ? Number(location) : undefined,
+        unit_cost: price === '' ? undefined : price,
+        discount: discount === '' ? undefined : discount,
+        tax: tax === '' ? undefined : tax,
+        supplier_id: supplier ? Number(supplier) : undefined,
+        invoice_no: invoiceNo.trim(),
+        purchase_date: toIsoDate(purchaseDate),
+        payment_status: paymentStatus
       });
     },
     onSuccess: () => {
@@ -98,16 +142,17 @@ export default function RestockButton({
       reset();
     },
     onError: (error: any) => {
-      const data = error?.response?.data;
-      const first =
-        data && typeof data === 'object'
-          ? Object.entries(data)
-              .map(([k, v]) => `${k}: ${Array.isArray(v) ? v.join(' ') : v}`)
-              .join('; ')
-          : null;
-      setErrorDetail(first || t`Could not receive stock`);
+      setErrorDetail(
+        error?.response?.data?.detail ?? t`Could not receive stock`
+      );
     }
   });
+
+  const lineTotal =
+    (typeof quantity === 'number' ? quantity : 0) *
+      (typeof price === 'number' ? price : 0) -
+    (typeof discount === 'number' ? discount : 0) +
+    (typeof tax === 'number' ? tax : 0);
 
   const canSubmit =
     !!partId &&
@@ -145,6 +190,35 @@ export default function RestockButton({
               {errorDetail}
             </Alert>
           )}
+          <SimpleGrid cols={{ base: 1, xs: 2 }}>
+            <Select
+              label={t`Supplier`}
+              data={suppliers.data ?? []}
+              value={supplier}
+              onChange={setSupplier}
+              searchable
+              clearable
+              nothingFoundMessage={t`No suppliers — add one under Purchasing`}
+            />
+            <TextInput
+              label={t`Purchase Invoice No.`}
+              value={invoiceNo}
+              onChange={(e) => setInvoiceNo(e.currentTarget.value)}
+            />
+            <DateInput
+              label={t`Purchase Date`}
+              value={purchaseDate}
+              onChange={setPurchaseDate}
+              valueFormat='YYYY-MM-DD'
+            />
+            <Select
+              label={t`Payment Status`}
+              data={PAYMENT_STATUS}
+              value={paymentStatus}
+              onChange={(v) => setPaymentStatus(v ?? 'unpaid')}
+              allowDeselect={false}
+            />
+          </SimpleGrid>
           <ProductPicker
             value={partId}
             onChange={(id) => setPartId(id)}
@@ -171,13 +245,36 @@ export default function RestockButton({
               required
             />
             <NumberInput
-              label={t`Cost per Unit`}
+              label={t`Free / Bonus Quantity`}
+              value={bonus}
+              onChange={(v) => setBonus(v as number)}
+              min={0}
+            />
+            <NumberInput
+              label={t`Unit Purchase Cost`}
               value={price}
               onChange={(v) => setPrice(v as number)}
               min={0}
               decimalScale={2}
             />
+            <NumberInput
+              label={t`Discount`}
+              value={discount}
+              onChange={(v) => setDiscount(v as number)}
+              min={0}
+              decimalScale={2}
+            />
+            <NumberInput
+              label={t`Tax`}
+              value={tax}
+              onChange={(v) => setTax(v as number)}
+              min={0}
+              decimalScale={2}
+            />
           </SimpleGrid>
+          <Text size='sm' c='dimmed'>
+            {t`Line total`}: {formatMoney(Math.max(0, lineTotal))}
+          </Text>
           <Select
             label={t`Received Into`}
             data={locations.data ?? []}

@@ -139,6 +139,30 @@ class NexaInventoryPlugin(ScheduleMixin, SettingsMixin, AppMixin, UrlsMixin, Inv
             return ReceivablesSummaryReportView.as_view()(request, *args, **kwargs)
 
         @csrf_exempt
+        def adjust_stock_view(request, *args, **kwargs):
+            from nexa_inventory.api import AdjustStockView
+
+            return AdjustStockView.as_view()(request, *args, **kwargs)
+
+        @csrf_exempt
+        def adjustment_list_view(request, *args, **kwargs):
+            from nexa_inventory.api import AdjustmentListView
+
+            return AdjustmentListView.as_view()(request, *args, **kwargs)
+
+        @csrf_exempt
+        def sales_return_view(request, *args, **kwargs):
+            from nexa_inventory.api import SalesReturnView
+
+            return SalesReturnView.as_view()(request, *args, **kwargs)
+
+        @csrf_exempt
+        def sales_return_list_view(request, *args, **kwargs):
+            from nexa_inventory.api import SalesReturnListView
+
+            return SalesReturnListView.as_view()(request, *args, **kwargs)
+
+        @csrf_exempt
         def receive_stock_view(request, *args, **kwargs):
             from nexa_inventory.api import ReceiveStockView
 
@@ -201,6 +225,10 @@ class NexaInventoryPlugin(ScheduleMixin, SettingsMixin, AppMixin, UrlsMixin, Inv
             path('customers/<int:pk>/receivables/', customer_receivables_view, name='customer-receivables'),
             path('reports/sales/', sales_summary_report_view, name='reports-sales'),
             path('reports/receivables/', receivables_summary_report_view, name='reports-receivables'),
+            path('adjust-stock/', adjust_stock_view, name='adjust-stock'),
+            path('adjustments/', adjustment_list_view, name='adjustment-list'),
+            path('sales-return/', sales_return_view, name='sales-return'),
+            path('sales-returns/', sales_return_list_view, name='sales-return-list'),
             path('receive-stock/', receive_stock_view, name='receive-stock'),
             path('purchases/', purchase_list_view, name='purchase-list'),
             path('branches/', branch_list_view, name='branch-list'),
