@@ -84,7 +84,7 @@ msgid "Cancel"
 msgstr "Отменить"
 
 #: lib/components/RowActions.tsx:146
-#: src/components/nav/NavigationDrawer.tsx:210
+#: src/components/nav/NavigationDrawer.tsx:212
 #: src/forms/PurchaseOrderForms.tsx:940
 #: src/forms/StockForms.tsx:950
 #: src/forms/StockForms.tsx:1517
@@ -170,7 +170,7 @@ msgstr "Деталь"
 
 #: lib/enums/ModelInformation.tsx:62
 #: lib/enums/Roles.tsx:37
-#: src/components/nav/NavigationDrawer.tsx:70
+#: src/components/nav/NavigationDrawer.tsx:71
 #: src/defaults/links.tsx:43
 #: src/pages/Index/Settings/SystemSettings.tsx:217
 #: src/pages/part/CategoryDetail.tsx:218
@@ -555,7 +555,7 @@ msgid "User"
 msgstr "Пользователь"
 
 #: lib/enums/ModelInformation.tsx:293
-#: src/components/nav/NavigationDrawer.tsx:130
+#: src/components/nav/NavigationDrawer.tsx:131
 #: src/defaults/actions.tsx:186
 #: src/pages/Index/Settings/AdminCenter/UserManagementPanel.tsx:15
 #: src/pages/core/CoreIndex.tsx:22
@@ -569,7 +569,7 @@ msgid "Group"
 msgstr "Группа"
 
 #: lib/enums/ModelInformation.tsx:300
-#: src/components/nav/NavigationDrawer.tsx:136
+#: src/components/nav/NavigationDrawer.tsx:137
 #: src/pages/Index/Settings/AdminCenter/UserManagementPanel.tsx:23
 #: src/pages/core/CoreIndex.tsx:28
 #: src/pages/core/GroupDetail.tsx:80
@@ -810,7 +810,7 @@ msgstr "Введите данные штрихкода"
 
 #: src/components/barcodes/BarcodeScanDialog.tsx:56
 #: src/components/buttons/ScanButton.tsx:56
-#: src/components/nav/NavigationDrawer.tsx:147
+#: src/components/nav/NavigationDrawer.tsx:148
 #: src/forms/PurchaseOrderForms.tsx:534
 #: src/forms/PurchaseOrderForms.tsx:674
 msgid "Scan Barcode"
@@ -1082,7 +1082,7 @@ msgid "Accept Layout"
 msgstr "Сохранить макет"
 
 #: src/components/dashboard/DashboardMenu.tsx:94
-#: src/components/nav/NavigationDrawer.tsx:64
+#: src/components/nav/NavigationDrawer.tsx:65
 #: src/defaults/actions.tsx:60
 #: src/defaults/links.tsx:38
 #: src/pages/Index/Home.tsx:11
@@ -1323,7 +1323,7 @@ msgid "The latest news from InvenTree"
 msgstr "Свежие новости от InvenTree"
 
 #: src/components/dashboard/widgets/ColorToggleWidget.tsx:18
-#: src/components/nav/MainMenu.tsx:91
+#: src/components/nav/MainMenu.tsx:96
 msgid "Change Color Mode"
 msgstr "Изменить цветовой режим"
 
@@ -1842,7 +1842,7 @@ msgid "Or continue with other methods"
 msgstr "Или продолжить с другими методами"
 
 #: src/components/forms/AuthenticationForm.tsx:136
-#: src/components/forms/AuthenticationForm.tsx:296
+#: src/components/forms/AuthenticationForm.tsx:299
 #: src/pages/Auth/ProviderSignup.tsx:129
 #: src/pages/Index/Settings/AccountSettings/AccountDetailPanel.tsx:64
 #: src/pages/core/UserDetail.tsx:45
@@ -1850,20 +1850,20 @@ msgid "Username"
 msgstr "Логин"
 
 #: src/components/forms/AuthenticationForm.tsx:138
-#: src/components/forms/AuthenticationForm.tsx:298
+#: src/components/forms/AuthenticationForm.tsx:301
 #: src/pages/Auth/ProviderSignup.tsx:131
 msgid "Your username"
 msgstr "Логин"
 
 #: src/components/forms/AuthenticationForm.tsx:143
-#: src/components/forms/AuthenticationForm.tsx:311
+#: src/components/forms/AuthenticationForm.tsx:314
 #: src/pages/Auth/ResetPassword.tsx:34
 #: src/pages/Index/Settings/AccountSettings/MFASettings.tsx:194
 msgid "Password"
 msgstr "Пароль"
 
 #: src/components/forms/AuthenticationForm.tsx:145
-#: src/components/forms/AuthenticationForm.tsx:313
+#: src/components/forms/AuthenticationForm.tsx:316
 msgid "Your password"
 msgstr "Ваш пароль"
 
@@ -1872,7 +1872,7 @@ msgid "Reset password"
 msgstr "Сбросить пароль"
 
 #: src/components/forms/AuthenticationForm.tsx:173
-#: src/components/forms/AuthenticationForm.tsx:303
+#: src/components/forms/AuthenticationForm.tsx:306
 #: src/pages/Auth/ProviderSignup.tsx:135
 #: src/pages/Auth/Reset.tsx:17
 #: src/pages/core/UserDetail.tsx:68
@@ -1892,62 +1892,66 @@ msgstr "Отправьте мне электронное письмо"
 msgid "Use username and password"
 msgstr "Логин и пароль"
 
-#: src/components/forms/AuthenticationForm.tsx:201
+#: src/components/forms/AuthenticationForm.tsx:199
+msgid "Signing in…"
+msgstr ""
+
+#: src/components/forms/AuthenticationForm.tsx:204
 msgid "Log In"
 msgstr "Войти"
 
-#: src/components/forms/AuthenticationForm.tsx:203
+#: src/components/forms/AuthenticationForm.tsx:206
 #: src/pages/Auth/Reset.tsx:26
 msgid "Send Email"
 msgstr "Отправить email"
 
-#: src/components/forms/AuthenticationForm.tsx:239
+#: src/components/forms/AuthenticationForm.tsx:242
 msgid "Passwords do not match"
 msgstr "Пароли не совпадают"
 
-#: src/components/forms/AuthenticationForm.tsx:256
+#: src/components/forms/AuthenticationForm.tsx:259
 msgid "Registration successful"
 msgstr "Регистрация выполнена успешно"
 
-#: src/components/forms/AuthenticationForm.tsx:257
+#: src/components/forms/AuthenticationForm.tsx:260
 msgid "Please confirm your email address to complete the registration"
 msgstr "Пожалуйста, подтвердите адрес электронной почты для завершения регистрации"
 
-#: src/components/forms/AuthenticationForm.tsx:280
+#: src/components/forms/AuthenticationForm.tsx:283
 msgid "Input error"
 msgstr "Ошибка ввода"
 
-#: src/components/forms/AuthenticationForm.tsx:281
+#: src/components/forms/AuthenticationForm.tsx:284
 msgid "Check your input and try again. "
 msgstr "Проверьте введенные данные и повторите попытку. "
 
-#: src/components/forms/AuthenticationForm.tsx:305
+#: src/components/forms/AuthenticationForm.tsx:308
 msgid "This will be used for a confirmation"
 msgstr "Это будет использовано для подтверждения"
 
-#: src/components/forms/AuthenticationForm.tsx:318
+#: src/components/forms/AuthenticationForm.tsx:321
 msgid "Password repeat"
 msgstr "Повторите пароль"
 
-#: src/components/forms/AuthenticationForm.tsx:320
+#: src/components/forms/AuthenticationForm.tsx:323
 msgid "Repeat password"
 msgstr "Введите пароль еще раз"
 
-#: src/components/forms/AuthenticationForm.tsx:332
+#: src/components/forms/AuthenticationForm.tsx:335
 #: src/pages/Auth/Login.tsx:136
 #: src/pages/Auth/Register.tsx:13
 msgid "Register"
 msgstr "Регистрация"
 
-#: src/components/forms/AuthenticationForm.tsx:338
+#: src/components/forms/AuthenticationForm.tsx:341
 msgid "Or use SSO"
 msgstr "Или используйте SSO"
 
-#: src/components/forms/AuthenticationForm.tsx:348
+#: src/components/forms/AuthenticationForm.tsx:351
 msgid "Registration not active"
 msgstr "Регистрация не активна"
 
-#: src/components/forms/AuthenticationForm.tsx:349
+#: src/components/forms/AuthenticationForm.tsx:352
 msgid "This might be related to missing mail settings or could be a deliberate decision."
 msgstr "Причина может быть в не верной конфигурации настроек почты или это было сделано намеренно."
 
@@ -2025,7 +2029,7 @@ msgid "API Version"
 msgstr "Версия API"
 
 #: src/components/forms/InstanceOptions.tsx:143
-#: src/components/nav/NavigationDrawer.tsx:217
+#: src/components/nav/NavigationDrawer.tsx:219
 #: src/defaults/actions.tsx:196
 #: src/pages/Index/Settings/AdminCenter/Index.tsx:269
 #: src/pages/Index/Settings/AdminCenter/PluginManagementPanel.tsx:58
@@ -2746,7 +2750,7 @@ msgid "Open search"
 msgstr "Открыть поиск"
 
 #: src/components/nav/Header.tsx:210
-#: src/components/nav/NavigationDrawer.tsx:159
+#: src/components/nav/NavigationDrawer.tsx:160
 #: src/components/nav/NotificationDrawer.tsx:185
 #: src/pages/Index/Settings/SystemSettings.tsx:145
 #: src/pages/Index/Settings/UserSettings.tsx:111
@@ -2771,38 +2775,38 @@ msgstr "Текущий пользователь имеет повышенные 
 msgid "Nothing found..."
 msgstr "Ничего не найдено..."
 
-#: src/components/nav/MainMenu.tsx:52
-#: src/components/nav/NavigationDrawer.tsx:205
+#: src/components/nav/MainMenu.tsx:53
+#: src/components/nav/NavigationDrawer.tsx:207
 #: src/pages/Index/Settings/AdminCenter/EmailManagementPanel.tsx:21
 #: src/pages/Index/Settings/AdminCenter/UserManagementPanel.tsx:39
 msgid "Settings"
 msgstr "Настройки"
 
-#: src/components/nav/MainMenu.tsx:59
+#: src/components/nav/MainMenu.tsx:62
 msgid "Account Settings"
 msgstr ""
 
-#: src/components/nav/MainMenu.tsx:68
-#: src/components/nav/NavigationDrawer.tsx:171
+#: src/components/nav/MainMenu.tsx:71
+#: src/components/nav/NavigationDrawer.tsx:173
 #: src/components/nav/SettingsHeader.tsx:41
 #: src/pages/Index/Settings/SystemSettings.tsx:416
 #: src/pages/Index/Settings/SystemSettings.tsx:421
 msgid "System Settings"
 msgstr "Системные настройки"
 
-#: src/components/nav/MainMenu.tsx:75
-#: src/components/nav/NavigationDrawer.tsx:178
+#: src/components/nav/MainMenu.tsx:78
+#: src/components/nav/NavigationDrawer.tsx:180
 #: src/components/nav/SettingsHeader.tsx:42
 #: src/pages/Index/Settings/AdminCenter/Index.tsx:344
 #: src/pages/Index/Settings/AdminCenter/Index.tsx:349
 msgid "Admin Center"
 msgstr "Админ центр"
 
-#: src/components/nav/MainMenu.tsx:100
+#: src/components/nav/MainMenu.tsx:105
 msgid "Logout"
 msgstr "Выход"
 
-#: src/components/nav/NavigationDrawer.tsx:77
+#: src/components/nav/NavigationDrawer.tsx:78
 #: src/components/render/Part.tsx:36
 #: src/components/wizards/ImportPartWizard.tsx:808
 #: src/defaults/links.tsx:51
@@ -2817,7 +2821,7 @@ msgstr "Выход"
 msgid "Stock"
 msgstr "Склад"
 
-#: src/components/nav/NavigationDrawer.tsx:84
+#: src/components/nav/NavigationDrawer.tsx:85
 #: src/defaults/links.tsx:60
 #: src/pages/Index/Settings/SystemSettings.tsx:319
 #: src/pages/build/BuildDetail.tsx:602
@@ -2825,7 +2829,7 @@ msgstr "Склад"
 msgid "Manufacturing"
 msgstr "Производство"
 
-#: src/components/nav/NavigationDrawer.tsx:92
+#: src/components/nav/NavigationDrawer.tsx:93
 #: src/defaults/links.tsx:67
 #: src/pages/Index/Settings/SystemSettings.tsx:348
 #: src/pages/company/ManufacturerDetail.tsx:9
@@ -2837,7 +2841,7 @@ msgstr "Производство"
 msgid "Purchasing"
 msgstr "Закупки"
 
-#: src/components/nav/NavigationDrawer.tsx:99
+#: src/components/nav/NavigationDrawer.tsx:100
 #: src/components/nexa/ReportTabs.tsx:16
 #: src/defaults/links.tsx:83
 #: src/pages/Index/Settings/SystemSettings.tsx:366
@@ -2849,19 +2853,19 @@ msgstr "Закупки"
 msgid "Sales"
 msgstr "Продажи"
 
-#: src/components/nav/NavigationDrawer.tsx:106
+#: src/components/nav/NavigationDrawer.tsx:107
 #: src/defaults/links.tsx:73
 #: src/pages/nexa/PurchaseListPage.tsx:57
 msgid "Purchase Entries"
 msgstr ""
 
-#: src/components/nav/NavigationDrawer.tsx:112
+#: src/components/nav/NavigationDrawer.tsx:113
 #: src/defaults/links.tsx:78
 #: src/pages/nexa/BillListPage.tsx:46
 msgid "Bills"
 msgstr ""
 
-#: src/components/nav/NavigationDrawer.tsx:118
+#: src/components/nav/NavigationDrawer.tsx:119
 #: src/components/nexa/ReportTabs.tsx:17
 #: src/defaults/links.tsx:91
 #: src/pages/company/CompanyDetail.tsx:192
@@ -2869,23 +2873,23 @@ msgstr ""
 msgid "Receivables"
 msgstr ""
 
-#: src/components/nav/NavigationDrawer.tsx:124
+#: src/components/nav/NavigationDrawer.tsx:125
 #: src/defaults/links.tsx:96
 msgid "Reports"
 msgstr "Reports"
 
-#: src/components/nav/NavigationDrawer.tsx:165
+#: src/components/nav/NavigationDrawer.tsx:166
 #: src/components/nav/SettingsHeader.tsx:40
 #: src/pages/Index/Settings/UserSettings.tsx:148
 #: src/pages/Index/Settings/UserSettings.tsx:152
 msgid "User Settings"
 msgstr "Пользовательские настройки"
 
-#: src/components/nav/NavigationDrawer.tsx:200
+#: src/components/nav/NavigationDrawer.tsx:202
 msgid "Navigation"
 msgstr "Панель навигации"
 
-#: src/components/nav/NavigationDrawer.tsx:228
+#: src/components/nav/NavigationDrawer.tsx:230
 msgid "About"
 msgstr "О проекте"
 
@@ -6274,11 +6278,11 @@ msgstr "Подтвердите новый пароль"
 msgid "Confirm"
 msgstr "Подтвердить"
 
-#: src/pages/Auth/Layout.tsx:27
+#: src/pages/Auth/Layout.tsx:35
 msgid "Nexa Inventory"
 msgstr ""
 
-#: src/pages/Auth/Layout.tsx:67
+#: src/pages/Auth/Layout.tsx:76
 msgid "Log off"
 msgstr "Выйти"
 

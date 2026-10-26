@@ -22,10 +22,19 @@ export default function LoginLayoutComponent() {
       <Center mih='100vh' p='lg'>
         <Container>
           <Stack align='center' gap='lg'>
-            <Stack align='center' gap={6}>
-              <InvenTreeLogo size={96} large />
-              <StylishText size='xl'>{t`Nexa Inventory`}</StylishText>
-            </Stack>
+            <Paper
+              p='md'
+              withBorder
+              shadow='lg'
+              radius='md'
+              miw={425}
+              style={{ textAlign: 'center' }}
+            >
+              <Stack align='center' gap={6}>
+                <InvenTreeLogo size={96} large />
+                <StylishText size='xl'>{t`Nexa Inventory`}</StylishText>
+              </Stack>
+            </Paper>
             <Outlet />
           </Stack>
         </Container>

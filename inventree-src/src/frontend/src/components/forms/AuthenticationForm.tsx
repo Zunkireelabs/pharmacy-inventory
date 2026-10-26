@@ -194,7 +194,10 @@ export function AuthenticationForm() {
           </Anchor>
           <Button type='submit' disabled={isLoggingIn} onClick={handleLogin}>
             {isLoggingIn ? (
-              <Loader size='sm' />
+              <Group gap='xs' wrap='nowrap'>
+                <Loader size='sm' />
+                <Trans>Signing in…</Trans>
+              </Group>
             ) : (
               <>
                 {classicLoginMode ? (
