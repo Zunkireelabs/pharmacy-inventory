@@ -110,6 +110,48 @@ class SaleTypeMovement(models.Model):
         return f'{self.get_sale_type_display()} — {self.part} x{self.quantity}'
 
 
+class PurchaseReceipt(models.Model):
+    """One purchase line received into stock: the supplier invoice details
+    behind a new batch (the client's "Purchase Entry" sheet)."""
+
+    class PaymentStatus(models.TextChoices):
+        UNPAID = 'unpaid', 'Unpaid'
+        PARTIAL = 'partial', 'Partially Paid'
+        PAID = 'paid', 'Paid'
+
+    part = models.ForeignKey('part.Part', on_delete=models.PROTECT, related_name='+')
+    stock_item = models.ForeignKey(
+        'stock.StockItem', on_delete=models.SET_NULL, related_name='+', null=True, blank=True
+    )
+    supplier = models.ForeignKey(
+        'company.Company', on_delete=models.SET_NULL, related_name='+', null=True, blank=True
+    )
+    invoice_no = models.CharField(max_length=100, blank=True)
+    purchase_date = models.DateField(default=timezone.localdate)
+    batch = models.CharField(max_length=100)
+    expiry_date = models.DateField()
+    quantity = models.DecimalField(max_digits=15, decimal_places=5)
+    bonus_quantity = models.DecimalField(max_digits=15, decimal_places=5, default=0)
+    unit_cost = models.DecimalField(max_digits=15, decimal_places=2, default=0)
+    discount = models.DecimalField(max_digits=15, decimal_places=2, default=0)
+    tax = models.DecimalField(max_digits=15, decimal_places=2, default=0)
+    line_total = models.DecimalField(max_digits=15, decimal_places=2, default=0)
+    payment_status = models.CharField(
+        max_length=20, choices=PaymentStatus.choices, default=PaymentStatus.UNPAID
+    )
+    notes = models.TextField(blank=True)
+    received_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='+'
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-purchase_date', '-pk']
+
+    def __str__(self):
+        return f'{self.invoice_no or "purchase"}: {self.part} x{self.quantity}'
+
+
 class MedicineInfo(models.Model):
     """Pharmacy-specific flags for a Part: prescription-only and controlled.
 

@@ -17,7 +17,15 @@ from company.models import Company
 from part.models import Part
 from stock.models import StockItem, StockLocation
 
-from .models import Invoice, InvoiceLineItem, MedicineInfo, Payment, SaleBill, SaleTypeMovement
+from .models import (
+    Invoice,
+    InvoiceLineItem,
+    MedicineInfo,
+    Payment,
+    PurchaseReceipt,
+    SaleBill,
+    SaleTypeMovement,
+)
 from .services import (
     OUTBOUND_TYPES,
     SELLING_TYPES,
@@ -1205,3 +1213,181 @@ class BranchListView(APIView):
     def get(self, request):
         branches = StockLocation.objects.filter(parent=None).order_by('name')
         return Response([{'id': b.pk, 'name': b.name} for b in branches])
+
+
+def _money_in(data, key, default='0'):
+    """Non-negative money amount from request data, or raise ValueError."""
+    try:
+        value = Decimal(str(data.get(key) if data.get(key) not in (None, '') else default))
+    except InvalidOperation as exc:
+        raise ValueError(f'Invalid {key}') from exc
+    if value < 0:
+        raise ValueError(f'{key} must not be negative')
+    return value.quantize(Decimal('0.01'))
+
+
+class ReceiveStockView(APIView):
+    """POST: receive a purchase line into stock as a new batch.
+
+    Body: part_id, batch, expiry_date (ISO, must be in the future),
+    quantity, bonus_quantity (free stock, optional), unit_cost, discount,
+    tax, payment_status (unpaid | partial | paid), location_id (required),
+    supplier_id (optional), invoice_no, purchase_date (default today),
+    notes. Creates the StockItem (quantity + bonus) and a PurchaseReceipt
+    atomically. line_total = quantity x unit_cost - discount + tax.
+    """
+
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        data = request.data
+
+        try:
+            part = Part.objects.get(pk=data.get('part_id'))
+        except (Part.DoesNotExist, ValueError, TypeError):
+            return Response({'detail': 'part_id must reference an existing part'}, status=400)
+
+        batch = (data.get('batch') or '').strip()
+        if not batch:
+            return Response({'detail': 'batch is required'}, status=400)
+
+        try:
+            expiry = date.fromisoformat(str(data.get('expiry_date') or ''))
+        except ValueError:
+            return Response({'detail': 'expiry_date is required (YYYY-MM-DD)'}, status=400)
+        if expiry < timezone.localdate():
+            return Response({'detail': 'expiry_date is already in the past'}, status=400)
+
+        try:
+            quantity = Decimal(str(data.get('quantity')))
+            if quantity <= 0:
+                raise InvalidOperation
+        except (InvalidOperation, TypeError):
+            return Response({'detail': 'quantity must be a positive number'}, status=400)
+
+        try:
+            bonus = Decimal(str(data.get('bonus_quantity') or 0))
+            if bonus < 0:
+                raise InvalidOperation
+            unit_cost = _money_in(data, 'unit_cost')
+            discount = _money_in(data, 'discount')
+            tax = _money_in(data, 'tax')
+        except InvalidOperation:
+            return Response({'detail': 'bonus_quantity must not be negative'}, status=400)
+        except ValueError as exc:
+            return Response({'detail': str(exc)}, status=400)
+
+        payment_status = data.get('payment_status', PurchaseReceipt.PaymentStatus.UNPAID)
+        if payment_status not in PurchaseReceipt.PaymentStatus.values:
+            return Response({'detail': 'Invalid payment_status'}, status=400)
+
+        try:
+            location = StockLocation.objects.get(pk=data.get('location_id'))
+        except (StockLocation.DoesNotExist, ValueError, TypeError):
+            return Response({'detail': 'location_id is required (the branch / shelf)'}, status=400)
+
+        supplier = None
+        if data.get('supplier_id') not in (None, ''):
+            try:
+                supplier = Company.objects.get(pk=data.get('supplier_id'), is_supplier=True)
+            except (Company.DoesNotExist, ValueError, TypeError):
+                return Response({'detail': 'supplier_id must be an existing supplier'}, status=400)
+
+        try:
+            purchase_date = date.fromisoformat(str(data.get('purchase_date') or timezone.localdate()))
+        except ValueError:
+            return Response({'detail': 'Invalid purchase_date'}, status=400)
+
+        gross = quantity * unit_cost
+        if discount > gross:
+            return Response({'detail': 'discount cannot be more than the purchase value'}, status=400)
+        line_total = (gross - discount + tax).quantize(Decimal('0.01'))
+        total_units = quantity + bonus
+        effective_cost = (line_total / total_units).quantize(Decimal('0.00001'))
+
+        with transaction.atomic():
+            item = StockItem.objects.create(
+                part=part,
+                quantity=total_units,
+                batch=batch,
+                expiry_date=expiry,
+                location=location,
+                purchase_price=effective_cost,
+                supplier_part=None,
+                delete_on_deplete=False,
+            )
+            receipt = PurchaseReceipt.objects.create(
+                part=part,
+                stock_item=item,
+                supplier=supplier,
+                invoice_no=(data.get('invoice_no') or '').strip(),
+                purchase_date=purchase_date,
+                batch=batch,
+                expiry_date=expiry,
+                quantity=quantity,
+                bonus_quantity=bonus,
+                unit_cost=unit_cost,
+                discount=discount,
+                tax=tax,
+                line_total=line_total,
+                payment_status=payment_status,
+                notes=(data.get('notes') or '').strip(),
+                received_by=request.user,
+            )
+
+        return Response(_receipt_payload(receipt), status=status.HTTP_201_CREATED)
+
+
+def _receipt_payload(r):
+    return {
+        'id': r.pk,
+        'part_id': r.part_id,
+        'part_name': r.part.name,
+        'stock_item_id': r.stock_item_id,
+        'supplier': r.supplier.name if r.supplier else '',
+        'invoice_no': r.invoice_no,
+        'purchase_date': r.purchase_date.isoformat(),
+        'batch': r.batch,
+        'expiry_date': r.expiry_date.isoformat(),
+        'quantity': plain_quantity(r.quantity),
+        'bonus_quantity': plain_quantity(r.bonus_quantity),
+        'unit_cost': _money(r.unit_cost),
+        'discount': _money(r.discount),
+        'tax': _money(r.tax),
+        'line_total': _money(r.line_total),
+        'payment_status': r.payment_status,
+        'received_by': r.received_by.get_full_name() or r.received_by.get_username(),
+    }
+
+
+class PurchaseListView(APIView):
+    """GET purchases/?limit=50&search=&payment_status=: recent purchase lines."""
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        try:
+            limit = int(request.query_params.get('limit', 50))
+        except ValueError:
+            return Response({'detail': 'Invalid limit'}, status=400)
+        if limit <= 0 or limit > 200:
+            return Response({'detail': 'limit must be between 1 and 200'}, status=400)
+
+        rows = PurchaseReceipt.objects.select_related('part', 'supplier', 'received_by')
+        status_filter = request.query_params.get('payment_status')
+        if status_filter:
+            if status_filter not in PurchaseReceipt.PaymentStatus.values:
+                return Response({'detail': 'Invalid payment_status'}, status=400)
+            rows = rows.filter(payment_status=status_filter)
+        search = (request.query_params.get('search') or '').strip()
+        if search:
+            rows = rows.filter(
+                Q(invoice_no__icontains=search)
+                | Q(batch__icontains=search)
+                | Q(part__name__icontains=search)
+                | Q(supplier__name__icontains=search)
+            )
+        return Response({
+            'count': rows.count(),
+            'results': [_receipt_payload(r) for r in rows[:limit]],
+        })

@@ -139,6 +139,18 @@ class NexaInventoryPlugin(ScheduleMixin, SettingsMixin, AppMixin, UrlsMixin, Inv
             return ReceivablesSummaryReportView.as_view()(request, *args, **kwargs)
 
         @csrf_exempt
+        def receive_stock_view(request, *args, **kwargs):
+            from nexa_inventory.api import ReceiveStockView
+
+            return ReceiveStockView.as_view()(request, *args, **kwargs)
+
+        @csrf_exempt
+        def purchase_list_view(request, *args, **kwargs):
+            from nexa_inventory.api import PurchaseListView
+
+            return PurchaseListView.as_view()(request, *args, **kwargs)
+
+        @csrf_exempt
         def branch_list_view(request, *args, **kwargs):
             from nexa_inventory.api import BranchListView
 
@@ -189,6 +201,8 @@ class NexaInventoryPlugin(ScheduleMixin, SettingsMixin, AppMixin, UrlsMixin, Inv
             path('customers/<int:pk>/receivables/', customer_receivables_view, name='customer-receivables'),
             path('reports/sales/', sales_summary_report_view, name='reports-sales'),
             path('reports/receivables/', receivables_summary_report_view, name='reports-receivables'),
+            path('receive-stock/', receive_stock_view, name='receive-stock'),
+            path('purchases/', purchase_list_view, name='purchase-list'),
             path('branches/', branch_list_view, name='branch-list'),
             path('record-bill/', record_bill_view, name='record-bill'),
             path('bills/', bill_list_view, name='bill-list'),
