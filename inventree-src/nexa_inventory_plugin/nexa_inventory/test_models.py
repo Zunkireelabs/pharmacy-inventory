@@ -3,7 +3,7 @@ from decimal import Decimal
 
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.utils import timezone
 
 from company.models import Company
@@ -16,6 +16,7 @@ from .models import Invoice, InvoiceLineItem, Payment, SaleTypeMovement
 User = get_user_model()
 
 
+@override_settings(USE_TZ=True)
 class SaleTypeMovementTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_user('tester', password='pw')
@@ -56,6 +57,7 @@ class SaleTypeMovementTest(TestCase):
         self.assertEqual(movement.customer, customer)
 
 
+@override_settings(USE_TZ=True)
 class InvoiceTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_user('invoice-tester', password='pw')
@@ -115,6 +117,7 @@ class InvoiceTest(TestCase):
         self.assertEqual(invoice.aging_bucket, '31-60')
 
 
+@override_settings(USE_TZ=True)
 class InvoiceLineItemTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_user('line-tester', password='pw')
@@ -163,6 +166,7 @@ class InvoiceLineItemTest(TestCase):
             line.full_clean()
 
 
+@override_settings(USE_TZ=True)
 class PaymentTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_user('pay-tester', password='pw')

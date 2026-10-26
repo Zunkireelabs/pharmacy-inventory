@@ -2,23 +2,26 @@ from datetime import timedelta
 from decimal import Decimal
 
 from django.contrib.auth import get_user_model
+from django.test import override_settings
 from django.urls import reverse
 from django.utils import timezone
 from rest_framework.test import APITestCase
 
 from company.models import Company
+from InvenTree.unit_test import PluginRegistryMixin
 from part.models import Part
 from stock.models import StockItem
 
-from .models import Invoice, SaleTypeMovement
+from .models import Invoice, Payment, SaleTypeMovement
 
 User = get_user_model()
 
 
-class RecordSaleApiTest(APITestCase):
+@override_settings(USE_TZ=True)
+class RecordSaleApiTest(PluginRegistryMixin, APITestCase):
     def setUp(self):
         self.user = User.objects.create_user('tester', password='pw', is_staff=True)
-        self.client.force_authenticate(self.user)
+        self.client.force_login(self.user)
         self.part = Part.objects.create(
             name='Test Pen', description='Test', active=True, purchaseable=True, salable=True
         )
@@ -100,10 +103,11 @@ class RecordSaleApiTest(APITestCase):
         self.assertEqual(response.status_code, 400)
 
 
-class RecordB2BSaleApiTest(APITestCase):
+@override_settings(USE_TZ=True)
+class RecordB2BSaleApiTest(PluginRegistryMixin, APITestCase):
     def setUp(self):
         self.user = User.objects.create_user('b2b-tester', password='pw', is_staff=True)
-        self.client.force_authenticate(self.user)
+        self.client.force_login(self.user)
         self.part = Part.objects.create(
             name='Test Notebook', description='Test', active=True, purchaseable=True, salable=True
         )
@@ -245,10 +249,11 @@ class RecordB2BSaleApiTest(APITestCase):
         self.assertEqual(invoice.due_date, timezone.localdate() + timedelta(days=30))
 
 
-class InvoicePaymentsApiTest(APITestCase):
+@override_settings(USE_TZ=True)
+class InvoicePaymentsApiTest(PluginRegistryMixin, APITestCase):
     def setUp(self):
         self.user = User.objects.create_user('pay-api-tester', password='pw', is_staff=True)
-        self.client.force_authenticate(self.user)
+        self.client.force_login(self.user)
         self.customer = Company.objects.create(name='Acme Pharma', is_customer=True)
         self.invoice = Invoice.objects.create(
             customer=self.customer,
@@ -297,10 +302,11 @@ class InvoicePaymentsApiTest(APITestCase):
         self.assertEqual(response.status_code, 400)
 
 
-class InvoiceListApiTest(APITestCase):
+@override_settings(USE_TZ=True)
+class InvoiceListApiTest(PluginRegistryMixin, APITestCase):
     def setUp(self):
         self.user = User.objects.create_user('list-tester', password='pw', is_staff=True)
-        self.client.force_authenticate(self.user)
+        self.client.force_login(self.user)
         self.customer = Company.objects.create(name='Acme Pharma', is_customer=True)
         self.invoice1 = Invoice.objects.create(
             customer=self.customer,
@@ -343,16 +349,17 @@ class InvoiceListApiTest(APITestCase):
         self.assertIn(self.invoice2.id, ids)
 
     def test_unauthenticated_rejected(self):
-        self.client.force_authenticate(user=None)
+        self.client.logout()
         url = reverse('plugin:nexainventory:invoice-list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 401)
 
 
-class InvoiceDetailApiTest(APITestCase):
+@override_settings(USE_TZ=True)
+class InvoiceDetailApiTest(PluginRegistryMixin, APITestCase):
     def setUp(self):
         self.user = User.objects.create_user('detail-tester', password='pw', is_staff=True)
-        self.client.force_authenticate(self.user)
+        self.client.force_login(self.user)
         self.customer = Company.objects.create(name='Acme Pharma', is_customer=True)
         self.invoice = Invoice.objects.create(
             customer=self.customer,
@@ -375,14 +382,19 @@ class InvoiceDetailApiTest(APITestCase):
         self.assertEqual(response.status_code, 404)
 
 
-class CustomerReceivablesApiTest(APITestCase):
+@override_settings(USE_TZ=True)
+class CustomerReceivablesApiTest(PluginRegistryMixin, APITestCase):
     def setUp(self):
         self.user = User.objects.create_user('receivables-tester', password='pw', is_staff=True)
-        self.client.force_authenticate(self.user)
+        self.client.force_login(self.user)
         self.customer = Company.objects.create(name='Acme Pharma', is_customer=True)
         self.paid = Invoice.objects.create(
             customer=self.customer, due_date=timezone.localdate(), total=Decimal('100'),
             created_by=self.user, status=Invoice.Status.PAID,
+        )
+        Payment.objects.create(
+            invoice=self.paid, amount=Decimal('100'), method=Payment.Method.CASH,
+            recorded_by=self.user,
         )
         self.unpaid = Invoice.objects.create(
             customer=self.customer, due_date=timezone.localdate(), total=Decimal('300'),
@@ -402,14 +414,15 @@ class CustomerReceivablesApiTest(APITestCase):
         self.assertEqual(ids, [self.unpaid.id])
 
 
-class MovementListApiTest(APITestCase):
+@override_settings(USE_TZ=True)
+class MovementListApiTest(PluginRegistryMixin, APITestCase):
     def setUp(self):
         self.user = User.objects.create_user('movement-tester', password='pw', is_staff=True)
-        self.client.force_authenticate(self.user)
+        self.client.force_login(self.user)
         self.url = reverse('plugin:nexainventory:movement-list')
 
     def test_unauthenticated_rejected(self):
-        self.client.force_authenticate(user=None)
+        self.client.logout()
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 401)
 
