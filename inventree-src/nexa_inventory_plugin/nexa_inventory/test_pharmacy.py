@@ -161,6 +161,21 @@ class MedicineApiTest(PharmacyBase):
         self.assertTrue(response.data['is_controlled'])
         self.assertTrue(response.data['requires_prescription'])
 
+    def test_only_staff_can_change_the_flags(self):
+        pharmacist = User.objects.create_user('counter-staff', password='pw')  # not staff
+        self.client.force_login(pharmacist)
+        url = reverse('plugin:nexainventory:medicine-detail', args=[self.part.pk])
+        denied = self.client.put(url, {'requires_prescription': True}, format='json')
+        self.assertEqual(denied.status_code, 403)
+        self.assertEqual(self.client.patch(url, {'is_controlled': True}, format='json').status_code, 403)
+        self.assertFalse(MedicineInfo.objects.filter(part=self.part).exists())
+        # reading is still allowed for everyone who is logged in
+        self.assertEqual(self.client.get(url).status_code, 200)
+        self.assertEqual(self.client.get(reverse('plugin:nexainventory:medicine-list')).status_code, 200)
+        # a staff user can
+        self.client.force_login(self.user)
+        self.assertEqual(self.client.put(url, {'requires_prescription': True}, format='json').status_code, 200)
+
     def test_rejects_non_boolean_and_unknown_part(self):
         url = reverse('plugin:nexainventory:medicine-detail', args=[self.part.pk])
         self.assertEqual(self.client.put(url, {'is_controlled': 'yes'}, format='json').status_code, 400)

@@ -860,7 +860,7 @@ class MovementListView(APIView):
 class MedicineInfoView(APIView):
     """GET medicine/ (all flagged medicines) or medicine/<part_id>/ (one part,
     defaults to over-the-counter). PUT/PATCH medicine/<part_id>/ sets
-    requires_prescription and/or is_controlled.
+    requires_prescription and/or is_controlled (staff / admin only).
     """
 
     permission_classes = [IsAuthenticated]
@@ -894,6 +894,13 @@ class MedicineInfoView(APIView):
         return Response(self._serialize(part_id, MedicineInfo.objects.filter(part_id=part_id).first()))
 
     def put(self, request, part_id=None):
+        # Changing prescription-only / controlled status decides what can be
+        # sold over the counter, so it is limited to staff / admin accounts.
+        if not (request.user.is_staff or request.user.is_superuser):
+            return Response(
+                {'detail': 'Only an owner or admin can change prescription settings'},
+                status=status.HTTP_403_FORBIDDEN,
+            )
         if part_id is None:
             return Response({'detail': 'part_id required'}, status=status.HTTP_400_BAD_REQUEST)
         try:

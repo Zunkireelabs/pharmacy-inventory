@@ -5,6 +5,7 @@ import { IconAlertCircle } from '@tabler/icons-react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { api } from '../../App';
+import { useUserState } from '../../states/UserState';
 
 type Flags = { requires_prescription: boolean; is_controlled: boolean };
 
@@ -18,6 +19,7 @@ export default function MedicineFlagsPanel({
   partId
 }: Readonly<{ partId: number }>) {
   const queryClient = useQueryClient();
+  const isStaff = useUserState((state) => state.isStaff)();
   const url = `/plugin/nexainventory/medicine/${partId}/`;
 
   const query = useQuery({
@@ -51,12 +53,17 @@ export default function MedicineFlagsPanel({
     <Card withBorder maw={560}>
       <Stack>
         <Text fw={700}>{t`Prescription control`}</Text>
+        {!isStaff && (
+          <Text size='sm' c='dimmed'>
+            {t`Only an owner or admin can change these settings.`}
+          </Text>
+        )}
         <Switch
           label={t`Prescription only (Rx)`}
           description={t`Cannot be sold over the counter; sell it as a Prescription.`}
           checked={!!flags?.requires_prescription}
           disabled={
-            !flags || mutation.isPending || !!flags.is_controlled
+            !isStaff || !flags || mutation.isPending || !!flags.is_controlled
           }
           onChange={(e) =>
             mutation.mutate({ requires_prescription: e.currentTarget.checked })
@@ -66,7 +73,7 @@ export default function MedicineFlagsPanel({
           label={t`Controlled medicine`}
           description={t`Always prescription-only, and the prescription reference is mandatory.`}
           checked={!!flags?.is_controlled}
-          disabled={!flags || mutation.isPending}
+          disabled={!isStaff || !flags || mutation.isPending}
           onChange={(e) =>
             mutation.mutate({ is_controlled: e.currentTarget.checked })
           }
