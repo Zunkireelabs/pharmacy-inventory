@@ -41,8 +41,13 @@ invoke worker                                  # separate terminal
 Run the plugin tests:
 
 ```bash
-python3 src/backend/InvenTree/manage.py test nexa_inventory -v 2
+INVENTREE_PLUGIN_TESTING_SETUP=True \
+  python3 src/backend/InvenTree/manage.py test nexa_inventory -v 2
 ```
+
+The flag makes InvenTree load entry-point plugins (and their URLs) in test mode.
+macOS needs Pango for PDF rendering: `brew install pango` and, if the library is
+not found, `export DYLD_FALLBACK_LIBRARY_PATH=/opt/homebrew/lib`.
 
 ## Deployment
 
