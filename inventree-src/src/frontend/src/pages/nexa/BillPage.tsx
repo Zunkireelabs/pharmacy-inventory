@@ -67,10 +67,11 @@ const PAYMENT_LABEL: Record<string, string> = {
 
 // Print only the bill, not the app chrome around it
 const PRINT_CSS = `
+@page { size: A4; margin: 0; }
 @media print {
   body * { visibility: hidden !important; }
   #nexa-bill, #nexa-bill * { visibility: visible !important; }
-  #nexa-bill { position: absolute; left: 0; top: 0; width: 100%; box-shadow: none !important; border: none !important; }
+  #nexa-bill { position: absolute; left: 0; top: 0; width: 100%; max-width: none !important; box-sizing: border-box; padding: 14mm !important; box-shadow: none !important; border: none !important; }
   .nexa-no-print { display: none !important; }
 }
 `;
