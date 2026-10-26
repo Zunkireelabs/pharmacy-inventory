@@ -26,3 +26,7 @@ inventree-src/src/frontend/dist/
 
 # Scratch
 temp-ss/
+
+# Supabase CLI link state / Claude Code local state
+supabase/.temp/
+.claude/*.lock
