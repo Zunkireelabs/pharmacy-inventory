@@ -1,7 +1,20 @@
 import { t } from '@lingui/core/macro';
-import { Alert, Button, Group, Loader, Stack } from '@mantine/core';
+import {
+  Alert,
+  Button,
+  Group,
+  Loader,
+  Modal,
+  NumberInput,
+  Select,
+  Stack,
+  Text,
+  TextInput
+} from '@mantine/core';
+import { notifications } from '@mantine/notifications';
 import { IconArrowLeft, IconPrinter } from '@tabler/icons-react';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { api } from '../../App';
@@ -26,6 +39,8 @@ type Bill = {
   payment_mode: string;
   lines: {
     sn: number;
+    movement_id: number;
+    returned_quantity: string;
     particulars: string;
     brand: string;
     batch: string;
@@ -59,12 +74,102 @@ const PRINT_CSS = `
 }
 `;
 
+type BillLine = Bill['lines'][number];
+
+/** Return part of one bill line: refunds it and, if resalable, restocks the batch. */
+function ReturnDialog({
+  line,
+  onClose,
+  onDone
+}: Readonly<{ line: BillLine | null; onClose: () => void; onDone: () => void }>) {
+  const [quantity, setQuantity] = useState<number | ''>('');
+  const [reason, setReason] = useState('');
+  const [disposition, setDisposition] = useState('resalable');
+  const [error, setError] = useState<string | null>(null);
+
+  const remaining = line ? Number(line.quantity) - Number(line.returned_quantity) : 0;
+
+  const mutation = useMutation({
+    mutationFn: async () =>
+      api.post('/plugin/nexainventory/sales-return/', {
+        movement_id: line?.movement_id,
+        quantity,
+        reason: reason.trim(),
+        disposition
+      }),
+    onSuccess: (response) => {
+      notifications.show({
+        message: t`Return ${response.data.reference} recorded — refund ${response.data.refund_amount}`,
+        color: 'green'
+      });
+      setQuantity('');
+      setReason('');
+      setError(null);
+      onDone();
+    },
+    onError: (e: any) =>
+      setError(e?.response?.data?.detail ?? t`Could not record the return`)
+  });
+
+  const qty = typeof quantity === 'number' ? quantity : 0;
+
+  return (
+    <Modal opened={!!line} onClose={onClose} title={t`Return items`} centered>
+      {line && (
+        <Stack>
+          {error && <Alert color='red'>{error}</Alert>}
+          <Text size='sm'>
+            {line.particulars} — {t`batch`} {line.batch || '-'} — {t`up to`} {remaining}
+          </Text>
+          <NumberInput
+            label={t`Quantity returned`}
+            value={quantity}
+            onChange={(v) => setQuantity(v as number)}
+            min={0}
+            max={remaining}
+            required
+          />
+          <TextInput
+            label={t`Reason`}
+            value={reason}
+            onChange={(e) => setReason(e.currentTarget.value)}
+            required
+          />
+          <Select
+            label={t`Stock disposition`}
+            data={[
+              { value: 'resalable', label: t`Resalable — back to stock` },
+              { value: 'not_resalable', label: t`Not resalable — damaged / expired` }
+            ]}
+            value={disposition}
+            onChange={(v) => setDisposition(v ?? 'resalable')}
+            allowDeselect={false}
+          />
+          <Text size='sm' c='dimmed'>
+            {t`Refund`}: {formatMoney(qty * Number(line.rate))}
+          </Text>
+          <Button
+            disabled={qty <= 0 || qty > remaining || !reason.trim()}
+            loading={mutation.isPending}
+            onClick={() => mutation.mutate()}
+          >
+            {t`Record Return`}
+          </Button>
+        </Stack>
+      )}
+    </Modal>
+  );
+}
+
 const cell = { border: '1px solid #444', padding: '4px 8px' } as const;
 
 /** Customer bill, laid out like the pharmacy's patient bill, ready to print. */
 export default function BillPage() {
   const { id } = useParams();
   const navigate = useNavigate();
+
+  const queryClient = useQueryClient();
+  const [returning, setReturning] = useState<BillLine | null>(null);
 
   const query = useQuery({
     queryKey: ['nexa-bill', id],
@@ -84,6 +189,15 @@ export default function BillPage() {
   return (
     <Stack gap='md'>
       <style>{PRINT_CSS}</style>
+      <ReturnDialog
+        line={returning}
+        onClose={() => setReturning(null)}
+        onDone={() => {
+          setReturning(null);
+          queryClient.invalidateQueries({ queryKey: ['nexa-bill', id] });
+          queryClient.invalidateQueries({ queryKey: ['nexa-batches'] });
+        }}
+      />
       <Group className='nexa-no-print'>
         <Button
           variant='default'
@@ -153,7 +267,24 @@ export default function BillPage() {
                 <td style={cell}>{l.particulars}</td>
                 <td style={cell}>{l.batch}</td>
                 <td style={cell}>{l.expiry_date ?? ''}</td>
-                <td style={{ ...cell, textAlign: 'right' }}>{formatQty(l.quantity)}</td>
+                <td style={{ ...cell, textAlign: 'right' }}>
+                  {formatQty(l.quantity)}
+                  {Number(l.returned_quantity) > 0 && (
+                    <div style={{ fontSize: 11 }}>
+                      (returned {formatQty(l.returned_quantity)})
+                    </div>
+                  )}
+                  {Number(l.returned_quantity) < Number(l.quantity) && (
+                    <Button
+                      className='nexa-no-print'
+                      size='compact-xs'
+                      variant='subtle'
+                      onClick={() => setReturning(l)}
+                    >
+                      {t`Return`}
+                    </Button>
+                  )}
+                </td>
                 <td style={{ ...cell, textAlign: 'right' }}>{formatMoney(l.rate)}</td>
                 <td style={{ ...cell, textAlign: 'right' }}>{formatMoney(l.amount)}</td>
               </tr>

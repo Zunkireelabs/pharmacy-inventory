@@ -7,6 +7,7 @@ import {
   SegmentedControl,
   Select,
   Stack,
+  TextInput,
   Textarea
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
@@ -19,12 +20,12 @@ import { api } from '../../App';
 import { formatQty } from './format';
 import { ProductPicker, useBatches } from './ProductPicker';
 
-type AdjustType = 'return' | 'expiry_writeoff';
+type Mode = 'expiry_writeoff' | 'adjustment';
 
 /**
- * Customer return (puts stock back into a batch) and expiry write-off
- * (removes an expired batch from stock). Both act on one named batch, unlike
- * a sale, which takes earliest-expiring stock first.
+ * Expiry write-off (removes an expired batch) and stock adjustment (a signed
+ * change with a reason and an approver, e.g. after a stock-take). Both act on
+ * one named batch. Customer returns are done from the bill itself.
  */
 export default function AdjustStockButton({
   fullWidth
@@ -32,26 +33,28 @@ export default function AdjustStockButton({
   const isMobile = useMediaQuery('(max-width: 48em)');
   const queryClient = useQueryClient();
   const [opened, setOpened] = useState(false);
-  const [type, setType] = useState<AdjustType>('expiry_writeoff');
+  const [mode, setMode] = useState<Mode>('expiry_writeoff');
   const [partId, setPartId] = useState<number | null>(null);
   const [stockItemId, setStockItemId] = useState<string | null>(null);
   const [quantity, setQuantity] = useState<number | ''>('');
+  const [reason, setReason] = useState('');
+  const [approvedBy, setApprovedBy] = useState('');
+  const [reference, setReference] = useState('');
   const [notes, setNotes] = useState('');
   const [errorDetail, setErrorDetail] = useState<string | null>(null);
 
   const batches = useBatches(partId);
+  const isWriteoff = mode === 'expiry_writeoff';
 
   const options = useMemo(() => {
-    const rows = (batches.data ?? []).filter(
-      (b) => type === 'return' || b.expired
-    );
+    const rows = (batches.data ?? []).filter((b) => !isWriteoff || b.expired);
     return rows.map((b) => ({
       value: String(b.id),
       label: `${b.batch || t`(no batch)`} — ${b.expiryDate ?? t`no expiry`}${
         b.expired ? ` (${t`EXPIRED`})` : ''
       } — ${formatQty(b.quantity)}`
     }));
-  }, [batches.data, type]);
+  }, [batches.data, isWriteoff]);
 
   const selected = (batches.data ?? []).find((b) => String(b.id) === stockItemId);
 
@@ -59,6 +62,9 @@ export default function AdjustStockButton({
     setPartId(null);
     setStockItemId(null);
     setQuantity('');
+    setReason('');
+    setApprovedBy('');
+    setReference('');
     setNotes('');
     setErrorDetail(null);
   };
@@ -66,37 +72,50 @@ export default function AdjustStockButton({
   const mutation = useMutation({
     mutationFn: async () => {
       setErrorDetail(null);
-      return api.post('/plugin/nexainventory/record-sale/', {
+      if (isWriteoff) {
+        return api.post('/plugin/nexainventory/record-sale/', {
+          stock_item_id: Number(stockItemId),
+          sale_type: 'expiry_writeoff',
+          quantity,
+          notes: reason || notes
+        });
+      }
+      return api.post('/plugin/nexainventory/adjust-stock/', {
         stock_item_id: Number(stockItemId),
-        sale_type: type,
-        quantity,
-        notes
+        quantity_change: quantity,
+        reason: reason.trim(),
+        approved_by: approvedBy.trim(),
+        reference_no: reference.trim(),
+        remarks: notes
       });
     },
     onSuccess: () => {
       notifications.show({
-        message: type === 'return' ? t`Return recorded` : t`Write-off recorded`,
+        message: isWriteoff ? t`Write-off recorded` : t`Adjustment recorded`,
         color: 'green'
       });
       queryClient.invalidateQueries({ queryKey: ['nexa-batches'] });
+      queryClient.invalidateQueries({ queryKey: ['nexa-dashboard-expiry'] });
       setOpened(false);
       reset();
     },
     onError: (error: any) => {
       setErrorDetail(
-        error?.response?.data?.detail ?? t`Could not record this adjustment`
+        error?.response?.data?.detail ?? t`Could not record this change`
       );
     }
   });
 
+  const qty = typeof quantity === 'number' ? quantity : 0;
   const tooMany =
-    type === 'expiry_writeoff' &&
-    selected &&
-    typeof quantity === 'number' &&
-    quantity > selected.quantity;
+    !!selected && (isWriteoff ? qty > selected.quantity : -qty > selected.quantity);
 
   const canSubmit =
-    !!stockItemId && typeof quantity === 'number' && quantity > 0 && !tooMany;
+    !!stockItemId &&
+    qty !== 0 &&
+    (!isWriteoff || qty > 0) &&
+    !tooMany &&
+    (isWriteoff || (!!reason.trim() && !!approvedBy.trim()));
 
   return (
     <>
@@ -108,7 +127,7 @@ export default function AdjustStockButton({
         leftSection={<IconAdjustments size={18} />}
         onClick={() => setOpened(true)}
       >
-        {t`Return / Write-off`}
+        {t`Adjust / Write-off`}
       </Button>
       <Modal
         opened={opened}
@@ -116,7 +135,7 @@ export default function AdjustStockButton({
           setOpened(false);
           reset();
         }}
-        title={t`Return / Write-off`}
+        title={t`Adjust / Write-off`}
         centered
         fullScreen={isMobile}
         closeOnClickOutside={false}
@@ -128,14 +147,15 @@ export default function AdjustStockButton({
             </Alert>
           )}
           <SegmentedControl
-            value={type}
+            value={mode}
             onChange={(v) => {
-              setType(v as AdjustType);
+              setMode(v as Mode);
               setStockItemId(null);
+              setQuantity('');
             }}
             data={[
               { value: 'expiry_writeoff', label: t`Expiry Write-off` },
-              { value: 'return', label: t`Customer Return` }
+              { value: 'adjustment', label: t`Stock Adjustment` }
             ]}
           />
           <ProductPicker
@@ -146,23 +166,21 @@ export default function AdjustStockButton({
             }}
           />
           <Select
-            label={type === 'return' ? t`Batch returned` : t`Expired batch`}
+            label={isWriteoff ? t`Expired batch` : t`Batch`}
             data={options}
             value={stockItemId}
             onChange={setStockItemId}
             disabled={!partId}
             nothingFoundMessage={
-              type === 'return'
-                ? t`No batches of this medicine`
-                : t`No expired batches in stock`
+              isWriteoff ? t`No expired batches in stock` : t`No batches of this medicine`
             }
             required
           />
           <NumberInput
-            label={t`Quantity`}
+            label={isWriteoff ? t`Quantity to write off` : t`Quantity change (+ add, − remove)`}
             value={quantity}
             onChange={(v) => setQuantity(v as number)}
-            min={0}
+            allowNegative={!isWriteoff}
             required
             error={
               tooMany && selected
@@ -170,6 +188,28 @@ export default function AdjustStockButton({
                 : undefined
             }
           />
+          {!isWriteoff && (
+            <>
+              <TextInput
+                label={t`Reason`}
+                placeholder={t`Stock-take difference, damage, breakage...`}
+                value={reason}
+                onChange={(e) => setReason(e.currentTarget.value)}
+                required
+              />
+              <TextInput
+                label={t`Approved By`}
+                value={approvedBy}
+                onChange={(e) => setApprovedBy(e.currentTarget.value)}
+                required
+              />
+              <TextInput
+                label={t`Reference No.`}
+                value={reference}
+                onChange={(e) => setReference(e.currentTarget.value)}
+              />
+            </>
+          )}
           <Textarea
             label={t`Notes`}
             value={notes}
@@ -183,7 +223,7 @@ export default function AdjustStockButton({
             loading={mutation.isPending}
             onClick={() => mutation.mutate()}
           >
-            {type === 'return' ? t`Record Return` : t`Write Off`}
+            {isWriteoff ? t`Write Off` : t`Record Adjustment`}
           </Button>
         </Stack>
       </Modal>

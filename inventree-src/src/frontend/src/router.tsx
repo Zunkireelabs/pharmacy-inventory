@@ -34,6 +34,9 @@ export const BillPage = Loadable(lazy(() => import('./pages/nexa/BillPage')));
 export const BillListPage = Loadable(
   lazy(() => import('./pages/nexa/BillListPage'))
 );
+export const PurchaseListPage = Loadable(
+  lazy(() => import('./pages/nexa/PurchaseListPage'))
+);
 export const ExpiryReportPage = Loadable(
   lazy(() => import('./pages/nexa/ExpiryReportPage'))
 );
@@ -239,6 +242,7 @@ export const routes = (
         <Route index element={<InvoiceListPage />} />
         <Route path='invoice/:id' element={<InvoiceDetailPage />} />
       </Route>
+      <Route path='purchase-entries/' element={<PurchaseListPage />} />
       <Route path='bills/'>
         <Route index element={<BillListPage />} />
         <Route path=':id' element={<BillPage />} />
