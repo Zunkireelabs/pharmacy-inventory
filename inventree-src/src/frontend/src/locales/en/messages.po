@@ -14,2085 +14,6 @@ msgstr ""
 "Plural-Forms: \n"
 "X-Generator: @lingui/cli\n"
 
-#~ msgid "An error occurred while rendering this component. Refer to the console for more information."
-#~ msgstr "An error occurred while rendering this component. Refer to the console for more information."
-
-#~ msgid "Part Parameter Template"
-#~ msgstr "Part Parameter Template"
-
-#~ msgid "Part Parameter Templates"
-#~ msgstr "Part Parameter Templates"
-
-#~ msgid "Build"
-#~ msgstr "Build"
-
-#~ msgid "Builds"
-#~ msgstr "Builds"
-
-#~ msgid "Title"
-#~ msgstr "Title"
-
-#~ msgid "Copy to clipboard"
-#~ msgstr "Copy to clipboard"
-
-#~ msgid "Printing"
-#~ msgstr "Printing"
-
-#~ msgid "Printing completed successfully"
-#~ msgstr "Printing completed successfully"
-
-#~ msgid "Label printing completed successfully"
-#~ msgstr "Label printing completed successfully"
-
-#~ msgid "The label could not be generated"
-#~ msgstr "The label could not be generated"
-
-#~ msgid "Report printing completed successfully"
-#~ msgstr "Report printing completed successfully"
-
-#~ msgid "The report could not be generated"
-#~ msgstr "The report could not be generated"
-
-#~ msgid "This provider is not full set up."
-#~ msgstr "This provider is not full set up."
-
-#~ msgid "Sign in redirect failed."
-#~ msgstr "Sign in redirect failed."
-
-#~ msgid "Scan QR code"
-#~ msgstr "Scan QR code"
-
-#~ msgid "Open QR code scanner"
-#~ msgstr "Open QR code scanner"
-
-#~ msgid "Open Barcode Scanner"
-#~ msgstr "Open Barcode Scanner"
-
-#~ msgid "Unsubscribe from part"
-#~ msgstr "Unsubscribe from part"
-
-#~ msgid "Download data"
-#~ msgstr "Download data"
-
-#~ msgid "Completed {models}"
-#~ msgstr "Completed {models}"
-
-#~ msgid "Display number of completed {models} per month"
-#~ msgstr "Display number of completed {models} per month"
-
-#~ msgid "Email:"
-#~ msgstr "Email:"
-
-#~ msgid "Staff"
-#~ msgstr "Staff"
-
-#~ msgid "Drag and drop to upload"
-#~ msgstr "Drag and drop to upload"
-
-#~ msgid "Download remote image"
-#~ msgstr "Download remote image"
-
-#~ msgid "Download Image"
-#~ msgstr "Download Image"
-
-#~ msgid "Image downloaded successfully"
-#~ msgstr "Image downloaded successfully"
-
-#~ msgid "Part is a template part (variants can be made from this part)"
-#~ msgstr "Part is a template part (variants can be made from this part)"
-
-#~ msgid "Part can be assembled from other parts"
-#~ msgstr "Part can be assembled from other parts"
-
-#~ msgid "Part can be used in assemblies"
-#~ msgstr "Part can be used in assemblies"
-
-#~ msgid "Part stock is tracked by serial number"
-#~ msgstr "Part stock is tracked by serial number"
-
-#~ msgid "Part can be purchased from external suppliers"
-#~ msgstr "Part can be purchased from external suppliers"
-
-#~ msgid "Part can be sold to customers"
-#~ msgstr "Part can be sold to customers"
-
-#~ msgid "Part is virtual (not a physical part)"
-#~ msgstr "Part is virtual (not a physical part)"
-
-#~ msgid "Image upload failed"
-#~ msgstr "Image upload failed"
-
-#~ msgid "Image uploaded successfully"
-#~ msgstr "Image uploaded successfully"
-
-#~ msgid "Notes saved successfully"
-#~ msgstr "Notes saved successfully"
-
-#~ msgid "Failed to save notes"
-#~ msgstr "Failed to save notes"
-
-#~ msgid "Error Saving Notes"
-#~ msgstr "Error Saving Notes"
-
-#~ msgid "Disable Editing"
-#~ msgstr "Disable Editing"
-
-#~ msgid "Save Notes"
-#~ msgstr "Save Notes"
-
-#~ msgid "Close Editor"
-#~ msgstr "Close Editor"
-
-#~ msgid "Enable Editing"
-#~ msgstr "Enable Editing"
-
-#~ msgid "Preview Notes"
-#~ msgstr "Preview Notes"
-
-#~ msgid "Edit Notes"
-#~ msgstr "Edit Notes"
-
-#~ msgid "Failed to parse error response from server."
-#~ msgstr "Failed to parse error response from server."
-
-#~ msgid "Save & Reload preview?"
-#~ msgstr "Save & Reload preview?"
-
-#~ msgid "Save & Reload preview"
-#~ msgstr "Save & Reload preview"
-
-#~ msgid "to preview"
-#~ msgstr "to preview"
-
-#~ msgid "Form Errors Exist"
-#~ msgstr "Form Errors Exist"
-
-#~ msgid "Check your your input and try again."
-#~ msgstr "Check your your input and try again."
-
-#~ msgid "Welcome back!"
-#~ msgstr "Welcome back!"
-
-#~ msgid "Login successfull"
-#~ msgstr "Login successfull"
-
-#~ msgid "Mail delivery successfull"
-#~ msgstr "Mail delivery successfull"
-
-#~ msgid "I will use username and password"
-#~ msgstr "I will use username and password"
-
-#~ msgid "Select destination instance"
-#~ msgstr "Select destination instance"
-
-#~ msgid "Edit possible host options"
-#~ msgstr "Edit possible host options"
-
-#~ msgid "Version: {0}"
-#~ msgstr "Version: {0}"
-
-#~ msgid "API:{0}"
-#~ msgstr "API:{0}"
-
-#~ msgid "Name: {0}"
-#~ msgstr "Name: {0}"
-
-#~ msgid "State: <0>worker</0> ({0}), <1>plugins</1>{1}"
-#~ msgstr "State: <0>worker</0> ({0}), <1>plugins</1>{1}"
-
-#~ msgid "Select image"
-#~ msgstr "Select image"
-
-#~ msgid "Select a column from the data file"
-#~ msgstr "Select a column from the data file"
-
-#~ msgid "Map data columns to database fields"
-#~ msgstr "Map data columns to database fields"
-
-#~ msgid "Imported Column Name"
-#~ msgstr "Imported Column Name"
-
-#~ msgid "Cancel import session"
-#~ msgstr "Cancel import session"
-
-#~ msgid "Import session has unknown status"
-#~ msgstr "Import session has unknown status"
-
-#~ msgid "Importing Records"
-#~ msgstr "Importing Records"
-
-#~ msgid "Imported rows"
-#~ msgstr "Imported rows"
-
-#~ msgid "Link custom barcode"
-#~ msgstr "Link custom barcode"
-
-#~ msgid "Scan barcode data here using barcode scanner"
-#~ msgstr "Scan barcode data here using barcode scanner"
-
-#~ msgid "An error occurred:"
-#~ msgstr "An error occurred:"
-
-#~ msgid "Read more"
-#~ msgstr "Read more"
-
-#~ msgid "This information is only available for staff users"
-#~ msgstr "This information is only available for staff users"
-
-#~ msgid "This feature/button/site is a placeholder for a feature that is not implemented, only partial or intended for testing."
-#~ msgstr "This feature/button/site is a placeholder for a feature that is not implemented, only partial or intended for testing."
-
-#~ msgid "PLH"
-#~ msgstr "PLH"
-
-#~ msgid "Your InvenTree version status is"
-#~ msgstr "Your InvenTree version status is"
-
-#~ msgid "Credits"
-#~ msgstr "Credits"
-
-#~ msgid "InvenTree Documentation"
-#~ msgstr "InvenTree Documentation"
-
-#~ msgid "View Code on GitHub"
-#~ msgstr "View Code on GitHub"
-
-#~ msgid "Dismiss"
-#~ msgstr "Dismiss"
-
-#~ msgid "Unknown response"
-#~ msgstr "Unknown response"
-
-#~ msgid "No scans yet!"
-#~ msgstr "No scans yet!"
-
-#~ msgid "Close modal"
-#~ msgstr "Close modal"
-
-#~ msgid "Bebug Mode"
-#~ msgstr "Bebug Mode"
-
-#~ msgid "The Background worker process is not running."
-#~ msgstr "The Background worker process is not running."
-
-#~ msgid "Email settings not configured"
-#~ msgstr "Email settings not configured"
-
-#~ msgid "Administrator Mode"
-#~ msgstr "Administrator Mode"
-
-#~ msgid "Profile"
-#~ msgstr "Profile"
-
-#~ msgid "Account settings"
-#~ msgstr "Account settings"
-
-#~ msgid "Account Settings"
-#~ msgstr "Account Settings"
-
-#~ msgid "Current language {locale}"
-#~ msgstr "Current language {locale}"
-
-#~ msgid "Switch to pseudo language"
-#~ msgstr "Switch to pseudo language"
-
-#~ msgid "Get started"
-#~ msgstr "Get started"
-
-#~ msgid "Overview over high-level objects, functions and possible usecases."
-#~ msgstr "Overview over high-level objects, functions and possible usecases."
-
-#~ msgid "Pages"
-#~ msgstr "Pages"
-
-#~ msgid "Edit {title}"
-#~ msgstr "Edit {title}"
-
-#~ msgid "No results"
-#~ msgstr "No results"
-
-#~ msgid "You have unsaved changes, are you sure you want to navigate away from this panel?"
-#~ msgstr "You have unsaved changes, are you sure you want to navigate away from this panel?"
-
-#~ msgid "Error occurred while rendering plugin content"
-#~ msgstr "Error occurred while rendering plugin content"
-
-#~ msgid "Plugin did not provide panel rendering function"
-#~ msgstr "Plugin did not provide panel rendering function"
-
-#~ msgid "No content provided for this plugin"
-#~ msgstr "No content provided for this plugin"
-
-#~ msgid "Error Loading Plugin"
-#~ msgstr "Error Loading Plugin"
-
-#~ msgid "Error occurred while rendering plugin settings"
-#~ msgstr "Error occurred while rendering plugin settings"
-
-#~ msgid "Plugin did not provide settings rendering function"
-#~ msgstr "Plugin did not provide settings rendering function"
-
-#~ msgid "Invalid source or function name"
-#~ msgstr "Invalid source or function name"
-
-#~ msgid "Error Loading Content"
-#~ msgstr "Error Loading Content"
-
-#~ msgid "Error occurred while loading plugin content"
-#~ msgstr "Error occurred while loading plugin content"
-
-#~ msgid "Unknown model: {model}"
-#~ msgstr "Unknown model: {model}"
-
-#~ msgid "Purchase Order Line Item"
-#~ msgstr "Purchase Order Line Item"
-
-#~ msgid "Unknown Model"
-#~ msgstr "Unknown Model"
-
-#~ msgid "Purchase Order Line Items"
-#~ msgstr "Purchase Order Line Items"
-
-#~ msgid "Unknown Models"
-#~ msgstr "Unknown Models"
-
-#~ msgid "<0>{0}</0> is set via {1} and was last set {2}"
-#~ msgstr "<0>{0}</0> is set via {1} and was last set {2}"
-
-#~ msgid "{0} updated successfully"
-#~ msgstr "{0} updated successfully"
-
-#~ msgid "Add table filter"
-#~ msgstr "Add table filter"
-
-#~ msgid "Clear all filters"
-#~ msgstr "Clear all filters"
-
-#~ msgid "Add filter"
-#~ msgstr "Add filter"
-
-#~ msgid "Add Table Filter"
-#~ msgstr "Add Table Filter"
-
-#~ msgid "Select from the available filters"
-#~ msgstr "Select from the available filters"
-
-#~ msgid "Validate"
-#~ msgstr "Validate"
-
-#~ msgid "Has Available Stock"
-#~ msgstr "Has Available Stock"
-
-#~ msgid "Required Part"
-#~ msgstr "Required Part"
-
-#~ msgid "Progress"
-#~ msgstr "Progress"
-
-#~ msgid "Priority"
-#~ msgstr "Priority"
-
-#~ msgid "Postal Code"
-#~ msgstr "Postal Code"
-
-#~ msgid "City"
-#~ msgstr "City"
-
-#~ msgid "State / Province"
-#~ msgstr "State / Province"
-
-#~ msgid "Country"
-#~ msgstr "Country"
-
-#~ msgid "Courier Notes"
-#~ msgstr "Courier Notes"
-
-#~ msgid "Internal Notes"
-#~ msgstr "Internal Notes"
-
-#~ msgid "Address updated"
-#~ msgstr "Address updated"
-
-#~ msgid "Address deleted"
-#~ msgstr "Address deleted"
-
-#~ msgid "Company Name"
-#~ msgstr "Company Name"
-
-#~ msgid "Phone"
-#~ msgstr "Phone"
-
-#~ msgid "Contact updated"
-#~ msgstr "Contact updated"
-
-#~ msgid "Contact deleted"
-#~ msgstr "Contact deleted"
-
-#~ msgid "Are you sure you want to delete this contact?"
-#~ msgstr "Are you sure you want to delete this contact?"
-
-#~ msgid "Create Contact"
-#~ msgstr "Create Contact"
-
-#~ msgid "Contact created"
-#~ msgstr "Contact created"
-
-#~ msgid "Comment"
-#~ msgstr "Comment"
-
-#~ msgid "Part category updated"
-#~ msgstr "Part category updated"
-
-#~ msgid "Part parameter updated"
-#~ msgstr "Part parameter updated"
-
-#~ msgid "Part parameter deleted"
-#~ msgstr "Part parameter deleted"
-
-#~ msgid "Are you sure you want to remove this parameter?"
-#~ msgstr "Are you sure you want to remove this parameter?"
-
-#~ msgid "Part parameter added"
-#~ msgstr "Part parameter added"
-
-#~ msgid "Choices"
-#~ msgstr "Choices"
-
-#~ msgid "Remove parameter template"
-#~ msgstr "Remove parameter template"
-
-#~ msgid "Parameter template updated"
-#~ msgstr "Parameter template updated"
-
-#~ msgid "Parameter template deleted"
-#~ msgstr "Parameter template deleted"
-
-#~ msgid "Are you sure you want to remove this parameter template?"
-#~ msgstr "Are you sure you want to remove this parameter template?"
-
-#~ msgid "Create Parameter Template"
-#~ msgstr "Create Parameter Template"
-
-#~ msgid "Parameter template created"
-#~ msgstr "Parameter template created"
-
-#~ msgid "Detail"
-#~ msgstr "Detail"
-
-#~ msgid "Test Name"
-#~ msgstr "Test Name"
-
-#~ msgid "Template updated"
-#~ msgstr "Template updated"
-
-#~ msgid "Test Template deleted"
-#~ msgstr "Test Template deleted"
-
-#~ msgid "Create Test Template"
-#~ msgstr "Create Test Template"
-
-#~ msgid "Template created"
-#~ msgstr "Template created"
-
-#~ msgid "Related Part"
-#~ msgstr "Related Part"
-
-#~ msgid "Related part added"
-#~ msgstr "Related part added"
-
-#~ msgid "Related part deleted"
-#~ msgstr "Related part deleted"
-
-#~ msgid "Are you sure you want to remove this relationship?"
-#~ msgstr "Are you sure you want to remove this relationship?"
-
-#~ msgid "Installation path"
-#~ msgstr "Installation path"
-
-#~ msgid "Receive"
-#~ msgstr "Receive"
-
-#~ msgid "Line item updated"
-#~ msgstr "Line item updated"
-
-#~ msgid "Line item added"
-#~ msgstr "Line item added"
-
-#~ msgid "Definition"
-#~ msgstr "Definition"
-
-#~ msgid "Symbol"
-#~ msgstr "Symbol"
-
-#~ msgid "Edit custom unit"
-#~ msgstr "Edit custom unit"
-
-#~ msgid "Custom unit updated"
-#~ msgstr "Custom unit updated"
-
-#~ msgid "Delete custom unit"
-#~ msgstr "Delete custom unit"
-
-#~ msgid "Custom unit deleted"
-#~ msgstr "Custom unit deleted"
-
-#~ msgid "Are you sure you want to remove this custom unit?"
-#~ msgstr "Are you sure you want to remove this custom unit?"
-
-#~ msgid "Custom unit created"
-#~ msgstr "Custom unit created"
-
-#~ msgid "Group updated"
-#~ msgstr "Group updated"
-
-#~ msgid "Added group"
-#~ msgstr "Added group"
-
-#~ msgid "Edit project code"
-#~ msgstr "Edit project code"
-
-#~ msgid "Project code updated"
-#~ msgstr "Project code updated"
-
-#~ msgid "Delete project code"
-#~ msgstr "Delete project code"
-
-#~ msgid "Project code deleted"
-#~ msgstr "Project code deleted"
-
-#~ msgid "Are you sure you want to remove this project code?"
-#~ msgstr "Are you sure you want to remove this project code?"
-
-#~ msgid "Added project code"
-#~ msgstr "Added project code"
-
-#~ msgid "User permission changed successfully"
-#~ msgstr "User permission changed successfully"
-
-#~ msgid "Some changes might only take effect after the user refreshes their login."
-#~ msgstr "Some changes might only take effect after the user refreshes their login."
-
-#~ msgid "Changed user active status successfully"
-#~ msgstr "Changed user active status successfully"
-
-#~ msgid "Set to {active}"
-#~ msgstr "Set to {active}"
-
-#~ msgid "User details for {0}"
-#~ msgstr "User details for {0}"
-
-#~ msgid "Rights"
-#~ msgstr "Rights"
-
-#~ msgid "user deleted"
-#~ msgstr "user deleted"
-
-#~ msgid "Test Filter"
-#~ msgstr "Test Filter"
-
-#~ msgid "This is a test filter"
-#~ msgstr "This is a test filter"
-
-#~ msgid "Stock location updated"
-#~ msgstr "Stock location updated"
-
-#~ msgid "Something is new: Platform UI"
-#~ msgstr "Something is new: Platform UI"
-
-#~ msgid "We are building a new UI with a modern stack. What you currently see is not fixed and will be redesigned but demonstrates the UI/UX possibilities we will have going forward."
-#~ msgstr "We are building a new UI with a modern stack. What you currently see is not fixed and will be redesigned but demonstrates the UI/UX possibilities we will have going forward."
-
-#~ msgid "Provide Feedback"
-#~ msgstr "Provide Feedback"
-
-#~ msgid "Getting started"
-#~ msgstr "Getting started"
-
-#~ msgid "Notes saved"
-#~ msgstr "Notes saved"
-
-#~ msgid "Layout"
-#~ msgstr "Layout"
-
-#~ msgid "Reset Layout"
-#~ msgstr "Reset Layout"
-
-#~ msgid "Stop Edit"
-#~ msgstr "Stop Edit"
-
-#~ msgid "Appearance"
-#~ msgstr "Appearance"
-
-#~ msgid "Show Boxes"
-#~ msgstr "Show Boxes"
-
-#~ msgid "Import Part"
-#~ msgstr "Import Part"
-
-#~ msgid "Arabic"
-#~ msgstr "Arabic"
-
-#~ msgid "Bulgarian"
-#~ msgstr "Bulgarian"
-
-#~ msgid "Czech"
-#~ msgstr "Czech"
-
-#~ msgid "Danish"
-#~ msgstr "Danish"
-
-#~ msgid "German"
-#~ msgstr "German"
-
-#~ msgid "Greek"
-#~ msgstr "Greek"
-
-#~ msgid "English"
-#~ msgstr "English"
-
-#~ msgid "Spanish"
-#~ msgstr "Spanish"
-
-#~ msgid "Spanish (Mexican)"
-#~ msgstr "Spanish (Mexican)"
-
-#~ msgid "Estonian"
-#~ msgstr "Estonian"
-
-#~ msgid "Farsi / Persian"
-#~ msgstr "Farsi / Persian"
-
-#~ msgid "Finnish"
-#~ msgstr "Finnish"
-
-#~ msgid "French"
-#~ msgstr "French"
-
-#~ msgid "Hebrew"
-#~ msgstr "Hebrew"
-
-#~ msgid "Hindi"
-#~ msgstr "Hindi"
-
-#~ msgid "Hungarian"
-#~ msgstr "Hungarian"
-
-#~ msgid "Italian"
-#~ msgstr "Italian"
-
-#~ msgid "Japanese"
-#~ msgstr "Japanese"
-
-#~ msgid "Korean"
-#~ msgstr "Korean"
-
-#~ msgid "Lithuanian"
-#~ msgstr "Lithuanian"
-
-#~ msgid "Latvian"
-#~ msgstr "Latvian"
-
-#~ msgid "Dutch"
-#~ msgstr "Dutch"
-
-#~ msgid "Norwegian"
-#~ msgstr "Norwegian"
-
-#~ msgid "Polish"
-#~ msgstr "Polish"
-
-#~ msgid "Portuguese"
-#~ msgstr "Portuguese"
-
-#~ msgid "Portuguese (Brazilian)"
-#~ msgstr "Portuguese (Brazilian)"
-
-#~ msgid "Romanian"
-#~ msgstr "Romanian"
-
-#~ msgid "Russian"
-#~ msgstr "Russian"
-
-#~ msgid "Slovak"
-#~ msgstr "Slovak"
-
-#~ msgid "Slovenian"
-#~ msgstr "Slovenian"
-
-#~ msgid "Serbian"
-#~ msgstr "Serbian"
-
-#~ msgid "Swedish"
-#~ msgstr "Swedish"
-
-#~ msgid "Thai"
-#~ msgstr "Thai"
-
-#~ msgid "Turkish"
-#~ msgstr "Turkish"
-
-#~ msgid "Ukrainian"
-#~ msgstr "Ukrainian"
-
-#~ msgid "Vietnamese"
-#~ msgstr "Vietnamese"
-
-#~ msgid "Chinese (Simplified)"
-#~ msgstr "Chinese (Simplified)"
-
-#~ msgid "Chinese (Traditional)"
-#~ msgstr "Chinese (Traditional)"
-
-#~ msgid "About this Inventree instance"
-#~ msgstr "About this Inventree instance"
-
-#~ msgid "Latest Parts"
-#~ msgstr "Latest Parts"
-
-#~ msgid "BOM Waiting Validation"
-#~ msgstr "BOM Waiting Validation"
-
-#~ msgid "Recently Updated"
-#~ msgstr "Recently Updated"
-
-#~ msgid "Depleted Stock"
-#~ msgstr "Depleted Stock"
-
-#~ msgid "Expired Stock"
-#~ msgstr "Expired Stock"
-
-#~ msgid "Stale Stock"
-#~ msgstr "Stale Stock"
-
-#~ msgid "Build Orders In Progress"
-#~ msgstr "Build Orders In Progress"
-
-#~ msgid "Outstanding Purchase Orders"
-#~ msgstr "Outstanding Purchase Orders"
-
-#~ msgid "Outstanding Sales Orders"
-#~ msgstr "Outstanding Sales Orders"
-
-#~ msgid "Current News"
-#~ msgstr "Current News"
-
-#~ msgid "GitHub"
-#~ msgstr "GitHub"
-
-#~ msgid "Demo"
-#~ msgstr "Demo"
-
-#~ msgid "Playground"
-#~ msgstr "Playground"
-
-#~ msgid "Instance"
-#~ msgstr "Instance"
-
-#~ msgid "InvenTree"
-#~ msgstr "InvenTree"
-
-#~ msgid "Licenses for packages used by InvenTree"
-#~ msgstr "Licenses for packages used by InvenTree"
-
-#~ msgid "Licenses"
-#~ msgstr "Licenses"
-
-#~ msgid "Open sourcea"
-#~ msgstr "Open sourcea"
-
-#~ msgid "Open source"
-#~ msgstr "Open source"
-
-#~ msgid "Start page of your instance."
-#~ msgstr "Start page of your instance."
-
-#~ msgid "This Pokémon’s cry is very loud and distracting"
-#~ msgstr "This Pokémon’s cry is very loud and distracting"
-
-#~ msgid "This Pokémon’s cry is very loud and distracting and more and more and more"
-#~ msgstr "This Pokémon’s cry is very loud and distracting and more and more and more"
-
-#~ msgid "Profile page"
-#~ msgstr "Profile page"
-
-#~ msgid "User attributes and design settings."
-#~ msgstr "User attributes and design settings."
-
-#~ msgid "Free for everyone"
-#~ msgstr "Free for everyone"
-
-#~ msgid "The fluid of Smeargle’s tail secretions changes"
-#~ msgstr "The fluid of Smeargle’s tail secretions changes"
-
-#~ msgid "View for interactive scanning and multiple actions."
-#~ msgstr "View for interactive scanning and multiple actions."
-
-#~ msgid "The fluid of Smeargle’s tail secretions changes in the intensity"
-#~ msgstr "The fluid of Smeargle’s tail secretions changes in the intensity"
-
-#~ msgid "abc"
-#~ msgstr "abc"
-
-#~ msgid "Random image"
-#~ msgstr "Random image"
-
-#~ msgid "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore the feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore the feugait nulla facilisi. Name liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assume. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, At accusam aliquyam diam diam dolore dolores duo eirmod eos erat, et nonumy sed tempor et et invidunt justo labore Stet clita ea et gubergren, kasd magna no rebum. sanctus sea sed takimata ut vero voluptua. est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat. Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor"
-#~ msgstr "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore the feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore the feugait nulla facilisi. Name liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assume. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, At accusam aliquyam diam diam dolore dolores duo eirmod eos erat, et nonumy sed tempor et et invidunt justo labore Stet clita ea et gubergren, kasd magna no rebum. sanctus sea sed takimata ut vero voluptua. est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat. Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor"
-
-#~ msgid "Yanma is capable of seeing 360 degrees without"
-#~ msgstr "Yanma is capable of seeing 360 degrees without"
-
-#~ msgid "The shell’s rounded shape and the grooves on its."
-#~ msgstr "The shell’s rounded shape and the grooves on its."
-
-#~ msgid "Analytics"
-#~ msgstr "Analytics"
-
-#~ msgid "This Pokémon uses its flying ability to quickly chase"
-#~ msgstr "This Pokémon uses its flying ability to quickly chase"
-
-#~ msgid "Combusken battles with the intensely hot flames it spews"
-#~ msgstr "Combusken battles with the intensely hot flames it spews"
-
-#~ msgid "Add File"
-#~ msgstr "Add File"
-
-#~ msgid "Add Link"
-#~ msgstr "Add Link"
-
-#~ msgid "File added"
-#~ msgstr "File added"
-
-#~ msgid "Link added"
-#~ msgstr "Link added"
-
-#~ msgid "Edit File"
-#~ msgstr "Edit File"
-
-#~ msgid "Edit Link"
-#~ msgstr "Edit Link"
-
-#~ msgid "File updated"
-#~ msgstr "File updated"
-
-#~ msgid "Link updated"
-#~ msgstr "Link updated"
-
-#~ msgid "Attachment deleted"
-#~ msgstr "Attachment deleted"
-
-#~ msgid "Are you sure you want to delete this attachment?"
-#~ msgstr "Are you sure you want to delete this attachment?"
-
-#~ msgid "Next batch code"
-#~ msgstr "Next batch code"
-
-#~ msgid "Remove output"
-#~ msgstr "Remove output"
-
-#~ msgid "Selected build outputs will be deleted"
-#~ msgstr "Selected build outputs will be deleted"
-
-#~ msgid "Remove line"
-#~ msgstr "Remove line"
-
-#~ msgid "Stock items consumed"
-#~ msgstr "Stock items consumed"
-
-#~ msgid "Stock items scheduled to be consumed"
-#~ msgstr "Stock items scheduled to be consumed"
-
-#~ msgid "Select project code for this line item"
-#~ msgstr "Select project code for this line item"
-
-#~ msgid "Company updated"
-#~ msgstr "Company updated"
-
-#~ msgid "Part created"
-#~ msgstr "Part created"
-
-#~ msgid "Part updated"
-#~ msgstr "Part updated"
-
-#~ msgid "Assign Batch Code{0}"
-#~ msgstr "Assign Batch Code{0}"
-
-#~ msgid "Assign Batch Code and Serial Numbers"
-#~ msgstr "Assign Batch Code and Serial Numbers"
-
-#~ msgid "Remove item from list"
-#~ msgstr "Remove item from list"
-
-#~ msgid "Serial numbers"
-#~ msgstr "Serial numbers"
-
-#~ msgid "Store at line item destination"
-#~ msgstr "Store at line item destination"
-
-#~ msgid "Receive line items"
-#~ msgstr "Receive line items"
-
-#~ msgid "Create Stock Item"
-#~ msgstr "Create Stock Item"
-
-#~ msgid "Stock item updated"
-#~ msgstr "Stock item updated"
-
-#~ msgid "Entries"
-#~ msgstr "Entries"
-
-#~ msgid "List of entries to choose from"
-#~ msgstr "List of entries to choose from"
-
-#~ msgid "Label"
-#~ msgstr "Label"
-
-#~ msgid "Error fetching token from server."
-#~ msgstr "Error fetching token from server."
-
-#~ msgid "Logout successfull"
-#~ msgstr "Logout successfull"
-
-#~ msgid "See you soon."
-#~ msgstr "See you soon."
-
-#~ msgid "Logout successful"
-#~ msgstr "Logout successful"
-
-#~ msgid "You have been logged out"
-#~ msgstr "You have been logged out"
-
-#~ msgid "Found an existing login - using it to log you in."
-#~ msgstr "Found an existing login - using it to log you in."
-
-#~ msgid "Found an existing login - welcome back!"
-#~ msgstr "Found an existing login - welcome back!"
-
-#~ msgid "Form method not provided"
-#~ msgstr "Form method not provided"
-
-#~ msgid "Response did not contain action data"
-#~ msgstr "Response did not contain action data"
-
-#~ msgid "Invalid Form"
-#~ msgstr "Invalid Form"
-
-#~ msgid "method parameter not supplied"
-#~ msgstr "method parameter not supplied"
-
-#~ msgid "Permission denied"
-#~ msgstr "Permission denied"
-
-#~ msgid "Latest serial number"
-#~ msgstr "Latest serial number"
-
-#~ msgid "Welcome, log in below"
-#~ msgstr "Welcome, log in below"
-
-#~ msgid "Register below"
-#~ msgstr "Register below"
-
-#~ msgid "Logging out"
-#~ msgstr "Logging out"
-
-#~ msgid "Multi-Factor Login"
-#~ msgstr "Multi-Factor Login"
-
-#~ msgid "Enter your TOTP or recovery code"
-#~ msgstr "Enter your TOTP or recovery code"
-
-#~ msgid "Send mail"
-#~ msgstr "Send mail"
-
-#~ msgid "Token invalid"
-#~ msgstr "Token invalid"
-
-#~ msgid "You need to provide a valid token to set a new password. Check your inbox for a reset link."
-#~ msgstr "You need to provide a valid token to set a new password. Check your inbox for a reset link."
-
-#~ msgid "No token provided"
-#~ msgstr "No token provided"
-
-#~ msgid "You need to provide a token to set a new password. Check your inbox for a reset link."
-#~ msgstr "You need to provide a token to set a new password. Check your inbox for a reset link."
-
-#~ msgid "Sorry, an unexpected error has occurred."
-#~ msgstr "Sorry, an unexpected error has occurred."
-
-#~ msgid "Autoupdate"
-#~ msgstr "Autoupdate"
-
-#~ msgid "This page is a replacement for the old start page with the same information. This page will be deprecated and replaced by the home page."
-#~ msgstr "This page is a replacement for the old start page with the same information. This page will be deprecated and replaced by the home page."
-
-#~ msgid "Welcome to your Dashboard{0}"
-#~ msgstr "Welcome to your Dashboard{0}"
-
-#~ msgid "This page is a showcase for the possibilities of Platform UI."
-#~ msgstr "This page is a showcase for the possibilities of Platform UI."
-
-#~ msgid "Notification Settings"
-#~ msgstr "Notification Settings"
-
-#~ msgid "Global Settings"
-#~ msgstr "Global Settings"
-
-#~ msgid "Settings for the current user"
-#~ msgstr "Settings for the current user"
-
-#~ msgid "Home Page Settings"
-#~ msgstr "Home Page Settings"
-
-#~ msgid "Search Settings"
-#~ msgstr "Search Settings"
-
-#~ msgid "Label Settings"
-#~ msgstr "Label Settings"
-
-#~ msgid "Report Settings"
-#~ msgstr "Report Settings"
-
-#~ msgid "Settings for the notifications"
-#~ msgstr "Settings for the notifications"
-
-#~ msgid "Global Server Settings"
-#~ msgstr "Global Server Settings"
-
-#~ msgid "Global Settings for this instance"
-#~ msgstr "Global Settings for this instance"
-
-#~ msgid "Login Settings"
-#~ msgstr "Login Settings"
-
-#~ msgid "Barcode Settings"
-#~ msgstr "Barcode Settings"
-
-#~ msgid "Part Settings"
-#~ msgstr "Part Settings"
-
-#~ msgid "Pricing Settings"
-#~ msgstr "Pricing Settings"
-
-#~ msgid "Stock Settings"
-#~ msgstr "Stock Settings"
-
-#~ msgid "Build Order Settings"
-#~ msgstr "Build Order Settings"
-
-#~ msgid "Purchase Order Settings"
-#~ msgstr "Purchase Order Settings"
-
-#~ msgid "Sales Order Settings"
-#~ msgstr "Sales Order Settings"
-
-#~ msgid "Plugin Settings for this instance"
-#~ msgstr "Plugin Settings for this instance"
-
-#~ msgid "Data is current beeing loaded"
-#~ msgstr "Data is current beeing loaded"
-
-#~ msgid "Failed to load"
-#~ msgstr "Failed to load"
-
-#~ msgid "Show internal names"
-#~ msgstr "Show internal names"
-
-#~ msgid "Input {0} is not known"
-#~ msgstr "Input {0} is not known"
-
-#~ msgid "Saved changes {0}"
-#~ msgstr "Saved changes {0}"
-
-#~ msgid "Changed to {0}"
-#~ msgstr "Changed to {0}"
-
-#~ msgid "Error while saving {0}"
-#~ msgstr "Error while saving {0}"
-
-#~ msgid "Error was {err}"
-#~ msgstr "Error was {err}"
-
-#~ msgid "Plugin: {0}"
-#~ msgstr "Plugin: {0}"
-
-#~ msgid "Method: {0}"
-#~ msgstr "Method: {0}"
-
-#~ msgid "Userinfo"
-#~ msgstr "Userinfo"
-
-#~ msgid "Username: {0}"
-#~ msgstr "Username: {0}"
-
-#~ msgid "Design <0/>"
-#~ msgstr "Design <0/>"
-
-#~ msgid "Actions ..."
-#~ msgstr "Actions ..."
-
-#~ msgid "Manual input"
-#~ msgstr "Manual input"
-
-#~ msgid "Image Barcode"
-#~ msgstr "Image Barcode"
-
-#~ msgid "Actions for {0}"
-#~ msgstr "Actions for {0}"
-
-#~ msgid "Scan Page"
-#~ msgstr "Scan Page"
-
-#~ msgid "This page can be used for continuously scanning items and taking actions on them."
-#~ msgstr "This page can be used for continuously scanning items and taking actions on them."
-
-#~ msgid "Toggle Fullscreen"
-#~ msgstr "Toggle Fullscreen"
-
-#~ msgid "Select the input method you want to use to scan items."
-#~ msgstr "Select the input method you want to use to scan items."
-
-#~ msgid "Input"
-#~ msgstr "Input"
-
-#~ msgid "Select input method"
-#~ msgstr "Select input method"
-
-#~ msgid "Nothing found"
-#~ msgstr "Nothing found"
-
-#~ msgid "Depending on the selected parts actions will be shown here. Not all barcode types are supported currently."
-#~ msgstr "Depending on the selected parts actions will be shown here. Not all barcode types are supported currently."
-
-#~ msgid "General Actions"
-#~ msgstr "General Actions"
-
-#~ msgid "Lookup part"
-#~ msgstr "Lookup part"
-
-#~ msgid "Open Link"
-#~ msgstr "Open Link"
-
-#~ msgid "History is locally kept in this browser."
-#~ msgstr "History is locally kept in this browser."
-
-#~ msgid "The history is kept in this browser's local storage. So it won't be shared with other users or other devices but is persistent through reloads. You can select items in the history to perform actions on them. To add items, scan/enter them in the Input area."
-#~ msgstr "The history is kept in this browser's local storage. So it won't be shared with other users or other devices but is persistent through reloads. You can select items in the history to perform actions on them. To add items, scan/enter them in the Input area."
-
-#~ msgid "Delete History"
-#~ msgstr "Delete History"
-
-#~ msgid "No history"
-#~ msgstr "No history"
-
-#~ msgid "Scanned at"
-#~ msgstr "Scanned at"
-
-#~ msgid "Enter item serial or data"
-#~ msgstr "Enter item serial or data"
-
-#~ msgid "Add dummy item"
-#~ msgstr "Add dummy item"
-
-#~ msgid "Error while getting camera"
-#~ msgstr "Error while getting camera"
-
-#~ msgid "Scanning"
-#~ msgstr "Scanning"
-
-#~ msgid "Not scanning"
-#~ msgstr "Not scanning"
-
-#~ msgid "Select Camera"
-#~ msgstr "Select Camera"
-
-#~ msgid "Edit User Information"
-#~ msgstr "Edit User Information"
-
-#~ msgid "User details updated"
-#~ msgstr "User details updated"
-
-#~ msgid "User Actions"
-#~ msgstr "User Actions"
-
-#~ msgid "First name"
-#~ msgstr "First name"
-
-#~ msgid "Last name"
-#~ msgstr "Last name"
-
-#~ msgid "Set User Password"
-#~ msgstr "Set User Password"
-
-#~ msgid "First name: {0}"
-#~ msgstr "First name: {0}"
-
-#~ msgid "Last name: {0}"
-#~ msgstr "Last name: {0}"
-
-#~ msgid "First name:"
-#~ msgstr "First name:"
-
-#~ msgid "Last name:"
-#~ msgstr "Last name:"
-
-#~ msgid "Staff Access"
-#~ msgstr "Staff Access"
-
-#~ msgid "Single Sign On Accounts"
-#~ msgstr "Single Sign On Accounts"
-
-#~ msgid "Multifactor"
-#~ msgstr "Multifactor"
-
-#~ msgid "Single Sign On is not enabled for this server"
-#~ msgstr "Single Sign On is not enabled for this server"
-
-#~ msgid "Multifactor authentication is not configured for your account"
-#~ msgstr "Multifactor authentication is not configured for your account"
-
-#~ msgid "Provider has not been configured"
-#~ msgstr "Provider has not been configured"
-
-#~ msgid "Not configured"
-#~ msgstr "Not configured"
-
-#~ msgid "There are no social network accounts connected to this account."
-#~ msgstr "There are no social network accounts connected to this account."
-
-#~ msgid "You can sign in to your account using any of the following third party accounts"
-#~ msgstr "You can sign in to your account using any of the following third party accounts"
-
-#~ msgid "Unused Codes"
-#~ msgstr "Unused Codes"
-
-#~ msgid "Used Codes"
-#~ msgstr "Used Codes"
-
-#~ msgid "Error while registering recovery codes"
-#~ msgstr "Error while registering recovery codes"
-
-#~ msgid "Error while registering WebAuthn authenticator"
-#~ msgstr "Error while registering WebAuthn authenticator"
-
-#~ msgid "Please reload page and try again."
-#~ msgstr "Please reload page and try again."
-
-#~ msgid "WebAuthn authenticator registered successfully"
-#~ msgstr "WebAuthn authenticator registered successfully"
-
-#~ msgid "You can now use this authenticator for multi-factor authentication."
-#~ msgstr "You can now use this authenticator for multi-factor authentication."
-
-#~ msgid "Add Token"
-#~ msgstr "Add Token"
-
-#~ msgid "Token is used - no actions"
-#~ msgstr "Token is used - no actions"
-
-#~ msgid "No tokens configured"
-#~ msgstr "No tokens configured"
-
-#~ msgid "bars"
-#~ msgstr "bars"
-
-#~ msgid "oval"
-#~ msgstr "oval"
-
-#~ msgid "dots"
-#~ msgstr "dots"
-
-#~ msgid "Theme"
-#~ msgstr "Theme"
-
-#~ msgid "Primary color"
-#~ msgstr "Primary color"
-
-#~ msgid "Reauthentication"
-#~ msgstr "Reauthentication"
-
-#~ msgid "OK"
-#~ msgstr "OK"
-
-#~ msgid "Advanced Amininistrative Options for InvenTree"
-#~ msgstr "Advanced Amininistrative Options for InvenTree"
-
-#~ msgid "Active Alerts"
-#~ msgstr "Active Alerts"
-
-#~ msgid "Inactive Alerts"
-#~ msgstr "Inactive Alerts"
-
-#~ msgid "Admin Center Information"
-#~ msgstr "Admin Center Information"
-
-#~ msgid "The home panel (and the whole Admin Center) is a new feature starting with the new UI and was previously (before 1.0) not available."
-#~ msgstr "The home panel (and the whole Admin Center) is a new feature starting with the new UI and was previously (before 1.0) not available."
-
-#~ msgid "The admin center provides a centralized location for all administration functionality and is meant to replace all interaction with the (django) backend admin interface."
-#~ msgstr "The admin center provides a centralized location for all administration functionality and is meant to replace all interaction with the (django) backend admin interface."
-
-#~ msgid "Please open feature requests (after checking the tracker) for any existing backend admin functionality you are missing in this UI. The backend admin interface should be used carefully and seldom."
-#~ msgstr "Please open feature requests (after checking the tracker) for any existing backend admin functionality you are missing in this UI. The backend admin interface should be used carefully and seldom."
-
-#~ msgid "User Management"
-#~ msgstr "User Management"
-
-#~ msgid "Templates"
-#~ msgstr "Templates"
-
-#~ msgid "Location types"
-#~ msgstr "Location types"
-
-#~ msgid "Part Parameters"
-#~ msgstr "Part Parameters"
-
-#~ msgid "Add a new user"
-#~ msgstr "Add a new user"
-
-#~ msgid "Identity"
-#~ msgstr "Identity"
-
-#~ msgid "Generated Labels"
-#~ msgstr "Generated Labels"
-
-#~ msgid "Machine types"
-#~ msgstr "Machine types"
-
-#~ msgid "Machine Error Stack"
-#~ msgstr "Machine Error Stack"
-
-#~ msgid "There are no machine registry errors."
-#~ msgstr "There are no machine registry errors."
-
-#~ msgid "Plugin Error Stack"
-#~ msgstr "Plugin Error Stack"
-
-#~ msgid "Warning"
-#~ msgstr "Warning"
-
-#~ msgid "Changing the settings below require you to immediately restart the server. Do not change this while under active usage."
-#~ msgstr "Changing the settings below require you to immediately restart the server. Do not change this while under active usage."
-
-#~ msgid "Generated Reports"
-#~ msgstr "Generated Reports"
-
-#~ msgid "SCIM allows an external Identity Provider (e.g. Okta, Microsoft Entra ID, OneLogin) to automatically provision and deprovision Users and Groups. Single Sign-On (interactive login) is configured separately, under Single Sign On."
-#~ msgstr "SCIM allows an external Identity Provider (e.g. Okta, Microsoft Entra ID, OneLogin) to automatically provision and deprovision Users and Groups. Single Sign-On (interactive login) is configured separately, under Single Sign On."
-
-#~ msgid "Stocktake Reports"
-#~ msgstr "Stocktake Reports"
-
-#~ msgid "Background Worker Not Running"
-#~ msgstr "Background Worker Not Running"
-
-#~ msgid "Stock item"
-#~ msgstr "Stock item"
-
-#~ msgid "Build line"
-#~ msgstr "Build line"
-
-#~ msgid "Purchase order"
-#~ msgstr "Purchase order"
-
-#~ msgid "Sales order"
-#~ msgstr "Sales order"
-
-#~ msgid "Return order"
-#~ msgstr "Return order"
-
-#~ msgid "Tests"
-#~ msgstr "Tests"
-
-#~ msgid "Stock location"
-#~ msgstr "Stock location"
-
-#~ msgid "Select settings relevant for user lifecycle. More available in"
-#~ msgstr "Select settings relevant for user lifecycle. More available in"
-
-#~ msgid "System settings"
-#~ msgstr "System settings"
-
-#~ msgid "Physical Units"
-#~ msgstr "Physical Units"
-
-#~ msgid "This panel is a placeholder."
-#~ msgstr "This panel is a placeholder."
-
-#~ msgid "Exchange Rates"
-#~ msgstr "Exchange Rates"
-
-#~ msgid "Labels"
-#~ msgstr "Labels"
-
-#~ msgid "Switch to User Setting"
-#~ msgstr "Switch to User Setting"
-
-#~ msgid "Switch to System Setting"
-#~ msgstr "Switch to System Setting"
-
-#~ msgid "Found an exsisting login - using it to log you in."
-#~ msgstr "Found an exsisting login - using it to log you in."
-
-#~ msgid "Sorry, this page is not known or was moved."
-#~ msgstr "Sorry, this page is not known or was moved."
-
-#~ msgid "Go to the start page"
-#~ msgstr "Go to the start page"
-
-#~ msgid "Delete Notifications"
-#~ msgstr "Delete Notifications"
-
-#~ msgid "Delete notifications"
-#~ msgstr "Delete notifications"
-
-#~ msgid "Build Status"
-#~ msgstr "Build Status"
-
-#~ msgid "View part barcode"
-#~ msgstr "View part barcode"
-
-#~ msgid "Link custom barcode to part"
-#~ msgstr "Link custom barcode to part"
-
-#~ msgid "Unlink custom barcode from part"
-#~ msgstr "Unlink custom barcode from part"
-
-#~ msgid "Build Order updated"
-#~ msgstr "Build Order updated"
-
-#~ msgid "Edit build order"
-#~ msgstr "Edit build order"
-
-#~ msgid "Duplicate build order"
-#~ msgstr "Duplicate build order"
-
-#~ msgid "Delete build order"
-#~ msgstr "Delete build order"
-
-#~ msgid "Test Statistics"
-#~ msgstr "Test Statistics"
-
-#~ msgid "Reporting Actions"
-#~ msgstr "Reporting Actions"
-
-#~ msgid "Print build report"
-#~ msgstr "Print build report"
-
-#~ msgid "Build order created"
-#~ msgstr "Build order created"
-
-#~ msgid "New Build Order"
-#~ msgstr "New Build Order"
-
-#~ msgid "Edit company"
-#~ msgstr "Edit company"
-
-#~ msgid "Delete company"
-#~ msgstr "Delete company"
-
-#~ msgid "ManufacturerPart"
-#~ msgstr "ManufacturerPart"
-
-#~ msgid "Basic user"
-#~ msgstr "Basic user"
-
-#~ msgid "Top level part category"
-#~ msgstr "Top level part category"
-
-#~ msgid "Bill of materials scheduled for validation"
-#~ msgstr "Bill of materials scheduled for validation"
-
-#~ msgid "Variant Stock"
-#~ msgstr "Variant Stock"
-
-#~ msgid "Edit part"
-#~ msgstr "Edit part"
-
-#~ msgid "Duplicate part"
-#~ msgstr "Duplicate part"
-
-#~ msgid "Delete part"
-#~ msgstr "Delete part"
-
-#~ msgid "Stocktake By"
-#~ msgstr "Stocktake By"
-
-#~ msgid "Consumable Part"
-#~ msgstr "Consumable Part"
-
-#~ msgid "Scheduling"
-#~ msgstr "Scheduling"
-
-#~ msgid "Default Supplier"
-#~ msgstr "Default Supplier"
-
-#~ msgid "Count part stock"
-#~ msgstr "Count part stock"
-
-#~ msgid "Transfer part stock"
-#~ msgstr "Transfer part stock"
-
-#~ msgid "Categories"
-#~ msgstr "Categories"
-
-#~ msgid "Scheduled"
-#~ msgstr "Scheduled"
-
-#~ msgid "Quantity is speculative"
-#~ msgstr "Quantity is speculative"
-
-#~ msgid "No date available for provided quantity"
-#~ msgstr "No date available for provided quantity"
-
-#~ msgid "Date is in the past"
-#~ msgstr "Date is in the past"
-
-#~ msgid "Scheduled Quantity"
-#~ msgstr "Scheduled Quantity"
-
-#~ msgid "No information available"
-#~ msgstr "No information available"
-
-#~ msgid "There is no scheduling information available for the selected part"
-#~ msgstr "There is no scheduling information available for the selected part"
-
-#~ msgid "Expected Quantity"
-#~ msgstr "Expected Quantity"
-
-#~ msgid "Stocktake report scheduled"
-#~ msgstr "Stocktake report scheduled"
-
-#~ msgid "New Stocktake Report"
-#~ msgstr "New Stocktake Report"
-
-#~ msgid "Minimum Total Price"
-#~ msgstr "Minimum Total Price"
-
-#~ msgid "Maximum Total Price"
-#~ msgstr "Maximum Total Price"
-
-#~ msgid "Sale Order"
-#~ msgstr "Sale Order"
-
-#~ msgid "Order Currency,"
-#~ msgstr "Order Currency,"
-
-#~ msgid "Created On"
-#~ msgstr "Created On"
-
-#~ msgid "Order canceled"
-#~ msgstr "Order canceled"
-
-#~ msgid "Assigned Items"
-#~ msgstr "Assigned Items"
-
-#~ msgid "Top level stock location"
-#~ msgstr "Top level stock location"
-
-#~ msgid "Child Locations Action"
-#~ msgstr "Child Locations Action"
-
-#~ msgid "Locations Action"
-#~ msgstr "Locations Action"
-
-#~ msgid "Link custom barcode to stock item"
-#~ msgstr "Link custom barcode to stock item"
-
-#~ msgid "Completed Tests"
-#~ msgstr "Completed Tests"
-
-#~ msgid "Unlink custom barcode from stock item"
-#~ msgstr "Unlink custom barcode from stock item"
-
-#~ msgid "Edit stock item"
-#~ msgstr "Edit stock item"
-
-#~ msgid "Delete stock item"
-#~ msgstr "Delete stock item"
-
-#~ msgid "Duplicate stock item"
-#~ msgstr "Duplicate stock item"
-
-#~ msgid "Test Data"
-#~ msgstr "Test Data"
-
-#~ msgid "Add stock"
-#~ msgstr "Add stock"
-
-#~ msgid "Remove stock"
-#~ msgstr "Remove stock"
-
-#~ msgid "Transfer stock"
-#~ msgstr "Transfer stock"
-
-#~ msgid "Return Stock Item"
-#~ msgstr "Return Stock Item"
-
-#~ msgid "Return this item into stock. This will remove the customer assignment."
-#~ msgstr "Return this item into stock. This will remove the customer assignment."
-
-#~ msgid "Item returned to stock"
-#~ msgstr "Item returned to stock"
-
-#~ msgid "Count stock"
-#~ msgstr "Count stock"
-
-#~ msgid "Return from customer"
-#~ msgstr "Return from customer"
-
-#~ msgid "Transfer"
-#~ msgstr "Transfer"
-
-#~ msgid "Assign to Customer"
-#~ msgstr "Assign to Customer"
-
-#~ msgid "Assign to a customer"
-#~ msgstr "Assign to a customer"
-
-#~ msgid "Part is locked"
-#~ msgstr "Part is locked"
-
-#~ msgid "Excel"
-#~ msgstr "Excel"
-
-#~ msgid "CSV"
-#~ msgstr "CSV"
-
-#~ msgid "Download selected data"
-#~ msgstr "Download selected data"
-
-#~ msgid "TSV"
-#~ msgstr "TSV"
-
-#~ msgid "Excel (.xlsx)"
-#~ msgstr "Excel (.xlsx)"
-
-#~ msgid "Excel (.xls)"
-#~ msgstr "Excel (.xls)"
-
-#~ msgid "Download Data"
-#~ msgstr "Download Data"
-
-#~ msgid "Show overdue orders"
-#~ msgstr "Show overdue orders"
-
-#~ msgid "Show orders updated after this date"
-#~ msgstr "Show orders updated after this date"
-
-#~ msgid "Show orders updated before this date"
-#~ msgstr "Show orders updated before this date"
-
-#~ msgid "Failed to load table options"
-#~ msgstr "Failed to load table options"
-
-#~ msgid "Are you sure you want to delete the selected records?"
-#~ msgstr "Are you sure you want to delete the selected records?"
-
-#~ msgid "Deleted records"
-#~ msgstr "Deleted records"
-
-#~ msgid "Records were deleted successfully"
-#~ msgstr "Records were deleted successfully"
-
-#~ msgid "Failed to delete records"
-#~ msgstr "Failed to delete records"
-
-#~ msgid "This action cannot be undone!"
-#~ msgstr "This action cannot be undone!"
-
-#~ msgid "Print actions"
-#~ msgstr "Print actions"
-
-#~ msgid "Barcode actions"
-#~ msgstr "Barcode actions"
-
-#~ msgid "Table filters"
-#~ msgstr "Table filters"
-
-#~ msgid "Clear custom query filters"
-#~ msgstr "Clear custom query filters"
-
-#~ msgid "item-{idx}"
-#~ msgstr "item-{idx}"
-
-#~ msgid "Upload Data"
-#~ msgstr "Upload Data"
-
-#~ msgid "Create BOM Item"
-#~ msgstr "Create BOM Item"
-
-#~ msgid "Show asssmbled items"
-#~ msgstr "Show asssmbled items"
-
-#~ msgid "Edit Bom Item"
-#~ msgstr "Edit Bom Item"
-
-#~ msgid "Bom item updated"
-#~ msgstr "Bom item updated"
-
-#~ msgid "Delete Bom Item"
-#~ msgstr "Delete Bom Item"
-
-#~ msgid "Bom item deleted"
-#~ msgstr "Bom item deleted"
-
-#~ msgid "Are you sure you want to remove this BOM item?"
-#~ msgstr "Are you sure you want to remove this BOM item?"
-
-#~ msgid "Validate BOM line"
-#~ msgstr "Validate BOM line"
-
-#~ msgid "Include orders for part variants"
-#~ msgstr "Include orders for part variants"
-
-#~ msgid "Edit Build Item"
-#~ msgstr "Edit Build Item"
-
-#~ msgid "Delete Build Item"
-#~ msgstr "Delete Build Item"
-
-#~ msgid "Delete Stock Allocation"
-#~ msgstr "Delete Stock Allocation"
-
-#~ msgid "Show lines with available stock"
-#~ msgstr "Show lines with available stock"
-
-#~ msgid "Show allocated lines"
-#~ msgstr "Show allocated lines"
-
-#~ msgid "Auto allocation in progress"
-#~ msgstr "Auto allocation in progress"
-
-#~ msgid "Automatically allocate stock to this build according to the selected options"
-#~ msgstr "Automatically allocate stock to this build according to the selected options"
-
-#~ msgid "Cascade"
-#~ msgstr "Cascade"
-
-#~ msgid "Display recursive child orders"
-#~ msgstr "Display recursive child orders"
-
-#~ msgid "Show active orders"
-#~ msgstr "Show active orders"
-
-#~ msgid "Show overdue status"
-#~ msgstr "Show overdue status"
-
-#~ msgid "Filter by whether the purchase order has a project code"
-#~ msgstr "Filter by whether the purchase order has a project code"
-
-#~ msgid "Filter by user who issued this order"
-#~ msgstr "Filter by user who issued this order"
-
-#~ msgid "Delete build output"
-#~ msgstr "Delete build output"
-
-#~ msgid "Auto-allocation in progress"
-#~ msgstr "Auto-allocation in progress"
-
-#~ msgid "Edit build output"
-#~ msgstr "Edit build output"
-
-#~ msgid "View Build Output"
-#~ msgstr "View Build Output"
-
-#~ msgid "New Company"
-#~ msgstr "New Company"
-
-#~ msgid "File uploaded"
-#~ msgstr "File uploaded"
-
-#~ msgid "File {0} uploaded successfully"
-#~ msgstr "File {0} uploaded successfully"
-
-#~ msgid "Upload attachment"
-#~ msgstr "Upload attachment"
-
-#~ msgid "Are you sure you want to remove the machine \"{0}\"?"
-#~ msgstr "Are you sure you want to remove the machine \"{0}\"?"
-
-#~ msgid "Machine information"
-#~ msgstr "Machine information"
-
-#~ msgid "Machine Information"
-#~ msgstr "Machine Information"
-
-#~ msgid "Create machine"
-#~ msgstr "Create machine"
-
-#~ msgid "Machine detail"
-#~ msgstr "Machine detail"
-
-#~ msgid "Machine type information"
-#~ msgstr "Machine type information"
-
-#~ msgid "Available drivers"
-#~ msgstr "Available drivers"
-
-#~ msgid "Machine type detail"
-#~ msgstr "Machine type detail"
-
-#~ msgid "Machine driver detail"
-#~ msgstr "Machine driver detail"
-
-#~ msgid "Show active parts"
-#~ msgstr "Show active parts"
-
-#~ msgid "Show locked parts"
-#~ msgstr "Show locked parts"
-
-#~ msgid "Show assembly parts"
-#~ msgstr "Show assembly parts"
-
-#~ msgid "Edit parameter"
-#~ msgstr "Edit parameter"
-
-#~ msgid "Add Part Parameter"
-#~ msgstr "Add Part Parameter"
-
-#~ msgid "Edit Part Parameter"
-#~ msgstr "Edit Part Parameter"
-
-#~ msgid "[{0}]"
-#~ msgstr "[{0}]"
-
-#~ msgid "New Part Parameter"
-#~ msgstr "New Part Parameter"
-
-#~ msgid "Delete Part Parameter"
-#~ msgstr "Delete Part Parameter"
-
-#~ msgid "Add parameter"
-#~ msgstr "Add parameter"
-
-#~ msgid "Add parameter template"
-#~ msgstr "Add parameter template"
-
-#~ msgid "Not Virtual"
-#~ msgstr "Not Virtual"
-
-#~ msgid "Has Stocktake"
-#~ msgstr "Has Stocktake"
-
-#~ msgid "Filter by parts which have stocktake information"
-#~ msgstr "Filter by parts which have stocktake information"
-
-#~ msgid "Add related part"
-#~ msgstr "Add related part"
-
-#~ msgid "Edit Selection List"
-#~ msgstr "Edit Selection List"
-
-#~ msgid "Plugin with key {pluginKey} not found"
-#~ msgstr "Plugin with key {pluginKey} not found"
-
-#~ msgid "An error occurred while fetching plugin details"
-#~ msgstr "An error occurred while fetching plugin details"
-
-#~ msgid "Plugin with id {id} not found"
-#~ msgstr "Plugin with id {id} not found"
-
-#~ msgid "Plugin information"
-#~ msgstr "Plugin information"
-
-#~ msgid "Plugin Actions"
-#~ msgstr "Plugin Actions"
-
-#~ msgid "Edit plugin"
-#~ msgstr "Edit plugin"
-
-#~ msgid "Reload"
-#~ msgstr "Reload"
-
-#~ msgid "Package information"
-#~ msgstr "Package information"
-
-#~ msgid "Plugin settings"
-#~ msgstr "Plugin settings"
-
-#~ msgid "Install plugin"
-#~ msgstr "Install plugin"
-
-#~ msgid "This action cannot be undone."
-#~ msgstr "This action cannot be undone."
-
-#~ msgid "The following plugin will be activated"
-#~ msgstr "The following plugin will be activated"
-
-#~ msgid "The following plugin will be deactivated"
-#~ msgstr "The following plugin will be deactivated"
-
-#~ msgid "Activating plugin"
-#~ msgstr "Activating plugin"
-
-#~ msgid "Deactivating plugin"
-#~ msgstr "Deactivating plugin"
-
-#~ msgid "Plugin updated"
-#~ msgstr "Plugin updated"
-
-#~ msgid "Error updating plugin"
-#~ msgstr "Error updating plugin"
-
-#~ msgid "Plugin detail"
-#~ msgstr "Plugin detail"
-
-#~ msgid "Parameter updated"
-#~ msgstr "Parameter updated"
-
-#~ msgid "Parameter deleted"
-#~ msgstr "Parameter deleted"
-
-#~ msgid "Are you sure you want to delete this parameter?"
-#~ msgstr "Are you sure you want to delete this parameter?"
-
-#~ msgid "Create Manufacturer Part"
-#~ msgstr "Create Manufacturer Part"
-
-#~ msgid "Manufacturer part updated"
-#~ msgstr "Manufacturer part updated"
-
-#~ msgid "Manufacturer part deleted"
-#~ msgstr "Manufacturer part deleted"
-
-#~ msgid "Are you sure you want to remove this manufacturer part?"
-#~ msgstr "Are you sure you want to remove this manufacturer part?"
-
-#~ msgid "Add line item"
-#~ msgstr "Add line item"
-
-#~ msgid "Supplier part updated"
-#~ msgstr "Supplier part updated"
-
-#~ msgid "Supplier part deleted"
-#~ msgstr "Supplier part deleted"
-
-#~ msgid "Are you sure you want to remove this supplier part?"
-#~ msgstr "Are you sure you want to remove this supplier part?"
-
-#~ msgid "Delete Allocation"
-#~ msgstr "Delete Allocation"
-
-#~ msgid "Allocate stock"
-#~ msgstr "Allocate stock"
-
-#~ msgid "Allocate Serials"
-#~ msgstr "Allocate Serials"
-
-#~ msgid "Delete Shipment"
-#~ msgstr "Delete Shipment"
-
-#~ msgid "Barcode logging is not enabled"
-#~ msgstr "Barcode logging is not enabled"
-
-#~ msgid "Add state"
-#~ msgstr "Add state"
-
-#~ msgid "Delete error report"
-#~ msgstr "Delete error report"
-
-#~ msgid "Permission set"
-#~ msgstr "Permission set"
-
-#~ msgid "Edit group"
-#~ msgstr "Edit group"
-
-#~ msgid "Report"
-#~ msgstr "Report"
-
-#~ msgid "Part Count"
-#~ msgstr "Part Count"
-
-#~ msgid "Delete Report"
-#~ msgstr "Delete Report"
-
-#~ msgid "{templateTypeTranslation} with id {id} not found"
-#~ msgstr "{templateTypeTranslation} with id {id} not found"
-
-#~ msgid "An error occurred while fetching {templateTypeTranslation} details"
-#~ msgstr "An error occurred while fetching {templateTypeTranslation} details"
-
-#~ msgid "actions"
-#~ msgstr "actions"
-
-#~ msgid "Add new"
-#~ msgstr "Add new"
-
-#~ msgid "Create new"
-#~ msgstr "Create new"
-
-#~ msgid "Report Output"
-#~ msgstr "Report Output"
-
-#~ msgid "No groups"
-#~ msgstr "No groups"
-
-#~ msgid "Is Staff"
-#~ msgstr "Is Staff"
-
-#~ msgid "Edit user"
-#~ msgstr "Edit user"
-
-#~ msgid "Show staff users"
-#~ msgstr "Show staff users"
-
-#~ msgid "Show stock for assmebled parts"
-#~ msgstr "Show stock for assmebled parts"
-
-#~ msgid "Include stock items for variant parts"
-#~ msgstr "Include stock items for variant parts"
-
-#~ msgid "Serial Number LTE"
-#~ msgstr "Serial Number LTE"
-
-#~ msgid "Serial Number GTE"
-#~ msgstr "Serial Number GTE"
-
-#~ msgid "Delete stock items"
-#~ msgstr "Delete stock items"
-
-#~ msgid "Add a new stock item"
-#~ msgstr "Add a new stock item"
-
-#~ msgid "Remove some quantity from a stock item"
-#~ msgstr "Remove some quantity from a stock item"
-
-#~ msgid "Move Stock items to new locations"
-#~ msgstr "Move Stock items to new locations"
-
-#~ msgid "Change stock status"
-#~ msgstr "Change stock status"
-
-#~ msgid "Change the status of stock items"
-#~ msgstr "Change the status of stock items"
-
-#~ msgid "Merge stock"
-#~ msgstr "Merge stock"
-
-#~ msgid "Merge stock items"
-#~ msgstr "Merge stock items"
-
-#~ msgid "Order new stock"
-#~ msgstr "Order new stock"
-
-#~ msgid "Assign to customer"
-#~ msgstr "Assign to customer"
-
-#~ msgid "Assign items to a customer"
-#~ msgstr "Assign items to a customer"
-
-#~ msgid "Delete stock"
-#~ msgstr "Delete stock"
-
-#~ msgid "structural"
-#~ msgstr "structural"
-
-#~ msgid "external"
-#~ msgstr "external"
-
-#~ msgid "Platform UI is optimized for Tablets and Desktops, you can use the official app for a mobile experience."
-#~ msgstr "Platform UI is optimized for Tablets and Desktops, you can use the official app for a mobile experience."
-
 #: lib/components/Boundary.tsx:16
 msgid "Error rendering component"
 msgstr "Error rendering component"
@@ -2159,7 +80,7 @@ msgid "Cancel"
 msgstr "Cancel"
 
 #: lib/components/RowActions.tsx:146
-#: src/components/nav/NavigationDrawer.tsx:198
+#: src/components/nav/NavigationDrawer.tsx:199
 #: src/forms/PurchaseOrderForms.tsx:940
 #: src/forms/StockForms.tsx:950
 #: src/forms/StockForms.tsx:1517
@@ -2235,7 +156,6 @@ msgstr "No"
 #: src/pages/build/BuildOrderDetailsPanel.tsx:45
 #: src/pages/part/PartDetail.tsx:814
 #: src/pages/part/bom/BomCompare.tsx:203
-#: src/pages/stationery/GiftReportPage.tsx:87
 #: src/tables/build/BuildOrderParametricTable.tsx:29
 #: src/tables/part/PartTestResultTable.tsx:251
 #: src/tables/part/RelatedPartTable.tsx:53
@@ -2341,9 +261,9 @@ msgstr "Product Categories"
 #: src/forms/BuildForms.tsx:542
 #: src/forms/BuildForms.tsx:706
 #: src/forms/BuildForms.tsx:868
+#: src/forms/NexaForms.tsx:30
+#: src/forms/NexaForms.tsx:64
 #: src/forms/SalesOrderForms.tsx:437
-#: src/forms/StationeryForms.tsx:31
-#: src/forms/StationeryForms.tsx:73
 #: src/forms/TransferOrderForms.tsx:241
 #: src/pages/stock/StockDetail.tsx:743
 #: src/tables/part/PartTestResultTable.tsx:260
@@ -2408,7 +328,7 @@ msgstr "Build Order"
 
 #: lib/enums/ModelInformation.tsx:160
 #: lib/enums/Roles.tsx:35
-#: src/defaults/actions.tsx:175
+#: src/defaults/actions.tsx:166
 #: src/pages/Index/Settings/SystemSettings.tsx:324
 #: src/pages/build/BuildIndex.tsx:87
 #: src/pages/part/PartDetail.tsx:422
@@ -2478,7 +398,7 @@ msgstr "Purchase Order"
 
 #: lib/enums/ModelInformation.tsx:200
 #: lib/enums/Roles.tsx:41
-#: src/defaults/actions.tsx:126
+#: src/defaults/actions.tsx:117
 #: src/pages/Index/Settings/SystemSettings.tsx:352
 #: src/pages/company/CompanyDetail.tsx:131
 #: src/pages/company/SupplierPartDetail.tsx:105
@@ -2513,7 +433,7 @@ msgstr "Sales Order"
 
 #: lib/enums/ModelInformation.tsx:217
 #: lib/enums/Roles.tsx:47
-#: src/defaults/actions.tsx:136
+#: src/defaults/actions.tsx:127
 #: src/pages/Index/Settings/SystemSettings.tsx:371
 #: src/pages/company/CompanyDetail.tsx:153
 #: src/pages/part/PartDetail.tsx:404
@@ -2539,7 +459,7 @@ msgstr "Return Order"
 
 #: lib/enums/ModelInformation.tsx:239
 #: lib/enums/Roles.tsx:43
-#: src/defaults/actions.tsx:156
+#: src/defaults/actions.tsx:147
 #: src/pages/Index/Settings/SystemSettings.tsx:384
 #: src/pages/company/CompanyDetail.tsx:161
 #: src/pages/part/PartDetail.tsx:415
@@ -2565,7 +485,7 @@ msgstr "Transfer Order"
 
 #: lib/enums/ModelInformation.tsx:256
 #: lib/enums/Roles.tsx:45
-#: src/defaults/actions.tsx:146
+#: src/defaults/actions.tsx:137
 #: src/pages/Index/Settings/SystemSettings.tsx:306
 #: src/pages/part/PartDetail.tsx:429
 #: src/pages/stock/LocationDetail.tsx:171
@@ -2631,7 +551,7 @@ msgstr "User"
 
 #: lib/enums/ModelInformation.tsx:293
 #: src/components/nav/NavigationDrawer.tsx:118
-#: src/defaults/actions.tsx:213
+#: src/defaults/actions.tsx:186
 #: src/pages/Index/Settings/AdminCenter/UserManagementPanel.tsx:15
 #: src/pages/core/CoreIndex.tsx:22
 #: src/pages/core/UserDetail.tsx:225
@@ -2666,7 +586,7 @@ msgid "Label Template"
 msgstr "Label Template"
 
 #: lib/enums/ModelInformation.tsx:316
-#: src/defaults/actions.tsx:253
+#: src/defaults/actions.tsx:226
 #: src/pages/Index/Settings/AdminCenter/Index.tsx:238
 msgid "Label Templates"
 msgstr "Label Templates"
@@ -2676,7 +596,7 @@ msgid "Report Template"
 msgstr "Report Template"
 
 #: lib/enums/ModelInformation.tsx:324
-#: src/defaults/actions.tsx:243
+#: src/defaults/actions.tsx:216
 #: src/pages/Index/Settings/AdminCenter/Index.tsx:244
 msgid "Report Templates"
 msgstr "Report Templates"
@@ -2855,7 +775,7 @@ msgstr "Barcode"
 
 #: src/components/barcodes/BarcodeInput.tsx:35
 #: src/components/barcodes/BarcodeKeyboardInput.tsx:18
-#: src/defaults/actions.tsx:166
+#: src/defaults/actions.tsx:157
 msgid "Scan"
 msgstr "Scan"
 
@@ -3158,9 +1078,9 @@ msgstr "Accept Layout"
 
 #: src/components/dashboard/DashboardMenu.tsx:94
 #: src/components/nav/NavigationDrawer.tsx:64
-#: src/defaults/actions.tsx:62
+#: src/defaults/actions.tsx:60
 #: src/defaults/links.tsx:36
-#: src/pages/Index/Home.tsx:12
+#: src/pages/Index/Home.tsx:11
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -3230,7 +1150,7 @@ msgid "Latest parts"
 msgstr "Latest products"
 
 #: src/components/dashboard/DashboardWidgetLibrary.tsx:64
-#: src/components/stationery/StationeryDashboard.tsx:144
+#: src/components/nexa/NexaDashboard.tsx:144
 #: src/tables/part/PartTableFilters.tsx:79
 msgid "Low Stock"
 msgstr "Low Stock"
@@ -3398,7 +1318,7 @@ msgid "The latest news from InvenTree"
 msgstr "The latest news from InvenTree"
 
 #: src/components/dashboard/widgets/ColorToggleWidget.tsx:18
-#: src/components/nav/MainMenu.tsx:91
+#: src/components/nav/MainMenu.tsx:60
 msgid "Change Color Mode"
 msgstr "Change Color Mode"
 
@@ -3698,11 +1618,11 @@ msgid "Delete table"
 msgstr "Delete table"
 
 #: src/components/editors/NotesEditor.tsx:701
+#: src/components/nexa/RecordSaleButton.tsx:403
+#: src/components/nexa/RestockButton.tsx:102
 #: src/components/panels/NotesPanel.tsx:24
-#: src/components/stationery/RecordSaleButton.tsx:404
-#: src/components/stationery/RestockButton.tsx:102
-#: src/forms/StationeryForms.tsx:56
-#: src/forms/StationeryForms.tsx:104
+#: src/forms/NexaForms.tsx:47
+#: src/forms/NexaForms.tsx:95
 #: src/forms/StockForms.tsx:1585
 #: src/tables/part/PartTestResultTable.tsx:218
 #: src/tables/stock/StockTrackingTable.tsx:279
@@ -4099,8 +2019,8 @@ msgid "API Version"
 msgstr "API Version"
 
 #: src/components/forms/InstanceOptions.tsx:143
-#: src/components/nav/NavigationDrawer.tsx:205
-#: src/defaults/actions.tsx:223
+#: src/components/nav/NavigationDrawer.tsx:206
+#: src/defaults/actions.tsx:196
 #: src/pages/Index/Settings/AdminCenter/Index.tsx:269
 #: src/pages/Index/Settings/AdminCenter/PluginManagementPanel.tsx:58
 #: src/pages/Index/Settings/SystemSettings.tsx:397
@@ -4227,7 +2147,7 @@ msgid "Select..."
 msgstr "Select..."
 
 #: src/components/forms/fields/TreeField.tsx:414
-#: src/components/stationery/ReceivePaymentButton.tsx:135
+#: src/components/nexa/ReceivePaymentButton.tsx:135
 #: src/components/wizards/ImportPartWizard.tsx:221
 #: src/forms/StockForms.tsx:1306
 msgid "Loading..."
@@ -4468,13 +2388,8 @@ msgstr "None"
 
 #: src/components/items/InvenTreeLogo.tsx:34
 #: src/components/items/InvenTreeLogo.tsx:52
-msgid "ITS Logo"
-msgstr "ITS Logo"
-
-#: src/components/items/InvenTreeLogo.tsx:36
-#: src/components/items/InvenTreeLogo.tsx:40
-#~ msgid "InvenTree Logo"
-#~ msgstr "InvenTree Logo"
+msgid "Nexa Logo"
+msgstr "Nexa Logo"
 
 #: src/components/items/LanguageSelect.tsx:44
 msgid "Default Language"
@@ -4626,7 +2541,7 @@ msgid "Links"
 msgstr "Links"
 
 #: src/components/modals/AboutInvenTreeModal.tsx:176
-#: src/defaults/actions.tsx:69
+#: src/defaults/actions.tsx:67
 #: src/defaults/links.tsx:193
 msgid "Documentation"
 msgstr "Documentation"
@@ -4848,41 +2763,14 @@ msgstr "The current user has elevated privileges and should not be used for regu
 msgid "Nothing found..."
 msgstr "Nothing found..."
 
-#: src/components/nav/MainMenu.tsx:52
-#: src/components/nav/NavigationDrawer.tsx:193
+#: src/components/nav/MainMenu.tsx:47
+#: src/components/nav/NavigationDrawer.tsx:194
 #: src/pages/Index/Settings/AdminCenter/EmailManagementPanel.tsx:21
 #: src/pages/Index/Settings/AdminCenter/UserManagementPanel.tsx:39
 msgid "Settings"
 msgstr "Settings"
 
-#: src/components/nav/MainMenu.tsx:59
-#: src/components/nav/NavigationDrawer.tsx:153
-#: src/components/nav/SettingsHeader.tsx:40
-#: src/defaults/actions.tsx:99
-#: src/pages/Index/Settings/UserSettings.tsx:148
-#: src/pages/Index/Settings/UserSettings.tsx:152
-msgid "User Settings"
-msgstr "User Settings"
-
-#: src/components/nav/MainMenu.tsx:67
-#: src/components/nav/NavigationDrawer.tsx:159
-#: src/components/nav/SettingsHeader.tsx:41
-#: src/defaults/actions.tsx:184
-#: src/pages/Index/Settings/SystemSettings.tsx:416
-#: src/pages/Index/Settings/SystemSettings.tsx:421
-msgid "System Settings"
-msgstr "System Settings"
-
-#: src/components/nav/MainMenu.tsx:76
-#: src/components/nav/NavigationDrawer.tsx:166
-#: src/components/nav/SettingsHeader.tsx:42
-#: src/defaults/actions.tsx:193
-#: src/pages/Index/Settings/AdminCenter/Index.tsx:344
-#: src/pages/Index/Settings/AdminCenter/Index.tsx:349
-msgid "Admin Center"
-msgstr "Admin Center"
-
-#: src/components/nav/MainMenu.tsx:100
+#: src/components/nav/MainMenu.tsx:69
 msgid "Logout"
 msgstr "Logout"
 
@@ -4922,7 +2810,7 @@ msgid "Purchasing"
 msgstr "Purchasing"
 
 #: src/components/nav/NavigationDrawer.tsx:99
-#: src/components/stationery/ReportTabs.tsx:16
+#: src/components/nexa/ReportTabs.tsx:16
 #: src/defaults/links.tsx:71
 #: src/pages/Index/Settings/SystemSettings.tsx:366
 #: src/pages/company/CustomerDetail.tsx:9
@@ -4934,10 +2822,10 @@ msgid "Sales"
 msgstr "Sales"
 
 #: src/components/nav/NavigationDrawer.tsx:106
-#: src/components/stationery/ReportTabs.tsx:17
+#: src/components/nexa/ReportTabs.tsx:17
 #: src/defaults/links.tsx:79
 #: src/pages/company/CompanyDetail.tsx:192
-#: src/pages/stationery/InvoiceListPage.tsx:24
+#: src/pages/nexa/InvoiceListPage.tsx:24
 msgid "Receivables"
 msgstr "Receivables"
 
@@ -4946,11 +2834,32 @@ msgstr "Receivables"
 msgid "Reports"
 msgstr "Reports"
 
-#: src/components/nav/NavigationDrawer.tsx:188
+#: src/components/nav/NavigationDrawer.tsx:153
+#: src/components/nav/SettingsHeader.tsx:40
+#: src/pages/Index/Settings/UserSettings.tsx:148
+#: src/pages/Index/Settings/UserSettings.tsx:152
+msgid "User Settings"
+msgstr "User Settings"
+
+#: src/components/nav/NavigationDrawer.tsx:160
+#: src/components/nav/SettingsHeader.tsx:41
+#: src/pages/Index/Settings/SystemSettings.tsx:416
+#: src/pages/Index/Settings/SystemSettings.tsx:421
+msgid "System Settings"
+msgstr "System Settings"
+
+#: src/components/nav/NavigationDrawer.tsx:167
+#: src/components/nav/SettingsHeader.tsx:42
+#: src/pages/Index/Settings/AdminCenter/Index.tsx:344
+#: src/pages/Index/Settings/AdminCenter/Index.tsx:349
+msgid "Admin Center"
+msgstr "Admin Center"
+
+#: src/components/nav/NavigationDrawer.tsx:189
 msgid "Navigation"
 msgstr "Navigation"
 
-#: src/components/nav/NavigationDrawer.tsx:216
+#: src/components/nav/NavigationDrawer.tsx:217
 msgid "About"
 msgstr "About"
 
@@ -5060,6 +2969,415 @@ msgstr "No Results"
 msgid "No results available for search query"
 msgstr "No results available for search query"
 
+#: src/components/nexa/CustomerPicker.tsx:53
+#: src/forms/NexaForms.tsx:81
+#: src/pages/company/CompanyDetailsPanel.tsx:84
+#: src/pages/company/CustomerDetail.tsx:8
+#: src/pages/nexa/InvoiceDetailPage.tsx:143
+#: src/pages/nexa/ReceivablesReportPage.tsx:139
+#: src/pages/part/pricing/SaleHistoryPanel.tsx:32
+#: src/pages/sales/ReturnOrderDetailsPanel.tsx:60
+#: src/pages/sales/SalesOrderDetailsPanel.tsx:60
+#: src/pages/sales/SalesOrderShipmentDetailsPanel.tsx:66
+#: src/pages/stock/StockDetailsPanel.tsx:306
+#: src/tables/company/CompanyTable.tsx:126
+#: src/tables/nexa/InvoiceTable.tsx:61
+#: src/tables/part/PartSalesOrdersTable.tsx:51
+#: src/tables/sales/ReturnOrderParametricTable.tsx:25
+#: src/tables/sales/ReturnOrderTable.tsx:64
+#: src/tables/sales/SalesOrderParametricTable.tsx:25
+#: src/tables/sales/SalesOrderShipmentTable.tsx:124
+#: src/tables/sales/SalesOrderTable.tsx:87
+#: src/tables/stock/StockTrackingTable.tsx:197
+msgid "Customer"
+msgstr "Customer"
+
+#: src/components/nexa/CustomerPicker.tsx:54
+msgid "Search for a customer..."
+msgstr "Search for a customer..."
+
+#: src/components/nexa/CustomerPicker.tsx:63
+#: src/components/nexa/ProductPicker.tsx:83
+msgid "Searching..."
+msgstr "Searching..."
+
+#: src/components/nexa/CustomerPicker.tsx:63
+msgid "No customers found"
+msgstr "No customers found"
+
+#: src/components/nexa/CustomerReceivablesPanel.tsx:64
+#: src/pages/nexa/ReceivablesReportPage.tsx:90
+msgid "Total Outstanding"
+msgstr "Total Outstanding"
+
+#: src/components/nexa/CustomerReceivablesPanel.tsx:69
+msgid "Outstanding Invoices"
+msgstr "Outstanding Invoices"
+
+#: src/components/nexa/InvoiceStatusBadge.tsx:12
+#: src/pages/nexa/ReceivablesReportPage.tsx:94
+msgid "Unpaid"
+msgstr "Unpaid"
+
+#: src/components/nexa/InvoiceStatusBadge.tsx:13
+#: src/pages/nexa/ReceivablesReportPage.tsx:96
+msgid "Partially Paid"
+msgstr "Partially Paid"
+
+#: src/components/nexa/InvoiceStatusBadge.tsx:14
+#: src/pages/nexa/InvoiceDetailPage.tsx:129
+#: src/pages/nexa/ReceivablesReportPage.tsx:99
+msgid "Paid"
+msgstr "Paid"
+
+#: src/components/nexa/InvoiceStatusBadge.tsx:15
+msgid "Cancelled"
+msgstr "Cancelled"
+
+#: src/components/nexa/InvoiceStatusBadge.tsx:37
+msgid "Current"
+msgstr "Current"
+
+#: src/components/nexa/InvoiceStatusBadge.tsx:38
+msgid "1-30 days"
+msgstr "1-30 days"
+
+#: src/components/nexa/InvoiceStatusBadge.tsx:39
+msgid "31-60 days"
+msgstr "31-60 days"
+
+#: src/components/nexa/InvoiceStatusBadge.tsx:40
+msgid "61-90 days"
+msgstr "61-90 days"
+
+#: src/components/nexa/InvoiceStatusBadge.tsx:41
+msgid "90+ days"
+msgstr "90+ days"
+
+#: src/components/nexa/NexaDashboard.tsx:38
+#: src/components/nexa/RecordSaleButton.tsx:48
+#: src/pages/nexa/SalesReportPage.tsx:32
+msgid "B2B Credit"
+msgstr "B2B Credit"
+
+#: src/components/nexa/NexaDashboard.tsx:39
+#: src/components/nexa/ReceivePaymentButton.tsx:22
+#: src/components/nexa/TransactionStatusBadge.tsx:20
+#: src/forms/NexaForms.tsx:114
+#: src/tables/nexa/PaymentHistoryTable.tsx:18
+msgid "Cash"
+msgstr "Cash"
+
+#: src/components/nexa/NexaDashboard.tsx:40
+#: src/components/nexa/ReceivePaymentButton.tsx:23
+#: src/components/nexa/TransactionStatusBadge.tsx:21
+#: src/forms/NexaForms.tsx:115
+#: src/tables/nexa/PaymentHistoryTable.tsx:19
+msgid "Online"
+msgstr "Online"
+
+#: src/components/nexa/NexaDashboard.tsx:119
+msgid "Today's Sales"
+msgstr "Today's Sales"
+
+#: src/components/nexa/NexaDashboard.tsx:126
+msgid "Collected Today"
+msgstr "Collected Today"
+
+#: src/components/nexa/NexaDashboard.tsx:133
+#: src/components/nexa/ReceivePaymentButton.tsx:93
+#: src/components/nexa/RecordSaleButton.tsx:264
+#: src/components/tables/Filter.tsx:186
+#: src/pages/nexa/InvoiceDetailPage.tsx:134
+#: src/pages/nexa/ReceivablesReportPage.tsx:112
+#: src/pages/nexa/ReceivablesReportPage.tsx:140
+#: src/tables/nexa/InvoiceTable.tsx:82
+#: src/tables/part/PartSalesOrdersTable.tsx:93
+#: src/tables/sales/SalesOrderAllocationTable.tsx:91
+#: src/tables/stock/TransferOrderAllocationTable.tsx:81
+msgid "Outstanding"
+msgstr "Outstanding"
+
+#: src/components/nexa/NexaDashboard.tsx:146
+msgid "No permission to view"
+msgstr "No permission to view"
+
+#: src/components/nexa/NexaDashboard.tsx:154
+msgid "No sales recorded yet"
+msgstr "No sales recorded yet"
+
+#: src/components/nexa/NexaDashboard.tsx:155
+msgid "Use \"New Sale\" above to record your first transaction."
+msgstr "Use \"New Sale\" above to record your first transaction."
+
+#: src/components/nexa/NexaDashboard.tsx:163
+msgid "Sales Today by Type"
+msgstr "Sales Today by Type"
+
+#: src/components/nexa/NexaDashboard.tsx:173
+msgid "No sales yet today"
+msgstr "No sales yet today"
+
+#: src/components/nexa/NexaDashboard.tsx:199
+msgid "Recent Activity"
+msgstr "Recent Activity"
+
+#: src/components/nexa/NexaDashboard.tsx:209
+msgid "Nothing recorded yet"
+msgstr "Nothing recorded yet"
+
+#: src/components/nexa/NexaDashboard.tsx:224
+msgid "Outstanding Customers"
+msgstr "Outstanding Customers"
+
+#: src/components/nexa/NexaDashboard.tsx:226
+msgid "View all"
+msgstr "View all"
+
+#: src/components/nexa/NexaDashboard.tsx:236
+msgid "No outstanding balances"
+msgstr "No outstanding balances"
+
+#: src/components/nexa/ProductPicker.tsx:48
+msgid "Unknown"
+msgstr "Unknown"
+
+#: src/components/nexa/ProductPicker.tsx:66
+#: src/components/nexa/RecordSaleButton.tsx:341
+msgid "Product"
+msgstr "Product"
+
+#: src/components/nexa/ProductPicker.tsx:67
+msgid "Search for a product..."
+msgstr "Search for a product..."
+
+#: src/components/nexa/ProductPicker.tsx:83
+msgid "No products found"
+msgstr "No products found"
+
+#: src/components/nexa/ProductPicker.tsx:96
+msgid "{quantity} currently in stock"
+msgstr "{quantity} currently in stock"
+
+#: src/components/nexa/ProductPicker.tsx:96
+msgid "Out of stock"
+msgstr "Out of stock"
+
+#: src/components/nexa/ReceivePaymentButton.tsx:24
+#: src/forms/NexaForms.tsx:116
+#: src/tables/nexa/PaymentHistoryTable.tsx:20
+msgid "Cheque"
+msgstr "Cheque"
+
+#: src/components/nexa/ReceivePaymentButton.tsx:80
+#: src/pages/nexa/InvoiceDetailPage.tsx:85
+msgid "Payment recorded"
+msgstr "Payment recorded"
+
+#: src/components/nexa/ReceivePaymentButton.tsx:86
+msgid "Could not record payment"
+msgstr "Could not record payment"
+
+#: src/components/nexa/ReceivePaymentButton.tsx:105
+#: src/components/nexa/ReceivePaymentButton.tsx:113
+msgid "Receive Payment"
+msgstr "Receive Payment"
+
+#: src/components/nexa/ReceivePaymentButton.tsx:132
+msgid "Invoice"
+msgstr "Invoice"
+
+#: src/components/nexa/ReceivePaymentButton.tsx:136
+msgid "Select an outstanding invoice"
+msgstr "Select an outstanding invoice"
+
+#: src/components/nexa/ReceivePaymentButton.tsx:141
+msgid "No outstanding invoices for this customer"
+msgstr "No outstanding invoices for this customer"
+
+#: src/components/nexa/ReceivePaymentButton.tsx:146
+#: src/forms/NexaForms.tsx:105
+#: src/tables/nexa/PaymentHistoryTable.tsx:31
+msgid "Amount"
+msgstr "Amount"
+
+#: src/components/nexa/ReceivePaymentButton.tsx:154
+#: src/pages/Index/Settings/AccountSettings/SecurityContent.tsx:152
+#: src/tables/nexa/PaymentHistoryTable.tsx:37
+msgid "Method"
+msgstr "Method"
+
+#: src/components/nexa/ReceivePaymentButton.tsx:161
+#: src/components/tables/ColumnRenderers.tsx:541
+#: src/forms/NexaForms.tsx:126
+#: src/pages/build/BuildOrderDetailsPanel.tsx:90
+#: src/pages/part/bom/BomCompare.tsx:34
+#: src/pages/purchasing/PurchaseOrderDetailsPanel.tsx:44
+#: src/pages/sales/ReturnOrderDetailsPanel.tsx:45
+#: src/pages/sales/SalesOrderDetailsPanel.tsx:45
+#: src/pages/stock/TransferOrderDetailsPanel.tsx:23
+#: src/tables/build/BuildAllocatedStockTable.tsx:113
+#: src/tables/build/BuildLineTable.tsx:370
+#: src/tables/nexa/InvoiceTable.tsx:47
+#: src/tables/nexa/PaymentHistoryTable.tsx:44
+msgid "Reference"
+msgstr "Reference"
+
+#: src/components/nexa/ReceivePaymentButton.tsx:171
+#: src/pages/nexa/InvoiceDetailPage.tsx:82
+#: src/pages/nexa/InvoiceDetailPage.tsx:116
+msgid "Record Payment"
+msgstr "Record Payment"
+
+#: src/components/nexa/RecordSaleButton.tsx:54
+msgid "Cash Sale"
+msgstr "Cash Sale"
+
+#: src/components/nexa/RecordSaleButton.tsx:60
+msgid "Online Sale"
+msgstr "Online Sale"
+
+#: src/components/nexa/RecordSaleButton.tsx:209
+msgid "Something went wrong recording this sale"
+msgstr "Something went wrong recording this sale"
+
+#: src/components/nexa/RecordSaleButton.tsx:234
+#: src/components/nexa/RecordSaleButton.tsx:240
+#: src/components/nexa/RecordSaleButton.tsx:291
+msgid "New Sale"
+msgstr "New Sale"
+
+#. placeholder {0}: success.reference
+#: src/components/nexa/RecordSaleButton.tsx:261
+msgid "Invoice {0} created"
+msgstr "Invoice {0} created"
+
+#: src/components/nexa/RecordSaleButton.tsx:264
+#: src/components/nexa/RecordSaleButton.tsx:284
+#: src/components/nexa/RecordSaleButton.tsx:416
+#: src/pages/nexa/InvoiceDetailPage.tsx:127
+#: src/tables/nexa/InvoiceTable.tsx:76
+msgid "Total"
+msgstr "Total"
+
+#: src/components/nexa/RecordSaleButton.tsx:273
+msgid "Sale recorded"
+msgstr "Sale recorded"
+
+#: src/components/nexa/RecordSaleButton.tsx:300
+msgid "View Invoice"
+msgstr "View Invoice"
+
+#: src/components/nexa/RecordSaleButton.tsx:348
+msgid "Remove product"
+msgstr "Remove product"
+
+#: src/components/nexa/RecordSaleButton.tsx:363
+#: src/components/render/Stock.tsx:100
+#: src/components/wizards/OrderPartsWizard.tsx:389
+#: src/forms/BomForms.tsx:42
+#: src/forms/BuildForms.tsx:284
+#: src/forms/BuildForms.tsx:707
+#: src/forms/BuildForms.tsx:871
+#: src/forms/NexaForms.tsx:37
+#: src/forms/NexaForms.tsx:71
+#: src/forms/PurchaseOrderForms.tsx:939
+#: src/forms/ReturnOrderForms.tsx:243
+#: src/forms/SalesOrderForms.tsx:438
+#: src/forms/StockForms.tsx:724
+#: src/forms/StockForms.tsx:948
+#: src/forms/StockForms.tsx:1563
+#: src/forms/TransferOrderForms.tsx:242
+#: src/pages/build/BuildIndex.tsx:47
+#: src/pages/nexa/InvoiceDetailPage.tsx:164
+#: src/pages/nexa/SalesReportPage.tsx:101
+#: src/pages/part/PartStockHistoryDetail.tsx:64
+#: src/pages/part/PartStockHistoryDetail.tsx:244
+#: src/pages/part/PartStockHistoryDetail.tsx:268
+#: src/pages/part/bom/BomCompare.tsx:33
+#: src/pages/part/bom/BomCompare.tsx:204
+#: src/pages/part/pricing/BomPricingPanel.tsx:113
+#: src/pages/part/pricing/PriceBreakPanel.tsx:89
+#: src/pages/part/pricing/PriceBreakPanel.tsx:173
+#: src/pages/stock/StockDetail.tsx:673
+#: src/pages/stock/StockDetailsPanel.tsx:197
+#: src/tables/build/BuildLineTable.tsx:99
+#: src/tables/part/PartPurchaseOrdersTable.tsx:103
+#: src/tables/part/PartTestResultTable.tsx:282
+#: src/tables/purchasing/PurchaseOrderLineItemTable.tsx:183
+#: src/tables/purchasing/PurchaseOrderLineItemTable.tsx:214
+#: src/tables/purchasing/SupplierPriceBreakTable.tsx:69
+#: src/tables/stock/StockTrackingTable.tsx:105
+msgid "Quantity"
+msgstr "Quantity"
+
+#: src/components/nexa/RecordSaleButton.tsx:370
+#: src/forms/NexaForms.tsx:42
+#: src/forms/NexaForms.tsx:76
+msgid "Unit Value"
+msgstr "Unit Value"
+
+#: src/components/nexa/RecordSaleButton.tsx:388
+msgid "Add Product"
+msgstr "Add Product"
+
+#: src/components/nexa/RecordSaleButton.tsx:394
+#: src/forms/NexaForms.tsx:89
+#: src/pages/nexa/InvoiceDetailPage.tsx:138
+#: src/tables/nexa/InvoiceTable.tsx:73
+msgid "Due Date"
+msgstr "Due Date"
+
+#: src/components/nexa/RecordSaleButton.tsx:395
+msgid "Defaults to 30 days from today"
+msgstr "Defaults to 30 days from today"
+
+#: src/components/nexa/RecordSaleButton.tsx:430
+msgid "Complete Sale"
+msgstr "Complete Sale"
+
+#: src/components/nexa/ReportDateRangeFilter.tsx:23
+msgid "From"
+msgstr "From"
+
+#: src/components/nexa/ReportDateRangeFilter.tsx:30
+#: src/tables/settings/EmailTable.tsx:85
+msgid "To"
+msgstr "To"
+
+#: src/components/nexa/RestockButton.tsx:48
+#: src/forms/StockForms.tsx:2000
+msgid "Stock added"
+msgstr "Stock added"
+
+#: src/components/nexa/RestockButton.tsx:54
+msgid "Could not add stock"
+msgstr "Could not add stock"
+
+#: src/components/nexa/RestockButton.tsx:68
+#: src/components/nexa/RestockButton.tsx:76
+#: src/components/nexa/TransactionStatusBadge.tsx:22
+msgid "Restock"
+msgstr "Restock"
+
+#: src/components/nexa/RestockButton.tsx:95
+msgid "Quantity to Add"
+msgstr "Quantity to Add"
+
+#: src/components/nexa/RestockButton.tsx:114
+#: src/forms/StockForms.tsx:1999
+#: src/hooks/UseStockAdjustActions.tsx:112
+msgid "Add Stock"
+msgstr "Add Stock"
+
+#: src/components/nexa/TransactionStatusBadge.tsx:19
+msgid "B2B"
+msgstr "B2B"
+
+#: src/components/nexa/TransactionStatusBadge.tsx:23
+msgid "Correction"
+msgstr "Correction"
+
 #: src/components/panels/AttachmentPanel.tsx:20
 msgid "Attachments"
 msgstr "Attachments"
@@ -5143,8 +3461,8 @@ msgstr "Author"
 #: src/components/tables/ColumnRenderers.tsx:717
 #: src/pages/part/pricing/PurchaseHistoryPanel.tsx:42
 #: src/pages/part/pricing/SaleHistoryPanel.tsx:39
+#: src/tables/nexa/PaymentHistoryTable.tsx:28
 #: src/tables/part/PartTestResultTable.tsx:226
-#: src/tables/stationery/PaymentHistoryTable.tsx:28
 msgid "Date"
 msgstr "Date"
 
@@ -5351,46 +3669,6 @@ msgstr "Location"
 msgid "Serial Number"
 msgstr "Serial Number"
 
-#: src/components/render/Stock.tsx:100
-#: src/components/stationery/RecordSaleButton.tsx:363
-#: src/components/wizards/OrderPartsWizard.tsx:389
-#: src/forms/BomForms.tsx:42
-#: src/forms/BuildForms.tsx:284
-#: src/forms/BuildForms.tsx:707
-#: src/forms/BuildForms.tsx:871
-#: src/forms/PurchaseOrderForms.tsx:939
-#: src/forms/ReturnOrderForms.tsx:243
-#: src/forms/SalesOrderForms.tsx:438
-#: src/forms/StationeryForms.tsx:38
-#: src/forms/StationeryForms.tsx:80
-#: src/forms/StockForms.tsx:724
-#: src/forms/StockForms.tsx:948
-#: src/forms/StockForms.tsx:1563
-#: src/forms/TransferOrderForms.tsx:242
-#: src/pages/build/BuildIndex.tsx:47
-#: src/pages/part/PartStockHistoryDetail.tsx:64
-#: src/pages/part/PartStockHistoryDetail.tsx:244
-#: src/pages/part/PartStockHistoryDetail.tsx:268
-#: src/pages/part/bom/BomCompare.tsx:33
-#: src/pages/part/bom/BomCompare.tsx:204
-#: src/pages/part/pricing/BomPricingPanel.tsx:113
-#: src/pages/part/pricing/PriceBreakPanel.tsx:89
-#: src/pages/part/pricing/PriceBreakPanel.tsx:173
-#: src/pages/stationery/GiftReportPage.tsx:88
-#: src/pages/stationery/InvoiceDetailPage.tsx:164
-#: src/pages/stationery/SalesReportPage.tsx:101
-#: src/pages/stock/StockDetail.tsx:673
-#: src/pages/stock/StockDetailsPanel.tsx:197
-#: src/tables/build/BuildLineTable.tsx:99
-#: src/tables/part/PartPurchaseOrdersTable.tsx:103
-#: src/tables/part/PartTestResultTable.tsx:282
-#: src/tables/purchasing/PurchaseOrderLineItemTable.tsx:183
-#: src/tables/purchasing/PurchaseOrderLineItemTable.tsx:214
-#: src/tables/purchasing/SupplierPriceBreakTable.tsx:69
-#: src/tables/stock/StockTrackingTable.tsx:105
-msgid "Quantity"
-msgstr "Quantity"
-
 #: src/components/render/Stock.tsx:115
 #: src/forms/BuildForms.tsx:385
 #: src/forms/BuildForms.tsx:468
@@ -5538,394 +3816,6 @@ msgstr "There are no configurable settings available"
 #: src/components/settings/SettingList.tsx:210
 msgid "No settings specified"
 msgstr "No settings specified"
-
-#: src/components/stationery/CustomerPicker.tsx:45
-#: src/forms/StationeryForms.tsx:90
-#: src/pages/company/CompanyDetailsPanel.tsx:84
-#: src/pages/company/CustomerDetail.tsx:8
-#: src/pages/part/pricing/SaleHistoryPanel.tsx:32
-#: src/pages/sales/ReturnOrderDetailsPanel.tsx:60
-#: src/pages/sales/SalesOrderDetailsPanel.tsx:60
-#: src/pages/sales/SalesOrderShipmentDetailsPanel.tsx:66
-#: src/pages/stationery/InvoiceDetailPage.tsx:143
-#: src/pages/stationery/ReceivablesReportPage.tsx:139
-#: src/pages/stock/StockDetailsPanel.tsx:306
-#: src/tables/company/CompanyTable.tsx:126
-#: src/tables/part/PartSalesOrdersTable.tsx:51
-#: src/tables/sales/ReturnOrderParametricTable.tsx:25
-#: src/tables/sales/ReturnOrderTable.tsx:64
-#: src/tables/sales/SalesOrderParametricTable.tsx:25
-#: src/tables/sales/SalesOrderShipmentTable.tsx:124
-#: src/tables/sales/SalesOrderTable.tsx:87
-#: src/tables/stationery/InvoiceTable.tsx:61
-#: src/tables/stock/StockTrackingTable.tsx:197
-msgid "Customer"
-msgstr "Customer"
-
-#: src/components/stationery/CustomerPicker.tsx:46
-msgid "Search for a customer..."
-msgstr "Search for a customer..."
-
-#: src/components/stationery/CustomerPicker.tsx:54
-#: src/components/stationery/ProductPicker.tsx:79
-msgid "Searching..."
-msgstr "Searching..."
-
-#: src/components/stationery/CustomerPicker.tsx:54
-msgid "No customers found"
-msgstr "No customers found"
-
-#: src/components/stationery/CustomerReceivablesPanel.tsx:64
-#: src/pages/stationery/ReceivablesReportPage.tsx:90
-msgid "Total Outstanding"
-msgstr "Total Outstanding"
-
-#: src/components/stationery/CustomerReceivablesPanel.tsx:69
-msgid "Outstanding Invoices"
-msgstr "Outstanding Invoices"
-
-#: src/components/stationery/InvoiceStatusBadge.tsx:12
-#: src/pages/stationery/ReceivablesReportPage.tsx:94
-msgid "Unpaid"
-msgstr "Unpaid"
-
-#: src/components/stationery/InvoiceStatusBadge.tsx:13
-#: src/pages/stationery/ReceivablesReportPage.tsx:96
-msgid "Partially Paid"
-msgstr "Partially Paid"
-
-#: src/components/stationery/InvoiceStatusBadge.tsx:14
-#: src/pages/stationery/InvoiceDetailPage.tsx:129
-#: src/pages/stationery/ReceivablesReportPage.tsx:99
-msgid "Paid"
-msgstr "Paid"
-
-#: src/components/stationery/InvoiceStatusBadge.tsx:15
-msgid "Cancelled"
-msgstr "Cancelled"
-
-#: src/components/stationery/InvoiceStatusBadge.tsx:37
-msgid "Current"
-msgstr "Current"
-
-#: src/components/stationery/InvoiceStatusBadge.tsx:38
-msgid "1-30 days"
-msgstr "1-30 days"
-
-#: src/components/stationery/InvoiceStatusBadge.tsx:39
-msgid "31-60 days"
-msgstr "31-60 days"
-
-#: src/components/stationery/InvoiceStatusBadge.tsx:40
-msgid "61-90 days"
-msgstr "61-90 days"
-
-#: src/components/stationery/InvoiceStatusBadge.tsx:41
-msgid "90+ days"
-msgstr "90+ days"
-
-#: src/components/stationery/ProductPicker.tsx:48
-msgid "Unknown"
-msgstr "Unknown"
-
-#: src/components/stationery/ProductPicker.tsx:63
-#: src/components/stationery/RecordSaleButton.tsx:341
-msgid "Product"
-msgstr "Product"
-
-#: src/components/stationery/ProductPicker.tsx:64
-msgid "Search for a product..."
-msgstr "Search for a product..."
-
-#: src/components/stationery/ProductPicker.tsx:79
-msgid "No products found"
-msgstr "No products found"
-
-#: src/components/stationery/ProductPicker.tsx:92
-msgid "{quantity} currently in stock"
-msgstr "{quantity} currently in stock"
-
-#: src/components/stationery/ProductPicker.tsx:92
-msgid "Out of stock"
-msgstr "Out of stock"
-
-#: src/components/stationery/ReceivePaymentButton.tsx:22
-#: src/components/stationery/StationeryDashboard.tsx:39
-#: src/components/stationery/TransactionStatusBadge.tsx:21
-#: src/forms/StationeryForms.tsx:123
-#: src/tables/stationery/PaymentHistoryTable.tsx:18
-msgid "Cash"
-msgstr "Cash"
-
-#: src/components/stationery/ReceivePaymentButton.tsx:23
-#: src/components/stationery/StationeryDashboard.tsx:40
-#: src/components/stationery/TransactionStatusBadge.tsx:22
-#: src/forms/StationeryForms.tsx:124
-#: src/tables/stationery/PaymentHistoryTable.tsx:19
-msgid "Online"
-msgstr "Online"
-
-#: src/components/stationery/ReceivePaymentButton.tsx:24
-#: src/forms/StationeryForms.tsx:125
-#: src/tables/stationery/PaymentHistoryTable.tsx:20
-msgid "Cheque"
-msgstr "Cheque"
-
-#: src/components/stationery/ReceivePaymentButton.tsx:80
-#: src/pages/stationery/InvoiceDetailPage.tsx:85
-msgid "Payment recorded"
-msgstr "Payment recorded"
-
-#: src/components/stationery/ReceivePaymentButton.tsx:86
-msgid "Could not record payment"
-msgstr "Could not record payment"
-
-#: src/components/stationery/ReceivePaymentButton.tsx:93
-#: src/components/stationery/RecordSaleButton.tsx:264
-#: src/components/stationery/StationeryDashboard.tsx:133
-#: src/components/tables/Filter.tsx:186
-#: src/pages/stationery/InvoiceDetailPage.tsx:134
-#: src/pages/stationery/ReceivablesReportPage.tsx:112
-#: src/pages/stationery/ReceivablesReportPage.tsx:140
-#: src/tables/part/PartSalesOrdersTable.tsx:93
-#: src/tables/sales/SalesOrderAllocationTable.tsx:91
-#: src/tables/stationery/InvoiceTable.tsx:82
-#: src/tables/stock/TransferOrderAllocationTable.tsx:81
-msgid "Outstanding"
-msgstr "Outstanding"
-
-#: src/components/stationery/ReceivePaymentButton.tsx:105
-#: src/components/stationery/ReceivePaymentButton.tsx:113
-msgid "Receive Payment"
-msgstr "Receive Payment"
-
-#: src/components/stationery/ReceivePaymentButton.tsx:132
-msgid "Invoice"
-msgstr "Invoice"
-
-#: src/components/stationery/ReceivePaymentButton.tsx:136
-msgid "Select an outstanding invoice"
-msgstr "Select an outstanding invoice"
-
-#: src/components/stationery/ReceivePaymentButton.tsx:141
-msgid "No outstanding invoices for this customer"
-msgstr "No outstanding invoices for this customer"
-
-#: src/components/stationery/ReceivePaymentButton.tsx:146
-#: src/forms/StationeryForms.tsx:114
-#: src/tables/stationery/PaymentHistoryTable.tsx:31
-msgid "Amount"
-msgstr "Amount"
-
-#: src/components/stationery/ReceivePaymentButton.tsx:154
-#: src/pages/Index/Settings/AccountSettings/SecurityContent.tsx:152
-#: src/tables/stationery/PaymentHistoryTable.tsx:37
-msgid "Method"
-msgstr "Method"
-
-#: src/components/stationery/ReceivePaymentButton.tsx:161
-#: src/components/tables/ColumnRenderers.tsx:541
-#: src/forms/StationeryForms.tsx:135
-#: src/pages/build/BuildOrderDetailsPanel.tsx:90
-#: src/pages/part/bom/BomCompare.tsx:34
-#: src/pages/purchasing/PurchaseOrderDetailsPanel.tsx:44
-#: src/pages/sales/ReturnOrderDetailsPanel.tsx:45
-#: src/pages/sales/SalesOrderDetailsPanel.tsx:45
-#: src/pages/stock/TransferOrderDetailsPanel.tsx:23
-#: src/tables/build/BuildAllocatedStockTable.tsx:113
-#: src/tables/build/BuildLineTable.tsx:370
-#: src/tables/stationery/InvoiceTable.tsx:47
-#: src/tables/stationery/PaymentHistoryTable.tsx:44
-msgid "Reference"
-msgstr "Reference"
-
-#: src/components/stationery/ReceivePaymentButton.tsx:171
-#: src/pages/stationery/InvoiceDetailPage.tsx:82
-#: src/pages/stationery/InvoiceDetailPage.tsx:116
-msgid "Record Payment"
-msgstr "Record Payment"
-
-#: src/components/stationery/RecordSaleButton.tsx:49
-#: src/components/stationery/StationeryDashboard.tsx:38
-#: src/pages/stationery/SalesReportPage.tsx:32
-msgid "B2B Credit"
-msgstr "B2B Credit"
-
-#: src/components/stationery/RecordSaleButton.tsx:55
-msgid "Cash Sale"
-msgstr "Cash Sale"
-
-#: src/components/stationery/RecordSaleButton.tsx:61
-msgid "Online Sale"
-msgstr "Online Sale"
-
-#: src/components/stationery/RecordSaleButton.tsx:67
-#: src/components/stationery/TransactionStatusBadge.tsx:23
-msgid "Gift"
-msgstr "Gift"
-
-#: src/components/stationery/RecordSaleButton.tsx:217
-msgid "Something went wrong recording this sale"
-msgstr "Something went wrong recording this sale"
-
-#: src/components/stationery/RecordSaleButton.tsx:242
-#: src/components/stationery/RecordSaleButton.tsx:248
-#: src/components/stationery/RecordSaleButton.tsx:291
-msgid "New Sale"
-msgstr "New Sale"
-
-#. placeholder {0}: success.reference
-#: src/components/stationery/RecordSaleButton.tsx:261
-msgid "Invoice {0} created"
-msgstr "Invoice {0} created"
-
-#: src/components/stationery/RecordSaleButton.tsx:264
-#: src/components/stationery/RecordSaleButton.tsx:284
-#: src/components/stationery/RecordSaleButton.tsx:417
-#: src/pages/stationery/InvoiceDetailPage.tsx:127
-#: src/tables/stationery/InvoiceTable.tsx:76
-msgid "Total"
-msgstr "Total"
-
-#: src/components/stationery/RecordSaleButton.tsx:273
-msgid "Sale recorded"
-msgstr "Sale recorded"
-
-#: src/components/stationery/RecordSaleButton.tsx:300
-msgid "View Invoice"
-msgstr "View Invoice"
-
-#: src/components/stationery/RecordSaleButton.tsx:348
-msgid "Remove product"
-msgstr "Remove product"
-
-#: src/components/stationery/RecordSaleButton.tsx:370
-#: src/forms/StationeryForms.tsx:43
-#: src/forms/StationeryForms.tsx:85
-msgid "Unit Value"
-msgstr "Unit Value"
-
-#: src/components/stationery/RecordSaleButton.tsx:370
-msgid "Gift Value"
-msgstr "Gift Value"
-
-#: src/components/stationery/RecordSaleButton.tsx:376
-msgid "Required for gifts"
-msgstr "Required for gifts"
-
-#: src/components/stationery/RecordSaleButton.tsx:389
-msgid "Add Product"
-msgstr "Add Product"
-
-#: src/components/stationery/RecordSaleButton.tsx:395
-#: src/forms/StationeryForms.tsx:98
-#: src/pages/stationery/InvoiceDetailPage.tsx:138
-#: src/tables/stationery/InvoiceTable.tsx:73
-msgid "Due Date"
-msgstr "Due Date"
-
-#: src/components/stationery/RecordSaleButton.tsx:396
-msgid "Defaults to 30 days from today"
-msgstr "Defaults to 30 days from today"
-
-#: src/components/stationery/RecordSaleButton.tsx:431
-msgid "Complete Sale"
-msgstr "Complete Sale"
-
-#: src/components/stationery/ReportDateRangeFilter.tsx:23
-msgid "From"
-msgstr "From"
-
-#: src/components/stationery/ReportDateRangeFilter.tsx:30
-#: src/tables/settings/EmailTable.tsx:85
-msgid "To"
-msgstr "To"
-
-#: src/components/stationery/ReportTabs.tsx:18
-#: src/pages/stationery/GiftReportPage.tsx:69
-msgid "Gifts"
-msgstr "Gifts"
-
-#: src/components/stationery/RestockButton.tsx:48
-#: src/forms/StockForms.tsx:2000
-msgid "Stock added"
-msgstr "Stock added"
-
-#: src/components/stationery/RestockButton.tsx:54
-msgid "Could not add stock"
-msgstr "Could not add stock"
-
-#: src/components/stationery/RestockButton.tsx:68
-#: src/components/stationery/RestockButton.tsx:76
-#: src/components/stationery/TransactionStatusBadge.tsx:24
-msgid "Restock"
-msgstr "Restock"
-
-#: src/components/stationery/RestockButton.tsx:95
-msgid "Quantity to Add"
-msgstr "Quantity to Add"
-
-#: src/components/stationery/RestockButton.tsx:114
-#: src/forms/StockForms.tsx:1999
-#: src/hooks/UseStockAdjustActions.tsx:112
-msgid "Add Stock"
-msgstr "Add Stock"
-
-#: src/components/stationery/StationeryDashboard.tsx:119
-msgid "Today's Sales"
-msgstr "Today's Sales"
-
-#: src/components/stationery/StationeryDashboard.tsx:126
-msgid "Collected Today"
-msgstr "Collected Today"
-
-#: src/components/stationery/StationeryDashboard.tsx:146
-msgid "No permission to view"
-msgstr "No permission to view"
-
-#: src/components/stationery/StationeryDashboard.tsx:154
-msgid "No sales recorded yet"
-msgstr "No sales recorded yet"
-
-#: src/components/stationery/StationeryDashboard.tsx:155
-msgid "Use \"New Sale\" above to record your first transaction."
-msgstr "Use \"New Sale\" above to record your first transaction."
-
-#: src/components/stationery/StationeryDashboard.tsx:163
-msgid "Sales Today by Type"
-msgstr "Sales Today by Type"
-
-#: src/components/stationery/StationeryDashboard.tsx:173
-msgid "No sales yet today"
-msgstr "No sales yet today"
-
-#: src/components/stationery/StationeryDashboard.tsx:199
-msgid "Recent Activity"
-msgstr "Recent Activity"
-
-#: src/components/stationery/StationeryDashboard.tsx:209
-msgid "Nothing recorded yet"
-msgstr "Nothing recorded yet"
-
-#: src/components/stationery/StationeryDashboard.tsx:224
-msgid "Outstanding Customers"
-msgstr "Outstanding Customers"
-
-#: src/components/stationery/StationeryDashboard.tsx:226
-msgid "View all"
-msgstr "View all"
-
-#: src/components/stationery/StationeryDashboard.tsx:236
-msgid "No outstanding balances"
-msgstr "No outstanding balances"
-
-#: src/components/stationery/TransactionStatusBadge.tsx:20
-msgid "B2B"
-msgstr "B2B"
-
-#: src/components/stationery/TransactionStatusBadge.tsx:25
-msgid "Correction"
-msgstr "Correction"
 
 #: src/components/tables/ColumnRenderers.tsx:70
 msgid "Part is not active"
@@ -6362,6 +4252,7 @@ msgstr "Include results for product variants"
 #: src/pages/stock/TransferOrderDetailsPanel.tsx:49
 #: src/tables/build/BuildOutputTable.tsx:498
 #: src/tables/machine/MachineListTable.tsx:388
+#: src/tables/nexa/InvoiceTable.tsx:88
 #: src/tables/part/PartPurchaseOrdersTable.tsx:46
 #: src/tables/part/PartSalesOrdersTable.tsx:45
 #: src/tables/part/PartTestResultTable.tsx:328
@@ -6370,7 +4261,6 @@ msgstr "Include results for product variants"
 #: src/tables/settings/CustomStateTable.tsx:79
 #: src/tables/settings/EmailTable.tsx:95
 #: src/tables/settings/ImportSessionTable.tsx:135
-#: src/tables/stationery/InvoiceTable.tsx:88
 #: src/tables/stock/StockItemTable.tsx:202
 #: src/tables/stock/StockTrackingTable.tsx:83
 msgid "Status"
@@ -6474,7 +4364,6 @@ msgstr "Remove filter"
 #: src/components/tables/FilterSelectDrawer.tsx:290
 #: src/pages/Index/Settings/AdminCenter/IdentityManagementPanel.tsx:624
 #: src/pages/part/PartStockHistoryDetail.tsx:67
-#: src/pages/stationery/GiftReportPage.tsx:89
 #: src/tables/part/PartTestResultTable.tsx:210
 #: src/tables/stock/StockItemTestResultTable.tsx:205
 msgid "Value"
@@ -6912,130 +4801,114 @@ msgstr "Please correct the errors in the selected products"
 msgid "Order Parts"
 msgstr "Order Products"
 
-#: src/defaults/actions.tsx:41
-#: src/defaults/actions.tsx:106
+#: src/defaults/actions.tsx:39
+#: src/defaults/actions.tsx:97
 msgid "Hotkeys"
 msgstr "Hotkeys"
 
-#: src/defaults/actions.tsx:63
+#: src/defaults/actions.tsx:61
 msgid "Go to the InvenTree dashboard"
 msgstr "Go to the InvenTree dashboard"
 
-#: src/defaults/actions.tsx:70
+#: src/defaults/actions.tsx:68
 msgid "Visit the documentation to learn more about InvenTree"
 msgstr "Visit the documentation to learn more about InvenTree"
 
-#: src/defaults/actions.tsx:78
+#: src/defaults/actions.tsx:76
 msgid "Server Information"
 msgstr "Server Information"
 
-#: src/defaults/actions.tsx:79
+#: src/defaults/actions.tsx:77
 #: src/defaults/links.tsx:201
 msgid "About this InvenTree instance"
 msgstr "About this InvenTree instance"
 
-#: src/defaults/actions.tsx:79
-#~ msgid "About the InvenTree org"
-#~ msgstr "About the InvenTree org"
-
-#: src/defaults/actions.tsx:85
+#: src/defaults/actions.tsx:83
 #: src/defaults/links.tsx:178
 #: src/defaults/links.tsx:207
 msgid "License Information"
 msgstr "License Information"
 
-#: src/defaults/actions.tsx:86
+#: src/defaults/actions.tsx:84
 msgid "Licenses for dependencies of the service"
 msgstr "Licenses for dependencies of the service"
 
-#: src/defaults/actions.tsx:92
+#: src/defaults/actions.tsx:90
 msgid "Open Navigation"
 msgstr "Open Navigation"
 
-#: src/defaults/actions.tsx:93
+#: src/defaults/actions.tsx:91
 msgid "Open the main navigation menu"
 msgstr "Open the main navigation menu"
 
-#: src/defaults/actions.tsx:100
-msgid "Go to your user settings"
-msgstr "Go to your user settings"
-
-#: src/defaults/actions.tsx:107
+#: src/defaults/actions.tsx:98
 msgid "View a list of available hotkeys"
 msgstr "View a list of available hotkeys"
 
-#: src/defaults/actions.tsx:116
+#: src/defaults/actions.tsx:107
 msgid "Import Data"
 msgstr "Import Data"
 
-#: src/defaults/actions.tsx:117
+#: src/defaults/actions.tsx:108
 msgid "Import data from a file"
 msgstr "Import data from a file"
 
-#: src/defaults/actions.tsx:127
+#: src/defaults/actions.tsx:118
 msgid "Go to Purchase Orders"
 msgstr "Go to Purchase Orders"
 
-#: src/defaults/actions.tsx:137
+#: src/defaults/actions.tsx:128
 msgid "Go to Sales Orders"
 msgstr "Go to Sales Orders"
 
-#: src/defaults/actions.tsx:147
+#: src/defaults/actions.tsx:138
 msgid "Go to Transfer Orders"
 msgstr "Go to Transfer Orders"
 
-#: src/defaults/actions.tsx:157
+#: src/defaults/actions.tsx:148
 msgid "Go to Return Orders"
 msgstr "Go to Return Orders"
 
-#: src/defaults/actions.tsx:167
+#: src/defaults/actions.tsx:158
 msgid "Scan a barcode or QR code"
 msgstr "Scan a barcode or QR code"
 
-#: src/defaults/actions.tsx:176
+#: src/defaults/actions.tsx:167
 msgid "Go to Build Orders"
 msgstr "Go to Build Orders"
 
-#: src/defaults/actions.tsx:185
-msgid "Go to System Settings"
-msgstr "Go to System Settings"
-
-#: src/defaults/actions.tsx:194
-msgid "Go to the Admin Center"
-msgstr "Go to the Admin Center"
-
-#: src/defaults/actions.tsx:203
+#: src/defaults/actions.tsx:176
 msgid "Error Logs"
 msgstr "Error Logs"
 
-#: src/defaults/actions.tsx:204
+#: src/defaults/actions.tsx:177
 msgid "View error logs for this instance"
 msgstr "View error logs for this instance"
 
-#: src/defaults/actions.tsx:214
+#: src/defaults/actions.tsx:187
 msgid "Manage user accounts"
 msgstr "Manage user accounts"
 
-#: src/defaults/actions.tsx:224
+#: src/defaults/actions.tsx:197
 msgid "Manage InvenTree plugins"
 msgstr "Manage InvenTree plugins"
 
-#: src/defaults/actions.tsx:233
+#: src/defaults/actions.tsx:206
 #: src/pages/Index/Settings/AdminCenter/Index.tsx:276
 #: src/pages/Index/Settings/AdminCenter/MachineManagementPanel.tsx:52
 #: src/tables/machine/MachineTypeTable.tsx:326
 msgid "Machines"
 msgstr "Machines"
 
-#: src/defaults/actions.tsx:234
+#: src/defaults/actions.tsx:207
 msgid "Manage machines and machine types"
 msgstr "Manage machines and machine types"
 
-#: src/defaults/actions.tsx:244
+#: src/defaults/actions.tsx:217
 msgid "Manage report templates"
 msgstr "Manage report templates"
 
-#: src/defaults/actions.tsx:254
+#: src/defaults/actions.tsx:227
 msgid "Manage label templates"
 msgstr "Manage label templates"
 
@@ -7281,6 +5154,22 @@ msgstr "From Template"
 msgid "Optionally pre-fill this note from an existing template"
 msgstr "Optionally pre-fill this note from an existing template"
 
+#: src/forms/NexaForms.tsx:92
+msgid "Defaults to 30 days from today if not set"
+msgstr "Defaults to 30 days from today if not set"
+
+#: src/forms/NexaForms.tsx:110
+msgid "Payment Method"
+msgstr "Payment Method"
+
+#: src/forms/NexaForms.tsx:120
+msgid "Payment Date"
+msgstr "Payment Date"
+
+#: src/forms/NexaForms.tsx:123
+msgid "Defaults to today if not set"
+msgstr "Defaults to today if not set"
+
 #: src/forms/PartForms.tsx:113
 #: src/forms/PartForms.tsx:247
 #: src/pages/part/PartCategoryDetailsPanel.tsx:58
@@ -7486,26 +5375,6 @@ msgstr "Complete Shipment"
 msgid "Leave blank to use the order address"
 msgstr "Leave blank to use the order address"
 
-#: src/forms/StationeryForms.tsx:52
-msgid "Required for gifts — the value given away, for reporting"
-msgstr "Required for gifts — the value given away, for reporting"
-
-#: src/forms/StationeryForms.tsx:101
-msgid "Defaults to 30 days from today if not set"
-msgstr "Defaults to 30 days from today if not set"
-
-#: src/forms/StationeryForms.tsx:119
-msgid "Payment Method"
-msgstr "Payment Method"
-
-#: src/forms/StationeryForms.tsx:129
-msgid "Payment Date"
-msgstr "Payment Date"
-
-#: src/forms/StationeryForms.tsx:132
-msgid "Defaults to today if not set"
-msgstr "Defaults to today if not set"
-
 #: src/forms/StockForms.tsx:242
 msgid "Add given quantity as packs instead of individual items"
 msgstr "Add given quantity as packs instead of individual items"
@@ -7584,12 +5453,12 @@ msgid "Unit Quantity"
 msgstr "Unit Quantity"
 
 #: src/forms/StockForms.tsx:949
+#: src/pages/nexa/InvoiceDetailPage.tsx:165
 #: src/pages/part/pricing/BomPricingPanel.tsx:133
 #: src/pages/part/pricing/PriceBreakPanel.tsx:174
 #: src/pages/part/pricing/PurchaseHistoryPanel.tsx:72
 #: src/pages/part/pricing/PurchaseHistoryPanel.tsx:129
 #: src/pages/part/pricing/SupplierPricingPanel.tsx:67
-#: src/pages/stationery/InvoiceDetailPage.tsx:165
 #: src/pages/stock/StockDetailsPanel.tsx:323
 #: src/tables/bom/BomTable.tsx:314
 #: src/tables/general/ExtraLineItemTable.tsx:73
@@ -9954,6 +7823,110 @@ msgstr "User Details"
 msgid "Normal user"
 msgstr "Normal user"
 
+#: src/pages/nexa/InvoiceDetailPage.tsx:99
+msgid "Invoice not found"
+msgstr "Invoice not found"
+
+#: src/pages/nexa/InvoiceDetailPage.tsx:148
+msgid "View Customer"
+msgstr "View Customer"
+
+#: src/pages/nexa/InvoiceDetailPage.tsx:152
+#: src/tables/nexa/InvoiceTable.tsx:69
+msgid "Invoice Date"
+msgstr "Invoice Date"
+
+#: src/pages/nexa/InvoiceDetailPage.tsx:158
+#: src/pages/purchasing/PurchaseOrderDetail.tsx:151
+#: src/pages/purchasing/PurchaseOrderDetail.tsx:160
+#: src/pages/sales/ReturnOrderDetail.tsx:116
+#: src/pages/sales/ReturnOrderDetail.tsx:125
+#: src/pages/sales/ReturnOrderDetailsPanel.tsx:91
+#: src/pages/sales/SalesOrderDetail.tsx:154
+#: src/pages/sales/SalesOrderDetail.tsx:163
+#: src/pages/stock/TransferOrderDetail.tsx:112
+#: src/pages/stock/TransferOrderDetailsPanel.tsx:74
+msgid "Line Items"
+msgstr "Line Items"
+
+#: src/pages/nexa/InvoiceDetailPage.tsx:166
+msgid "Line Total"
+msgstr "Line Total"
+
+#: src/pages/nexa/InvoiceDetailPage.tsx:184
+msgid "Payment History"
+msgstr "Payment History"
+
+#: src/pages/nexa/ReceivablesReportPage.tsx:71
+msgid "Receivables Report"
+msgstr "Receivables Report"
+
+#: src/pages/nexa/ReceivablesReportPage.tsx:81
+msgid "Total Invoiced"
+msgstr "Total Invoiced"
+
+#: src/pages/nexa/ReceivablesReportPage.tsx:85
+msgid "Total Collected"
+msgstr "Total Collected"
+
+#: src/pages/nexa/ReceivablesReportPage.tsx:104
+#: src/tables/nexa/InvoiceTable.tsx:93
+msgid "Aging"
+msgstr "Aging"
+
+#: src/pages/nexa/ReceivablesReportPage.tsx:110
+msgid "Bucket"
+msgstr "Bucket"
+
+#: src/pages/nexa/ReceivablesReportPage.tsx:111
+msgid "Invoice Count"
+msgstr "Invoice Count"
+
+#: src/pages/nexa/ReceivablesReportPage.tsx:133
+msgid "Outstanding by Customer"
+msgstr "Outstanding by Customer"
+
+#: src/pages/nexa/SalesReportPage.tsx:33
+msgid "B2C Cash"
+msgstr "B2C Cash"
+
+#: src/pages/nexa/SalesReportPage.tsx:34
+msgid "B2C Online"
+msgstr "B2C Online"
+
+#: src/pages/nexa/SalesReportPage.tsx:64
+msgid "Sales Report"
+msgstr "Sales Report"
+
+#: src/pages/nexa/SalesReportPage.tsx:74
+#: src/pages/nexa/SalesReportPage.tsx:100
+msgid "Transactions"
+msgstr "Transactions"
+
+#: src/pages/nexa/SalesReportPage.tsx:78
+#: src/tables/part/PartPurchaseOrdersTable.tsx:88
+#: src/tables/purchasing/PurchaseOrderLineItemTable.tsx:205
+msgid "Total Quantity"
+msgstr "Total Quantity"
+
+#: src/pages/nexa/SalesReportPage.tsx:82
+#: src/pages/nexa/SalesReportPage.tsx:102
+msgid "Transaction Value"
+msgstr "Transaction Value"
+
+#: src/pages/nexa/SalesReportPage.tsx:86
+#: src/pages/nexa/SalesReportPage.tsx:103
+msgid "Collected Value"
+msgstr "Collected Value"
+
+#: src/pages/nexa/SalesReportPage.tsx:93
+msgid "Breakdown by Sale Type"
+msgstr "Breakdown by Sale Type"
+
+#: src/pages/nexa/SalesReportPage.tsx:99
+msgid "Sale Type"
+msgstr "Sale Type"
+
 #: src/pages/part/CategoryDetail.tsx:114
 #: src/pages/part/CategoryDetail.tsx:183
 #: src/tables/part/PartCategoryTable.tsx:124
@@ -10619,19 +8592,6 @@ msgstr "Add Purchase Order"
 msgid "Order Details"
 msgstr "Order Details"
 
-#: src/pages/purchasing/PurchaseOrderDetail.tsx:151
-#: src/pages/purchasing/PurchaseOrderDetail.tsx:160
-#: src/pages/sales/ReturnOrderDetail.tsx:116
-#: src/pages/sales/ReturnOrderDetail.tsx:125
-#: src/pages/sales/ReturnOrderDetailsPanel.tsx:91
-#: src/pages/sales/SalesOrderDetail.tsx:154
-#: src/pages/sales/SalesOrderDetail.tsx:163
-#: src/pages/stationery/InvoiceDetailPage.tsx:158
-#: src/pages/stock/TransferOrderDetail.tsx:112
-#: src/pages/stock/TransferOrderDetailsPanel.tsx:74
-msgid "Line Items"
-msgstr "Line Items"
-
 #: src/pages/purchasing/PurchaseOrderDetail.tsx:175
 #: src/pages/sales/ReturnOrderDetail.tsx:140
 #: src/pages/sales/SalesOrderDetail.tsx:177
@@ -10904,110 +8864,6 @@ msgstr "Not checked"
 #: src/tables/sales/SalesOrderShipmentTable.tsx:190
 msgid "Delivery Date"
 msgstr "Delivery Date"
-
-#: src/pages/stationery/GiftReportPage.tsx:60
-msgid "Gift Report"
-msgstr "Gift Report"
-
-#: src/pages/stationery/GiftReportPage.tsx:71
-#: src/pages/stationery/SalesReportPage.tsx:78
-#: src/tables/part/PartPurchaseOrdersTable.tsx:88
-#: src/tables/purchasing/PurchaseOrderLineItemTable.tsx:205
-msgid "Total Quantity"
-msgstr "Total Quantity"
-
-#: src/pages/stationery/GiftReportPage.tsx:75
-msgid "Total Value"
-msgstr "Total Value"
-
-#: src/pages/stationery/GiftReportPage.tsx:81
-msgid "Breakdown by Part"
-msgstr "Breakdown by Part"
-
-#: src/pages/stationery/InvoiceDetailPage.tsx:99
-msgid "Invoice not found"
-msgstr "Invoice not found"
-
-#: src/pages/stationery/InvoiceDetailPage.tsx:148
-msgid "View Customer"
-msgstr "View Customer"
-
-#: src/pages/stationery/InvoiceDetailPage.tsx:152
-#: src/tables/stationery/InvoiceTable.tsx:69
-msgid "Invoice Date"
-msgstr "Invoice Date"
-
-#: src/pages/stationery/InvoiceDetailPage.tsx:166
-msgid "Line Total"
-msgstr "Line Total"
-
-#: src/pages/stationery/InvoiceDetailPage.tsx:184
-msgid "Payment History"
-msgstr "Payment History"
-
-#: src/pages/stationery/ReceivablesReportPage.tsx:71
-msgid "Receivables Report"
-msgstr "Receivables Report"
-
-#: src/pages/stationery/ReceivablesReportPage.tsx:81
-msgid "Total Invoiced"
-msgstr "Total Invoiced"
-
-#: src/pages/stationery/ReceivablesReportPage.tsx:85
-msgid "Total Collected"
-msgstr "Total Collected"
-
-#: src/pages/stationery/ReceivablesReportPage.tsx:104
-#: src/tables/stationery/InvoiceTable.tsx:93
-msgid "Aging"
-msgstr "Aging"
-
-#: src/pages/stationery/ReceivablesReportPage.tsx:110
-msgid "Bucket"
-msgstr "Bucket"
-
-#: src/pages/stationery/ReceivablesReportPage.tsx:111
-msgid "Invoice Count"
-msgstr "Invoice Count"
-
-#: src/pages/stationery/ReceivablesReportPage.tsx:133
-msgid "Outstanding by Customer"
-msgstr "Outstanding by Customer"
-
-#: src/pages/stationery/SalesReportPage.tsx:33
-msgid "B2C Cash"
-msgstr "B2C Cash"
-
-#: src/pages/stationery/SalesReportPage.tsx:34
-msgid "B2C Online"
-msgstr "B2C Online"
-
-#: src/pages/stationery/SalesReportPage.tsx:64
-msgid "Sales Report"
-msgstr "Sales Report"
-
-#: src/pages/stationery/SalesReportPage.tsx:74
-#: src/pages/stationery/SalesReportPage.tsx:100
-msgid "Transactions"
-msgstr "Transactions"
-
-#: src/pages/stationery/SalesReportPage.tsx:82
-#: src/pages/stationery/SalesReportPage.tsx:102
-msgid "Transaction Value"
-msgstr "Transaction Value"
-
-#: src/pages/stationery/SalesReportPage.tsx:86
-#: src/pages/stationery/SalesReportPage.tsx:103
-msgid "Collected Value"
-msgstr "Collected Value"
-
-#: src/pages/stationery/SalesReportPage.tsx:93
-msgid "Breakdown by Sale Type"
-msgstr "Breakdown by Sale Type"
-
-#: src/pages/stationery/SalesReportPage.tsx:99
-msgid "Sale Type"
-msgstr "Sale Type"
 
 #: src/pages/stock/LocationDetail.tsx:124
 msgid "Location Details"
@@ -12336,6 +10192,14 @@ msgstr "Machine Type Detail"
 #: src/tables/machine/MachineTypeTable.tsx:382
 msgid "Machine Driver Detail"
 msgstr "Machine Driver Detail"
+
+#: src/tables/nexa/InvoiceTable.tsx:106
+msgid "No invoices found"
+msgstr "No invoices found"
+
+#: src/tables/nexa/PaymentHistoryTable.tsx:55
+msgid "No payments recorded yet"
+msgstr "No payments recorded yet"
 
 #: src/tables/notifications/NotificationTable.tsx:26
 msgid "Age"
@@ -13790,14 +11654,6 @@ msgstr "User updated successfully"
 #: src/tables/settings/UserTable.tsx:490
 msgid "Error updating user"
 msgstr "Error updating user"
-
-#: src/tables/stationery/InvoiceTable.tsx:106
-msgid "No invoices found"
-msgstr "No invoices found"
-
-#: src/tables/stationery/PaymentHistoryTable.tsx:55
-msgid "No payments recorded yet"
-msgstr "No payments recorded yet"
 
 #: src/tables/stock/InstalledItemsTable.tsx:42
 #: src/tables/stock/InstalledItemsTable.tsx:87
