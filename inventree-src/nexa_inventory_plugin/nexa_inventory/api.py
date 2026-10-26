@@ -14,10 +14,18 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from company.models import Company
+from part.models import Part
 from stock.models import StockItem
 
 from .models import Invoice, InvoiceLineItem, Payment, SaleTypeMovement
-from .services import OUTBOUND_TYPES, SaleRecordingError, record_sale_movement
+from .services import (
+    OUTBOUND_TYPES,
+    SaleRecordingError,
+    SaleValidationError,
+    plain_quantity,
+    record_sale_movement,
+    resolve_allocations,
+)
 
 
 def _parse_date_range(params):
@@ -55,8 +63,14 @@ def _parse_date_range(params):
 
 
 class RecordSaleView(APIView):
-    """POST body: stock_item_id, sale_type, quantity, unit_value (optional,
-    default 0), customer_id (required for b2b_credit), notes (optional).
+    """POST body: stock_item_id OR part_id, sale_type, quantity, unit_value
+    (optional, default 0), customer_id (required for b2b_credit), notes
+    (optional).
+
+    With part_id (outbound sale types only) stock is taken earliest-expiry
+    first across the part's batches, skipping expired ones, and one movement
+    is recorded per batch used. With stock_item_id the named batch is used
+    (and rejected if it has expired).
     """
 
     permission_classes = [IsAuthenticated]
@@ -64,17 +78,35 @@ class RecordSaleView(APIView):
     def post(self, request):
         data = request.data
 
-        try:
-            stock_item = StockItem.objects.get(pk=data.get('stock_item_id'))
-        except (StockItem.DoesNotExist, ValueError, TypeError):
-            return Response(
-                {'detail': 'stock_item_id is required and must reference an existing stock item'},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
         sale_type = data.get('sale_type')
         if sale_type not in SaleTypeMovement.SaleType.values:
             return Response({'detail': 'Invalid sale_type'}, status=status.HTTP_400_BAD_REQUEST)
+
+        stock_item = part = None
+        if data.get('stock_item_id') in (None, '') and data.get('part_id') not in (None, ''):
+            if sale_type not in OUTBOUND_TYPES:
+                return Response(
+                    {'detail': 'part_id is only supported for outbound sale types'},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+            try:
+                part = Part.objects.get(pk=data.get('part_id'))
+            except (Part.DoesNotExist, ValueError, TypeError):
+                return Response(
+                    {'detail': 'part_id must reference an existing part'},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+        else:
+            try:
+                stock_item = StockItem.objects.get(pk=data.get('stock_item_id'))
+            except (StockItem.DoesNotExist, ValueError, TypeError):
+                return Response(
+                    {
+                        'detail': 'stock_item_id (or part_id) is required and must reference '
+                        'an existing stock item'
+                    },
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
 
         try:
             quantity = Decimal(str(data.get('quantity')))
@@ -103,26 +135,53 @@ class RecordSaleView(APIView):
             except (Company.DoesNotExist, ValueError, TypeError):
                 return Response({'detail': 'Invalid customer_id'}, status=status.HTTP_400_BAD_REQUEST)
 
-        if sale_type in OUTBOUND_TYPES and stock_item.quantity < quantity:
+        if sale_type in OUTBOUND_TYPES and stock_item is not None and stock_item.quantity < quantity:
             return Response(
                 {'detail': 'Insufficient stock for this movement'}, status=status.HTTP_400_BAD_REQUEST
             )
 
         try:
             with transaction.atomic():
-                movement = record_sale_movement(
-                    stock_item=stock_item,
-                    sale_type=sale_type,
-                    quantity=quantity,
-                    unit_value=unit_value,
-                    customer=customer,
-                    user=request.user,
-                    notes=data.get('notes', ''),
-                )
+                if sale_type in OUTBOUND_TYPES:
+                    allocations = resolve_allocations(
+                        stock_item=stock_item, part=part, quantity=quantity
+                    )
+                else:
+                    allocations = [(stock_item, quantity)]
+
+                movements = [
+                    record_sale_movement(
+                        stock_item=item,
+                        sale_type=sale_type,
+                        quantity=qty,
+                        unit_value=unit_value,
+                        customer=customer,
+                        user=request.user,
+                        notes=data.get('notes', ''),
+                    )
+                    for item, qty in allocations
+                ]
+        except SaleValidationError as exc:
+            return Response({'detail': str(exc)}, status=status.HTTP_400_BAD_REQUEST)
         except SaleRecordingError:
             return Response({'detail': 'Stock update failed'}, status=status.HTTP_400_BAD_REQUEST)
 
-        return Response({'id': movement.id}, status=status.HTTP_201_CREATED)
+        return Response(
+            {
+                'id': movements[0].id,
+                'movement_ids': [m.id for m in movements],
+                'allocations': [
+                    {
+                        'stock_item_id': item.pk,
+                        'batch': item.batch,
+                        'expiry_date': item.expiry_date.isoformat() if item.expiry_date else None,
+                        'quantity': plain_quantity(qty),
+                    }
+                    for item, qty in allocations
+                ],
+            },
+            status=status.HTTP_201_CREATED,
+        )
 
 
 DEFAULT_DUE_DAYS = 30
@@ -132,8 +191,10 @@ def _parse_line_items(raw_items):
     """Validate and parse the `items` array shared by RecordB2BSaleView.
 
     Returns (parsed_items, error_response). parsed_items is a list of dicts
-    with keys stock_item (StockItem instance), quantity (Decimal),
-    unit_value (Decimal). error_response is None on success.
+    with keys stock_item (StockItem instance, or None when the line gives a
+    part_id for earliest-expiry-first allocation), part (Part or None),
+    quantity (Decimal), unit_value (Decimal). error_response is None on
+    success.
     """
     if not isinstance(raw_items, list) or not raw_items:
         return None, Response(
@@ -142,11 +203,15 @@ def _parse_line_items(raw_items):
 
     parsed = []
     for raw in raw_items:
+        stock_item = part = None
         try:
-            stock_item = StockItem.objects.get(pk=raw.get('stock_item_id'))
-        except (StockItem.DoesNotExist, ValueError, TypeError, AttributeError):
+            if raw.get('stock_item_id') in (None, '') and raw.get('part_id') not in (None, ''):
+                part = Part.objects.get(pk=raw.get('part_id'))
+            else:
+                stock_item = StockItem.objects.get(pk=raw.get('stock_item_id'))
+        except (StockItem.DoesNotExist, Part.DoesNotExist, ValueError, TypeError, AttributeError):
             return None, Response(
-                {'detail': 'Each item requires a valid stock_item_id'},
+                {'detail': 'Each item requires a valid stock_item_id or part_id'},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
@@ -167,7 +232,7 @@ def _parse_line_items(raw_items):
                 {'detail': 'Invalid unit_value'}, status=status.HTTP_400_BAD_REQUEST
             )
 
-        if stock_item.quantity < quantity:
+        if stock_item is not None and stock_item.quantity < quantity:
             return None, Response(
                 {'detail': f'Insufficient stock for {stock_item.part.name}'},
                 status=status.HTTP_400_BAD_REQUEST,
@@ -175,6 +240,7 @@ def _parse_line_items(raw_items):
 
         parsed.append({
             'stock_item': stock_item,
+            'part': part,
             'quantity': quantity,
             'unit_value': unit_value,
         })
@@ -183,8 +249,9 @@ def _parse_line_items(raw_items):
 
 
 class RecordB2BSaleView(APIView):
-    """POST body: items (required, non-empty array of {stock_item_id,
-    quantity, unit_value}), customer_id (required, must be an
+    """POST body: items (required, non-empty array of {stock_item_id or
+    part_id, quantity, unit_value}; part_id lines are filled earliest-expiry
+    first and may span several batches), customer_id (required, must be an
     is_customer=True Company), due_date (optional, ISO date string;
     defaults to today + 30 days), notes (optional, applied to every line's
     underlying stock movement).
@@ -226,15 +293,20 @@ class RecordB2BSaleView(APIView):
             with transaction.atomic():
                 movements = [
                     record_sale_movement(
-                        stock_item=item['stock_item'],
+                        stock_item=batch,
                         sale_type=SaleTypeMovement.SaleType.B2B_CREDIT,
-                        quantity=item['quantity'],
+                        quantity=qty,
                         unit_value=item['unit_value'],
                         customer=customer,
                         user=request.user,
                         notes=notes,
                     )
                     for item in items
+                    for batch, qty in resolve_allocations(
+                        stock_item=item['stock_item'],
+                        part=item['part'],
+                        quantity=item['quantity'],
+                    )
                 ]
                 invoice = Invoice.objects.create(
                     customer=customer,
@@ -245,6 +317,8 @@ class RecordB2BSaleView(APIView):
                 InvoiceLineItem.objects.bulk_create([
                     InvoiceLineItem(invoice=invoice, sale_type_movement=m) for m in movements
                 ])
+        except SaleValidationError as exc:
+            return Response({'detail': str(exc)}, status=status.HTTP_400_BAD_REQUEST)
         except SaleRecordingError:
             return Response({'detail': 'Stock update failed'}, status=status.HTTP_400_BAD_REQUEST)
 
