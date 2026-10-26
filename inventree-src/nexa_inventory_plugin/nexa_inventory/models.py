@@ -40,6 +40,9 @@ class SaleBill(models.Model):
     discount_reason = models.CharField(max_length=255, blank=True)
     net_amount = models.DecimalField(max_digits=15, decimal_places=2, default=0)
     remarks = models.TextField(blank=True)
+    branch = models.ForeignKey(
+        'stock.StockLocation', on_delete=models.SET_NULL, related_name='+', null=True, blank=True
+    )
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='+'
     )

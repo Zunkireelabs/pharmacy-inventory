@@ -40,6 +40,7 @@ import {
   flagsFor,
   sellableQuantity,
   useBatches,
+  useBranches,
   useMedicineFlags
 } from './ProductPicker';
 import { TransactionStatusBadge } from './TransactionStatusBadge';
@@ -113,16 +114,18 @@ function LineEditor({
   line,
   index,
   count,
+  branchId,
   onChange,
   onRemove
 }: Readonly<{
   line: LineItem;
   index: number;
   count: number;
+  branchId: string | null;
   onChange: (patch: Partial<LineItem>) => void;
   onRemove: () => void;
 }>) {
-  const batches = useBatches(line.partId);
+  const batches = useBatches(line.partId, branchId);
   const flags = flagsFor(useMedicineFlags(), line.partId);
   const sellable = line.partId === null ? null : sellableQuantity(batches.data);
 
@@ -246,6 +249,7 @@ const INITIAL_FORM = {
   customerPhone: '',
   customerAddress: '',
   customerPan: '',
+  branchId: null as string | null,
   paymentMode: 'cash',
   discount: '' as number | '',
   discountReason: ''
@@ -280,6 +284,14 @@ export default function RecordSaleButton({
   const [errorDetail, setErrorDetail] = useState<string | null>(null);
 
   const isB2B = saleType === 'b2b_credit';
+
+  // Default to the first branch once they load
+  const branches = useBranches();
+  useEffect(() => {
+    if (!form.branchId && branches.data && branches.data.length > 0) {
+      setForm((f) => ({ ...f, branchId: branches.data[0].value }));
+    }
+  }, [branches.data, form.branchId]);
 
   const updateLine = (key: string, patch: Partial<LineItem>) => {
     setLines((ls) => ls.map((l) => (l.key === key ? { ...l, ...patch } : l)));
@@ -342,6 +354,7 @@ export default function RecordSaleButton({
             unit_value: l.unitValue || 0
           })),
           customer_id: form.customerId,
+          branch_id: form.branchId ? Number(form.branchId) : undefined,
           due_date: form.dueDate || undefined,
           notes: form.notes
         });
@@ -350,6 +363,7 @@ export default function RecordSaleButton({
 
       const response = await api.post('/plugin/nexainventory/record-bill/', {
         sale_type: saleType,
+        branch_id: form.branchId ? Number(form.branchId) : undefined,
         items: lines.map((l) => ({
           part_id: l.partId,
           quantity: l.quantity,
@@ -534,6 +548,16 @@ export default function RecordSaleButton({
               </Alert>
             )}
 
+            {(branches.data?.length ?? 0) > 0 && (
+              <Select
+                label={t`Branch`}
+                data={branches.data ?? []}
+                value={form.branchId}
+                onChange={(v) => setForm((f) => ({ ...f, branchId: v }))}
+                allowDeselect={false}
+              />
+            )}
+
             {isB2B && (
               <CustomerPicker
                 value={form.customerId}
@@ -548,6 +572,7 @@ export default function RecordSaleButton({
                   line={line}
                   index={index}
                   count={lines.length}
+                  branchId={form.branchId}
                   onChange={(patch) => updateLine(line.key, patch)}
                   onRemove={() => removeLine(line.key)}
                 />

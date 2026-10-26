@@ -139,6 +139,12 @@ class NexaInventoryPlugin(ScheduleMixin, SettingsMixin, AppMixin, UrlsMixin, Inv
             return ReceivablesSummaryReportView.as_view()(request, *args, **kwargs)
 
         @csrf_exempt
+        def branch_list_view(request, *args, **kwargs):
+            from nexa_inventory.api import BranchListView
+
+            return BranchListView.as_view()(request, *args, **kwargs)
+
+        @csrf_exempt
         def record_bill_view(request, *args, **kwargs):
             from nexa_inventory.api import RecordBillView
 
@@ -183,6 +189,7 @@ class NexaInventoryPlugin(ScheduleMixin, SettingsMixin, AppMixin, UrlsMixin, Inv
             path('customers/<int:pk>/receivables/', customer_receivables_view, name='customer-receivables'),
             path('reports/sales/', sales_summary_report_view, name='reports-sales'),
             path('reports/receivables/', receivables_summary_report_view, name='reports-receivables'),
+            path('branches/', branch_list_view, name='branch-list'),
             path('record-bill/', record_bill_view, name='record-bill'),
             path('bills/', bill_list_view, name='bill-list'),
             path('bills/<int:pk>/', bill_detail_view, name='bill-detail'),

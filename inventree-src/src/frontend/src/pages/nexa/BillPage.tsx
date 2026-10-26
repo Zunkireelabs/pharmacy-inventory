@@ -11,6 +11,7 @@ type Bill = {
   id: number;
   reference: string;
   created_at: string;
+  branch: string;
   header: {
     pharmacy_name: string;
     pharmacy_address: string;
@@ -128,6 +129,7 @@ export default function BillPage() {
           <div style={{ textAlign: 'right' }}>
             <div style={{ fontWeight: 700 }}>Bill No: {bill.reference}</div>
             <div>{new Date(bill.created_at).toLocaleString('en-GB')}</div>
+            {bill.branch && <div>Branch: {bill.branch}</div>}
             <div>Mode of Payment: {PAYMENT_LABEL[bill.payment_mode] ?? bill.payment_mode}</div>
           </div>
         </div>

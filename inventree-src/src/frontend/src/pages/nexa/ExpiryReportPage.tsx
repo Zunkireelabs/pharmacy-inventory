@@ -4,6 +4,7 @@ import {
   Badge,
   Paper,
   SegmentedControl,
+  Select,
   SimpleGrid,
   Skeleton,
   Stack,
@@ -17,6 +18,7 @@ import { useNavigate } from 'react-router-dom';
 import { api } from '../../App';
 import { PageDetail } from '../../components/nav/PageDetail';
 import { formatQty } from '../../components/nexa/format';
+import { useBranches } from '../../components/nexa/ProductPicker';
 import { ReportTabs } from '../../components/nexa/ReportTabs';
 import { StatCard } from '../../components/nexa/StatCard';
 
@@ -101,13 +103,15 @@ function BatchTable({
 /** Batches already expired and batches about to expire, soonest first. */
 export default function ExpiryReportPage() {
   const [days, setDays] = useState('90');
+  const [branch, setBranch] = useState<string | null>(null);
+  const branches = useBranches();
 
   const query = useQuery({
-    queryKey: ['nexa-expiry-report', days],
+    queryKey: ['nexa-expiry-report', days, branch],
     queryFn: async () => {
       const response = await api.get<ExpiryResponse>(
         '/plugin/nexainventory/reports/expiry/',
-        { params: { days } }
+        { params: { days, branch: branch || undefined } }
       );
       return response.data;
     }
@@ -131,6 +135,17 @@ export default function ExpiryReportPage() {
         ]}
         w='fit-content'
       />
+
+      {(branches.data?.length ?? 0) > 0 && (
+        <Select
+          placeholder={t`All branches`}
+          data={branches.data ?? []}
+          value={branch}
+          onChange={setBranch}
+          clearable
+          w={260}
+        />
+      )}
 
       <SimpleGrid cols={{ base: 1, xs: 2 }}>
         <StatCard

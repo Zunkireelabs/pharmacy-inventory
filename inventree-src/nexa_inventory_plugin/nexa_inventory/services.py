@@ -66,16 +66,20 @@ def ensure_sellable(stock_item):
         )
 
 
-def allocate_fefo(part, quantity):
+def allocate_fefo(part, quantity, branch=None):
     """Pick stock for `quantity` of `part`, earliest expiry first (FEFO).
 
     Items with no expiry date are used last. Expired batches are skipped when
     expired sales are blocked. Returns a list of (stock_item, qty) whose qty
     sums to `quantity`. Call inside transaction.atomic(): rows are locked.
+    With `branch` (a top-level StockLocation) only stock in that branch and its
+    sub-locations is used.
     """
     items = StockItem.objects.select_for_update().filter(
         StockItem.IN_STOCK_FILTER, part=part, quantity__gt=0
     )
+    if branch is not None:
+        items = items.filter(location__in=branch.get_descendants(include_self=True))
     if expired_sale_blocked():
         items = items.exclude(StockItem.get_expired_filter())
     items = items.order_by(F('expiry_date').asc(nulls_last=True), 'pk')
@@ -92,8 +96,9 @@ def allocate_fefo(part, quantity):
     if remaining > 0:
         available = Decimal(quantity) - remaining
         raise SaleValidationError(
-            f'Insufficient sellable stock for {part.name}: {available} available, '
-            f'{quantity} requested'
+            f'Insufficient sellable stock for {part.name}'
+            f'{" in " + branch.name if branch is not None else ""}: '
+            f'{available} available, {quantity} requested'
         )
     return picked
 
@@ -134,12 +139,13 @@ def plain_quantity(value):
     return text if text != '-0' else '0'
 
 
-def resolve_allocations(*, stock_item=None, part=None, quantity):
-    """Allocations for one sale line: a chosen batch, or FEFO across a part."""
+def resolve_allocations(*, stock_item=None, part=None, quantity, branch=None):
+    """Allocations for one sale line: a chosen batch, or FEFO across a part
+    (within `branch` when given)."""
     if stock_item is not None:
         ensure_sellable(stock_item)
         return [(stock_item, Decimal(quantity))]
-    return allocate_fefo(part, quantity)
+    return allocate_fefo(part, quantity, branch=branch)
 
 
 class SaleRecordingError(Exception):

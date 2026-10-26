@@ -15,7 +15,7 @@ from rest_framework.views import APIView
 
 from company.models import Company
 from part.models import Part
-from stock.models import StockItem
+from stock.models import StockItem, StockLocation
 
 from .models import Invoice, InvoiceLineItem, MedicineInfo, Payment, SaleBill, SaleTypeMovement
 from .services import (
@@ -30,6 +30,20 @@ from .services import (
     record_sale_movement,
     resolve_allocations,
 )
+
+
+def _parse_branch(data):
+    """Optional branch_id: a top-level stock location. Returns (branch, error)."""
+    raw = data.get('branch_id')
+    if raw in (None, ''):
+        return None, None
+    try:
+        return StockLocation.objects.get(pk=raw, parent=None), None
+    except (StockLocation.DoesNotExist, ValueError, TypeError):
+        return None, Response(
+            {'detail': 'branch_id must be a top-level stock location (branch)'},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
 
 
 def _parse_date_range(params):
@@ -85,6 +99,10 @@ class RecordSaleView(APIView):
         sale_type = data.get('sale_type')
         if sale_type not in SaleTypeMovement.SaleType.values:
             return Response({'detail': 'Invalid sale_type'}, status=status.HTTP_400_BAD_REQUEST)
+
+        branch, error = _parse_branch(data)
+        if error:
+            return error
 
         stock_item = part = None
         if data.get('stock_item_id') in (None, '') and data.get('part_id') not in (None, ''):
@@ -154,7 +172,7 @@ class RecordSaleView(APIView):
 
                 if sale_type in SELLING_TYPES:
                     allocations = resolve_allocations(
-                        stock_item=stock_item, part=part, quantity=quantity
+                        stock_item=stock_item, part=part, quantity=quantity, branch=branch
                     )
                 else:
                     allocations = [(stock_item, quantity)]
@@ -282,6 +300,10 @@ class RecordB2BSaleView(APIView):
         if error:
             return error
 
+        branch, error = _parse_branch(data)
+        if error:
+            return error
+
         customer_id = data.get('customer_id')
         if not customer_id:
             return Response({'detail': 'customer_id is required'}, status=status.HTTP_400_BAD_REQUEST)
@@ -318,6 +340,7 @@ class RecordB2BSaleView(APIView):
                         stock_item=item['stock_item'],
                         part=item['part'],
                         quantity=item['quantity'],
+                        branch=branch,
                     )
                 ]
                 invoice = Invoice.objects.create(
@@ -907,6 +930,10 @@ class ExpiryReportView(APIView):
                 {'detail': 'days must be between 0 and 3650'}, status=status.HTTP_400_BAD_REQUEST
             )
 
+        branch, error = _parse_branch({'branch_id': request.query_params.get('branch')})
+        if error:
+            return error
+
         today = timezone.localdate()
         batches = (
             StockItem.objects.filter(StockItem.IN_STOCK_FILTER, quantity__gt=0)
@@ -915,6 +942,8 @@ class ExpiryReportView(APIView):
             .select_related('part', 'location')
             .order_by('expiry_date', 'pk')
         )
+        if branch is not None:
+            batches = batches.filter(location__in=branch.get_descendants(include_self=True))
 
         def row(item):
             return {
@@ -975,6 +1004,7 @@ def _bill_payload(bill):
         'created_at': bill.created_at.isoformat(),
         'sale_type': movements[0].sale_type if lines else None,
         'header': pharmacy_header(),
+        'branch': bill.branch.name if bill.branch else '',
         'customer': {
             'name': bill.customer_name,
             'address': bill.customer_address,
@@ -1024,6 +1054,10 @@ class RecordBillView(APIView):
         if error:
             return error
 
+        branch, error = _parse_branch(data)
+        if error:
+            return error
+
         payment_mode = data.get('payment_mode', SaleBill.PaymentMode.CASH)
         if payment_mode not in SaleBill.PaymentMode.values:
             return Response({'detail': 'Invalid payment_mode'}, status=status.HTTP_400_BAD_REQUEST)
@@ -1069,6 +1103,7 @@ class RecordBillView(APIView):
                     discount=discount,
                     discount_reason=discount_reason,
                     remarks=remarks,
+                    branch=branch,
                     created_by=request.user,
                 )
 
@@ -1090,6 +1125,7 @@ class RecordBillView(APIView):
                         stock_item=item['stock_item'],
                         part=item['part'],
                         quantity=item['quantity'],
+                        branch=branch,
                     )
                 ]
 
@@ -1159,3 +1195,13 @@ class BillListView(APIView):
                 for b in bills[:limit]
             ],
         })
+
+
+class BranchListView(APIView):
+    """GET branches/: the pharmacy's branches (top-level stock locations)."""
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        branches = StockLocation.objects.filter(parent=None).order_by('name')
+        return Response([{'id': b.pk, 'name': b.name} for b in branches])

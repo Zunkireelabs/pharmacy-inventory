@@ -45,6 +45,23 @@ export function useMedicineFlags() {
   return query.data ?? {};
 }
 
+export type Branch = { value: string; label: string };
+
+/** The pharmacy's branches (top-level stock locations). */
+export function useBranches() {
+  return useQuery({
+    queryKey: ['nexa-branches'],
+    queryFn: async () => {
+      const response = await api.get('/plugin/nexainventory/branches/');
+      return (response.data ?? []).map((b: any) => ({
+        value: String(b.id),
+        label: b.name
+      })) as Branch[];
+    },
+    staleTime: 60_000
+  });
+}
+
 export function flagsFor(
   all: Record<number, MedicineFlags>,
   partId: number | null
@@ -56,13 +73,19 @@ export function flagsFor(
  * In-stock batches of one medicine, earliest expiry first (no expiry last).
  * Expired batches are marked: the server will not sell them.
  */
-export function useBatches(partId: number | null) {
+export function useBatches(partId: number | null, branchId?: string | null) {
   return useQuery({
-    queryKey: ['nexa-batches', partId],
+    queryKey: ['nexa-batches', partId, branchId ?? null],
     enabled: partId !== null,
     queryFn: async () => {
       const response = await api.get('/api/stock/', {
-        params: { part: partId, in_stock: true, limit: 100 }
+        params: {
+          part: partId,
+          in_stock: true,
+          limit: 100,
+          location: branchId || undefined,
+          cascade: branchId ? true : undefined
+        }
       });
       const today = new Date().toISOString().slice(0, 10);
       const rows: Batch[] = (response.data.results ?? response.data)
