@@ -56,6 +56,7 @@ msgstr "Edit"
 #: src/components/forms/ApiForm.tsx:852
 #: src/components/items/ActionDropdown.tsx:263
 #: src/components/items/RoleTable.tsx:155
+#: src/components/nexa/bulkDeleteProducts.tsx:25
 #: src/hooks/UseForm.tsx:174
 #: src/pages/Notifications.tsx:109
 #: src/tables/plugin/PluginListTable.tsx:253
@@ -67,6 +68,7 @@ msgstr "Delete"
 #: src/components/editors/TemplateEditor/TemplateEditor.tsx:200
 #: src/components/items/ActionDropdown.tsx:284
 #: src/components/items/ActionDropdown.tsx:285
+#: src/components/nexa/bulkDeleteProducts.tsx:25
 #: src/components/tables/FilterSelectDrawer.tsx:679
 #: src/components/tables/FilterSelectDrawer.tsx:731
 #: src/contexts/ThemeContext.tsx:57
@@ -2418,7 +2420,7 @@ msgstr "Import Products"
 
 #: src/components/items/PartCreationMenu.tsx:62
 #: src/pages/part/PartDetail.tsx:672
-#: src/tables/part/PartTable.tsx:199
+#: src/tables/part/PartTable.tsx:200
 msgid "Add Part"
 msgstr "Add Product"
 
@@ -3773,6 +3775,31 @@ msgstr "Restock"
 msgid "Correction"
 msgstr "Correction"
 
+#. placeholder {0}: ids.length
+#: src/components/nexa/bulkDeleteProducts.tsx:19
+msgid "Delete {0} products?"
+msgstr "Delete {0} products?"
+
+#: src/components/nexa/bulkDeleteProducts.tsx:22
+msgid "Products that were never stocked or sold are deleted. Products with stock or sales history are made inactive instead, so old bills stay correct."
+msgstr "Products that were never stocked or sold are deleted. Products with stock or sales history are made inactive instead, so old bills stay correct."
+
+#: src/components/nexa/bulkDeleteProducts.tsx:36
+msgid "Products updated"
+msgstr "Products updated"
+
+#: src/components/nexa/bulkDeleteProducts.tsx:37
+msgid "{deleted} deleted, {deactivated} made inactive"
+msgstr "{deleted} deleted, {deactivated} made inactive"
+
+#: src/components/nexa/bulkDeleteProducts.tsx:42
+msgid "Could not delete products"
+msgstr "Could not delete products"
+
+#: src/components/nexa/bulkDeleteProducts.tsx:43
+msgid "Please try again"
+msgstr "Please try again"
+
 #: src/components/panels/AttachmentPanel.tsx:20
 msgid "Attachments"
 msgstr "Attachments"
@@ -4000,7 +4027,7 @@ msgstr "No stock"
 #: src/pages/part/PartDetailsPanel.tsx:174
 #: src/tables/bom/BomTable.tsx:492
 #: src/tables/build/BuildLineTable.tsx:241
-#: src/tables/part/PartTable.tsx:83
+#: src/tables/part/PartTable.tsx:84
 #: src/tables/part/PartTableFilters.tsx:149
 msgid "On Order"
 msgstr "On Order"
@@ -4989,7 +5016,7 @@ msgstr "Next"
 
 #: src/components/wizards/ImportPartWizard.tsx:540
 #: src/pages/part/PartDetail.tsx:659
-#: src/tables/part/PartTable.tsx:161
+#: src/tables/part/PartTable.tsx:162
 msgid "Edit Part"
 msgstr "Edit Product"
 
@@ -5160,7 +5187,7 @@ msgstr "Please correct the errors in the selected products"
 
 #: src/components/wizards/OrderPartsWizard.tsx:629
 #: src/tables/build/BuildLineTable.tsx:913
-#: src/tables/part/PartTable.tsx:267
+#: src/tables/part/PartTable.tsx:268
 #: src/tables/sales/SalesOrderLineItemTable.tsx:459
 #: src/tables/stock/TransferOrderLineItemTable.tsx:333
 msgid "Order Parts"
@@ -8581,7 +8608,7 @@ msgid "Search by serial number"
 msgstr "Search by serial number"
 
 #: src/pages/part/PartDetail.tsx:778
-#: src/tables/part/PartTable.tsx:251
+#: src/tables/part/PartTable.tsx:252
 msgid "Part Actions"
 msgstr "Product Actions"
 
@@ -8692,7 +8719,7 @@ msgstr "days"
 #: src/pages/part/PartDetailsPanel.tsx:308
 #: src/pages/part/pricing/BomPricingPanel.tsx:82
 #: src/pages/part/pricing/VariantPricingPanel.tsx:98
-#: src/tables/part/PartTable.tsx:90
+#: src/tables/part/PartTable.tsx:91
 msgid "Price Range"
 msgstr "Price Range"
 
@@ -10815,18 +10842,26 @@ msgstr "Show outstanding orders"
 msgid "Show completed line items"
 msgstr "Show completed line items"
 
-#: src/tables/part/PartTable.tsx:214
-#: src/tables/part/PartTable.tsx:257
+#: src/tables/part/PartTable.tsx:215
+#: src/tables/part/PartTable.tsx:258
 msgid "Set Category"
 msgstr "Set Category"
 
-#: src/tables/part/PartTable.tsx:259
+#: src/tables/part/PartTable.tsx:260
 msgid "Set category for selected parts"
 msgstr "Set category for selected products"
 
-#: src/tables/part/PartTable.tsx:269
+#: src/tables/part/PartTable.tsx:270
 msgid "Order selected parts"
 msgstr "Order selected products"
+
+#: src/tables/part/PartTable.tsx:277
+msgid "Delete Selected"
+msgstr "Delete Selected"
+
+#: src/tables/part/PartTable.tsx:279
+msgid "Delete the selected products"
+msgstr "Delete the selected products"
 
 #: src/tables/part/PartTableFilters.tsx:14
 msgid "Filter by part active status"

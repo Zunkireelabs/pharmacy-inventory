@@ -927,6 +927,84 @@ class MedicineInfoView(APIView):
     patch = put
 
 
+MAX_BULK_DELETE = 500
+
+
+def part_has_history(part_id):
+    """True if any batch, sale, purchase, adjustment or return refers to the
+    part. Such parts are kept (made inactive) so old bills and reports stay
+    correct.
+    """
+    return (
+        StockItem.objects.filter(part_id=part_id).exists()
+        or SaleTypeMovement.objects.filter(part_id=part_id).exists()
+        or PurchaseReceipt.objects.filter(part_id=part_id).exists()
+        or StockAdjustment.objects.filter(part_id=part_id).exists()
+        or SalesReturn.objects.filter(part_id=part_id).exists()
+    )
+
+
+class BulkDeleteProductsView(APIView):
+    """POST products/bulk-delete/ {"part_ids": [...]} (staff / admin only).
+
+    Products with no history are deleted. Products with any stock or sales
+    history are made inactive instead, so they stop appearing for new sales.
+    """
+
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        if not (request.user.is_staff or request.user.is_superuser):
+            return Response(
+                {'detail': 'Only an owner or admin can delete products'},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+        ids = request.data.get('part_ids')
+        if not isinstance(ids, list) or not ids:
+            return Response(
+                {'detail': 'part_ids must be a non-empty list'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        if len(ids) > MAX_BULK_DELETE:
+            return Response(
+                {'detail': f'At most {MAX_BULK_DELETE} products at a time'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        try:
+            ids = {int(i) for i in ids}
+        except (TypeError, ValueError):
+            return Response(
+                {'detail': 'part_ids must be numbers'}, status=status.HTTP_400_BAD_REQUEST
+            )
+
+        deleted, deactivated = [], []
+        for part in Part.objects.filter(pk__in=ids):
+            pk = part.pk  # delete() clears part.pk
+            with transaction.atomic():
+                if part_has_history(pk):
+                    Part.objects.filter(pk=pk).update(active=False)
+                    deactivated.append(pk)
+                    continue
+                # InvenTree only deletes inactive, unlocked parts
+                Part.objects.filter(pk=pk).update(active=False, locked=False)
+                part.refresh_from_db()
+                try:
+                    with transaction.atomic():
+                        part.delete()
+                    deleted.append(pk)
+                except Exception:
+                    deactivated.append(pk)
+
+        found = set(deleted) | set(deactivated)
+        return Response({
+            'deleted': len(deleted),
+            'deactivated': len(deactivated),
+            'not_found': len(ids - found),
+            'deleted_ids': deleted,
+            'deactivated_ids': deactivated,
+        })
+
+
 DEFAULT_EXPIRY_WINDOW_DAYS = 90
 
 

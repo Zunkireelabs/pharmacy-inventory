@@ -205,6 +205,12 @@ class NexaInventoryPlugin(ScheduleMixin, SettingsMixin, AppMixin, UrlsMixin, Inv
             return MedicineInfoView.as_view()(request, *args, **kwargs)
 
         @csrf_exempt
+        def bulk_delete_products_view(request, *args, **kwargs):
+            from nexa_inventory.api import BulkDeleteProductsView
+
+            return BulkDeleteProductsView.as_view()(request, *args, **kwargs)
+
+        @csrf_exempt
         def expiry_report_view(request, *args, **kwargs):
             from nexa_inventory.api import ExpiryReportView
 
@@ -238,5 +244,6 @@ class NexaInventoryPlugin(ScheduleMixin, SettingsMixin, AppMixin, UrlsMixin, Inv
             path('reports/expiry/', expiry_report_view, name='reports-expiry'),
             path('medicine/', medicine_info_view, name='medicine-list'),
             path('medicine/<int:part_id>/', medicine_info_view, name='medicine-detail'),
+            path('products/bulk-delete/', bulk_delete_products_view, name='products-bulk-delete'),
             path('movements/', movement_list_view, name='movement-list'),
         ]

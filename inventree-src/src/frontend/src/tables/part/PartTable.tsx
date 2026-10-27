@@ -12,10 +12,11 @@ import type { ApiFormFieldSet } from '@lib/types/Forms';
 import type { TableColumn } from '@lib/types/Tables';
 import type { InvenTreeTableProps } from '@lib/types/Tables';
 import { t } from '@lingui/core/macro';
-import { IconShoppingCart } from '@tabler/icons-react';
+import { IconShoppingCart, IconTrash } from '@tabler/icons-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ActionDropdown } from '../../components/items/ActionDropdown';
 import { PartCreationMenu } from '../../components/items/PartCreationMenu';
+import { openBulkDeleteProducts } from '../../components/nexa/bulkDeleteProducts';
 import {
   BooleanColumn,
   CategoryColumn,
@@ -271,6 +272,19 @@ export function PartListTable({
             onClick: () => {
               orderPartsWizard.openWizard();
             }
+          },
+          {
+            name: t`Delete Selected`,
+            icon: <IconTrash color='red' />,
+            tooltip: t`Delete the selected products`,
+            hidden: !(user.isStaff() || user.isSuperuser()),
+            disabled: !table.hasSelectedRecords,
+            onClick: () => {
+              openBulkDeleteProducts(
+                table.selectedIds.map(Number),
+                table.refreshTable
+              );
+            }
           }
         ]}
       />,
@@ -282,7 +296,7 @@ export function PartListTable({
         refreshRef={refreshRef}
       />
     ];
-  }, [user, enableImport, table.hasSelectedRecords]);
+  }, [user, enableImport, table.hasSelectedRecords, table.selectedIds]);
 
   return (
     <>
