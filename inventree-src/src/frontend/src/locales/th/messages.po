@@ -507,7 +507,7 @@ msgid "Transfer Order Line Items"
 msgstr ""
 
 #: lib/enums/ModelInformation.tsx:271
-#: src/components/nexa/RecordSaleButton.tsx:656
+#: src/components/nexa/RecordSaleButton.tsx:650
 #: src/tables/company/AddressTable.tsx:52
 msgid "Address"
 msgstr ""
@@ -1626,7 +1626,7 @@ msgstr ""
 
 #: src/components/editors/NotesEditor.tsx:701
 #: src/components/nexa/AdjustStockButton.tsx:215
-#: src/components/nexa/RecordSaleButton.tsx:708
+#: src/components/nexa/RecordSaleButton.tsx:702
 #: src/components/panels/NotesPanel.tsx:24
 #: src/forms/NexaForms.tsx:47
 #: src/forms/NexaForms.tsx:95
@@ -3268,7 +3268,7 @@ msgstr ""
 
 #: src/components/nexa/NexaDashboard.tsx:151
 #: src/components/nexa/ReceivePaymentButton.tsx:94
-#: src/components/nexa/RecordSaleButton.tsx:472
+#: src/components/nexa/RecordSaleButton.tsx:469
 #: src/components/tables/Filter.tsx:186
 #: src/pages/nexa/InvoiceDetailPage.tsx:134
 #: src/pages/nexa/ReceivablesReportPage.tsx:112
@@ -3521,23 +3521,23 @@ msgstr ""
 msgid "Other"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:417
+#: src/components/nexa/RecordSaleButton.tsx:414
 msgid "Something went wrong recording this sale"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:442
-#: src/components/nexa/RecordSaleButton.tsx:448
-#: src/components/nexa/RecordSaleButton.tsx:505
+#: src/components/nexa/RecordSaleButton.tsx:439
+#: src/components/nexa/RecordSaleButton.tsx:445
+#: src/components/nexa/RecordSaleButton.tsx:502
 msgid "New Sale"
 msgstr ""
 
 #. placeholder {0}: success.reference
-#: src/components/nexa/RecordSaleButton.tsx:469
+#: src/components/nexa/RecordSaleButton.tsx:466
 msgid "Invoice {0} created"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:472
-#: src/components/nexa/RecordSaleButton.tsx:732
+#: src/components/nexa/RecordSaleButton.tsx:469
+#: src/components/nexa/RecordSaleButton.tsx:726
 #: src/pages/nexa/InvoiceDetailPage.tsx:127
 #: src/pages/nexa/PurchaseListPage.tsx:92
 #: src/tables/nexa/InvoiceTable.tsx:76
@@ -3545,13 +3545,13 @@ msgid "Total"
 msgstr "Total"
 
 #. placeholder {0}: success.reference
-#: src/components/nexa/RecordSaleButton.tsx:481
+#: src/components/nexa/RecordSaleButton.tsx:478
 msgid "Bill {0} saved"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:494
-#: src/components/nexa/RecordSaleButton.tsx:683
-#: src/components/nexa/RecordSaleButton.tsx:726
+#: src/components/nexa/RecordSaleButton.tsx:491
+#: src/components/nexa/RecordSaleButton.tsx:677
+#: src/components/nexa/RecordSaleButton.tsx:720
 #: src/components/nexa/RestockButton.tsx:262
 #: src/tables/general/ExtraLineItemTable.tsx:81
 #: src/tables/purchasing/PurchaseOrderLineItemTable.tsx:270
@@ -3560,92 +3560,88 @@ msgstr ""
 msgid "Discount"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:498
-#: src/components/nexa/RecordSaleButton.tsx:732
+#: src/components/nexa/RecordSaleButton.tsx:495
+#: src/components/nexa/RecordSaleButton.tsx:726
 #: src/pages/nexa/BillListPage.tsx:64
 msgid "Net Amount"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:514
+#: src/components/nexa/RecordSaleButton.tsx:511
 msgid "View Invoice"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:524
+#: src/components/nexa/RecordSaleButton.tsx:521
 msgid "View / Print Bill"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:554
+#: src/components/nexa/RecordSaleButton.tsx:551
 msgid "Branch"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:588
+#: src/components/nexa/RecordSaleButton.tsx:585
 msgid "Add Medicine"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:594
+#: src/components/nexa/RecordSaleButton.tsx:591
 msgid "Prescription-only medicine in this sale. Choose Prescription as the sale type."
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:601
+#: src/components/nexa/RecordSaleButton.tsx:598
 msgid "Prescriber"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:602
+#: src/components/nexa/RecordSaleButton.tsx:599
 msgid "Doctor's name"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:611
-msgid "Prescription Reference"
+#: src/components/nexa/RecordSaleButton.tsx:608
+msgid "NMC Number"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:612
-msgid "Prescription no."
+#: src/components/nexa/RecordSaleButton.tsx:609
+msgid "Doctor's NMC registration no."
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:620
-msgid "Required for controlled medicines"
-msgstr ""
-
-#: src/components/nexa/RecordSaleButton.tsx:628
+#: src/components/nexa/RecordSaleButton.tsx:622
 #: src/forms/NexaForms.tsx:89
 #: src/pages/nexa/InvoiceDetailPage.tsx:138
 #: src/tables/nexa/InvoiceTable.tsx:73
 msgid "Due Date"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:629
+#: src/components/nexa/RecordSaleButton.tsx:623
 msgid "Defaults to 30 days from today"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:640
+#: src/components/nexa/RecordSaleButton.tsx:634
 msgid "Customer Name"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:648
+#: src/components/nexa/RecordSaleButton.tsx:642
 msgid "Phone"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:664
+#: src/components/nexa/RecordSaleButton.tsx:658
 msgid "Customer PAN"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:674
+#: src/components/nexa/RecordSaleButton.tsx:668
 msgid "Payment Mode"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:690
+#: src/components/nexa/RecordSaleButton.tsx:684
 msgid "More than the bill total"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:695
+#: src/components/nexa/RecordSaleButton.tsx:689
 msgid "Reason for Discount"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:723
+#: src/components/nexa/RecordSaleButton.tsx:717
 msgid "Sub-total"
 msgstr ""
 
-#: src/components/nexa/RecordSaleButton.tsx:746
+#: src/components/nexa/RecordSaleButton.tsx:740
 msgid "Complete Sale"
 msgstr ""
 

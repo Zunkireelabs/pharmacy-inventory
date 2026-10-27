@@ -240,7 +240,7 @@ export default function BillPage() {
             <div>Contact No: {bill.customer.phone}</div>
             <div>Customer&apos;s PAN: {bill.customer.pan}</div>
             {bill.prescriber && <div>Prescribed By: {bill.prescriber}</div>}
-            {bill.prescription_ref && <div>Prescription No: {bill.prescription_ref}</div>}
+            {bill.prescription_ref && <div>NMC No: {bill.prescription_ref}</div>}
           </div>
           <div style={{ textAlign: 'right' }}>
             <div style={{ fontWeight: 700 }}>Bill No: {bill.reference}</div>

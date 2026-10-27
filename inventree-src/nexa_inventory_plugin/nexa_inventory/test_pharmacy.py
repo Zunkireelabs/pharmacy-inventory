@@ -76,17 +76,18 @@ class PrescriptionRulesTest(PharmacyBase):
         self.assertEqual(movement.prescriber, 'Dr. Sharma')
         self.assertEqual(movement.prescription_ref, 'RX-1')
 
-    def test_controlled_medicine_also_needs_reference(self):
-        self.flag(requires_prescription=True, is_controlled=True)
-        response = self.sell('prescription', prescriber='Dr. Sharma')
-        self.assertEqual(response.status_code, 400)
-        self.assertIn('prescription_ref', response.data['detail'])
-        ok = self.sell('prescription', prescriber='Dr. Sharma', prescription_ref='RX-9')
+    def test_every_prescription_sale_needs_nmc_number(self):
+        for flags in ({}, {'requires_prescription': True, 'is_controlled': True}):
+            self.flag(**flags)
+            response = self.sell('prescription', prescriber='Dr. Sharma')
+            self.assertEqual(response.status_code, 400)
+            self.assertIn('NMC number', response.data['detail'])
+        ok = self.sell('prescription', prescriber='Dr. Sharma', prescription_ref='NMC-1234')
         self.assertEqual(ok.status_code, 201, ok.content)
 
     def test_prescription_sale_follows_earliest_expiry_first(self):
         StockItem.objects.create(part=self.part, quantity=5, batch='SOON', expiry_date=_days(10))
-        response = self.sell('prescription', qty=7, prescriber='Dr. Rai')
+        response = self.sell('prescription', qty=7, prescriber='Dr. Rai', prescription_ref='NMC-7')
         self.assertEqual(response.status_code, 201, response.content)
         self.assertEqual([a['batch'] for a in response.data['allocations']], ['SOON', 'B1'])
 
@@ -132,7 +133,7 @@ class OtherSaleTypesTest(PharmacyBase):
         self.assertEqual(sale.status_code, 400)
 
     def test_prescription_sales_count_in_sales_report(self):
-        self.assertEqual(self.sell('prescription', qty=2, prescriber='Dr. A').status_code, 201)
+        self.assertEqual(self.sell('prescription', qty=2, prescriber='Dr. A', prescription_ref='NMC-2').status_code, 201)
         url = reverse('plugin:nexainventory:reports-sales')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)

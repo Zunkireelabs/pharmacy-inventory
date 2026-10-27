@@ -320,13 +320,10 @@ export default function RecordSaleButton({
 
   const isRx = saleType === 'prescription';
   const anyRx = lines.some((l) => l.rx || l.controlled);
-  const anyControlled = lines.some((l) => l.controlled);
   const otcBlockedByRx =
     (saleType === 'b2c_cash' || saleType === 'b2c_online') && anyRx;
   const rxFieldsMissing =
-    isRx &&
-    (!form.prescriber.trim() ||
-      (anyControlled && !form.prescriptionRef.trim()));
+    isRx && (!form.prescriber.trim() || !form.prescriptionRef.trim());
 
   const discountValue = typeof form.discount === 'number' ? form.discount : 0;
   const discountInvalid =
@@ -608,17 +605,14 @@ export default function RecordSaleButton({
                   required
                 />
                 <TextInput
-                  label={t`Prescription Reference`}
-                  placeholder={t`Prescription no.`}
+                  label={t`NMC Number`}
+                  placeholder={t`Doctor's NMC registration no.`}
                   value={form.prescriptionRef}
                   onChange={(e) => {
                     const value = e.currentTarget.value;
                     setForm((f) => ({ ...f, prescriptionRef: value }));
                   }}
-                  required={anyControlled}
-                  description={
-                    anyControlled ? t`Required for controlled medicines` : undefined
-                  }
+                  required
                 />
               </SimpleGrid>
             )}

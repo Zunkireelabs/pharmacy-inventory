@@ -109,8 +109,8 @@ def check_prescription_rules(part, sale_type, prescriber='', prescription_ref=''
     - Prescription-only or controlled medicines cannot be sold over the counter
       (cash / online); they need a Prescription Sale. Credit sales to
       institutions are not restricted.
-    - A Prescription Sale needs the prescriber; controlled medicines also need
-      the prescription reference.
+    - A Prescription Sale needs the prescriber and the prescriber's NMC
+      (Nepal Medical Council) number, stored in prescription_ref.
     """
     info = MedicineInfo.objects.filter(part=part).first()
     restricted = bool(info and (info.requires_prescription or info.is_controlled))
@@ -126,9 +126,9 @@ def check_prescription_rules(part, sale_type, prescriber='', prescription_ref=''
     if sale_type in PRESCRIPTION_TYPES:
         if not (prescriber or '').strip():
             raise SaleValidationError('prescriber is required for a prescription sale')
-        if info and info.is_controlled and not (prescription_ref or '').strip():
+        if not (prescription_ref or '').strip():
             raise SaleValidationError(
-                f'{part.name} is a controlled medicine: prescription_ref is required'
+                "the doctor's NMC number is required for a prescription sale"
             )
 
 
