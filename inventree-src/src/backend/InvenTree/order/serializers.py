@@ -631,7 +631,7 @@ class PurchaseOrderLineItemSerializer(
         many=False,
         required=True,
         allow_null=True,
-        label=_('Supplier Product'),
+        label=_('Supplier Medicine'),
     )
 
     quantity = serializers.FloatField(min_value=0, required=True)
@@ -767,15 +767,15 @@ class PurchaseOrderLineItemSerializer(
         source='part.part.IPN',
         read_only=True,
         allow_null=True,
-        label=_('Internal Product Number'),
+        label=_('Our Medicine Number'),
     )
 
     internal_part = serializers.PrimaryKeyRelatedField(
-        source='part.part', read_only=True, many=False, label=_('Internal Product')
+        source='part.part', read_only=True, many=False, label=_('Our Medicine')
     )
 
     internal_part_name = serializers.CharField(
-        source='part.part.name', read_only=True, label=_('Internal Product Name')
+        source='part.part.name', read_only=True, label=_('Our Medicine Name')
     )
 
     def validate(self, data):
@@ -791,7 +791,7 @@ class PurchaseOrderLineItemSerializer(
         purchase_order = data.get('order', None)
 
         if not supplier_part:
-            raise ValidationError({'part': _('Supplier product must be specified')})
+            raise ValidationError({'part': _('Supplier medicine must be specified')})
 
         if not purchase_order:
             raise ValidationError({'order': _('Purchase order must be specified')})

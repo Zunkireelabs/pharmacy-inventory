@@ -215,7 +215,7 @@ export default function CategoryDetail() {
       },
       SegmentedControlPanel({
         name: 'parts',
-        label: t`Parts`,
+        label: t`Products`,
         icon: <IconCategory />,
         selection: partsView,
         onChange: setPartsView,
@@ -276,7 +276,7 @@ export default function CategoryDetail() {
 
   const breadcrumbs = useMemo(
     () => [
-      { name: t`Parts`, url: '/part' },
+      { name: t`Products`, url: '/part' },
       ...(category.path ?? []).map((c: any) => ({
         name: c.name,
         url: getDetailUrl(ModelType.partcategory, c.pk),
@@ -320,7 +320,7 @@ export default function CategoryDetail() {
             selectedId={category?.pk}
           />
           <PageDetail
-            title={(category?.name ?? id) ? t`Part Category` : t`Parts`}
+            title={(category?.name ?? id) ? t`Part Category` : t`Products`}
             subtitle={category?.description}
             icon={category?.icon && <ApiIcon name={category?.icon} />}
             breadcrumbs={breadcrumbs}

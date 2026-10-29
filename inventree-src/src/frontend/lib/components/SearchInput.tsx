@@ -11,11 +11,13 @@ export function SearchInput({
   disabled,
   debounce,
   placeholder,
+  minWidth,
   searchCallback
 }: Readonly<{
   disabled?: boolean;
   debounce?: number;
   placeholder?: string;
+  minWidth?: number;
   searchCallback: (searchTerm: string) => void;
 }>) {
   const [value, setValue] = useState<string>('');
@@ -33,7 +35,7 @@ export function SearchInput({
       leftSection={<IconSearch />}
       placeholder={placeholder ?? t`Search`}
       onChange={(event) => setValue(event.target.value)}
-      style={{ minWidth: '150px' }}
+      style={{ minWidth: `${minWidth ?? 150}px` }}
       rightSection={
         value.length > 0 ? (
           <CloseButton

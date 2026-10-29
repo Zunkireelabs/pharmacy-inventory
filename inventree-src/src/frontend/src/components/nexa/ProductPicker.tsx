@@ -1,10 +1,10 @@
 import { t } from '@lingui/core/macro';
-import { Badge, Group, Select, Stack, Table, Text } from '@mantine/core';
+import { Badge, Group, Select, Stack, Text } from '@mantine/core';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { useEffect, useMemo, useState } from 'react';
 
 import { api } from '../../App';
-import { formatQty } from './format';
+import { formatExpiry, formatQty } from './format';
 
 export type MedicineFlags = {
   requiresPrescription: boolean;
@@ -35,6 +35,40 @@ export function useMedicineFlags() {
         map[row.part_id] = {
           requiresPrescription: !!row.requires_prescription,
           isControlled: !!row.is_controlled
+        };
+      }
+      return map;
+    },
+    staleTime: 30_000
+  });
+
+  return query.data ?? {};
+}
+
+export type MedicineDetails = {
+  brand: string;
+  genericName: string;
+  strength: string;
+  manufacturer: string;
+  mrp: string | null;
+};
+
+/** Brand, generic name, strength, manufacturer and MRP of every medicine, keyed by part id. */
+export function useMedicineDetails() {
+  const query = useQuery({
+    queryKey: ['nexa-medicine-details'],
+    queryFn: async () => {
+      const response = await api.get('/plugin/nexainventory/medicine/', {
+        params: { all: 1 }
+      });
+      const map: Record<number, MedicineDetails> = {};
+      for (const row of response.data ?? []) {
+        map[row.part_id] = {
+          brand: row.brand ?? '',
+          genericName: row.generic_name ?? '',
+          strength: row.strength ?? '',
+          manufacturer: row.manufacturer ?? '',
+          mrp: row.mrp ?? null
         };
       }
       return map;
@@ -153,6 +187,7 @@ export function ProductPicker({
   const [search, setSearch] = useState('');
   const [debounced, setDebounced] = useState('');
   const flags = useMedicineFlags();
+  const details = useMedicineDetails();
 
   useEffect(() => {
     const handle = setTimeout(() => setDebounced(search), 300);
@@ -168,7 +203,7 @@ export function ProductPicker({
       const parts = response.data.results ?? response.data;
       return parts.map((part: any) => ({
         value: String(part.pk),
-        label: `${part.name}${part.IPN ? ` (${part.IPN})` : ''}`,
+        label: part.name,
         partName: part.name
       })) as PartOption[];
     },
@@ -184,17 +219,22 @@ export function ProductPicker({
     <Stack gap={4}>
       <Select
         label={t`Medicine`}
-        placeholder={t`Search for a medicine...`}
+        placeholder={t`Search by medicine or generic name...`}
         autoComplete='off'
         searchable
         searchValue={search}
         onSearchChange={setSearch}
-        data={options.map((o) => ({
-          value: o.value,
-          label: flagsFor(flags, Number(o.value)).requiresPrescription
-            ? `${o.label}  ℞`
-            : o.label
-        }))}
+        data={options.map((o) => {
+          // "Nico 500 mg — Paracetamol": staff can find it by brand or generic name
+          const generic = details[Number(o.value)]?.genericName;
+          const label = generic ? `${o.label} — ${generic}` : o.label;
+          return {
+            value: o.value,
+            label: flagsFor(flags, Number(o.value)).requiresPrescription
+              ? `${label}  ℞`
+              : label
+          };
+        })}
         value={value ? String(value) : null}
         onChange={(val) => {
           const selected = options.find((o) => o.value === val);
@@ -227,29 +267,25 @@ export function BatchPreview({
 
   const sellable = sellableQuantity(batches) ?? 0;
   const more = batches.length - rows.length;
-  const sellableText = String(formatQty(sellable));
 
+  // The total in stock is shown under Quantity; here only the batches.
   return (
-    <Stack gap={4}>
+    <Stack gap={2}>
       <Text size='xs' c={sellable > 0 ? 'dimmed' : 'red'}>
         {sellable > 0
-          ? t`${sellableText} available to sell — earliest expiry is sold first`
+          ? t`Batches (earliest expiry is sold first):`
           : t`Only expired stock is left — nothing can be sold`}
       </Text>
-      <Table withRowBorders={false} verticalSpacing={2} fz='xs'>
-        <Table.Tbody>
-          {rows.map((b) => (
-            <Table.Tr key={b.id} c={b.expired ? 'red' : undefined}>
-              <Table.Td>{b.batch || t`(no batch)`}</Table.Td>
-              <Table.Td>
-                {b.expiryDate ?? t`no expiry`}
-                {b.expired ? ` — ${t`EXPIRED`}` : ''}
-              </Table.Td>
-              <Table.Td ta='right'>{formatQty(b.quantity)}</Table.Td>
-            </Table.Tr>
-          ))}
-        </Table.Tbody>
-      </Table>
+      {rows.map((b) => (
+        <Text key={b.id} size='xs' c={b.expired ? 'red' : undefined}>
+          {b.batch ? `${t`Batch`} ${b.batch}` : t`(no batch)`}
+          {' · '}
+          {b.expiryDate ? `${t`Exp`} ${formatExpiry(b.expiryDate)}` : t`no expiry`}
+          {b.expired ? ` — ${t`EXPIRED`}` : ''}
+          {' · '}
+          {formatQty(b.quantity)} {t`in stock`}
+        </Text>
+      ))}
       {more > 0 && (
         <Text size='xs' c='dimmed'>
           {t`+ ${more} more batches`}

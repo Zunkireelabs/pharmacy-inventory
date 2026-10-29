@@ -17,6 +17,11 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ActionDropdown } from '../../components/items/ActionDropdown';
 import { PartCreationMenu } from '../../components/items/PartCreationMenu';
 import { openBulkDeleteProducts } from '../../components/nexa/bulkDeleteProducts';
+import { formatMoney } from '../../components/nexa/format';
+import {
+  type MedicineDetails,
+  useMedicineDetails
+} from '../../components/nexa/ProductPicker';
 import {
   BooleanColumn,
   CategoryColumn,
@@ -44,37 +49,64 @@ import { useUserState } from '../../states/UserState';
 import { PartTableFilters } from './PartTableFilters';
 
 /**
- * Construct a list of columns for the part table
+ * Construct a list of columns for the part table.
+ * Nexa: pharmacy columns (Generic Name, Strength, MRP) come from the medicine
+ * details; IPN / Revision / Units / Default Location are hidden by default.
  */
-function partTableColumns(): TableColumn[] {
+function partTableColumns(
+  medicines: Record<number, MedicineDetails>
+): TableColumn[] {
   return [
     PartColumn({
       part: '',
       accessor: 'name',
       filter: ['active', 'locked', 'starred']
     }),
+    {
+      accessor: 'generic_name',
+      title: t`Generic Name`,
+      render: (record: any) => medicines[record.pk]?.genericName || '-'
+    },
+    {
+      accessor: 'strength',
+      title: t`Strength`,
+      render: (record: any) => medicines[record.pk]?.strength || '-'
+    },
     IPNColumn({
-      accessor: 'IPN'
+      accessor: 'IPN',
+      defaultVisible: false
     }),
     {
       accessor: 'revision',
-      sortable: true
+      sortable: true,
+      defaultVisible: false
     },
     {
       accessor: 'units',
       sortable: true,
       copyable: true,
-      filter: 'has_units'
+      filter: 'has_units',
+      defaultVisible: false
     },
     DescriptionColumn({}),
     CategoryColumn({
       accessor: 'category_detail'
     }),
     DefaultLocationColumn({
-      accessor: 'default_location_detail'
+      accessor: 'default_location_detail',
+      defaultVisible: false
     }),
     {
+      accessor: 'mrp',
+      title: t`MRP`,
+      render: (record: any) => {
+        const mrp = medicines[record.pk]?.mrp;
+        return mrp ? formatMoney(mrp) : '-';
+      }
+    },
+    {
       accessor: 'total_in_stock',
+      title: t`In Stock`,
       sortable: true,
       filter: ['has_stock', 'low_stock', 'high_stock'],
       render: renderPartStockCell
@@ -121,7 +153,8 @@ export function PartListTable({
   enableImport = true,
   basePartInstance,
   props,
-  tableName = 'part-list',
+  // Nexa: '-v2' resets saved column layouts to the pharmacy columns
+  tableName = 'part-list-v2',
   defaultPartData
 }: Readonly<{
   enableImport?: boolean;
@@ -130,11 +163,12 @@ export function PartListTable({
   tableName?: string;
   defaultPartData?: any;
 }>) {
-  const tableColumns = useMemo(() => partTableColumns(), []);
+  const medicines = useMedicineDetails();
+  const tableColumns = useMemo(() => partTableColumns(medicines), [medicines]);
 
   const tableFilters = useMemo(() => PartTableFilters(), []);
 
-  const table = useTable(tableName ?? 'part-list', {
+  const table = useTable(tableName ?? 'part-list-v2', {
     initialFilters: [
       {
         name: 'active',
@@ -310,6 +344,8 @@ export function PartListTable({
         columns={tableColumns}
         props={{
           ...props,
+          searchPlaceholder: t`Search by medicine or generic name`,
+          searchMinWidth: 300,
           enableDownload: true,
           modelType: ModelType.part,
           tableFilters: tableFilters,

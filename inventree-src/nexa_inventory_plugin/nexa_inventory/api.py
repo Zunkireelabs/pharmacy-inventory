@@ -2,10 +2,14 @@
 managing B2B receivables (invoices/payments).
 """
 
+import calendar
 from datetime import date, timedelta
 from decimal import Decimal, InvalidOperation
 
-from django.db import transaction
+from zoneinfo import ZoneInfo
+
+from django.core.exceptions import ValidationError as DjangoValidationError
+from django.db import connection, transaction
 from django.db.models import Count, Q, Sum
 from django.utils import timezone
 from rest_framework import status
@@ -14,9 +18,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from company.models import Company
-from part.models import Part
+from part.models import Part, PartCategory
 from stock.models import StockItem, StockLocation
 
+from .bs_date import format_bs
 from .models import (
     Invoice,
     InvoiceLineItem,
@@ -531,11 +536,12 @@ class InvoiceDetailView(APIView):
                 {
                     'id': line.id,
                     'sale_type_movement_id': line.sale_type_movement_id,
+                    'medicine': line.sale_type_movement.part.name,
                     'quantity': str(line.quantity),
                     'unit_price': str(line.unit_price),
                     'line_total': str(line.line_total),
                 }
-                for line in invoice.lines.all()
+                for line in invoice.lines.select_related('sale_type_movement__part')
             ],
         })
 
@@ -858,20 +864,25 @@ class MovementListView(APIView):
 
 
 class MedicineInfoView(APIView):
-    """GET medicine/ (all flagged medicines) or medicine/<part_id>/ (one part,
-    defaults to over-the-counter). PUT/PATCH medicine/<part_id>/ sets
-    requires_prescription and/or is_controlled (staff / admin only).
+    """GET medicine/ (all flagged medicines), medicine/?all=1 (every medicine
+    with details) or medicine/<part_id>/ (one part, defaults to
+    over-the-counter). PUT/PATCH medicine/<part_id>/ sets
+    requires_prescription, is_controlled, the catalogue fields
+    (generic_name, strength, dosage_form, brand, manufacturer, mrp,
+    selling_price) and description — staff / admin only. Changing brand or
+    strength renames the medicine ("Nico 500 mg") so every screen matches.
     """
 
     permission_classes = [IsAuthenticated]
 
     @staticmethod
-    def _serialize(part_id, info):
+    def _serialize(part_id, info, description=''):
         def money(value):
             return None if value is None else str(value)
 
         return {
             'part_id': part_id,
+            'description': description or '',
             'requires_prescription': bool(info and info.requires_prescription),
             'is_controlled': bool(info and info.is_controlled),
             'generic_name': info.generic_name if info else '',
@@ -885,13 +896,16 @@ class MedicineInfoView(APIView):
 
     def get(self, request, part_id=None):
         if part_id is None:
-            rows = MedicineInfo.objects.filter(
-                Q(requires_prescription=True) | Q(is_controlled=True)
-            )
-            return Response([self._serialize(r.part_id, r) for r in rows])
-        if not Part.objects.filter(pk=part_id).exists():
-            return Response({'detail': 'Part not found'}, status=status.HTTP_404_NOT_FOUND)
-        return Response(self._serialize(part_id, MedicineInfo.objects.filter(part_id=part_id).first()))
+            rows = MedicineInfo.objects.select_related('part')
+            if request.query_params.get('all') not in ('1', 'true'):
+                rows = rows.filter(Q(requires_prescription=True) | Q(is_controlled=True))
+            return Response([self._serialize(r.part_id, r, r.part.description) for r in rows])
+        part = Part.objects.filter(pk=part_id).first()
+        if part is None:
+            return Response({'detail': 'Medicine not found'}, status=status.HTTP_404_NOT_FOUND)
+        return Response(self._serialize(
+            part_id, MedicineInfo.objects.filter(part_id=part_id).first(), part.description
+        ))
 
     def put(self, request, part_id=None):
         # Changing prescription-only / controlled status decides what can be
@@ -906,9 +920,14 @@ class MedicineInfoView(APIView):
         try:
             part = Part.objects.get(pk=part_id)
         except Part.DoesNotExist:
-            return Response({'detail': 'Part not found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'detail': 'Medicine not found'}, status=status.HTTP_404_NOT_FOUND)
 
-        info, _ = MedicineInfo.objects.get_or_create(part=part)
+        info = MedicineInfo.objects.filter(part=part).first() or MedicineInfo(part=part)
+        try:
+            _apply_catalogue_fields(info, request.data)
+            description = _parse_description(request.data)
+        except ValueError as exc:
+            return Response({'detail': str(exc)}, status=status.HTTP_400_BAD_REQUEST)
         for field in ('requires_prescription', 'is_controlled'):
             if field in request.data:
                 value = request.data[field]
@@ -921,8 +940,28 @@ class MedicineInfoView(APIView):
         # a controlled medicine is always prescription-only
         if info.is_controlled:
             info.requires_prescription = True
-        info.save()
-        return Response(self._serialize(part.pk, info))
+
+        part_changes = {}
+        if description is not None:
+            part_changes['description'] = description
+        if ('brand' in request.data or 'strength' in request.data) and info.brand:
+            name = medicine_display_name(info.brand, info.strength)
+            if len(name) > Part._meta.get_field('name').max_length:
+                return Response({'detail': 'Brand and strength are too long'}, status=400)
+            part_changes['name'] = name
+        if any(f in request.data for f in ('generic_name', 'brand', 'manufacturer')):
+            part_changes['keywords'] = medicine_keywords(info)
+
+        try:
+            with transaction.atomic():
+                info.save()
+                if part_changes:
+                    for key, value in part_changes.items():
+                        setattr(part, key, value)
+                    part.save()
+        except DjangoValidationError as exc:
+            return Response({'detail': _validation_text(exc)}, status=400)
+        return Response(self._serialize(part.pk, info, part.description))
 
     patch = put
 
@@ -1074,6 +1113,19 @@ def _money(value):
     return str(Decimal(value).quantize(Decimal('0.01')))
 
 
+NEPAL_TZ = ZoneInfo('Asia/Kathmandu')
+
+
+def _bill_dates(moment):
+    """B.S. date, English date and time of a bill, in Nepal time."""
+    local = moment.astimezone(NEPAL_TZ)
+    return {
+        'date_bs': format_bs(local.date()),
+        'date_ad': local.strftime('%d-%m-%Y'),
+        'time': local.strftime('%I:%M:%S %p'),
+    }
+
+
 def _bill_payload(bill):
     """Everything the printed bill needs: header, customer, lines, totals."""
     lines = []
@@ -1100,6 +1152,8 @@ def _bill_payload(bill):
         'id': bill.pk,
         'reference': bill.reference,
         'created_at': bill.created_at.isoformat(),
+        # Printed in Nepal time whatever the server clock is set to
+        **_bill_dates(bill.created_at),
         'sale_type': movements[0].sale_type if lines else None,
         'header': pharmacy_header(),
         'branch': bill.branch.name if bill.branch else '',
@@ -1117,6 +1171,8 @@ def _bill_payload(bill):
         'discount': _money(bill.discount),
         'discount_reason': bill.discount_reason,
         'net_amount': _money(bill.net_amount),
+        # shown like the pharmacy's paper bills; amounts are never rounded
+        'rounding': _money(0),
         'amount_in_words': amount_in_words(bill.net_amount),
         'remarks': bill.remarks,
         'dispensed_by': bill.created_by.get_full_name() or bill.created_by.get_username(),
@@ -1316,15 +1372,203 @@ def _money_in(data, key, default='0'):
     return value.quantize(Decimal('0.01'))
 
 
+def _is_staff(user):
+    """Owner / admin accounts. One place, so the rule is easy to relax later."""
+    return bool(user.is_staff or user.is_superuser)
+
+
+def end_of_month(year, month):
+    return date(year, month, calendar.monthrange(year, month)[1])
+
+
+def _parse_expiry(data):
+    """Expiry from expiry_month + expiry_year (stored as the last day of that
+    month, since medicine packs only print month/year) or from an ISO
+    expiry_date. Raises ValueError with a message for the user.
+    """
+    month, year = data.get('expiry_month'), data.get('expiry_year')
+    if month not in (None, '') or year not in (None, ''):
+        try:
+            month, year = int(month), int(year)
+            expiry = end_of_month(year, month)
+        except (TypeError, ValueError) as exc:
+            raise ValueError('expiry_month (1-12) and expiry_year are both required') from exc
+        if expiry < timezone.localdate():
+            raise ValueError('This expiry month is already over')
+        return expiry
+
+    try:
+        expiry = date.fromisoformat(str(data.get('expiry_date') or ''))
+    except ValueError as exc:
+        raise ValueError('expiry month and year are required') from exc
+    if expiry < timezone.localdate():
+        raise ValueError('expiry_date is already in the past')
+    return expiry
+
+
+def _parse_stock_line(data):
+    """Validate one purchase line (batch, expiry, quantities, money, location,
+    supplier, dates). Returns a dict of clean values, or raises ValueError.
+    line_total = quantity x unit_cost - discount + tax.
+    """
+    batch = (data.get('batch') or '').strip()
+    if not batch:
+        raise ValueError('batch is required')
+
+    expiry = _parse_expiry(data)
+
+    try:
+        quantity = Decimal(str(data.get('quantity')))
+        if not quantity.is_finite() or quantity <= 0:
+            raise InvalidOperation
+    except (InvalidOperation, TypeError) as exc:
+        raise ValueError('quantity must be a positive number') from exc
+
+    try:
+        bonus = Decimal(str(data.get('bonus_quantity') or 0))
+        if not bonus.is_finite() or bonus < 0:
+            raise InvalidOperation
+    except (InvalidOperation, TypeError) as exc:
+        raise ValueError('bonus_quantity must not be negative') from exc
+    unit_cost = _money_in(data, 'unit_cost')
+    discount = _money_in(data, 'discount')
+    tax = _money_in(data, 'tax')
+
+    payment_status = data.get('payment_status') or PurchaseReceipt.PaymentStatus.UNPAID
+    if payment_status not in PurchaseReceipt.PaymentStatus.values:
+        raise ValueError('Invalid payment_status')
+
+    try:
+        location = StockLocation.objects.get(pk=data.get('location_id'))
+    except (StockLocation.DoesNotExist, ValueError, TypeError) as exc:
+        raise ValueError('location_id is required (the branch / shelf)') from exc
+
+    supplier = None
+    if data.get('supplier_id') not in (None, ''):
+        try:
+            supplier = Company.objects.get(pk=data.get('supplier_id'), is_supplier=True)
+        except (Company.DoesNotExist, ValueError, TypeError) as exc:
+            raise ValueError('supplier_id must be an existing supplier') from exc
+
+    try:
+        purchase_date = date.fromisoformat(str(data.get('purchase_date') or timezone.localdate()))
+    except ValueError as exc:
+        raise ValueError('Invalid purchase_date') from exc
+
+    gross = quantity * unit_cost
+    if discount > gross:
+        raise ValueError('discount cannot be more than the purchase value')
+    line_total = (gross - discount + tax).quantize(Decimal('0.01'))
+
+    return {
+        'batch': batch,
+        'expiry': expiry,
+        'quantity': quantity,
+        'bonus': bonus,
+        'unit_cost': unit_cost,
+        'discount': discount,
+        'tax': tax,
+        'line_total': line_total,
+        'payment_status': payment_status,
+        'location': location,
+        'supplier': supplier,
+        'purchase_date': purchase_date,
+        'invoice_no': (data.get('invoice_no') or '').strip(),
+        'notes': (data.get('notes') or '').strip(),
+    }
+
+
+def _create_batch(part, line, user, request_id=''):
+    """New StockItem (quantity + bonus) and its PurchaseReceipt. Call inside
+    a transaction. Earlier batches of the part are never touched.
+    """
+    total_units = line['quantity'] + line['bonus']
+    item = StockItem.objects.create(
+        part=part,
+        quantity=total_units,
+        batch=line['batch'],
+        expiry_date=line['expiry'],
+        location=line['location'],
+        purchase_price=(line['line_total'] / total_units).quantize(Decimal('0.00001')),
+        supplier_part=None,
+        delete_on_deplete=False,
+        metadata={REQUEST_ID_KEY: {'request_id': request_id}} if request_id else None,
+    )
+    return PurchaseReceipt.objects.create(
+        part=part,
+        stock_item=item,
+        supplier=line['supplier'],
+        invoice_no=line['invoice_no'],
+        purchase_date=line['purchase_date'],
+        batch=line['batch'],
+        expiry_date=line['expiry'],
+        quantity=line['quantity'],
+        bonus_quantity=line['bonus'],
+        unit_cost=line['unit_cost'],
+        discount=line['discount'],
+        tax=line['tax'],
+        line_total=line['line_total'],
+        payment_status=line['payment_status'],
+        notes=line['notes'],
+        received_by=user,
+    )
+
+
+# Saved forms send a random request_id. A repeat of the same request (double
+# click, retry after a timeout) returns the first result instead of adding
+# the stock a second time.
+REQUEST_ID_KEY = 'nexa'
+
+
+def _request_id(data):
+    return str(data.get('request_id') or '').strip()[:64]
+
+
+def _lock_request(request_id):
+    """Serialise concurrent requests with the same id (inside a transaction)."""
+    if request_id and connection.vendor == 'postgresql':
+        with connection.cursor() as cursor:
+            cursor.execute('SELECT pg_advisory_xact_lock(hashtext(%s))', [request_id])
+
+
+def _earlier_receipt(request_id):
+    if not request_id:
+        return None
+    return (
+        PurchaseReceipt.objects.select_related('part', 'supplier', 'received_by')
+        .filter(**{f'stock_item__metadata__{REQUEST_ID_KEY}__request_id': request_id})
+        .first()
+    )
+
+
+def _apply_mrp(part, data, user):
+    """Optional `mrp` sent with a purchase: updates the medicine's MRP (per
+    medicine). Changing it is a catalogue edit, so staff / admin only.
+    Raises ValueError (bad value) or PermissionError (not allowed).
+    """
+    if data.get('mrp') in (None, ''):
+        return
+    mrp = _money_in(data, 'mrp')
+    info = MedicineInfo.objects.filter(part=part).first()
+    if info is not None and info.mrp == mrp:
+        return
+    if not _is_staff(user):
+        raise PermissionError('Only an owner or admin can change the MRP')
+    info = info or MedicineInfo(part=part)
+    info.mrp = mrp
+    info.save()
+
+
 class ReceiveStockView(APIView):
     """POST: receive a purchase line into stock as a new batch.
 
-    Body: part_id, batch, expiry_date (ISO, must be in the future),
-    quantity, bonus_quantity (free stock, optional), unit_cost, discount,
-    tax, payment_status (unpaid | partial | paid), location_id (required),
-    supplier_id (optional), invoice_no, purchase_date (default today),
-    notes. Creates the StockItem (quantity + bonus) and a PurchaseReceipt
-    atomically. line_total = quantity x unit_cost - discount + tax.
+    Body: part_id, batch, expiry_month + expiry_year (stored as the last day
+    of the month) or expiry_date (ISO), quantity, bonus_quantity (free stock,
+    optional), unit_cost, discount, tax, payment_status (unpaid | partial |
+    paid), location_id (required), supplier_id (optional), invoice_no,
+    purchase_date (default today), notes, mrp (optional, staff only if it
+    changes), request_id (optional, makes a repeat harmless). Creates the
+    StockItem (quantity + bonus) and a PurchaseReceipt atomically.
     """
 
     permission_classes = [IsAuthenticated]
@@ -1337,95 +1581,236 @@ class ReceiveStockView(APIView):
         except (Part.DoesNotExist, ValueError, TypeError):
             return Response({'detail': 'part_id must reference an existing part'}, status=400)
 
-        batch = (data.get('batch') or '').strip()
-        if not batch:
-            return Response({'detail': 'batch is required'}, status=400)
-
         try:
-            expiry = date.fromisoformat(str(data.get('expiry_date') or ''))
-        except ValueError:
-            return Response({'detail': 'expiry_date is required (YYYY-MM-DD)'}, status=400)
-        if expiry < timezone.localdate():
-            return Response({'detail': 'expiry_date is already in the past'}, status=400)
-
-        try:
-            quantity = Decimal(str(data.get('quantity')))
-            if quantity <= 0:
-                raise InvalidOperation
-        except (InvalidOperation, TypeError):
-            return Response({'detail': 'quantity must be a positive number'}, status=400)
-
-        try:
-            bonus = Decimal(str(data.get('bonus_quantity') or 0))
-            if bonus < 0:
-                raise InvalidOperation
-            unit_cost = _money_in(data, 'unit_cost')
-            discount = _money_in(data, 'discount')
-            tax = _money_in(data, 'tax')
-        except InvalidOperation:
-            return Response({'detail': 'bonus_quantity must not be negative'}, status=400)
+            line = _parse_stock_line(data)
         except ValueError as exc:
             return Response({'detail': str(exc)}, status=400)
 
-        payment_status = data.get('payment_status', PurchaseReceipt.PaymentStatus.UNPAID)
-        if payment_status not in PurchaseReceipt.PaymentStatus.values:
-            return Response({'detail': 'Invalid payment_status'}, status=400)
-
+        request_id = _request_id(data)
         try:
-            location = StockLocation.objects.get(pk=data.get('location_id'))
-        except (StockLocation.DoesNotExist, ValueError, TypeError):
-            return Response({'detail': 'location_id is required (the branch / shelf)'}, status=400)
-
-        supplier = None
-        if data.get('supplier_id') not in (None, ''):
-            try:
-                supplier = Company.objects.get(pk=data.get('supplier_id'), is_supplier=True)
-            except (Company.DoesNotExist, ValueError, TypeError):
-                return Response({'detail': 'supplier_id must be an existing supplier'}, status=400)
-
-        try:
-            purchase_date = date.fromisoformat(str(data.get('purchase_date') or timezone.localdate()))
-        except ValueError:
-            return Response({'detail': 'Invalid purchase_date'}, status=400)
-
-        gross = quantity * unit_cost
-        if discount > gross:
-            return Response({'detail': 'discount cannot be more than the purchase value'}, status=400)
-        line_total = (gross - discount + tax).quantize(Decimal('0.01'))
-        total_units = quantity + bonus
-        effective_cost = (line_total / total_units).quantize(Decimal('0.00001'))
-
-        with transaction.atomic():
-            item = StockItem.objects.create(
-                part=part,
-                quantity=total_units,
-                batch=batch,
-                expiry_date=expiry,
-                location=location,
-                purchase_price=effective_cost,
-                supplier_part=None,
-                delete_on_deplete=False,
-            )
-            receipt = PurchaseReceipt.objects.create(
-                part=part,
-                stock_item=item,
-                supplier=supplier,
-                invoice_no=(data.get('invoice_no') or '').strip(),
-                purchase_date=purchase_date,
-                batch=batch,
-                expiry_date=expiry,
-                quantity=quantity,
-                bonus_quantity=bonus,
-                unit_cost=unit_cost,
-                discount=discount,
-                tax=tax,
-                line_total=line_total,
-                payment_status=payment_status,
-                notes=(data.get('notes') or '').strip(),
-                received_by=request.user,
-            )
+            with transaction.atomic():
+                _lock_request(request_id)
+                earlier = _earlier_receipt(request_id)
+                if earlier is not None:
+                    return Response(_receipt_payload(earlier), status=status.HTTP_200_OK)
+                _apply_mrp(part, data, request.user)
+                receipt = _create_batch(part, line, request.user, request_id)
+        except PermissionError as exc:
+            return Response({'detail': str(exc)}, status=status.HTTP_403_FORBIDDEN)
+        except ValueError as exc:
+            return Response({'detail': str(exc)}, status=400)
 
         return Response(_receipt_payload(receipt), status=status.HTTP_201_CREATED)
+
+
+MEDICINE_TEXT_FIELDS = ('generic_name', 'strength', 'dosage_form', 'brand', 'manufacturer')
+MEDICINE_MONEY_FIELDS = ('mrp', 'selling_price')
+
+
+def _apply_catalogue_fields(info, data):
+    """Set MedicineInfo text / money fields present in data. Raises ValueError."""
+    for field in MEDICINE_TEXT_FIELDS:
+        if field in data:
+            value = data.get(field)
+            if value is not None and not isinstance(value, str):
+                raise ValueError(f'{field} must be text')
+            max_length = MedicineInfo._meta.get_field(field).max_length
+            value = (value or '').strip()
+            if len(value) > max_length:
+                raise ValueError(f'{field} is too long (max {max_length} characters)')
+            setattr(info, field, value)
+    for field in MEDICINE_MONEY_FIELDS:
+        if field in data:
+            setattr(info, field, None if data.get(field) in (None, '') else _money_in(data, field))
+
+
+def _parse_description(data):
+    """Optional free-text description (stored on the Part). None if not sent."""
+    if 'description' not in data:
+        return None
+    value = data.get('description')
+    if value is not None and not isinstance(value, str):
+        raise ValueError('description must be text')
+    value = (value or '').strip()
+    max_length = Part._meta.get_field('description').max_length
+    if len(value) > max_length:
+        raise ValueError(f'description is too long (max {max_length} characters)')
+    return value
+
+
+def _validation_text(exc):
+    messages = getattr(exc, 'message_dict', None)
+    if messages:
+        return '; '.join(m for msgs in messages.values() for m in msgs)
+    return ' '.join(exc.messages) or 'Could not save the medicine'
+
+
+def _resolve_category(data):
+    """category_id (existing) or new_category_name (top-level, reused if a
+    category with that name already exists). Returns a PartCategory or None.
+    """
+    new_name = (data.get('new_category_name') or '').strip()
+    if new_name:
+        if len(new_name) > 100:
+            raise ValueError('Category name is too long (max 100 characters)')
+        existing = PartCategory.objects.filter(name__iexact=new_name, parent=None).first()
+        return existing or PartCategory.objects.create(name=new_name, parent=None)
+    if data.get('category_id') in (None, ''):
+        return None
+    try:
+        return PartCategory.objects.get(pk=data.get('category_id'))
+    except (PartCategory.DoesNotExist, ValueError, TypeError) as exc:
+        raise ValueError('category_id must be an existing category') from exc
+
+
+def medicine_keywords(info):
+    """Hidden search words: lets staff find a medicine by generic name,
+    brand or manufacturer in every search box."""
+    return ' '.join(
+        x for x in (info.generic_name, info.brand, info.manufacturer) if x
+    )[:250]
+
+
+def medicine_display_name(brand, strength):
+    """Product name shown everywhere: brand + strength, e.g. "Nico 500 mg"."""
+    return ' '.join(p for p in (brand, strength) if p)
+
+
+class AddMedicineView(APIView):
+    """POST add-medicine/: a new medicine and (unless no_stock) its first
+    batch, in one transaction (staff / admin only).
+
+    Body: brand (required), generic_name, strength, description, manufacturer,
+    dosage_form, mrp, selling_price, category_id or new_category_name, no_stock (bool),
+    request_id; and, unless no_stock, the same purchase line fields as
+    receive-stock (batch, expiry_month, expiry_year, quantity, unit_cost,
+    location_id, supplier_id, ...). Any error saves nothing.
+    """
+
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        if not _is_staff(request.user):
+            return Response(
+                {'detail': 'Only an owner or admin can add new medicines'},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+        data = request.data
+
+        brand = data.get('brand')
+        if not isinstance(brand, str) or not brand.strip():
+            return Response({'detail': 'Brand / product name is required'}, status=400)
+
+        no_stock = data.get('no_stock', False)
+        if not isinstance(no_stock, bool):
+            return Response({'detail': 'no_stock must be true or false'}, status=400)
+
+        info = MedicineInfo()
+        try:
+            _apply_catalogue_fields(info, {**dict(data.items()), 'brand': brand})
+            description = _parse_description(data) or ''
+            line = None if no_stock else _parse_stock_line(data)
+        except ValueError as exc:
+            return Response({'detail': str(exc)}, status=400)
+
+        name = medicine_display_name(info.brand, info.strength)
+        if len(name) > Part._meta.get_field('name').max_length:
+            return Response({'detail': 'Brand and strength are too long'}, status=400)
+
+        request_id = _request_id(data)
+        try:
+            with transaction.atomic():
+                _lock_request(request_id)
+                earlier = Part.objects.filter(
+                    **{f'metadata__{REQUEST_ID_KEY}__request_id': request_id}
+                ).first() if request_id else None
+                if earlier is not None:
+                    return Response(
+                        self._payload(earlier, _earlier_receipt(request_id)),
+                        status=status.HTTP_200_OK,
+                    )
+
+                part = Part(
+                    name=name,
+                    description=description,
+                    category=_resolve_category(data),
+                    keywords=medicine_keywords(info),
+                    salable=True,
+                    purchaseable=True,
+                    active=True,
+                    metadata={REQUEST_ID_KEY: {'request_id': request_id}} if request_id else None,
+                )
+                part.save()
+                info.part = part
+                info.save()
+                receipt = None if line is None else _create_batch(
+                    part, line, request.user, request_id
+                )
+        except DjangoValidationError as exc:
+            return Response({'detail': _validation_text(exc)}, status=400)
+        except ValueError as exc:
+            return Response({'detail': str(exc)}, status=400)
+
+        return Response(self._payload(part, receipt), status=status.HTTP_201_CREATED)
+
+    @staticmethod
+    def _payload(part, receipt):
+        return {
+            'part_id': part.pk,
+            'name': part.name,
+            'receipt': _receipt_payload(receipt) if receipt else None,
+        }
+
+
+DDA_METADATA_KEY = 'nexa'
+
+
+def supplier_dda(company):
+    return (company.get_metadata(DDA_METADATA_KEY) or {}).get('dda_reg_no', '')
+
+
+class SupplierListView(APIView):
+    """GET suppliers/: active suppliers with phone and DDA registration no.
+    PATCH suppliers/<pk>/ {"dda_reg_no": "..."} sets the DDA number
+    (staff / admin only). Stored in the supplier's metadata.
+    """
+
+    permission_classes = [IsAuthenticated]
+
+    @staticmethod
+    def _serialize(c):
+        return {'id': c.pk, 'name': c.name, 'phone': c.phone, 'dda_reg_no': supplier_dda(c)}
+
+    def get(self, request, pk=None):
+        rows = Company.objects.filter(is_supplier=True, active=True).order_by('name')
+        return Response([self._serialize(c) for c in rows])
+
+    def patch(self, request, pk=None):
+        if not _is_staff(request.user):
+            return Response(
+                {'detail': 'Only an owner or admin can change supplier details'},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+        try:
+            company = Company.objects.get(pk=pk, is_supplier=True)
+        except (Company.DoesNotExist, ValueError, TypeError):
+            return Response({'detail': 'Supplier not found'}, status=status.HTTP_404_NOT_FOUND)
+        value = request.data.get('dda_reg_no')
+        if not isinstance(value, str) or len(value.strip()) > 100:
+            return Response(
+                {'detail': 'dda_reg_no must be text (max 100 characters)'}, status=400
+            )
+        data = company.get_metadata(DDA_METADATA_KEY) or {}
+        data['dda_reg_no'] = value.strip()
+        company.set_metadata(DDA_METADATA_KEY, data)
+        return Response(self._serialize(company))
+
+
+def _branch_name(location):
+    """The branch (top-level location) a batch sits in, even on a shelf."""
+    if location is None:
+        return ''
+    return location.name if location.parent_id is None else location.get_root().name
 
 
 def _receipt_payload(r):
@@ -1434,6 +1819,7 @@ def _receipt_payload(r):
         'part_id': r.part_id,
         'part_name': r.part.name,
         'stock_item_id': r.stock_item_id,
+        'branch': _branch_name(r.stock_item.location if r.stock_item else None),
         'supplier': r.supplier.name if r.supplier else '',
         'invoice_no': r.invoice_no,
         'purchase_date': r.purchase_date.isoformat(),
@@ -1463,7 +1849,9 @@ class PurchaseListView(APIView):
         if limit <= 0 or limit > 200:
             return Response({'detail': 'limit must be between 1 and 200'}, status=400)
 
-        rows = PurchaseReceipt.objects.select_related('part', 'supplier', 'received_by')
+        rows = PurchaseReceipt.objects.select_related(
+            'part', 'supplier', 'received_by', 'stock_item__location'
+        )
         status_filter = request.query_params.get('payment_status')
         if status_filter:
             if status_filter not in PurchaseReceipt.PaymentStatus.values:

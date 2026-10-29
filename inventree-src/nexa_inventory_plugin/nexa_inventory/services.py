@@ -280,6 +280,8 @@ PHARMACY_HEADER_DEFAULTS = {
     'PHARMACY_PAN': '',
     'PHARMACY_DDA_REG': '',
     'PHARMACY_PHONE': '',
+    'BILL_TITLE': 'INVOICE',
+    'PHARMACIST_NPC_NO': '',
     'BILL_FOOTER': (
         'Return & Refund Policy: The original bill is mandatory for all eligible returns '
         'or refunds within 15 days of purchase. Cold chain medicines are non-returnable '

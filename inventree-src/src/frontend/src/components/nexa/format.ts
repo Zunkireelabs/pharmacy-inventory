@@ -25,6 +25,18 @@ export function formatMoney(value: number | string | null | undefined) {
   );
 }
 
+/**
+ * Expiry as printed on medicine packs: MM/YYYY. Expiry is stored as the last
+ * day of that month, so the day is never shown.
+ */
+export function formatExpiry(value: string | null | undefined) {
+  if (!value) {
+    return '';
+  }
+  const [year, month] = value.split('-');
+  return year && month ? `${month}/${year}` : value;
+}
+
 /** Plain quantities (not money) — same Indian grouping, no decimals unless present. */
 export function formatQty(value: number | string | null | undefined) {
   if (value === null || value === undefined || value === '') {

@@ -17,7 +17,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useMemo, useState } from 'react';
 
 import { api } from '../../App';
-import { formatQty } from './format';
+import { formatExpiry, formatQty } from './format';
 import { ProductPicker, useBatches } from './ProductPicker';
 import { SLOW_REQUEST } from './slow';
 
@@ -51,7 +51,7 @@ export default function AdjustStockButton({
     const rows = (batches.data ?? []).filter((b) => !isWriteoff || b.expired);
     return rows.map((b) => ({
       value: String(b.id),
-      label: `${b.batch || t`(no batch)`} — ${b.expiryDate ?? t`no expiry`}${
+      label: `${b.batch || t`(no batch)`} — ${b.expiryDate ? formatExpiry(b.expiryDate) : t`no expiry`}${
         b.expired ? ` (${t`EXPIRED`})` : ''
       } — ${formatQty(b.quantity)}`
     }));

@@ -122,8 +122,8 @@ class GenerateBatchCodeSerializer(serializers.Serializer):
         many=False,
         required=False,
         allow_null=True,
-        label=_('Product'),
-        help_text=_('Select product to generate batch code for'),
+        label=_('Medicine'),
+        help_text=_('Select medicine to generate batch code for'),
     )
 
     purchase_order = serializers.PrimaryKeyRelatedField(
@@ -174,8 +174,8 @@ class GenerateSerialNumberSerializer(serializers.Serializer):
         many=False,
         required=False,
         allow_null=True,
-        label=_('Product'),
-        help_text=_('Select product to generate serial number for'),
+        label=_('Medicine'),
+        help_text=_('Select medicine to generate serial number for'),
     )
 
     quantity = serializers.IntegerField(
@@ -291,7 +291,7 @@ class StockItemTestResultSerializer(
                 data['template'] = template
             else:
                 raise ValidationError({
-                    'test': _('No matching test found for this product')
+                    'test': _('No matching test found for this medicine')
                 })
 
         if not template:
@@ -426,8 +426,8 @@ class StockItemSerializer(
         queryset=part_models.Part.objects.all(),
         many=False,
         allow_null=False,
-        help_text=_('Base Product'),
-        label=_('Product'),
+        help_text=_('Base Medicine'),
+        label=_('Medicine'),
     )
 
     parent = serializers.PrimaryKeyRelatedField(
@@ -499,7 +499,7 @@ class StockItemSerializer(
     def validate_part(self, part):
         """Ensure the provided Part instance is valid."""
         if part.virtual:
-            raise ValidationError(_('Stock item cannot be created for virtual products'))
+            raise ValidationError(_('Stock item cannot be created for virtual medicines'))
 
         return part
 
@@ -599,14 +599,14 @@ class StockItemSerializer(
     SKU = serializers.CharField(
         source='supplier_part.SKU',
         read_only=True,
-        label=_('Supplier Product Number'),
+        label=_('Supplier Medicine Number'),
         allow_null=True,
     )
 
     MPN = serializers.CharField(
         source='supplier_part.manufacturer_part.MPN',
         read_only=True,
-        label=_('Manufacturer Product Number'),
+        label=_('Manufacturer Medicine Number'),
         allow_null=True,
     )
 
@@ -614,7 +614,7 @@ class StockItemSerializer(
     supplier_part_detail = OptionalField(
         serializer_class=company_serializers.SupplierPartSerializer,
         serializer_kwargs={
-            'label': _('Supplier Product'),
+            'label': _('Supplier Medicine'),
             'source': 'supplier_part',
             'brief': True,
             'supplier_detail': False,
@@ -635,7 +635,7 @@ class StockItemSerializer(
     part_detail = OptionalField(
         serializer_class=part_serializers.PartBriefSerializer,
         serializer_kwargs={
-            'label': _('Product'),
+            'label': _('Medicine'),
             'source': 'part',
             'many': False,
             'read_only': True,
@@ -788,7 +788,7 @@ class SerializeStockItemSerializer(serializers.Serializer):
             raise ValidationError(_('No stock item provided'))
 
         if not item.part.trackable:
-            raise ValidationError(_('Serial numbers cannot be assigned to this product'))
+            raise ValidationError(_('Serial numbers cannot be assigned to this medicine'))
 
         # Ensure the serial numbers are valid!
         quantity = data['quantity']
@@ -904,7 +904,7 @@ class InstallStockItemSerializer(serializers.Serializer):
             # Check if the selected part is in the Bill of Materials of the parent item
             if not parent_part.check_if_part_in_bom(stock_item.part):
                 raise ValidationError(
-                    _('Selected product is not in the Bill of Materials')
+                    _('Selected medicine is not in the Bill of Materials')
                 )
 
         return stock_item
@@ -1036,7 +1036,7 @@ class DisassemblyLineSerializer(serializers.Serializer):
         required=True,
         allow_null=False,
         label=_('BOM Item'),
-        help_text=_('BOM line which defines the component product to break out'),
+        help_text=_('BOM line which defines the component medicine to break out'),
     )
 
     quantity = serializers.DecimalField(
@@ -1045,7 +1045,7 @@ class DisassemblyLineSerializer(serializers.Serializer):
         min_value=Decimal(0),
         required=True,
         label=_('Quantity'),
-        help_text=_('Quantity of the component product to create'),
+        help_text=_('Quantity of the component medicine to create'),
     )
 
     def validate_quantity(self, quantity):
@@ -1219,8 +1219,8 @@ class ConvertStockItemSerializer(serializers.Serializer):
 
     part = serializers.PrimaryKeyRelatedField(
         queryset=part_models.Part.objects.all(),
-        label=_('Product'),
-        help_text=_('Select product to convert stock item into'),
+        label=_('Medicine'),
+        help_text=_('Select medicine to convert stock item into'),
         many=False,
         required=True,
         allow_null=False,
@@ -1233,7 +1233,7 @@ class ConvertStockItemSerializer(serializers.Serializer):
 
         if part not in valid_options:
             raise ValidationError(
-                _('Selected product is not a valid option for conversion')
+                _('Selected medicine is not a valid option for conversion')
             )
 
         return part
@@ -1636,7 +1636,7 @@ class StockAssignmentItemSerializer(serializers.Serializer):
 
         # The base part must be "salable"
         if not item.part.salable:
-            raise ValidationError(_('Product must be salable'))
+            raise ValidationError(_('Medicine must be salable'))
 
         # The item must not be allocated to a sales order
         if item.sales_order_allocations.count() > 0:
@@ -1781,7 +1781,7 @@ class StockMergeSerializer(serializers.Serializer):
     allow_mismatched_suppliers = serializers.BooleanField(
         required=False,
         label=_('Allow mismatched suppliers'),
-        help_text=_('Allow stock items with different supplier products to be merged'),
+        help_text=_('Allow stock items with different supplier medicines to be merged'),
     )
 
     allow_mismatched_status = serializers.BooleanField(

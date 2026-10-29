@@ -95,13 +95,13 @@ msgstr "Cancel"
 msgid "Actions"
 msgstr "Actions"
 
-#: lib/components/SearchInput.tsx:34
+#: lib/components/SearchInput.tsx:36
 #: src/components/forms/fields/RelatedModelField.tsx:549
 #: src/components/nav/Header.tsx:191
 #: src/components/wizards/ImportPartWizard.tsx:200
 #: src/components/wizards/ImportPartWizard.tsx:233
 #: src/pages/Index/Settings/UserSettings.tsx:78
-#: src/pages/part/PartDetail.tsx:769
+#: src/pages/part/PartDetail.tsx:771
 msgid "Search"
 msgstr "Search"
 
@@ -156,7 +156,7 @@ msgstr "No"
 #: src/forms/StockForms.tsx:1927
 #: src/forms/TransferOrderForms.tsx:239
 #: src/pages/build/BuildOrderDetailsPanel.tsx:45
-#: src/pages/part/PartDetail.tsx:822
+#: src/pages/part/PartDetail.tsx:824
 #: src/pages/part/bom/BomCompare.tsx:203
 #: src/tables/build/BuildOrderParametricTable.tsx:29
 #: src/tables/part/PartTestResultTable.tsx:251
@@ -164,20 +164,12 @@ msgstr "No"
 #: src/tables/stock/StockTrackingTable.tsx:120
 #: src/tables/stock/StockTrackingTable.tsx:249
 msgid "Part"
-msgstr "Product"
+msgstr "Medicine"
 
 #: lib/enums/ModelInformation.tsx:62
 #: lib/enums/Roles.tsx:37
-#: src/components/nav/NavigationDrawer.tsx:71
-#: src/defaults/links.tsx:43
-#: src/pages/Index/Settings/SystemSettings.tsx:217
-#: src/pages/part/CategoryDetail.tsx:218
-#: src/pages/part/CategoryDetail.tsx:279
-#: src/pages/part/CategoryDetail.tsx:323
-#: src/pages/part/PartCategoryDetailsPanel.tsx:69
-#: src/pages/part/PartDetail.tsx:544
 msgid "Parts"
-msgstr "Products"
+msgstr "Medicines"
 
 #: lib/enums/ModelInformation.tsx:71
 msgid "Parameter"
@@ -189,7 +181,7 @@ msgstr "Parameter"
 #: src/components/wizards/ImportPartWizard.tsx:807
 #: src/pages/Index/Settings/AdminCenter/Index.tsx:210
 #: src/pages/Index/Settings/SystemSettings.tsx:211
-#: src/pages/part/PartDetail.tsx:496
+#: src/pages/part/PartDetail.tsx:498
 msgid "Parameters"
 msgstr "Parameters"
 
@@ -205,11 +197,11 @@ msgstr "Parameter Templates"
 
 #: lib/enums/ModelInformation.tsx:84
 msgid "Part Test Template"
-msgstr "Product Test Template"
+msgstr "Medicine Test Template"
 
 #: lib/enums/ModelInformation.tsx:85
 msgid "Part Test Templates"
-msgstr "Product Test Templates"
+msgstr "Medicine Test Templates"
 
 #: lib/enums/ModelInformation.tsx:91
 #: src/components/previews/models/SupplierPartPreview.tsx:15
@@ -222,12 +214,12 @@ msgstr "Product Test Templates"
 #: src/tables/purchasing/SupplierPartTable.tsx:110
 #: src/tables/stock/StockItemTable.tsx:112
 msgid "Supplier Part"
-msgstr "Supplier Product"
+msgstr "Supplier Medicine"
 
 #: lib/enums/ModelInformation.tsx:92
 #: src/pages/purchasing/PurchasingIndex.tsx:152
 msgid "Supplier Parts"
-msgstr "Supplier Products"
+msgstr "Supplier Medicines"
 
 #: lib/enums/ModelInformation.tsx:106
 #: src/components/previews/models/ManufacturerPartPreview.tsx:16
@@ -236,27 +228,27 @@ msgstr "Supplier Products"
 #: src/tables/part/PartPurchaseOrdersTable.tsx:65
 #: src/tables/stock/StockItemTable.tsx:119
 msgid "Manufacturer Part"
-msgstr "Manufacturer Product"
+msgstr "Manufacturer Medicine"
 
 #: lib/enums/ModelInformation.tsx:107
 #: src/pages/purchasing/PurchasingIndex.tsx:204
 msgid "Manufacturer Parts"
-msgstr "Manufacturer Products"
+msgstr "Manufacturer Medicines"
 
 #: lib/enums/ModelInformation.tsx:117
 #: src/components/previews/models/PartCategoryPreview.tsx:12
 #: src/components/tables/Filter.tsx:496
 #: src/pages/part/CategoryDetail.tsx:323
 msgid "Part Category"
-msgstr "Product Category"
+msgstr "Category"
 
 #: lib/enums/ModelInformation.tsx:118
 #: lib/enums/Roles.tsx:39
 #: src/pages/part/CategoryDetail.tsx:212
 #: src/pages/part/CategoryDetail.tsx:313
-#: src/pages/part/PartDetail.tsx:810
+#: src/pages/part/PartDetail.tsx:812
 msgid "Part Categories"
-msgstr "Product Categories"
+msgstr "Categories"
 
 #: lib/enums/ModelInformation.tsx:126
 #: src/components/tables/ColumnRenderers.tsx:151
@@ -309,7 +301,7 @@ msgid "Stock Location Types"
 msgstr "Stock Location Types"
 
 #: lib/enums/ModelInformation.tsx:153
-#: src/pages/part/PartDetail.tsx:448
+#: src/pages/part/PartDetail.tsx:450
 msgid "Stock History"
 msgstr "Stock History"
 
@@ -333,7 +325,7 @@ msgstr "Build Order"
 #: src/defaults/actions.tsx:166
 #: src/pages/Index/Settings/SystemSettings.tsx:324
 #: src/pages/build/BuildIndex.tsx:87
-#: src/pages/part/PartDetail.tsx:430
+#: src/pages/part/PartDetail.tsx:432
 #: src/pages/sales/SalesOrderDetail.tsx:221
 msgid "Build Orders"
 msgstr "Build Orders"
@@ -404,7 +396,7 @@ msgstr "Purchase Order"
 #: src/pages/Index/Settings/SystemSettings.tsx:352
 #: src/pages/company/CompanyDetail.tsx:131
 #: src/pages/company/SupplierPartDetail.tsx:105
-#: src/pages/part/PartDetail.tsx:400
+#: src/pages/part/PartDetail.tsx:402
 #: src/pages/purchasing/PurchasingIndex.tsx:95
 msgid "Purchase Orders"
 msgstr "Purchase Orders"
@@ -438,7 +430,7 @@ msgstr "Sales Order"
 #: src/defaults/actions.tsx:127
 #: src/pages/Index/Settings/SystemSettings.tsx:371
 #: src/pages/company/CompanyDetail.tsx:153
-#: src/pages/part/PartDetail.tsx:412
+#: src/pages/part/PartDetail.tsx:414
 #: src/pages/sales/SalesIndex.tsx:110
 msgid "Sales Orders"
 msgstr "Sales Orders"
@@ -464,7 +456,7 @@ msgstr "Return Order"
 #: src/defaults/actions.tsx:147
 #: src/pages/Index/Settings/SystemSettings.tsx:384
 #: src/pages/company/CompanyDetail.tsx:161
-#: src/pages/part/PartDetail.tsx:423
+#: src/pages/part/PartDetail.tsx:425
 #: src/pages/sales/SalesIndex.tsx:151
 msgid "Return Orders"
 msgstr "Return Orders"
@@ -489,7 +481,7 @@ msgstr "Transfer Order"
 #: lib/enums/Roles.tsx:45
 #: src/defaults/actions.tsx:137
 #: src/pages/Index/Settings/SystemSettings.tsx:306
-#: src/pages/part/PartDetail.tsx:437
+#: src/pages/part/PartDetail.tsx:439
 #: src/pages/stock/LocationDetail.tsx:171
 msgid "Transfer Orders"
 msgstr "Transfer Orders"
@@ -503,7 +495,7 @@ msgid "Transfer Order Line Items"
 msgstr "Transfer Order Line Items"
 
 #: lib/enums/ModelInformation.tsx:271
-#: src/components/nexa/RecordSaleButton.tsx:650
+#: src/components/nexa/RecordSaleButton.tsx:678
 #: src/tables/company/AddressTable.tsx:52
 msgid "Address"
 msgstr "Address"
@@ -1003,7 +995,7 @@ msgid "Refresh calendar"
 msgstr "Refresh calendar"
 
 #: src/components/calendar/Calendar.tsx:334
-#: src/components/tables/InvenTreeTableHeader.tsx:343
+#: src/components/tables/InvenTreeTableHeader.tsx:345
 msgid "Export data"
 msgstr "Export data"
 
@@ -1125,11 +1117,11 @@ msgstr "There are no more widgets available for the dashboard"
 
 #: src/components/dashboard/DashboardWidgetLibrary.tsx:26
 msgid "Subscribed Parts"
-msgstr "Subscribed Products"
+msgstr "Subscribed Medicines"
 
 #: src/components/dashboard/DashboardWidgetLibrary.tsx:27
 msgid "Show the number of parts which you have subscribed to"
-msgstr "Show the number of products which you have subscribed to"
+msgstr "Show the number of medicines which you have subscribed to"
 
 #: src/components/dashboard/DashboardWidgetLibrary.tsx:33
 msgid "Subscribed Categories"
@@ -1137,7 +1129,7 @@ msgstr "Subscribed Categories"
 
 #: src/components/dashboard/DashboardWidgetLibrary.tsx:34
 msgid "Show the number of part categories which you have subscribed to"
-msgstr "Show the number of product categories which you have subscribed to"
+msgstr "Show the number of categories which you have subscribed to"
 
 #: src/components/dashboard/DashboardWidgetLibrary.tsx:43
 msgid "Invalid BOMs"
@@ -1150,7 +1142,7 @@ msgstr "Assemblies requiring bill of materials validation"
 #: src/components/dashboard/DashboardWidgetLibrary.tsx:55
 #: src/components/dashboard/DashboardWidgetLibrary.tsx:56
 msgid "Latest parts"
-msgstr "Latest products"
+msgstr "Latest medicines"
 
 #: src/components/dashboard/DashboardWidgetLibrary.tsx:64
 #: src/components/nexa/NexaDashboard.tsx:162
@@ -1160,7 +1152,7 @@ msgstr "Low Stock"
 
 #: src/components/dashboard/DashboardWidgetLibrary.tsx:66
 msgid "Show the number of parts which are low on stock"
-msgstr "Show the number of products which are low on stock"
+msgstr "Show the number of medicines which are low on stock"
 
 #: src/components/dashboard/DashboardWidgetLibrary.tsx:75
 #: src/tables/part/PartTableFilters.tsx:85
@@ -1169,7 +1161,7 @@ msgstr "High Stock"
 
 #: src/components/dashboard/DashboardWidgetLibrary.tsx:77
 msgid "Show the number of parts which have excess stock"
-msgstr "Show the number of products which have excess stock"
+msgstr "Show the number of medicines which have excess stock"
 
 #: src/components/dashboard/DashboardWidgetLibrary.tsx:86
 msgid "Required for Build Orders"
@@ -1177,7 +1169,7 @@ msgstr "Required for Build Orders"
 
 #: src/components/dashboard/DashboardWidgetLibrary.tsx:88
 msgid "Show parts which are required for active build orders"
-msgstr "Show products which are required for active build orders"
+msgstr "Show medicines which are required for active build orders"
 
 #: src/components/dashboard/DashboardWidgetLibrary.tsx:93
 msgid "Expired Stock Items"
@@ -1622,7 +1614,7 @@ msgstr "Delete table"
 
 #: src/components/editors/NotesEditor.tsx:701
 #: src/components/nexa/AdjustStockButton.tsx:215
-#: src/components/nexa/RecordSaleButton.tsx:702
+#: src/components/nexa/RecordSaleButton.tsx:731
 #: src/components/panels/NotesPanel.tsx:24
 #: src/forms/NexaForms.tsx:47
 #: src/forms/NexaForms.tsx:95
@@ -1694,7 +1686,7 @@ msgid "An unknown error occurred while rendering the preview."
 msgstr "An unknown error occurred while rendering the preview."
 
 #: src/components/editors/TemplateEditor/TemplateEditor.tsx:279
-#: src/components/nexa/MedicineFlagsPanel.tsx:36
+#: src/components/nexa/MedicineFlagsPanel.tsx:98
 msgid "Saved"
 msgstr "Saved"
 
@@ -2159,7 +2151,7 @@ msgstr "Select..."
 #: src/components/wizards/ImportPartWizard.tsx:221
 #: src/forms/StockForms.tsx:1306
 #: src/pages/nexa/BillListPage.tsx:54
-#: src/pages/nexa/PurchaseListPage.tsx:78
+#: src/pages/nexa/PurchaseListPage.tsx:81
 msgid "Loading..."
 msgstr "Loading..."
 
@@ -2414,45 +2406,58 @@ msgstr "Select language"
 msgid "This information is only available for administrative users"
 msgstr "This information is only available for administrative users"
 
-#: src/components/items/PartCreationMenu.tsx:43
+#: src/components/items/PartCreationMenu.tsx:44
 msgid "Import Parts"
-msgstr "Import Products"
+msgstr "Import Medicines"
 
-#: src/components/items/PartCreationMenu.tsx:62
-#: src/pages/part/PartDetail.tsx:672
-#: src/tables/part/PartTable.tsx:200
+#: src/components/items/PartCreationMenu.tsx:63
+#: src/pages/part/PartDetail.tsx:674
+#: src/tables/part/PartTable.tsx:234
 msgid "Add Part"
-msgstr "Add Product"
+msgstr "Add Medicine"
 
-#: src/components/items/PartCreationMenu.tsx:80
+#: src/components/items/PartCreationMenu.tsx:93
 msgid "Add Parts"
-msgstr "Add Products"
+msgstr "Add Medicines"
 
-#: src/components/items/PartCreationMenu.tsx:86
+#: src/components/items/PartCreationMenu.tsx:99
+#: src/components/nexa/MedicineEntryModal.tsx:370
+msgid "New Medicine"
+msgstr "New Medicine"
+
+#: src/components/items/PartCreationMenu.tsx:99
+#~ msgid "Add Medicine + Stock"
+#~ msgstr "Add Medicine + Stock"
+
+#: src/components/items/PartCreationMenu.tsx:101
+msgid "Add a new medicine and its first batch"
+msgstr "Add a new medicine and its first batch"
+
+#: src/components/items/PartCreationMenu.tsx:106
 msgid "Create Part"
-msgstr "Create Product"
+msgstr "Create Medicine"
 
-#: src/components/items/PartCreationMenu.tsx:88
+#: src/components/items/PartCreationMenu.tsx:108
 msgid "Create a new part"
-msgstr "Create a new product"
+msgstr "Create a new medicine"
 
-#: src/components/items/PartCreationMenu.tsx:92
+#: src/components/items/PartCreationMenu.tsx:113
 #: src/tables/bom/BomTable.tsx:684
 #: src/tables/general/ParameterTable.tsx:203
 msgid "Import from File"
 msgstr "Import from File"
 
-#: src/components/items/PartCreationMenu.tsx:94
+#: src/components/items/PartCreationMenu.tsx:115
 msgid "Import parts from a file"
-msgstr "Import products from a file"
+msgstr "Import medicines from a file"
 
-#: src/components/items/PartCreationMenu.tsx:99
+#: src/components/items/PartCreationMenu.tsx:120
 msgid "Import from Supplier"
 msgstr "Import from Supplier"
 
-#: src/components/items/PartCreationMenu.tsx:101
+#: src/components/items/PartCreationMenu.tsx:122
 msgid "Import parts from a supplier plugin"
-msgstr "Import products from a supplier plugin"
+msgstr "Import medicines from a supplier plugin"
 
 #: src/components/items/RoleTable.tsx:81
 msgid "Updating"
@@ -2505,7 +2510,7 @@ msgstr "No items"
 #: src/components/render/Stock.tsx:98
 #: src/components/tables/ColumnRenderers.tsx:265
 #: src/components/tables/PartStockCell.tsx:85
-#: src/pages/part/PartDetail.tsx:586
+#: src/pages/part/PartDetail.tsx:588
 #: src/pages/stock/StockDetail.tsx:679
 #: src/pages/stock/StockDetailsPanel.tsx:204
 #: src/tables/build/BuildAllocatedStockTable.tsx:128
@@ -2804,13 +2809,24 @@ msgstr "Admin Center"
 msgid "Logout"
 msgstr "Logout"
 
+#: src/components/nav/NavigationDrawer.tsx:71
+#: src/defaults/links.tsx:43
+#: src/pages/Index/Settings/SystemSettings.tsx:217
+#: src/pages/part/CategoryDetail.tsx:218
+#: src/pages/part/CategoryDetail.tsx:279
+#: src/pages/part/CategoryDetail.tsx:323
+#: src/pages/part/PartCategoryDetailsPanel.tsx:69
+#: src/pages/part/PartDetail.tsx:546
+msgid "Products"
+msgstr "Products"
+
 #: src/components/nav/NavigationDrawer.tsx:78
 #: src/components/render/Part.tsx:36
 #: src/components/wizards/ImportPartWizard.tsx:808
 #: src/defaults/links.tsx:51
 #: src/forms/StockForms.tsx:1515
 #: src/pages/Index/Settings/SystemSettings.tsx:259
-#: src/pages/part/PartDetail.tsx:312
+#: src/pages/part/PartDetail.tsx:314
 #: src/pages/stock/LocationDetail.tsx:401
 #: src/pages/stock/LocationDetail.tsx:443
 #: src/pages/stock/StockDetail.tsx:337
@@ -2853,7 +2869,7 @@ msgstr "Sales"
 
 #: src/components/nav/NavigationDrawer.tsx:107
 #: src/defaults/links.tsx:73
-#: src/pages/nexa/PurchaseListPage.tsx:57
+#: src/pages/nexa/PurchaseListPage.tsx:59
 msgid "Purchase Entries"
 msgstr "Purchase Entries"
 
@@ -2942,7 +2958,7 @@ msgstr "Remove search group"
 
 #: src/components/nav/SearchDrawer.tsx:316
 #: src/pages/company/ManufacturerPartDetail.tsx:97
-#: src/pages/part/PartDetail.tsx:387
+#: src/pages/part/PartDetail.tsx:389
 #: src/pages/part/PartSupplierDetail.tsx:15
 #: src/pages/purchasing/PurchasingIndex.tsx:123
 msgid "Suppliers"
@@ -2998,17 +3014,17 @@ msgid "No results available for search query"
 msgstr "No results available for search query"
 
 #: src/components/nexa/AdjustStockButton.tsx:54
-#: src/components/nexa/ProductPicker.tsx:243
+#: src/components/nexa/ProductPicker.tsx:281
 msgid "(no batch)"
 msgstr "(no batch)"
 
 #: src/components/nexa/AdjustStockButton.tsx:54
-#: src/components/nexa/ProductPicker.tsx:245
+#: src/components/nexa/ProductPicker.tsx:283
 msgid "no expiry"
 msgstr "no expiry"
 
 #: src/components/nexa/AdjustStockButton.tsx:55
-#: src/components/nexa/ProductPicker.tsx:246
+#: src/components/nexa/ProductPicker.tsx:284
 msgid "EXPIRED"
 msgstr "EXPIRED"
 
@@ -3038,6 +3054,8 @@ msgid "Stock Adjustment"
 msgstr "Stock Adjustment"
 
 #: src/components/nexa/AdjustStockButton.tsx:170
+#: src/components/nexa/MedicineEntryModal.tsx:475
+#: src/components/nexa/ProductPicker.tsx:281
 #: src/components/render/Stock.tsx:115
 #: src/forms/BuildForms.tsx:385
 #: src/forms/BuildForms.tsx:468
@@ -3052,7 +3070,7 @@ msgstr "Stock Adjustment"
 #: src/forms/StockForms.tsx:1885
 #: src/forms/StockForms.tsx:1929
 #: src/pages/nexa/ExpiryReportPage.tsx:64
-#: src/pages/nexa/PurchaseListPage.tsx:89
+#: src/pages/nexa/PurchaseListPage.tsx:93
 #: src/tables/build/BuildLineTable.tsx:109
 msgid "Batch"
 msgstr "Batch"
@@ -3083,7 +3101,7 @@ msgid "More than the {0} in this batch"
 msgstr "More than the {0} in this batch"
 
 #: src/components/nexa/AdjustStockButton.tsx:195
-#: src/pages/nexa/BillPage.tsx:135
+#: src/pages/nexa/BillPage.tsx:142
 msgid "Reason"
 msgstr "Reason"
 
@@ -3108,11 +3126,13 @@ msgid "Record Adjustment"
 msgstr "Record Adjustment"
 
 #: src/components/nexa/CustomerPicker.tsx:53
+#: src/components/nexa/RecordSaleButton.tsx:579
+#: src/components/nexa/RecordSaleButton.tsx:659
 #: src/forms/NexaForms.tsx:81
 #: src/pages/company/CompanyDetailsPanel.tsx:84
 #: src/pages/company/CustomerDetail.tsx:8
 #: src/pages/nexa/BillListPage.tsx:62
-#: src/pages/nexa/InvoiceDetailPage.tsx:143
+#: src/pages/nexa/InvoiceDetailPage.tsx:144
 #: src/pages/nexa/ReceivablesReportPage.tsx:139
 #: src/pages/part/pricing/SaleHistoryPanel.tsx:32
 #: src/pages/sales/ReturnOrderDetailsPanel.tsx:60
@@ -3136,7 +3156,7 @@ msgid "Search for a customer..."
 msgstr "Search for a customer..."
 
 #: src/components/nexa/CustomerPicker.tsx:63
-#: src/components/nexa/ProductPicker.tsx:204
+#: src/components/nexa/ProductPicker.tsx:244
 msgid "Searching..."
 msgstr "Searching..."
 
@@ -3154,23 +3174,23 @@ msgid "Outstanding Invoices"
 msgstr "Outstanding Invoices"
 
 #: src/components/nexa/InvoiceStatusBadge.tsx:12
-#: src/components/nexa/RestockButton.tsx:67
-#: src/pages/nexa/PurchaseListPage.tsx:67
+#: src/components/nexa/MedicineEntryModal.tsx:44
+#: src/pages/nexa/PurchaseListPage.tsx:70
 #: src/pages/nexa/ReceivablesReportPage.tsx:94
 msgid "Unpaid"
 msgstr "Unpaid"
 
 #: src/components/nexa/InvoiceStatusBadge.tsx:13
-#: src/components/nexa/RestockButton.tsx:68
-#: src/pages/nexa/PurchaseListPage.tsx:68
+#: src/components/nexa/MedicineEntryModal.tsx:45
+#: src/pages/nexa/PurchaseListPage.tsx:71
 #: src/pages/nexa/ReceivablesReportPage.tsx:96
 msgid "Partially Paid"
 msgstr "Partially Paid"
 
 #: src/components/nexa/InvoiceStatusBadge.tsx:14
-#: src/components/nexa/RestockButton.tsx:69
-#: src/pages/nexa/InvoiceDetailPage.tsx:129
-#: src/pages/nexa/PurchaseListPage.tsx:69
+#: src/components/nexa/MedicineEntryModal.tsx:46
+#: src/pages/nexa/InvoiceDetailPage.tsx:130
+#: src/pages/nexa/PurchaseListPage.tsx:72
 #: src/pages/nexa/ReceivablesReportPage.tsx:99
 msgid "Paid"
 msgstr "Paid"
@@ -3199,37 +3219,425 @@ msgstr "61-90 days"
 msgid "90+ days"
 msgstr "90+ days"
 
-#: src/components/nexa/MedicineFlagsPanel.tsx:39
+#: src/components/nexa/MedicineEntryModal.tsx:318
+msgid "Medicine added"
+msgstr "Medicine added"
+
+#: src/components/nexa/MedicineEntryModal.tsx:319
+msgid "Medicine and stock added to {branchName}"
+msgstr "Medicine and stock added to {branchName}"
+
+#: src/components/nexa/MedicineEntryModal.tsx:320
+msgid "Stock received at {branchName}"
+msgstr "Stock received at {branchName}"
+
+#: src/components/nexa/MedicineEntryModal.tsx:332
+#~ msgid "Medicine and stock added"
+#~ msgstr "Medicine and stock added"
+
+#: src/components/nexa/MedicineEntryModal.tsx:333
+#~ msgid "Stock received"
+#~ msgstr "Stock received"
+
+#: src/components/nexa/MedicineEntryModal.tsx:340
+msgid "Could not save — please try again"
+msgstr "Could not save — please try again"
+
+#: src/components/nexa/MedicineEntryModal.tsx:370
+#: src/components/nexa/RestockButton.tsx:28
+msgid "Receive Stock"
+msgstr "Receive Stock"
+
+#: src/components/nexa/MedicineEntryModal.tsx:378
+#: src/components/nexa/RecordSaleButton.tsx:588
+#~ msgid "Add Medicine"
+#~ msgstr "Add Medicine"
+
+#: src/components/nexa/MedicineEntryModal.tsx:392
+msgid "New medicine"
+msgstr "New medicine"
+
+#: src/components/nexa/MedicineEntryModal.tsx:393
+msgid "Existing medicine"
+msgstr "Existing medicine"
+
+#: src/components/nexa/MedicineEntryModal.tsx:398
+#: src/components/nexa/ProductPicker.tsx:221
+#: src/components/nexa/RecordSaleButton.tsx:181
+#: src/pages/nexa/ExpiryReportPage.tsx:63
+#: src/pages/nexa/InvoiceDetailPage.tsx:165
+#: src/pages/nexa/PurchaseListPage.tsx:91
+msgid "Medicine"
+msgstr "Medicine"
+
+#: src/components/nexa/MedicineEntryModal.tsx:402
+#: src/components/render/Part.tsx:116
+#: src/components/tables/ColumnRenderers.tsx:433
+#: src/components/tables/ColumnRenderers.tsx:442
+#: src/components/wizards/ImportPartWizard.tsx:807
+#: src/pages/part/PartDetailsPanel.tsx:114
+#: src/tables/notifications/NotificationTable.tsx:32
+#: src/tables/part/PartCategoryTemplateTable.tsx:87
+msgid "Category"
+msgstr "Category"
+
+#: src/components/nexa/MedicineEntryModal.tsx:403
+msgid "Select a category (optional)"
+msgstr "Select a category (optional)"
+
+#: src/components/nexa/MedicineEntryModal.tsx:406
+msgid "+ New category"
+msgstr "+ New category"
+
+#: src/components/nexa/MedicineEntryModal.tsx:415
+msgid "New category name"
+msgstr "New category name"
+
+#: src/components/nexa/MedicineEntryModal.tsx:422
+#: src/components/nexa/MedicineFlagsPanel.tsx:133
+msgid "Brand"
+msgstr "Brand"
+
+#: src/components/nexa/MedicineEntryModal.tsx:423
+msgid "e.g. Nico"
+msgstr "e.g. Nico"
+
+#: src/components/nexa/MedicineEntryModal.tsx:430
+#: src/components/nexa/MedicineEntryModal.tsx:460
+#: src/components/nexa/MedicineFlagsPanel.tsx:139
+#: src/tables/part/PartTable.tsx:67
+msgid "Generic Name"
+msgstr "Generic Name"
+
+#: src/components/nexa/MedicineEntryModal.tsx:430
+#~ msgid "Brand / Product Name"
+#~ msgstr "Brand / Medicine Name"
+
+#: src/components/nexa/MedicineEntryModal.tsx:431
+msgid "e.g. Paracetamol"
+msgstr "e.g. Paracetamol"
+
+#: src/components/nexa/MedicineEntryModal.tsx:436
+#: src/components/nexa/MedicineEntryModal.tsx:461
+#: src/components/nexa/MedicineFlagsPanel.tsx:145
+#: src/tables/part/PartTable.tsx:72
+msgid "Strength"
+msgstr "Strength"
+
+#: src/components/nexa/MedicineEntryModal.tsx:437
+msgid "e.g. 500 mg"
+msgstr "e.g. 500 mg"
+
+#: src/components/nexa/MedicineEntryModal.tsx:443
+#: src/components/nexa/MedicineEntryModal.tsx:463
+#: src/components/nexa/MedicineFlagsPanel.tsx:166
+#: src/components/plugins/PluginDrawer.tsx:88
+#: src/components/tables/ColumnRenderers.tsx:495
+#: src/pages/build/BuildOrderDetailsPanel.tsx:96
+#: src/pages/company/CompanyDetailsPanel.tsx:29
+#: src/pages/company/ManufacturerPartDetailsPanel.tsx:46
+#: src/pages/company/ManufacturerPartDetailsPanel.tsx:73
+#: src/pages/company/SupplierPartDetailsPanel.tsx:99
+#: src/pages/part/PartCategoryDetailsPanel.tsx:42
+#: src/pages/part/PartDetailsPanel.tsx:87
+#: src/pages/purchasing/PurchaseOrderDetailsPanel.tsx:65
+#: src/pages/sales/ReturnOrderDetailsPanel.tsx:66
+#: src/pages/sales/SalesOrderDetailsPanel.tsx:66
+#: src/pages/stock/StockLocationDetailsPanel.tsx:40
+#: src/pages/stock/TransferOrderDetailsPanel.tsx:43
+#: src/tables/build/BuildAllocatedStockTable.tsx:94
+#: src/tables/machine/MachineTypeTable.tsx:162
+#: src/tables/machine/MachineTypeTable.tsx:258
+#: src/tables/plugin/PluginListTable.tsx:117
+msgid "Description"
+msgstr "Description"
+
+#: src/components/nexa/MedicineEntryModal.tsx:444
+msgid "e.g. For fever and pain, after food"
+msgstr "e.g. For fever and pain, after food"
+
+#: src/components/nexa/MedicineEntryModal.tsx:450
+msgid "No stock yet (add the medicine only)"
+msgstr "No stock yet (add the medicine only)"
+
+#: src/components/nexa/MedicineEntryModal.tsx:477
+#: src/components/nexa/RecordSaleButton.tsx:570
+#: src/pages/nexa/ExpiryReportPage.tsx:68
+#: src/pages/nexa/PurchaseListPage.tsx:92
+msgid "Branch"
+msgstr "Branch"
+
+#: src/components/nexa/MedicineEntryModal.tsx:478
+msgid "Which branch is this stock going to?"
+msgstr "Which branch is this stock going to?"
+
+#: src/components/nexa/MedicineEntryModal.tsx:479
+msgid "Pick a branch"
+msgstr "Pick a branch"
+
+#: src/components/nexa/MedicineEntryModal.tsx:479
+#~ msgid "Expiry (month / year)"
+#~ msgstr "Expiry (month / year)"
+
+#: src/components/nexa/MedicineEntryModal.tsx:485
+msgid "No branches yet — add one under Stock"
+msgstr "No branches yet — add one under Stock"
+
+#: src/components/nexa/MedicineEntryModal.tsx:489
+msgid "Batch No."
+msgstr "Batch No."
+
+#: src/components/nexa/MedicineEntryModal.tsx:495
+#: src/components/nexa/ReportTabs.tsx:18
+#: src/pages/nexa/ExpiryReportPage.tsx:65
+#: src/pages/nexa/PurchaseListPage.tsx:94
+#: src/tables/settings/ApiTokenTable.tsx:108
+msgid "Expiry"
+msgstr "Expiry"
+
+#: src/components/nexa/MedicineEntryModal.tsx:501
+#: src/components/nexa/RecordSaleButton.tsx:210
+#: src/components/render/Stock.tsx:100
+#: src/components/wizards/OrderPartsWizard.tsx:389
+#: src/forms/BomForms.tsx:42
+#: src/forms/BuildForms.tsx:284
+#: src/forms/BuildForms.tsx:707
+#: src/forms/BuildForms.tsx:871
+#: src/forms/NexaForms.tsx:37
+#: src/forms/NexaForms.tsx:71
+#: src/forms/PurchaseOrderForms.tsx:939
+#: src/forms/ReturnOrderForms.tsx:243
+#: src/forms/SalesOrderForms.tsx:438
+#: src/forms/StockForms.tsx:724
+#: src/forms/StockForms.tsx:948
+#: src/forms/StockForms.tsx:1563
+#: src/forms/TransferOrderForms.tsx:242
+#: src/pages/build/BuildIndex.tsx:47
+#: src/pages/nexa/InvoiceDetailPage.tsx:166
+#: src/pages/nexa/SalesReportPage.tsx:102
+#: src/pages/part/PartStockHistoryDetail.tsx:64
+#: src/pages/part/PartStockHistoryDetail.tsx:244
+#: src/pages/part/PartStockHistoryDetail.tsx:268
+#: src/pages/part/bom/BomCompare.tsx:33
+#: src/pages/part/bom/BomCompare.tsx:204
+#: src/pages/part/pricing/BomPricingPanel.tsx:113
+#: src/pages/part/pricing/PriceBreakPanel.tsx:89
+#: src/pages/part/pricing/PriceBreakPanel.tsx:173
+#: src/pages/stock/StockDetail.tsx:673
+#: src/pages/stock/StockDetailsPanel.tsx:197
+#: src/tables/build/BuildLineTable.tsx:99
+#: src/tables/part/PartPurchaseOrdersTable.tsx:103
+#: src/tables/part/PartTestResultTable.tsx:282
+#: src/tables/purchasing/PurchaseOrderLineItemTable.tsx:183
+#: src/tables/purchasing/PurchaseOrderLineItemTable.tsx:214
+#: src/tables/purchasing/SupplierPriceBreakTable.tsx:69
+#: src/tables/stock/StockTrackingTable.tsx:105
+msgid "Quantity"
+msgstr "Quantity"
+
+#: src/components/nexa/MedicineEntryModal.tsx:508
+msgid "Purchase Rate (per unit)"
+msgstr "Purchase Rate (per unit)"
+
+#: src/components/nexa/MedicineEntryModal.tsx:519
+#: src/components/nexa/MedicineFlagsPanel.tsx:157
+msgid "MRP (per unit)"
+msgstr "MRP (per unit)"
+
+#: src/components/nexa/MedicineEntryModal.tsx:521
+#~ msgid "Supplier Name"
+#~ msgstr "Supplier Name"
+
+#: src/components/nexa/MedicineEntryModal.tsx:526
+msgid "Changing it updates this medicine's MRP"
+msgstr "Changing it updates this medicine's MRP"
+
+#: src/components/nexa/MedicineEntryModal.tsx:531
+#: src/components/nexa/MedicineEntryModal.tsx:570
+#: src/components/nexa/MedicineEntryModal.tsx:576
+#: src/components/nexa/MedicineFlagsPanel.tsx:151
+#: src/components/tables/Filter.tsx:454
+#: src/pages/company/CompanyDetailsPanel.tsx:78
+#: src/pages/company/ManufacturerDetail.tsx:8
+#: src/pages/company/ManufacturerPartDetail.tsx:197
+#: src/pages/company/ManufacturerPartDetailsPanel.tsx:57
+#: src/pages/company/SupplierPartDetailsPanel.tsx:106
+#: src/tables/company/CompanyTable.tsx:121
+#: src/tables/purchasing/SupplierPartTable.tsx:117
+msgid "Manufacturer"
+msgstr "Manufacturer"
+
+#: src/components/nexa/MedicineEntryModal.tsx:531
+msgid "Supplier & manufacturer"
+msgstr "Supplier & manufacturer"
+
+#: src/components/nexa/MedicineEntryModal.tsx:537
+#: src/components/tables/Filter.tsx:467
+#: src/components/wizards/ImportPartWizard.tsx:205
+#: src/pages/company/CompanyDetailsPanel.tsx:72
+#: src/pages/company/SupplierDetail.tsx:8
+#: src/pages/company/SupplierPartDetail.tsx:215
+#: src/pages/company/SupplierPartDetailsPanel.tsx:84
+#: src/pages/company/SupplierPartDetailsPanel.tsx:183
+#: src/pages/nexa/PurchaseListPage.tsx:90
+#: src/pages/purchasing/PurchaseOrderDetailsPanel.tsx:59
+#: src/tables/company/CompanyTable.tsx:116
+#: src/tables/part/PartPurchaseOrdersTable.tsx:52
+#: src/tables/purchasing/PurchaseOrderParametricTable.tsx:27
+#: src/tables/purchasing/PurchaseOrderTable.tsx:68
+#: src/tables/purchasing/SupplierPriceBreakTable.tsx:40
+msgid "Supplier"
+msgstr "Supplier"
+
+#: src/components/nexa/MedicineEntryModal.tsx:546
+msgid "No suppliers — add one under Purchasing"
+msgstr "No suppliers — add one under Purchasing"
+
+#: src/components/nexa/MedicineEntryModal.tsx:551
+msgid "Supplier Phone"
+msgstr "Supplier Phone"
+
+#: src/components/nexa/MedicineEntryModal.tsx:556
+msgid "Supplier DDA Reg. No."
+msgstr "Supplier DDA Reg. No."
+
+#: src/components/nexa/MedicineEntryModal.tsx:561
+msgid "Saved on the supplier for next time"
+msgstr "Saved on the supplier for next time"
+
+#: src/components/nexa/MedicineEntryModal.tsx:575
+#~ msgid "More details (invoice, free qty, discount, tax, branch)"
+#~ msgstr "More details (invoice, free qty, discount, tax, branch)"
+
+#: src/components/nexa/MedicineEntryModal.tsx:580
+#~ msgid "Purchase Invoice No."
+#~ msgstr "Purchase Invoice No."
+
+#: src/components/nexa/MedicineEntryModal.tsx:591
+msgid "More details (supplier invoice, free qty, discount, tax)"
+msgstr "More details (supplier invoice, free qty, discount, tax)"
+
+#: src/components/nexa/MedicineEntryModal.tsx:593
+#~ msgid "More details (supplier invoice, free qty, discount, tax, branch)"
+#~ msgstr "More details (supplier invoice, free qty, discount, tax, branch)"
+
+#: src/components/nexa/MedicineEntryModal.tsx:596
+#: src/pages/nexa/PurchaseListPage.tsx:89
+msgid "Supplier Invoice No."
+msgstr "Supplier Invoice No."
+
+#: src/components/nexa/MedicineEntryModal.tsx:598
+#~ msgid "Free / Bonus Quantity"
+#~ msgstr "Free / Bonus Quantity"
+
+#: src/components/nexa/MedicineEntryModal.tsx:601
+msgid "Purchase Date"
+msgstr "Purchase Date"
+
+#: src/components/nexa/MedicineEntryModal.tsx:607
+msgid "Payment Status"
+msgstr "Payment Status"
+
+#: src/components/nexa/MedicineEntryModal.tsx:614
+msgid "Free Qty"
+msgstr "Free Qty"
+
+#: src/components/nexa/MedicineEntryModal.tsx:618
+#~ msgid "Received Into"
+#~ msgstr "Received Into"
+
+#: src/components/nexa/MedicineEntryModal.tsx:620
+#: src/components/nexa/RecordSaleButton.tsx:512
+#: src/components/nexa/RecordSaleButton.tsx:706
+#: src/components/nexa/RecordSaleButton.tsx:749
+#: src/tables/general/ExtraLineItemTable.tsx:81
+#: src/tables/purchasing/PurchaseOrderLineItemTable.tsx:270
+#: src/tables/sales/ReturnOrderLineItemTable.tsx:201
+#: src/tables/sales/SalesOrderLineItemTable.tsx:157
+msgid "Discount"
+msgstr "Discount"
+
+#: src/components/nexa/MedicineEntryModal.tsx:624
+#~ msgid "No stock locations — create one under Stock"
+#~ msgstr "No stock locations — create one under Stock"
+
+#: src/components/nexa/MedicineEntryModal.tsx:627
+msgid "Tax"
+msgstr "Tax"
+
+#: src/components/nexa/MedicineEntryModal.tsx:636
+msgid "Line total"
+msgstr "Line total"
+
+#: src/components/nexa/MedicineEntryModal.tsx:647
+#: src/forms/StockForms.tsx:1999
+#: src/hooks/UseStockAdjustActions.tsx:112
+msgid "Add Stock"
+msgstr "Add Stock"
+
+#: src/components/nexa/MedicineEntryModal.tsx:647
+msgid "Save Medicine"
+msgstr "Save Medicine"
+
+#: src/components/nexa/MedicineEntryModal.tsx:647
+msgid "Save Medicine & Stock"
+msgstr "Save Medicine & Stock"
+
+#: src/components/nexa/MedicineFlagsPanel.tsx:105
 msgid "Could not save"
 msgstr "Could not save"
 
-#: src/components/nexa/MedicineFlagsPanel.tsx:45
+#: src/components/nexa/MedicineFlagsPanel.tsx:113
 msgid "Could not load the pharmacy settings for this medicine"
 msgstr "Could not load the pharmacy settings for this medicine"
 
-#: src/components/nexa/MedicineFlagsPanel.tsx:55
-msgid "Prescription control"
-msgstr "Prescription control"
+#: src/components/nexa/MedicineFlagsPanel.tsx:125
+msgid "Medicine details"
+msgstr "Medicine details"
 
-#: src/components/nexa/MedicineFlagsPanel.tsx:58
+#: src/components/nexa/MedicineFlagsPanel.tsx:128
 msgid "Only an owner or admin can change these settings."
 msgstr "Only an owner or admin can change these settings."
 
-#: src/components/nexa/MedicineFlagsPanel.tsx:62
+#: src/components/nexa/MedicineFlagsPanel.tsx:188
+msgid "Save details"
+msgstr "Save details"
+
+#: src/components/nexa/MedicineFlagsPanel.tsx:192
+msgid "Prescription control"
+msgstr "Prescription control"
+
+#: src/components/nexa/MedicineFlagsPanel.tsx:194
 msgid "Prescription only (Rx)"
 msgstr "Prescription only (Rx)"
 
-#: src/components/nexa/MedicineFlagsPanel.tsx:63
+#: src/components/nexa/MedicineFlagsPanel.tsx:195
 msgid "Cannot be sold over the counter; sell it as a Prescription."
 msgstr "Cannot be sold over the counter; sell it as a Prescription."
 
-#: src/components/nexa/MedicineFlagsPanel.tsx:73
+#: src/components/nexa/MedicineFlagsPanel.tsx:205
 msgid "Controlled medicine"
 msgstr "Controlled medicine"
 
-#: src/components/nexa/MedicineFlagsPanel.tsx:74
+#: src/components/nexa/MedicineFlagsPanel.tsx:206
 msgid "Always prescription-only, and the prescription reference is mandatory."
 msgstr "Always prescription-only, and the prescription reference is mandatory."
+
+#: src/components/nexa/MonthYearInput.tsx:38
+msgid "Expiry month"
+msgstr "Expiry month"
+
+#: src/components/nexa/MonthYearInput.tsx:39
+msgid "MM"
+msgstr "MM"
+
+#: src/components/nexa/MonthYearInput.tsx:45
+msgid "Expiry year"
+msgstr "Expiry year"
+
+#: src/components/nexa/MonthYearInput.tsx:46
+msgid "YYYY"
+msgstr "YYYY"
 
 #: src/components/nexa/NexaDashboard.tsx:41
 #: src/pages/nexa/SalesReportPage.tsx:32
@@ -3242,13 +3650,14 @@ msgid "Cash (OTC)"
 msgstr "Cash (OTC)"
 
 #: src/components/nexa/NexaDashboard.tsx:43
-#: src/components/nexa/RecordSaleButton.tsx:78
+#: src/components/nexa/RecordSaleButton.tsx:79
 #: src/pages/nexa/SalesReportPage.tsx:34
 msgid "Online / Mobile"
 msgstr "Online / Mobile"
 
 #: src/components/nexa/NexaDashboard.tsx:44
-#: src/components/nexa/RecordSaleButton.tsx:66
+#: src/components/nexa/RecordSaleButton.tsx:67
+#: src/components/nexa/RecordSaleButton.tsx:620
 #: src/components/nexa/TransactionStatusBadge.tsx:25
 #: src/pages/nexa/SalesReportPage.tsx:35
 msgid "Prescription"
@@ -3264,9 +3673,9 @@ msgstr "Collected Today"
 
 #: src/components/nexa/NexaDashboard.tsx:151
 #: src/components/nexa/ReceivePaymentButton.tsx:94
-#: src/components/nexa/RecordSaleButton.tsx:469
+#: src/components/nexa/RecordSaleButton.tsx:490
 #: src/components/tables/Filter.tsx:186
-#: src/pages/nexa/InvoiceDetailPage.tsx:134
+#: src/pages/nexa/InvoiceDetailPage.tsx:135
 #: src/pages/nexa/ReceivablesReportPage.tsx:112
 #: src/pages/nexa/ReceivablesReportPage.tsx:140
 #: src/tables/nexa/InvoiceTable.tsx:82
@@ -3325,47 +3734,60 @@ msgstr "View all"
 msgid "No outstanding balances"
 msgstr "No outstanding balances"
 
-#: src/components/nexa/ProductPicker.tsx:123
+#: src/components/nexa/ProductPicker.tsx:157
 msgid "Rx"
 msgstr "Rx"
 
-#: src/components/nexa/ProductPicker.tsx:128
+#: src/components/nexa/ProductPicker.tsx:162
 msgid "Controlled"
 msgstr "Controlled"
 
-#: src/components/nexa/ProductPicker.tsx:186
-#: src/components/nexa/RecordSaleButton.tsx:172
-#: src/pages/nexa/ExpiryReportPage.tsx:63
-#: src/pages/nexa/PurchaseListPage.tsx:88
-msgid "Medicine"
-msgstr "Medicine"
+#: src/components/nexa/ProductPicker.tsx:222
+msgid "Search by medicine or generic name..."
+msgstr "Search by medicine or generic name..."
 
-#: src/components/nexa/ProductPicker.tsx:187
-msgid "Search for a medicine..."
-msgstr "Search for a medicine..."
+#: src/components/nexa/ProductPicker.tsx:222
+#~ msgid "Search for a medicine..."
+#~ msgstr "Search for a medicine..."
 
-#: src/components/nexa/ProductPicker.tsx:204
+#: src/components/nexa/ProductPicker.tsx:236
+#~ msgid "{sellableText} available to sell — earliest expiry is sold first"
+#~ msgstr "{sellableText} available to sell — earliest expiry is sold first"
+
+#: src/components/nexa/ProductPicker.tsx:244
 msgid "No medicines found"
 msgstr "No medicines found"
 
-#: src/components/nexa/ProductPicker.tsx:223
+#: src/components/nexa/ProductPicker.tsx:263
 msgid "Out of stock"
 msgstr "Out of stock"
 
-#: src/components/nexa/ProductPicker.tsx:236
-msgid "{sellableText} available to sell — earliest expiry is sold first"
-msgstr "{sellableText} available to sell — earliest expiry is sold first"
+#: src/components/nexa/ProductPicker.tsx:276
+msgid "Batches (earliest expiry is sold first):"
+msgstr "Batches (earliest expiry is sold first):"
 
-#: src/components/nexa/ProductPicker.tsx:237
+#: src/components/nexa/ProductPicker.tsx:276
+#~ msgid "{sellableText} in stock — earliest expiry is sold first"
+#~ msgstr "{sellableText} in stock — earliest expiry is sold first"
+
+#: src/components/nexa/ProductPicker.tsx:277
 msgid "Only expired stock is left — nothing can be sold"
 msgstr "Only expired stock is left — nothing can be sold"
 
-#: src/components/nexa/ProductPicker.tsx:255
+#: src/components/nexa/ProductPicker.tsx:283
+msgid "Exp"
+msgstr "Exp"
+
+#: src/components/nexa/ProductPicker.tsx:286
+msgid "in stock"
+msgstr "in stock"
+
+#: src/components/nexa/ProductPicker.tsx:291
 msgid "+ {more} more batches"
 msgstr "+ {more} more batches"
 
 #: src/components/nexa/ReceivePaymentButton.tsx:23
-#: src/components/nexa/RecordSaleButton.tsx:237
+#: src/components/nexa/RecordSaleButton.tsx:258
 #: src/components/nexa/TransactionStatusBadge.tsx:23
 #: src/forms/NexaForms.tsx:114
 #: src/tables/nexa/PaymentHistoryTable.tsx:18
@@ -3373,7 +3795,7 @@ msgid "Cash"
 msgstr "Cash"
 
 #: src/components/nexa/ReceivePaymentButton.tsx:24
-#: src/components/nexa/RecordSaleButton.tsx:238
+#: src/components/nexa/RecordSaleButton.tsx:259
 #: src/components/nexa/TransactionStatusBadge.tsx:24
 #: src/forms/NexaForms.tsx:115
 #: src/tables/nexa/PaymentHistoryTable.tsx:19
@@ -3387,7 +3809,7 @@ msgid "Cheque"
 msgstr "Cheque"
 
 #: src/components/nexa/ReceivePaymentButton.tsx:81
-#: src/pages/nexa/InvoiceDetailPage.tsx:85
+#: src/pages/nexa/InvoiceDetailPage.tsx:86
 msgid "Payment recorded"
 msgstr "Payment recorded"
 
@@ -3401,7 +3823,6 @@ msgid "Receive Payment"
 msgstr "Receive Payment"
 
 #: src/components/nexa/ReceivePaymentButton.tsx:133
-#: src/pages/nexa/PurchaseListPage.tsx:86
 msgid "Invoice"
 msgstr "Invoice"
 
@@ -3442,202 +3863,169 @@ msgid "Reference"
 msgstr "Reference"
 
 #: src/components/nexa/ReceivePaymentButton.tsx:172
-#: src/pages/nexa/InvoiceDetailPage.tsx:82
-#: src/pages/nexa/InvoiceDetailPage.tsx:116
+#: src/pages/nexa/InvoiceDetailPage.tsx:83
+#: src/pages/nexa/InvoiceDetailPage.tsx:117
 msgid "Record Payment"
 msgstr "Record Payment"
 
-#: src/components/nexa/RecordSaleButton.tsx:60
+#: src/components/nexa/RecordSaleButton.tsx:61
 msgid "Cash Sale (OTC)"
 msgstr "Cash Sale (OTC)"
 
-#: src/components/nexa/RecordSaleButton.tsx:72
+#: src/components/nexa/RecordSaleButton.tsx:73
 msgid "Credit Sale"
 msgstr "Credit Sale"
 
-#: src/components/nexa/RecordSaleButton.tsx:179
+#: src/components/nexa/RecordSaleButton.tsx:188
 msgid "Remove medicine"
 msgstr "Remove medicine"
 
-#: src/components/nexa/RecordSaleButton.tsx:200
-#: src/components/render/Stock.tsx:100
-#: src/components/wizards/OrderPartsWizard.tsx:389
-#: src/forms/BomForms.tsx:42
-#: src/forms/BuildForms.tsx:284
-#: src/forms/BuildForms.tsx:707
-#: src/forms/BuildForms.tsx:871
-#: src/forms/NexaForms.tsx:37
-#: src/forms/NexaForms.tsx:71
-#: src/forms/PurchaseOrderForms.tsx:939
-#: src/forms/ReturnOrderForms.tsx:243
-#: src/forms/SalesOrderForms.tsx:438
-#: src/forms/StockForms.tsx:724
-#: src/forms/StockForms.tsx:948
-#: src/forms/StockForms.tsx:1563
-#: src/forms/TransferOrderForms.tsx:242
-#: src/pages/build/BuildIndex.tsx:47
-#: src/pages/nexa/ExpiryReportPage.tsx:67
-#: src/pages/nexa/InvoiceDetailPage.tsx:164
-#: src/pages/nexa/SalesReportPage.tsx:102
-#: src/pages/part/PartStockHistoryDetail.tsx:64
-#: src/pages/part/PartStockHistoryDetail.tsx:244
-#: src/pages/part/PartStockHistoryDetail.tsx:268
-#: src/pages/part/bom/BomCompare.tsx:33
-#: src/pages/part/bom/BomCompare.tsx:204
-#: src/pages/part/pricing/BomPricingPanel.tsx:113
-#: src/pages/part/pricing/PriceBreakPanel.tsx:89
-#: src/pages/part/pricing/PriceBreakPanel.tsx:173
-#: src/pages/stock/StockDetail.tsx:673
-#: src/pages/stock/StockDetailsPanel.tsx:197
-#: src/tables/build/BuildLineTable.tsx:99
-#: src/tables/part/PartPurchaseOrdersTable.tsx:103
-#: src/tables/part/PartTestResultTable.tsx:282
-#: src/tables/purchasing/PurchaseOrderLineItemTable.tsx:183
-#: src/tables/purchasing/PurchaseOrderLineItemTable.tsx:214
-#: src/tables/purchasing/SupplierPriceBreakTable.tsx:69
-#: src/tables/stock/StockTrackingTable.tsx:105
-msgid "Quantity"
-msgstr "Quantity"
+#: src/components/nexa/RecordSaleButton.tsx:217
+msgid "{stockText} in stock"
+msgstr "{stockText} in stock"
 
-#: src/components/nexa/RecordSaleButton.tsx:205
+#: src/components/nexa/RecordSaleButton.tsx:219
 msgid "More than the {sellable} available"
 msgstr "More than the {sellable} available"
 
-#: src/components/nexa/RecordSaleButton.tsx:208
-#: src/forms/NexaForms.tsx:42
-#: src/forms/NexaForms.tsx:76
-msgid "Unit Value"
-msgstr "Unit Value"
+#: src/components/nexa/RecordSaleButton.tsx:222
+msgid "Sale Rate (per unit)"
+msgstr "Sale Rate (per unit)"
 
-#: src/components/nexa/RecordSaleButton.tsx:239
+#. placeholder {0}: formatMoney(mrp)
+#: src/components/nexa/RecordSaleButton.tsx:229
+msgid "MRP {0} per unit"
+msgstr "MRP {0} per unit"
+
+#. placeholder {0}: formatMoney(mrp)
+#: src/components/nexa/RecordSaleButton.tsx:232
+msgid "Above the MRP of {0}"
+msgstr "Above the MRP of {0}"
+
+#: src/components/nexa/RecordSaleButton.tsx:260
 msgid "QR"
 msgstr "QR"
 
-#: src/components/nexa/RecordSaleButton.tsx:240
+#: src/components/nexa/RecordSaleButton.tsx:261
 msgid "Other"
 msgstr "Other"
 
-#: src/components/nexa/RecordSaleButton.tsx:414
+#: src/components/nexa/RecordSaleButton.tsx:435
 msgid "Something went wrong recording this sale"
 msgstr "Something went wrong recording this sale"
 
-#: src/components/nexa/RecordSaleButton.tsx:439
-#: src/components/nexa/RecordSaleButton.tsx:445
-#: src/components/nexa/RecordSaleButton.tsx:502
+#: src/components/nexa/RecordSaleButton.tsx:460
+#: src/components/nexa/RecordSaleButton.tsx:466
+#: src/components/nexa/RecordSaleButton.tsx:523
 msgid "New Sale"
 msgstr "New Sale"
 
 #. placeholder {0}: success.reference
-#: src/components/nexa/RecordSaleButton.tsx:466
+#: src/components/nexa/RecordSaleButton.tsx:487
 msgid "Invoice {0} created"
 msgstr "Invoice {0} created"
 
-#: src/components/nexa/RecordSaleButton.tsx:469
-#: src/components/nexa/RecordSaleButton.tsx:726
-#: src/pages/nexa/InvoiceDetailPage.tsx:127
-#: src/pages/nexa/PurchaseListPage.tsx:92
+#: src/components/nexa/RecordSaleButton.tsx:490
+#: src/components/nexa/RecordSaleButton.tsx:755
+#: src/pages/nexa/InvoiceDetailPage.tsx:128
+#: src/pages/nexa/PurchaseListPage.tsx:96
 #: src/tables/nexa/InvoiceTable.tsx:76
 msgid "Total"
 msgstr "Total"
 
 #. placeholder {0}: success.reference
-#: src/components/nexa/RecordSaleButton.tsx:478
+#: src/components/nexa/RecordSaleButton.tsx:499
 msgid "Bill {0} saved"
 msgstr "Bill {0} saved"
 
-#: src/components/nexa/RecordSaleButton.tsx:491
-#: src/components/nexa/RecordSaleButton.tsx:677
-#: src/components/nexa/RecordSaleButton.tsx:720
-#: src/components/nexa/RestockButton.tsx:262
-#: src/tables/general/ExtraLineItemTable.tsx:81
-#: src/tables/purchasing/PurchaseOrderLineItemTable.tsx:270
-#: src/tables/sales/ReturnOrderLineItemTable.tsx:201
-#: src/tables/sales/SalesOrderLineItemTable.tsx:157
-msgid "Discount"
-msgstr "Discount"
-
-#: src/components/nexa/RecordSaleButton.tsx:495
-#: src/components/nexa/RecordSaleButton.tsx:726
+#: src/components/nexa/RecordSaleButton.tsx:516
+#: src/components/nexa/RecordSaleButton.tsx:755
 #: src/pages/nexa/BillListPage.tsx:64
 msgid "Net Amount"
 msgstr "Net Amount"
 
-#: src/components/nexa/RecordSaleButton.tsx:511
+#: src/components/nexa/RecordSaleButton.tsx:532
 msgid "View Invoice"
 msgstr "View Invoice"
 
-#: src/components/nexa/RecordSaleButton.tsx:521
+#: src/components/nexa/RecordSaleButton.tsx:542
 msgid "View / Print Bill"
 msgstr "View / Print Bill"
 
-#: src/components/nexa/RecordSaleButton.tsx:551
-msgid "Branch"
-msgstr "Branch"
+#: src/components/nexa/RecordSaleButton.tsx:588
+msgid "Medicines"
+msgstr "Medicines"
 
-#: src/components/nexa/RecordSaleButton.tsx:585
-msgid "Add Medicine"
-msgstr "Add Medicine"
+#: src/components/nexa/RecordSaleButton.tsx:609
+msgid "Add another medicine"
+msgstr "Add another medicine"
 
-#: src/components/nexa/RecordSaleButton.tsx:591
+#: src/components/nexa/RecordSaleButton.tsx:615
 msgid "Prescription-only medicine in this sale. Choose Prescription as the sale type."
 msgstr "Prescription-only medicine in this sale. Choose Prescription as the sale type."
 
-#: src/components/nexa/RecordSaleButton.tsx:598
+#: src/components/nexa/RecordSaleButton.tsx:625
 msgid "Prescriber"
 msgstr "Prescriber"
 
-#: src/components/nexa/RecordSaleButton.tsx:599
+#: src/components/nexa/RecordSaleButton.tsx:626
 msgid "Doctor's name"
 msgstr "Doctor's name"
 
-#: src/components/nexa/RecordSaleButton.tsx:608
+#: src/components/nexa/RecordSaleButton.tsx:635
 msgid "NMC Number"
 msgstr "NMC Number"
 
-#: src/components/nexa/RecordSaleButton.tsx:609
+#: src/components/nexa/RecordSaleButton.tsx:636
 msgid "Doctor's NMC registration no."
 msgstr "Doctor's NMC registration no."
 
-#: src/components/nexa/RecordSaleButton.tsx:622
+#: src/components/nexa/RecordSaleButton.tsx:649
 #: src/forms/NexaForms.tsx:89
-#: src/pages/nexa/InvoiceDetailPage.tsx:138
+#: src/pages/nexa/InvoiceDetailPage.tsx:139
 #: src/tables/nexa/InvoiceTable.tsx:73
 msgid "Due Date"
 msgstr "Due Date"
 
-#: src/components/nexa/RecordSaleButton.tsx:623
+#: src/components/nexa/RecordSaleButton.tsx:650
 msgid "Defaults to 30 days from today"
 msgstr "Defaults to 30 days from today"
 
-#: src/components/nexa/RecordSaleButton.tsx:634
+#: src/components/nexa/RecordSaleButton.tsx:662
 msgid "Customer Name"
 msgstr "Customer Name"
 
-#: src/components/nexa/RecordSaleButton.tsx:642
+#: src/components/nexa/RecordSaleButton.tsx:670
 msgid "Phone"
 msgstr "Phone"
 
-#: src/components/nexa/RecordSaleButton.tsx:658
+#: src/components/nexa/RecordSaleButton.tsx:686
 msgid "Customer PAN"
 msgstr "Customer PAN"
 
-#: src/components/nexa/RecordSaleButton.tsx:668
+#: src/components/nexa/RecordSaleButton.tsx:694
+#: src/pages/nexa/BillListPage.tsx:63
+#: src/pages/nexa/PurchaseListPage.tsx:97
+msgid "Payment"
+msgstr "Payment"
+
+#: src/components/nexa/RecordSaleButton.tsx:697
 msgid "Payment Mode"
 msgstr "Payment Mode"
 
-#: src/components/nexa/RecordSaleButton.tsx:684
+#: src/components/nexa/RecordSaleButton.tsx:713
 msgid "More than the bill total"
 msgstr "More than the bill total"
 
-#: src/components/nexa/RecordSaleButton.tsx:689
+#: src/components/nexa/RecordSaleButton.tsx:718
 msgid "Reason for Discount"
 msgstr "Reason for Discount"
 
-#: src/components/nexa/RecordSaleButton.tsx:717
+#: src/components/nexa/RecordSaleButton.tsx:746
 msgid "Sub-total"
 msgstr "Sub-total"
 
-#: src/components/nexa/RecordSaleButton.tsx:740
+#: src/components/nexa/RecordSaleButton.tsx:769
 msgid "Complete Sale"
 msgstr "Complete Sale"
 
@@ -3650,104 +4038,21 @@ msgstr "From"
 msgid "To"
 msgstr "To"
 
-#: src/components/nexa/ReportTabs.tsx:18
-#: src/pages/nexa/ExpiryReportPage.tsx:65
-#: src/pages/nexa/PurchaseListPage.tsx:90
-#: src/tables/settings/ApiTokenTable.tsx:108
-msgid "Expiry"
-msgstr "Expiry"
-
-#: src/components/nexa/RestockButton.tsx:140
-msgid "Stock received"
-msgstr "Stock received"
-
 #: src/components/nexa/RestockButton.tsx:147
-msgid "Could not receive stock"
-msgstr "Could not receive stock"
-
-#: src/components/nexa/RestockButton.tsx:175
-#: src/components/nexa/RestockButton.tsx:183
-msgid "Receive Stock"
-msgstr "Receive Stock"
-
-#: src/components/nexa/RestockButton.tsx:196
-#: src/components/tables/Filter.tsx:467
-#: src/components/wizards/ImportPartWizard.tsx:205
-#: src/pages/company/CompanyDetailsPanel.tsx:72
-#: src/pages/company/SupplierDetail.tsx:8
-#: src/pages/company/SupplierPartDetail.tsx:215
-#: src/pages/company/SupplierPartDetailsPanel.tsx:84
-#: src/pages/company/SupplierPartDetailsPanel.tsx:183
-#: src/pages/nexa/PurchaseListPage.tsx:87
-#: src/pages/purchasing/PurchaseOrderDetailsPanel.tsx:59
-#: src/tables/company/CompanyTable.tsx:116
-#: src/tables/part/PartPurchaseOrdersTable.tsx:52
-#: src/tables/purchasing/PurchaseOrderParametricTable.tsx:27
-#: src/tables/purchasing/PurchaseOrderTable.tsx:68
-#: src/tables/purchasing/SupplierPriceBreakTable.tsx:40
-msgid "Supplier"
-msgstr "Supplier"
-
-#: src/components/nexa/RestockButton.tsx:202
-msgid "No suppliers — add one under Purchasing"
-msgstr "No suppliers — add one under Purchasing"
-
-#: src/components/nexa/RestockButton.tsx:205
-msgid "Purchase Invoice No."
-msgstr "Purchase Invoice No."
-
-#: src/components/nexa/RestockButton.tsx:210
-msgid "Purchase Date"
-msgstr "Purchase Date"
-
-#: src/components/nexa/RestockButton.tsx:216
-msgid "Payment Status"
-msgstr "Payment Status"
+#~ msgid "Could not receive stock"
+#~ msgstr "Could not receive stock"
 
 #: src/components/nexa/RestockButton.tsx:229
-msgid "Batch Number"
-msgstr "Batch Number"
-
-#: src/components/nexa/RestockButton.tsx:235
-#: src/forms/PurchaseOrderForms.tsx:812
-#: src/pages/stock/StockDetailsPanel.tsx:316
-#: src/tables/stock/StockItemTable.tsx:171
-msgid "Expiry Date"
-msgstr "Expiry Date"
+#~ msgid "Batch Number"
+#~ msgstr "Batch Number"
 
 #: src/components/nexa/RestockButton.tsx:242
-msgid "Quantity Received"
-msgstr "Quantity Received"
-
-#: src/components/nexa/RestockButton.tsx:249
-msgid "Free / Bonus Quantity"
-msgstr "Free / Bonus Quantity"
+#~ msgid "Quantity Received"
+#~ msgstr "Quantity Received"
 
 #: src/components/nexa/RestockButton.tsx:255
-msgid "Unit Purchase Cost"
-msgstr "Unit Purchase Cost"
-
-#: src/components/nexa/RestockButton.tsx:269
-msgid "Tax"
-msgstr "Tax"
-
-#: src/components/nexa/RestockButton.tsx:277
-msgid "Line total"
-msgstr "Line total"
-
-#: src/components/nexa/RestockButton.tsx:280
-msgid "Received Into"
-msgstr "Received Into"
-
-#: src/components/nexa/RestockButton.tsx:286
-msgid "No stock locations — create one under Stock"
-msgstr "No stock locations — create one under Stock"
-
-#: src/components/nexa/RestockButton.tsx:294
-#: src/forms/StockForms.tsx:1999
-#: src/hooks/UseStockAdjustActions.tsx:112
-msgid "Add Stock"
-msgstr "Add Stock"
+#~ msgid "Unit Purchase Cost"
+#~ msgstr "Unit Purchase Cost"
 
 #: src/components/nexa/TransactionStatusBadge.tsx:22
 msgid "B2B"
@@ -3755,7 +4060,7 @@ msgstr "B2B"
 
 #: src/components/nexa/TransactionStatusBadge.tsx:26
 #: src/forms/StockForms.tsx:1564
-#: src/pages/nexa/BillPage.tsx:286
+#: src/pages/nexa/BillPage.tsx:355
 msgid "Return"
 msgstr "Return"
 
@@ -3773,24 +4078,40 @@ msgstr "Correction"
 
 #. placeholder {0}: ids.length
 #: src/components/nexa/bulkDeleteProducts.tsx:19
-msgid "Delete {0} products?"
-msgstr "Delete {0} products?"
+msgid "Delete {0} medicines?"
+msgstr "Delete {0} medicines?"
+
+#: src/components/nexa/bulkDeleteProducts.tsx:19
+#~ msgid "Delete {0} products?"
+#~ msgstr "Delete {0} medicines?"
 
 #: src/components/nexa/bulkDeleteProducts.tsx:22
-msgid "Products that were never stocked or sold are deleted. Products with stock or sales history are made inactive instead, so old bills stay correct."
-msgstr "Products that were never stocked or sold are deleted. Products with stock or sales history are made inactive instead, so old bills stay correct."
+msgid "Medicines that were never stocked or sold are deleted. Medicines with stock or sales history are made inactive instead, so old bills stay correct."
+msgstr "Medicines that were never stocked or sold are deleted. Medicines with stock or sales history are made inactive instead, so old bills stay correct."
+
+#: src/components/nexa/bulkDeleteProducts.tsx:22
+#~ msgid "Products that were never stocked or sold are deleted. Products with stock or sales history are made inactive instead, so old bills stay correct."
+#~ msgstr "Medicines that were never stocked or sold are deleted. Medicines with stock or sales history are made inactive instead, so old bills stay correct."
 
 #: src/components/nexa/bulkDeleteProducts.tsx:36
-msgid "Products updated"
-msgstr "Products updated"
+msgid "Medicines updated"
+msgstr "Medicines updated"
+
+#: src/components/nexa/bulkDeleteProducts.tsx:36
+#~ msgid "Products updated"
+#~ msgstr "Medicines updated"
 
 #: src/components/nexa/bulkDeleteProducts.tsx:37
 msgid "{deleted} deleted, {deactivated} made inactive"
 msgstr "{deleted} deleted, {deactivated} made inactive"
 
 #: src/components/nexa/bulkDeleteProducts.tsx:42
-msgid "Could not delete products"
-msgstr "Could not delete products"
+msgid "Could not delete medicines"
+msgstr "Could not delete medicines"
+
+#: src/components/nexa/bulkDeleteProducts.tsx:42
+#~ msgid "Could not delete products"
+#~ msgstr "Could not delete medicines"
 
 #: src/components/nexa/bulkDeleteProducts.tsx:43
 msgid "Please try again"
@@ -3850,27 +4171,6 @@ msgstr "Plugin is not active"
 msgid "Plugin Information"
 msgstr "Plugin Information"
 
-#: src/components/plugins/PluginDrawer.tsx:88
-#: src/components/tables/ColumnRenderers.tsx:495
-#: src/pages/build/BuildOrderDetailsPanel.tsx:96
-#: src/pages/company/CompanyDetailsPanel.tsx:29
-#: src/pages/company/ManufacturerPartDetailsPanel.tsx:46
-#: src/pages/company/ManufacturerPartDetailsPanel.tsx:73
-#: src/pages/company/SupplierPartDetailsPanel.tsx:99
-#: src/pages/part/PartCategoryDetailsPanel.tsx:42
-#: src/pages/part/PartDetailsPanel.tsx:87
-#: src/pages/purchasing/PurchaseOrderDetailsPanel.tsx:65
-#: src/pages/sales/ReturnOrderDetailsPanel.tsx:66
-#: src/pages/sales/SalesOrderDetailsPanel.tsx:66
-#: src/pages/stock/StockLocationDetailsPanel.tsx:40
-#: src/pages/stock/TransferOrderDetailsPanel.tsx:43
-#: src/tables/build/BuildAllocatedStockTable.tsx:94
-#: src/tables/machine/MachineTypeTable.tsx:162
-#: src/tables/machine/MachineTypeTable.tsx:258
-#: src/tables/plugin/PluginListTable.tsx:117
-msgid "Description"
-msgstr "Description"
-
 #: src/components/plugins/PluginDrawer.tsx:93
 msgid "Author"
 msgstr "Author"
@@ -3878,7 +4178,7 @@ msgstr "Author"
 #: src/components/plugins/PluginDrawer.tsx:98
 #: src/components/tables/ColumnRenderers.tsx:717
 #: src/pages/nexa/BillListPage.tsx:61
-#: src/pages/nexa/PurchaseListPage.tsx:85
+#: src/pages/nexa/PurchaseListPage.tsx:88
 #: src/pages/part/pricing/PurchaseHistoryPanel.tsx:42
 #: src/pages/part/pricing/SaleHistoryPanel.tsx:39
 #: src/tables/nexa/PaymentHistoryTable.tsx:28
@@ -3997,12 +4297,12 @@ msgstr "Unknown model: {model_name}"
 #: src/pages/company/CompanyDetail.tsx:290
 #: src/pages/company/SupplierPartDetail.tsx:224
 #: src/pages/core/UserDetail.tsx:210
-#: src/pages/part/PartDetail.tsx:631
+#: src/pages/part/PartDetail.tsx:633
 msgid "Inactive"
 msgstr "Inactive"
 
 #: src/components/render/Part.tsx:31
-#: src/pages/part/PartDetail.tsx:637
+#: src/pages/part/PartDetail.tsx:639
 #: src/tables/part/PartTableFilters.tsx:103
 #: src/tables/part/PartVariantTable.tsx:25
 msgid "Virtual"
@@ -4019,18 +4319,18 @@ msgstr "No stock"
 #: src/components/wizards/OrderPartsWizard.tsx:136
 #: src/pages/company/SupplierPartDetail.tsx:245
 #: src/pages/company/SupplierPartDetailsPanel.tsx:151
-#: src/pages/part/PartDetail.tsx:613
+#: src/pages/part/PartDetail.tsx:615
 #: src/pages/part/PartDetailsPanel.tsx:174
 #: src/tables/bom/BomTable.tsx:492
 #: src/tables/build/BuildLineTable.tsx:241
-#: src/tables/part/PartTable.tsx:84
+#: src/tables/part/PartTable.tsx:116
 #: src/tables/part/PartTableFilters.tsx:149
 msgid "On Order"
 msgstr "On Order"
 
 #: src/components/render/Part.tsx:59
 #: src/components/wizards/OrderPartsWizard.tsx:142
-#: src/pages/part/PartDetail.tsx:619
+#: src/pages/part/PartDetail.tsx:621
 #: src/pages/part/PartDetailsPanel.tsx:213
 #: src/pages/stock/StockDetail.tsx:662
 #: src/tables/part/PartTestResultTable.tsx:316
@@ -4042,16 +4342,6 @@ msgstr "In Production"
 #: src/tables/stock/StockTrackingTable.tsx:273
 msgid "Details"
 msgstr "Details"
-
-#: src/components/render/Part.tsx:116
-#: src/components/tables/ColumnRenderers.tsx:433
-#: src/components/tables/ColumnRenderers.tsx:442
-#: src/components/wizards/ImportPartWizard.tsx:807
-#: src/pages/part/PartDetailsPanel.tsx:114
-#: src/tables/notifications/NotificationTable.tsx:32
-#: src/tables/part/PartCategoryTemplateTable.tsx:87
-msgid "Category"
-msgstr "Category"
 
 #: src/components/render/Stock.tsx:37
 #: src/components/render/Stock.tsx:112
@@ -4074,7 +4364,6 @@ msgstr "Category"
 #: src/forms/StockForms.tsx:1928
 #: src/pages/Index/Settings/AccountSettings/AccountDetailPanel.tsx:88
 #: src/pages/core/UserDetail.tsx:155
-#: src/pages/nexa/ExpiryReportPage.tsx:68
 #: src/pages/stock/StockDetailsPanel.tsx:237
 #: src/tables/stock/StockTrackingTable.tsx:131
 msgid "Location"
@@ -4223,18 +4512,18 @@ msgstr "No settings specified"
 
 #: src/components/tables/ColumnRenderers.tsx:70
 msgid "Part is not active"
-msgstr "Product is not active"
+msgstr "Medicine is not active"
 
 #: src/components/tables/ColumnRenderers.tsx:75
-#: src/pages/part/PartDetail.tsx:503
+#: src/pages/part/PartDetail.tsx:505
 #: src/tables/bom/BomTable.tsx:727
 #: src/tables/part/PartTestTemplateTable.tsx:262
 msgid "Part is Locked"
-msgstr "Product is Locked"
+msgstr "Medicine is Locked"
 
 #: src/components/tables/ColumnRenderers.tsx:80
 msgid "You are subscribed to notifications for this part"
-msgstr "You are subscribed to notifications for this product"
+msgstr "You are subscribed to notifications for this medicine"
 
 #: src/components/tables/ColumnRenderers.tsx:125
 #: src/forms/BuildForms.tsx:704
@@ -4447,8 +4736,10 @@ msgstr "Filter items by batch code"
 #: src/forms/StockForms.tsx:1930
 #: src/pages/company/SupplierPartDetail.tsx:229
 #: src/pages/company/SupplierPartDetailsPanel.tsx:144
-#: src/pages/part/PartDetail.tsx:580
+#: src/pages/nexa/ExpiryReportPage.tsx:67
+#: src/pages/part/PartDetail.tsx:582
 #: src/pages/part/PartDetailsPanel.tsx:160
+#: src/tables/part/PartTable.tsx:109
 #: src/tables/purchasing/SupplierPartTable.tsx:274
 msgid "In Stock"
 msgstr "In Stock"
@@ -4634,7 +4925,7 @@ msgstr "Include Variants"
 
 #: src/components/tables/Filter.tsx:343
 msgid "Include results for part variants"
-msgstr "Include results for product variants"
+msgstr "Include results for medicine variants"
 
 #: src/components/tables/Filter.tsx:352
 #: src/forms/BuildForms.tsx:386
@@ -4699,17 +4990,6 @@ msgstr "Select tags"
 msgid "Filter by user"
 msgstr "Filter by user"
 
-#: src/components/tables/Filter.tsx:454
-#: src/pages/company/CompanyDetailsPanel.tsx:78
-#: src/pages/company/ManufacturerDetail.tsx:8
-#: src/pages/company/ManufacturerPartDetail.tsx:197
-#: src/pages/company/ManufacturerPartDetailsPanel.tsx:57
-#: src/pages/company/SupplierPartDetailsPanel.tsx:106
-#: src/tables/company/CompanyTable.tsx:121
-#: src/tables/purchasing/SupplierPartTable.tsx:117
-msgid "Manufacturer"
-msgstr "Manufacturer"
-
 #: src/components/tables/Filter.tsx:455
 msgid "Filter by manufacturer"
 msgstr "Filter by manufacturer"
@@ -4736,7 +5016,7 @@ msgstr "Filter by user who issued the order"
 
 #: src/components/tables/Filter.tsx:497
 msgid "Filter by part category"
-msgstr "Filter by product category"
+msgstr "Filter by category"
 
 #: src/components/tables/Filter.tsx:508
 msgid "Filter by stock location"
@@ -4796,7 +5076,7 @@ msgid "Delete filter group"
 msgstr "Delete filter group"
 
 #: src/components/tables/FilterSelectDrawer.tsx:649
-#: src/components/tables/InvenTreeTableHeader.tsx:313
+#: src/components/tables/InvenTreeTableHeader.tsx:315
 msgid "Table Filters"
 msgstr "Table Filters"
 
@@ -4879,11 +5159,11 @@ msgstr "Custom table filters are active"
 msgid "Delete selected records"
 msgstr "Delete selected records"
 
-#: src/components/tables/InvenTreeTableHeader.tsx:276
+#: src/components/tables/InvenTreeTableHeader.tsx:278
 msgid "Refresh data"
 msgstr "Refresh data"
 
-#: src/components/tables/InvenTreeTableHeader.tsx:325
+#: src/components/tables/InvenTreeTableHeader.tsx:327
 msgid "Active Filters"
 msgstr "Active Filters"
 
@@ -4896,7 +5176,7 @@ msgstr "Active Filters"
 #: src/tables/stock/TransferOrderLineItemTable.tsx:183
 #: src/tables/stock/TransferOrderLineItemTable.tsx:201
 msgid "Virtual part"
-msgstr "Virtual product"
+msgstr "Virtual medicine"
 
 #: src/components/tables/PartStockCell.tsx:33
 msgid "Minimum stock"
@@ -4947,7 +5227,7 @@ msgstr "Exact Match"
 
 #: src/components/wizards/ImportPartWizard.tsx:112
 msgid "Current part"
-msgstr "Current product"
+msgstr "Current medicine"
 
 #: src/components/wizards/ImportPartWizard.tsx:118
 msgid "Already Imported"
@@ -4968,11 +5248,11 @@ msgstr "Found {0} results"
 
 #: src/components/wizards/ImportPartWizard.tsx:259
 msgid "Import this part"
-msgstr "Import this product"
+msgstr "Import this medicine"
 
 #: src/components/wizards/ImportPartWizard.tsx:313
 msgid "Are you sure you want to import this part into the selected category now?"
-msgstr "Are you sure you want to import this product into the selected category now?"
+msgstr "Are you sure you want to import this medicine into the selected category now?"
 
 #: src/components/wizards/ImportPartWizard.tsx:326
 msgid "Import Now"
@@ -4980,7 +5260,7 @@ msgstr "Import Now"
 
 #: src/components/wizards/ImportPartWizard.tsx:372
 msgid "Select and edit the parameters you want to add to this part."
-msgstr "Select and edit the parameters you want to add to this product."
+msgstr "Select and edit the parameters you want to add to this medicine."
 
 #: src/components/wizards/ImportPartWizard.tsx:379
 msgid "Default category parameters"
@@ -5004,29 +5284,29 @@ msgstr "Create Parameters"
 
 #: src/components/wizards/ImportPartWizard.tsx:493
 msgid "Create initial stock for the imported part."
-msgstr "Create initial stock for the imported product."
+msgstr "Create initial stock for the imported medicine."
 
 #: src/components/wizards/ImportPartWizard.tsx:511
 msgid "Next"
 msgstr "Next"
 
 #: src/components/wizards/ImportPartWizard.tsx:540
-#: src/pages/part/PartDetail.tsx:659
-#: src/tables/part/PartTable.tsx:162
+#: src/pages/part/PartDetail.tsx:661
+#: src/tables/part/PartTable.tsx:196
 msgid "Edit Part"
-msgstr "Edit Product"
+msgstr "Edit Medicine"
 
 #: src/components/wizards/ImportPartWizard.tsx:567
 msgid "Part imported successfully!"
-msgstr "Product imported successfully!"
+msgstr "Medicine imported successfully!"
 
 #: src/components/wizards/ImportPartWizard.tsx:576
 msgid "Failed to import part: "
-msgstr "Failed to import product: "
+msgstr "Failed to import medicine: "
 
 #: src/components/wizards/ImportPartWizard.tsx:641
 msgid "Are you sure, you want to import the supplier and manufacturer part into this part?"
-msgstr "Are you sure, you want to import the supplier and manufacturer product into this product?"
+msgstr "Are you sure, you want to import the supplier and manufacturer medicine into this medicine?"
 
 #: src/components/wizards/ImportPartWizard.tsx:655
 msgid "Import"
@@ -5043,27 +5323,27 @@ msgstr "Failed to create parameters, please fix the errors and try again"
 #. placeholder {0}: supplierPart?.supplier
 #: src/components/wizards/ImportPartWizard.tsx:740
 msgid "Part imported successfully from supplier {0}."
-msgstr "Product imported successfully from supplier {0}."
+msgstr "Medicine imported successfully from supplier {0}."
 
 #: src/components/wizards/ImportPartWizard.tsx:753
 msgid "Open Part"
-msgstr "Open Product"
+msgstr "Open Medicine"
 
 #: src/components/wizards/ImportPartWizard.tsx:760
 msgid "Open Supplier Part"
-msgstr "Open Supplier Product"
+msgstr "Open Supplier Medicine"
 
 #: src/components/wizards/ImportPartWizard.tsx:767
 msgid "Open Manufacturer Part"
-msgstr "Open Manufacturer Product"
+msgstr "Open Manufacturer Medicine"
 
 #: src/components/wizards/ImportPartWizard.tsx:803
 msgid "Import Supplier Part"
-msgstr "Import Supplier Product"
+msgstr "Import Supplier Medicine"
 
 #: src/components/wizards/ImportPartWizard.tsx:805
 msgid "Search Supplier Part"
-msgstr "Search Supplier Product"
+msgstr "Search Supplier Medicine"
 
 #: src/components/wizards/ImportPartWizard.tsx:807
 msgid "Confirm import"
@@ -5075,7 +5355,7 @@ msgstr "Done"
 
 #: src/components/wizards/OrderPartsWizard.tsx:76
 msgid "Error fetching part requirements"
-msgstr "Error fetching product requirements"
+msgstr "Error fetching medicine requirements"
 
 #: src/components/wizards/OrderPartsWizard.tsx:114
 msgid "Requirements"
@@ -5104,13 +5384,13 @@ msgstr "Purchase order created"
 
 #: src/components/wizards/OrderPartsWizard.tsx:221
 msgid "New Supplier Part"
-msgstr "New Supplier Product"
+msgstr "New Supplier Medicine"
 
 #: src/components/wizards/OrderPartsWizard.tsx:223
 #: src/tables/purchasing/SupplierPartTable.tsx:218
 #: src/tables/purchasing/SupplierPartTable.tsx:311
 msgid "Supplier part created"
-msgstr "Supplier product created"
+msgstr "Supplier medicine created"
 
 #: src/components/wizards/OrderPartsWizard.tsx:253
 msgid "Add to Purchase Order"
@@ -5118,19 +5398,19 @@ msgstr "Add to Purchase Order"
 
 #: src/components/wizards/OrderPartsWizard.tsx:265
 msgid "Part added to purchase order"
-msgstr "Product added to purchase order"
+msgstr "Medicine added to purchase order"
 
 #: src/components/wizards/OrderPartsWizard.tsx:310
 msgid "Select supplier part"
-msgstr "Select supplier product"
+msgstr "Select supplier medicine"
 
 #: src/components/wizards/OrderPartsWizard.tsx:335
 msgid "Copy supplier part number"
-msgstr "Copy supplier product number"
+msgstr "Copy supplier medicine number"
 
 #: src/components/wizards/OrderPartsWizard.tsx:338
 msgid "New supplier part"
-msgstr "New supplier product"
+msgstr "New supplier medicine"
 
 #: src/components/wizards/OrderPartsWizard.tsx:362
 msgid "Select purchase order"
@@ -5147,27 +5427,27 @@ msgstr "Add to selected purchase order"
 #: src/components/wizards/OrderPartsWizard.tsx:449
 #: src/components/wizards/OrderPartsWizard.tsx:587
 msgid "No parts selected"
-msgstr "No products selected"
+msgstr "No medicines selected"
 
 #: src/components/wizards/OrderPartsWizard.tsx:450
 msgid "No purchaseable parts selected"
-msgstr "No purchaseable products selected"
+msgstr "No purchaseable medicines selected"
 
 #: src/components/wizards/OrderPartsWizard.tsx:486
 msgid "Parts Added"
-msgstr "Products Added"
+msgstr "Medicines Added"
 
 #: src/components/wizards/OrderPartsWizard.tsx:487
 msgid "All selected parts added to a purchase order"
-msgstr "All selected products added to a purchase order"
+msgstr "All selected medicines added to a purchase order"
 
 #: src/components/wizards/OrderPartsWizard.tsx:588
 msgid "You must select at least one part to order"
-msgstr "You must select at least one product to order"
+msgstr "You must select at least one medicine to order"
 
 #: src/components/wizards/OrderPartsWizard.tsx:599
 msgid "Supplier part is required"
-msgstr "Supplier product is required"
+msgstr "Supplier medicine is required"
 
 #: src/components/wizards/OrderPartsWizard.tsx:603
 msgid "Quantity is required"
@@ -5175,19 +5455,19 @@ msgstr "Quantity is required"
 
 #: src/components/wizards/OrderPartsWizard.tsx:616
 msgid "Invalid part selection"
-msgstr "Invalid product selection"
+msgstr "Invalid medicine selection"
 
 #: src/components/wizards/OrderPartsWizard.tsx:618
 msgid "Please correct the errors in the selected parts"
-msgstr "Please correct the errors in the selected products"
+msgstr "Please correct the errors in the selected medicines"
 
 #: src/components/wizards/OrderPartsWizard.tsx:629
 #: src/tables/build/BuildLineTable.tsx:913
-#: src/tables/part/PartTable.tsx:268
+#: src/tables/part/PartTable.tsx:302
 #: src/tables/sales/SalesOrderLineItemTable.tsx:459
 #: src/tables/stock/TransferOrderLineItemTable.tsx:333
 msgid "Order Parts"
-msgstr "Order Products"
+msgstr "Order Medicines"
 
 #: src/defaults/actions.tsx:39
 #: src/defaults/actions.tsx:97
@@ -5380,7 +5660,7 @@ msgstr "Number of pieces required (for cut-to-length items). Total material = qu
 
 #: src/forms/BomForms.tsx:127
 msgid "Substitute Part"
-msgstr "Substitute Product"
+msgstr "Substitute Medicine"
 
 #: src/forms/BomForms.tsx:144
 msgid "Edit BOM Substitutes"
@@ -5446,7 +5726,7 @@ msgstr "Allocated stock items will be returned to stock"
 #: src/forms/BuildForms.tsx:972
 #: src/forms/SalesOrderForms.tsx:436
 #: src/forms/TransferOrderForms.tsx:240
-#: src/pages/part/PartDetail.tsx:601
+#: src/pages/part/PartDetail.tsx:603
 #: src/tables/build/BuildAllocatedStockTable.tsx:132
 #: src/tables/build/BuildLineTable.tsx:201
 #: src/tables/sales/SalesOrderLineItemTable.tsx:428
@@ -5542,6 +5822,11 @@ msgstr "From Template"
 msgid "Optionally pre-fill this note from an existing template"
 msgstr "Optionally pre-fill this note from an existing template"
 
+#: src/forms/NexaForms.tsx:42
+#: src/forms/NexaForms.tsx:76
+msgid "Unit Value"
+msgstr "Unit Value"
+
 #: src/forms/NexaForms.tsx:92
 msgid "Defaults to 30 days from today if not set"
 msgstr "Defaults to 30 days from today if not set"
@@ -5569,11 +5854,11 @@ msgstr "Subscribed"
 
 #: src/forms/PartForms.tsx:114
 msgid "Subscribe to notifications for this part"
-msgstr "Subscribe to notifications for this product"
+msgstr "Subscribe to notifications for this medicine"
 
 #: src/forms/PartForms.tsx:233
 msgid "Parent part category"
-msgstr "Parent product category"
+msgstr "Parent category"
 
 #: src/forms/PartForms.tsx:248
 msgid "Subscribe to notifications for this category"
@@ -5589,7 +5874,7 @@ msgstr "Item Destination selected"
 
 #: src/forms/PurchaseOrderForms.tsx:499
 msgid "Part category default location selected"
-msgstr "Product category default location selected"
+msgstr "Category default location selected"
 
 #: src/forms/PurchaseOrderForms.tsx:509
 msgid "Received stock location selected"
@@ -5604,11 +5889,11 @@ msgstr "Default location selected"
 #: src/tables/bom/BomTable.tsx:290
 #: src/tables/bom/BomTable.tsx:482
 msgid "Virtual Part"
-msgstr "Virtual Product"
+msgstr "Virtual Medicine"
 
 #: src/forms/PurchaseOrderForms.tsx:565
 msgid "This part is virtual, no physical stock will be received."
-msgstr "This product is virtual, no physical stock will be received."
+msgstr "This medicine is virtual, no physical stock will be received."
 
 #: src/forms/PurchaseOrderForms.tsx:599
 #: src/forms/StockForms.tsx:616
@@ -5664,6 +5949,12 @@ msgstr "Serial Numbers"
 msgid "Enter serial numbers for received items"
 msgstr "Enter serial numbers for received items"
 
+#: src/forms/PurchaseOrderForms.tsx:812
+#: src/pages/stock/StockDetailsPanel.tsx:316
+#: src/tables/stock/StockItemTable.tsx:171
+msgid "Expiry Date"
+msgstr "Expiry Date"
+
 #: src/forms/PurchaseOrderForms.tsx:813
 msgid "Enter an expiry date for received items"
 msgstr "Enter an expiry date for received items"
@@ -5710,7 +6001,7 @@ msgstr "Item received into stock"
 #. placeholder {0}: salePrice ? `; suggested: (${salePrice})` : '.'
 #: src/forms/SalesOrderForms.tsx:194
 msgid "Price based on part and quantity differs{0}"
-msgstr "Price based on product and quantity differs{0}"
+msgstr "Price based on medicine and quantity differs{0}"
 
 #: src/forms/SalesOrderForms.tsx:224
 #: src/forms/SalesOrderForms.tsx:226
@@ -5782,7 +6073,7 @@ msgstr "Add Stock Item"
 
 #: src/forms/StockForms.tsx:433
 msgid "Select the part to install"
-msgstr "Select the product to install"
+msgstr "Select the medicine to install"
 
 #: src/forms/StockForms.tsx:565
 #: src/pages/stock/StockDetail.tsx:295
@@ -5835,7 +6126,6 @@ msgid "Unit Quantity"
 msgstr "Unit Quantity"
 
 #: src/forms/StockForms.tsx:949
-#: src/pages/nexa/InvoiceDetailPage.tsx:165
 #: src/pages/part/pricing/BomPricingPanel.tsx:133
 #: src/pages/part/pricing/PriceBreakPanel.tsx:174
 #: src/pages/part/pricing/PurchaseHistoryPanel.tsx:72
@@ -6260,7 +6550,7 @@ msgid "Delete selected stock items"
 msgstr "Delete selected stock items"
 
 #: src/hooks/UseStockAdjustActions.tsx:219
-#: src/pages/part/PartDetail.tsx:751
+#: src/pages/part/PartDetail.tsx:753
 msgid "Stock Actions"
 msgstr "Stock Actions"
 
@@ -7659,7 +7949,7 @@ msgstr "Pricing"
 
 #: src/pages/Index/Settings/SystemSettings.tsx:237
 msgid "Part Creation"
-msgstr "Product Creation"
+msgstr "Medicine Creation"
 
 #: src/pages/Index/Settings/SystemSettings.tsx:280
 msgid "Stock Expiry"
@@ -7667,7 +7957,7 @@ msgstr "Stock Expiry"
 
 #: src/pages/Index/Settings/SystemSettings.tsx:289
 msgid "Part Stocktake"
-msgstr "Product Stocktake"
+msgstr "Medicine Stocktake"
 
 #: src/pages/Index/Settings/SystemSettings.tsx:299
 #: src/pages/part/PartStockHistoryDetail.tsx:299
@@ -7709,17 +7999,17 @@ msgstr "This build order does not have any required items."
 
 #: src/pages/build/BuildDetail.tsx:70
 msgid "The assembled part may not have a Bill of Materials (BOM) defined, or the BOM is empty."
-msgstr "The assembled product may not have a Bill of Materials (BOM) defined, or the BOM is empty."
+msgstr "The assembled medicine may not have a Bill of Materials (BOM) defined, or the BOM is empty."
 
 #: src/pages/build/BuildDetail.tsx:117
-#: src/pages/part/PartDetail.tsx:358
+#: src/pages/part/PartDetail.tsx:360
 #: src/pages/part/bom/BomActions.tsx:115
 #: src/pages/part/bom/BomActions.tsx:120
 msgid "BOM Not Validated"
 msgstr "BOM Not Validated"
 
 #: src/pages/build/BuildDetail.tsx:119
-#: src/pages/part/PartDetail.tsx:360
+#: src/pages/part/PartDetail.tsx:362
 msgid "The Bill of Materials for this assembly has not been validated."
 msgstr "The Bill of Materials for this assembly has not been validated."
 
@@ -7729,7 +8019,7 @@ msgstr "Build Details"
 
 #: src/pages/build/BuildDetail.tsx:256
 msgid "Required Parts"
-msgstr "Required Products"
+msgstr "Required Medicines"
 
 #: src/pages/build/BuildDetail.tsx:268
 #: src/pages/sales/SalesOrderDetail.tsx:207
@@ -7761,7 +8051,7 @@ msgid "Child Build Orders"
 msgstr "Child Build Orders"
 
 #: src/pages/build/BuildDetail.tsx:355
-#: src/pages/part/PartDetail.tsx:479
+#: src/pages/part/PartDetail.tsx:481
 #: src/pages/stock/StockDetail.tsx:281
 #: src/tables/build/BuildOutputTable.tsx:759
 #: src/tables/stock/StockItemTestResultTable.tsx:171
@@ -8013,11 +8303,11 @@ msgstr "Company Details"
 
 #: src/pages/company/CompanyDetail.tsx:111
 msgid "Supplied Parts"
-msgstr "Supplied Products"
+msgstr "Supplied Medicines"
 
 #: src/pages/company/CompanyDetail.tsx:120
 msgid "Manufactured Parts"
-msgstr "Manufactured Products"
+msgstr "Manufactured Medicines"
 
 #: src/pages/company/CompanyDetail.tsx:174
 msgid "Assigned Stock"
@@ -8058,7 +8348,7 @@ msgstr "Default Currency"
 
 #: src/pages/company/ManufacturerPartDetail.tsx:71
 msgid "Manufacturer Part Details"
-msgstr "Manufacturer Product Details"
+msgstr "Manufacturer Medicine Details"
 
 #: src/pages/company/ManufacturerPartDetail.tsx:83
 #: src/pages/company/SupplierPartDetail.tsx:91
@@ -8069,32 +8359,32 @@ msgstr "Received Stock"
 #: src/pages/company/ManufacturerPartDetail.tsx:132
 #: src/tables/purchasing/ManufacturerPartTable.tsx:131
 msgid "Edit Manufacturer Part"
-msgstr "Edit Manufacturer Product"
+msgstr "Edit Manufacturer Medicine"
 
 #: src/pages/company/ManufacturerPartDetail.tsx:144
 #: src/tables/purchasing/ManufacturerPartTable.tsx:118
 #: src/tables/purchasing/ManufacturerPartTable.tsx:142
 #: src/tables/purchasing/ManufacturerPartTable.tsx:184
 msgid "Add Manufacturer Part"
-msgstr "Add Manufacturer Product"
+msgstr "Add Manufacturer Medicine"
 
 #: src/pages/company/ManufacturerPartDetail.tsx:156
 #: src/tables/purchasing/ManufacturerPartTable.tsx:153
 msgid "Delete Manufacturer Part"
-msgstr "Delete Manufacturer Product"
+msgstr "Delete Manufacturer Medicine"
 
 #: src/pages/company/ManufacturerPartDetail.tsx:171
 msgid "Manufacturer Part Actions"
-msgstr "Manufacturer Product Actions"
+msgstr "Manufacturer Medicine Actions"
 
 #: src/pages/company/ManufacturerPartDetailsPanel.tsx:31
 #: src/pages/company/SupplierPartDetailsPanel.tsx:43
 msgid "Internal Part"
-msgstr "Internal Product"
+msgstr "Our Medicine"
 
 #: src/pages/company/ManufacturerPartDetailsPanel.tsx:65
 msgid "Manufacturer Part Number"
-msgstr "Manufacturer Product Number"
+msgstr "Manufacturer Medicine Number"
 
 #: src/pages/company/ManufacturerPartDetailsPanel.tsx:82
 #: src/pages/company/SupplierPartDetailsPanel.tsx:67
@@ -8109,11 +8399,11 @@ msgstr "Manufacturer Details"
 #: src/pages/company/SupplierPartDetailsPanel.tsx:199
 #: src/pages/part/PartDetail.tsx:293
 msgid "Part Details"
-msgstr "Product Details"
+msgstr "Medicine Details"
 
 #: src/pages/company/SupplierPartDetail.tsx:79
 msgid "Supplier Part Details"
-msgstr "Supplier Product Details"
+msgstr "Supplier Medicine Details"
 
 #: src/pages/company/SupplierPartDetail.tsx:118
 #: src/pages/part/PartPricingPanel.tsx:113
@@ -8123,33 +8413,33 @@ msgstr "Supplier Pricing"
 
 #: src/pages/company/SupplierPartDetail.tsx:154
 msgid "Supplier Part Actions"
-msgstr "Supplier Product Actions"
+msgstr "Supplier Medicine Actions"
 
 #: src/pages/company/SupplierPartDetail.tsx:178
 #: src/tables/purchasing/SupplierPartTable.tsx:288
 msgid "Edit Supplier Part"
-msgstr "Edit Supplier Product"
+msgstr "Edit Supplier Medicine"
 
 #: src/pages/company/SupplierPartDetail.tsx:187
 #: src/tables/purchasing/SupplierPartTable.tsx:317
 msgid "Delete Supplier Part"
-msgstr "Delete Supplier Product"
+msgstr "Delete Supplier Medicine"
 
 #: src/pages/company/SupplierPartDetail.tsx:199
 #: src/tables/purchasing/SupplierPartTable.tsx:208
 #: src/tables/purchasing/SupplierPartTable.tsx:301
 msgid "Add Supplier Part"
-msgstr "Add Supplier Product"
+msgstr "Add Supplier Medicine"
 
 #: src/pages/company/SupplierPartDetail.tsx:239
-#: src/pages/part/PartDetail.tsx:595
+#: src/pages/part/PartDetail.tsx:597
 msgid "No Stock"
 msgstr "No Stock"
 
 #: src/pages/company/SupplierPartDetailsPanel.tsx:58
 #: src/tables/part/RelatedPartTable.tsx:83
 msgid "Part Description"
-msgstr "Product Description"
+msgstr "Medicine Description"
 
 #: src/pages/company/SupplierPartDetailsPanel.tsx:133
 #: src/tables/part/PartPurchaseOrdersTable.tsx:82
@@ -8221,66 +8511,61 @@ msgstr "No bills yet"
 msgid "Bill No"
 msgstr "Bill No"
 
-#: src/pages/nexa/BillListPage.tsx:63
-#: src/pages/nexa/PurchaseListPage.tsx:93
-msgid "Payment"
-msgstr "Payment"
-
 #. placeholder {0}: response.data.reference
 #. placeholder {1}: response.data.refund_amount
-#: src/pages/nexa/BillPage.tsx:104
+#: src/pages/nexa/BillPage.tsx:111
 msgid "Return {0} recorded — refund {1}"
 msgstr "Return {0} recorded — refund {1}"
 
-#: src/pages/nexa/BillPage.tsx:113
+#: src/pages/nexa/BillPage.tsx:120
 msgid "Could not record the return"
 msgstr "Could not record the return"
 
-#: src/pages/nexa/BillPage.tsx:119
+#: src/pages/nexa/BillPage.tsx:126
 msgid "Return items"
 msgstr "Return items"
 
-#: src/pages/nexa/BillPage.tsx:124
+#: src/pages/nexa/BillPage.tsx:131
 msgid "batch"
 msgstr "batch"
 
-#: src/pages/nexa/BillPage.tsx:124
+#: src/pages/nexa/BillPage.tsx:131
 msgid "up to"
 msgstr "up to"
 
-#: src/pages/nexa/BillPage.tsx:127
+#: src/pages/nexa/BillPage.tsx:134
 msgid "Quantity returned"
 msgstr "Quantity returned"
 
-#: src/pages/nexa/BillPage.tsx:141
+#: src/pages/nexa/BillPage.tsx:148
 msgid "Stock disposition"
 msgstr "Stock disposition"
 
-#: src/pages/nexa/BillPage.tsx:143
+#: src/pages/nexa/BillPage.tsx:150
 msgid "Resalable — back to stock"
 msgstr "Resalable — back to stock"
 
-#: src/pages/nexa/BillPage.tsx:144
+#: src/pages/nexa/BillPage.tsx:151
 msgid "Not resalable — damaged / expired"
 msgstr "Not resalable — damaged / expired"
 
-#: src/pages/nexa/BillPage.tsx:151
+#: src/pages/nexa/BillPage.tsx:158
 msgid "Refund"
 msgstr "Refund"
 
-#: src/pages/nexa/BillPage.tsx:158
+#: src/pages/nexa/BillPage.tsx:165
 msgid "Record Return"
 msgstr "Record Return"
 
-#: src/pages/nexa/BillPage.tsx:184
+#: src/pages/nexa/BillPage.tsx:216
 msgid "Bill not found"
 msgstr "Bill not found"
 
-#: src/pages/nexa/BillPage.tsx:209
+#: src/pages/nexa/BillPage.tsx:247
 msgid "All Bills"
 msgstr "All Bills"
 
-#: src/pages/nexa/BillPage.tsx:212
+#: src/pages/nexa/BillPage.tsx:250
 msgid "Print Bill"
 msgstr "Print Bill"
 
@@ -8340,20 +8625,20 @@ msgstr "Expired — remove from sale and write off"
 msgid "Expiring soon"
 msgstr "Expiring soon"
 
-#: src/pages/nexa/InvoiceDetailPage.tsx:99
+#: src/pages/nexa/InvoiceDetailPage.tsx:100
 msgid "Invoice not found"
 msgstr "Invoice not found"
 
-#: src/pages/nexa/InvoiceDetailPage.tsx:148
+#: src/pages/nexa/InvoiceDetailPage.tsx:149
 msgid "View Customer"
 msgstr "View Customer"
 
-#: src/pages/nexa/InvoiceDetailPage.tsx:152
+#: src/pages/nexa/InvoiceDetailPage.tsx:153
 #: src/tables/nexa/InvoiceTable.tsx:69
 msgid "Invoice Date"
 msgstr "Invoice Date"
 
-#: src/pages/nexa/InvoiceDetailPage.tsx:158
+#: src/pages/nexa/InvoiceDetailPage.tsx:159
 #: src/pages/purchasing/PurchaseOrderDetail.tsx:151
 #: src/pages/purchasing/PurchaseOrderDetail.tsx:160
 #: src/pages/sales/ReturnOrderDetail.tsx:116
@@ -8366,29 +8651,41 @@ msgstr "Invoice Date"
 msgid "Line Items"
 msgstr "Line Items"
 
-#: src/pages/nexa/InvoiceDetailPage.tsx:166
+#: src/pages/nexa/InvoiceDetailPage.tsx:167
+msgid "Sale Rate"
+msgstr "Sale Rate"
+
+#: src/pages/nexa/InvoiceDetailPage.tsx:168
 msgid "Line Total"
 msgstr "Line Total"
 
-#: src/pages/nexa/InvoiceDetailPage.tsx:184
+#: src/pages/nexa/InvoiceDetailPage.tsx:187
 msgid "Payment History"
 msgstr "Payment History"
 
-#: src/pages/nexa/PurchaseListPage.tsx:60
-msgid "Search medicine, supplier, invoice or batch"
-msgstr "Search medicine, supplier, invoice or batch"
+#: src/pages/nexa/PurchaseListPage.tsx:62
+#~ msgid "Search medicine, supplier, invoice or batch"
+#~ msgstr "Search medicine, supplier, invoice or batch"
 
-#: src/pages/nexa/PurchaseListPage.tsx:65
+#: src/pages/nexa/PurchaseListPage.tsx:63
+msgid "Search medicine, supplier, supplier invoice no. or batch"
+msgstr "Search medicine, supplier, supplier invoice no. or batch"
+
+#: src/pages/nexa/PurchaseListPage.tsx:68
 msgid "All payment statuses"
 msgstr "All payment statuses"
 
-#: src/pages/nexa/PurchaseListPage.tsx:78
+#: src/pages/nexa/PurchaseListPage.tsx:81
 msgid "No purchases recorded yet — use Receive Stock"
 msgstr "No purchases recorded yet — use Receive Stock"
 
-#: src/pages/nexa/PurchaseListPage.tsx:91
-msgid "Qty (+free)"
-msgstr "Qty (+free)"
+#: src/pages/nexa/PurchaseListPage.tsx:93
+#~ msgid "Qty (+free)"
+#~ msgstr "Qty (+free)"
+
+#: src/pages/nexa/PurchaseListPage.tsx:95
+msgid "Qty (+ Free Qty)"
+msgstr "Qty (+ Free Qty)"
 
 #: src/pages/nexa/ReceivablesReportPage.tsx:71
 msgid "Receivables Report"
@@ -8456,7 +8753,7 @@ msgstr "Sale Type"
 #: src/pages/part/CategoryDetail.tsx:183
 #: src/tables/part/PartCategoryTable.tsx:124
 msgid "Edit Part Category"
-msgstr "Edit Product Category"
+msgstr "Edit Category"
 
 #: src/pages/part/CategoryDetail.tsx:123
 msgid "Move items to parent category"
@@ -8470,15 +8767,15 @@ msgstr "Delete items"
 #: src/pages/part/CategoryDetail.tsx:135
 #: src/pages/part/CategoryDetail.tsx:188
 msgid "Delete Part Category"
-msgstr "Delete Product Category"
+msgstr "Delete Category"
 
 #: src/pages/part/CategoryDetail.tsx:138
 msgid "Parts Action"
-msgstr "Products Action"
+msgstr "Medicines Action"
 
 #: src/pages/part/CategoryDetail.tsx:139
 msgid "Action for parts in this category"
-msgstr "Action for products in this category"
+msgstr "Action for medicines in this category"
 
 #: src/pages/part/CategoryDetail.tsx:145
 msgid "Child Categories Action"
@@ -8523,56 +8820,60 @@ msgstr "Default location"
 
 #: src/pages/part/PartDetail.tsx:280
 msgid "Select Part Revision"
-msgstr "Select Product Revision"
+msgstr "Select Medicine Revision"
 
 #: src/pages/part/PartDetail.tsx:306
-msgid "Pharmacy"
-msgstr "Pharmacy"
+msgid "Medicine Details"
+msgstr "Medicine Details"
 
-#: src/pages/part/PartDetail.tsx:331
+#: src/pages/part/PartDetail.tsx:306
+#~ msgid "Pharmacy"
+#~ msgstr "Pharmacy"
+
+#: src/pages/part/PartDetail.tsx:333
 msgid "Variants"
 msgstr "Variants"
 
-#: src/pages/part/PartDetail.tsx:338
+#: src/pages/part/PartDetail.tsx:340
 #: src/pages/stock/StockDetail.tsx:212
 msgid "Allocations"
 msgstr "Allocations"
 
-#: src/pages/part/PartDetail.tsx:345
+#: src/pages/part/PartDetail.tsx:347
 msgid "Bill of Materials"
 msgstr "Bill of Materials"
 
-#: src/pages/part/PartDetail.tsx:374
+#: src/pages/part/PartDetail.tsx:376
 msgid "Used In"
 msgstr "Used In"
 
-#: src/pages/part/PartDetail.tsx:381
+#: src/pages/part/PartDetail.tsx:383
 msgid "Part Pricing"
-msgstr "Product Pricing"
+msgstr "Medicine Pricing"
 
-#: src/pages/part/PartDetail.tsx:463
+#: src/pages/part/PartDetail.tsx:465
 msgid "Test Templates"
 msgstr "Test Templates"
 
-#: src/pages/part/PartDetail.tsx:490
+#: src/pages/part/PartDetail.tsx:492
 msgid "Related Parts"
-msgstr "Related Products"
+msgstr "Related Medicines"
 
-#: src/pages/part/PartDetail.tsx:508
+#: src/pages/part/PartDetail.tsx:510
 msgid "Part parameters cannot be edited, as the part is locked"
-msgstr "Product parameters cannot be edited, as the product is locked"
+msgstr "Medicine parameters cannot be edited, as the medicine is locked"
 
-#: src/pages/part/PartDetail.tsx:607
+#: src/pages/part/PartDetail.tsx:609
 #: src/tables/part/PartTestTemplateTable.tsx:116
 #: src/tables/stock/StockItemTestResultTable.tsx:403
 msgid "Required"
 msgstr "Required"
 
-#: src/pages/part/PartDetail.tsx:625
+#: src/pages/part/PartDetail.tsx:627
 msgid "Deficit"
 msgstr "Deficit"
 
-#: src/pages/part/PartDetail.tsx:643
+#: src/pages/part/PartDetail.tsx:645
 #: src/pages/part/bom/BomCompare.tsx:38
 #: src/tables/bom/BomTable.tsx:517
 #: src/tables/build/BuildLineTable.tsx:216
@@ -8580,41 +8881,41 @@ msgstr "Deficit"
 msgid "Consumable"
 msgstr "Consumable"
 
-#: src/pages/part/PartDetail.tsx:686
+#: src/pages/part/PartDetail.tsx:688
 msgid "Delete Part"
-msgstr "Delete Product"
+msgstr "Delete Medicine"
 
-#: src/pages/part/PartDetail.tsx:695
+#: src/pages/part/PartDetail.tsx:697
 msgid "Deleting this part cannot be reversed"
-msgstr "Deleting this product cannot be reversed"
+msgstr "Deleting this medicine cannot be reversed"
 
-#: src/pages/part/PartDetail.tsx:757
+#: src/pages/part/PartDetail.tsx:759
 #: src/pages/stock/StockDetail.tsx:613
 msgid "Order"
 msgstr "Order"
 
-#: src/pages/part/PartDetail.tsx:758
+#: src/pages/part/PartDetail.tsx:760
 #: src/pages/stock/StockDetail.tsx:614
 #: src/tables/build/BuildLineTable.tsx:851
 msgid "Order Stock"
 msgstr "Order Stock"
 
-#: src/pages/part/PartDetail.tsx:770
+#: src/pages/part/PartDetail.tsx:772
 msgid "Search by serial number"
 msgstr "Search by serial number"
 
-#: src/pages/part/PartDetail.tsx:778
-#: src/tables/part/PartTable.tsx:252
+#: src/pages/part/PartDetail.tsx:780
+#: src/tables/part/PartTable.tsx:286
 msgid "Part Actions"
-msgstr "Product Actions"
+msgstr "Medicine Actions"
 
-#: src/pages/part/PartDetail.tsx:839
+#: src/pages/part/PartDetail.tsx:841
 msgid "Part locked"
-msgstr "Product locked"
+msgstr "Medicine locked"
 
-#: src/pages/part/PartDetail.tsx:839
+#: src/pages/part/PartDetail.tsx:841
 msgid "Part unlocked"
-msgstr "Product unlocked"
+msgstr "Medicine unlocked"
 
 #: src/pages/part/PartDetailsPanel.tsx:91
 msgid "Variant of"
@@ -8675,34 +8976,34 @@ msgstr "Locked"
 
 #: src/pages/part/PartDetailsPanel.tsx:250
 msgid "Template Part"
-msgstr "Template Product"
+msgstr "Template Medicine"
 
 #: src/pages/part/PartDetailsPanel.tsx:252
 #: src/tables/bom/BomTable.tsx:477
 msgid "Assembled Part"
-msgstr "Assembled Product"
+msgstr "Assembled Medicine"
 
 #: src/pages/part/PartDetailsPanel.tsx:253
 msgid "Component Part"
-msgstr "Component Product"
+msgstr "Component Medicine"
 
 #: src/pages/part/PartDetailsPanel.tsx:257
 #: src/tables/bom/BomTable.tsx:462
 msgid "Testable Part"
-msgstr "Testable Product"
+msgstr "Testable Medicine"
 
 #: src/pages/part/PartDetailsPanel.tsx:260
 #: src/tables/bom/BomTable.tsx:467
 msgid "Trackable Part"
-msgstr "Trackable Product"
+msgstr "Trackable Medicine"
 
 #: src/pages/part/PartDetailsPanel.tsx:261
 msgid "Purchaseable Part"
-msgstr "Purchaseable Product"
+msgstr "Purchaseable Medicine"
 
 #: src/pages/part/PartDetailsPanel.tsx:266
 msgid "Saleable Part"
-msgstr "Saleable Product"
+msgstr "Saleable Medicine"
 
 #: src/pages/part/PartDetailsPanel.tsx:296
 msgid "Default Expiry"
@@ -8715,7 +9016,7 @@ msgstr "days"
 #: src/pages/part/PartDetailsPanel.tsx:308
 #: src/pages/part/pricing/BomPricingPanel.tsx:82
 #: src/pages/part/pricing/VariantPricingPanel.tsx:98
-#: src/tables/part/PartTable.tsx:91
+#: src/tables/part/PartTable.tsx:123
 msgid "Price Range"
 msgstr "Price Range"
 
@@ -8725,7 +9026,7 @@ msgstr "Latest Serial Number"
 
 #: src/pages/part/PartPricingPanel.tsx:72
 msgid "No pricing data found for this part."
-msgstr "No pricing data found for this product."
+msgstr "No pricing data found for this medicine."
 
 #: src/pages/part/PartPricingPanel.tsx:87
 #: src/pages/part/pricing/PricingOverviewPanel.tsx:338
@@ -8826,15 +9127,15 @@ msgstr "BOM Validated"
 
 #: src/pages/part/bom/BomActions.tsx:111
 msgid "The Bill of Materials for this part has been validated"
-msgstr "The Bill of Materials for this product has been validated"
+msgstr "The Bill of Materials for this medicine has been validated"
 
 #: src/pages/part/bom/BomActions.tsx:116
 msgid "The Bill of Materials for this part has previously been checked, but requires revalidation"
-msgstr "The Bill of Materials for this product has previously been checked, but requires revalidation"
+msgstr "The Bill of Materials for this medicine has previously been checked, but requires revalidation"
 
 #: src/pages/part/bom/BomActions.tsx:121
 msgid "The Bill of Materials for this part has not yet been validated"
-msgstr "The Bill of Materials for this product has not yet been validated"
+msgstr "The Bill of Materials for this medicine has not yet been validated"
 
 #: src/pages/part/bom/BomActions.tsx:131
 #: src/pages/part/bom/BomCompare.tsx:363
@@ -8888,11 +9189,11 @@ msgstr "No changes"
 
 #: src/pages/part/bom/BomCompare.tsx:183
 msgid "Part removed from BOM"
-msgstr "Product removed from BOM"
+msgstr "Medicine removed from BOM"
 
 #: src/pages/part/bom/BomCompare.tsx:184
 msgid "Part added to BOM"
-msgstr "Product added to BOM"
+msgstr "Medicine added to BOM"
 
 #: src/pages/part/bom/BomCompare.tsx:205
 msgid "Changes"
@@ -8924,15 +9225,15 @@ msgstr "Select display mode for BOM comparison"
 
 #: src/pages/part/bom/BomCompare.tsx:413
 msgid "Show all Parts"
-msgstr "Show all Products"
+msgstr "Show all Medicines"
 
 #: src/pages/part/bom/BomCompare.tsx:414
 msgid "Show different Parts"
-msgstr "Show different Products"
+msgstr "Show different Medicines"
 
 #: src/pages/part/bom/BomCompare.tsx:415
 msgid "Show common Parts"
-msgstr "Show common Products"
+msgstr "Show common Medicines"
 
 #: src/pages/part/bom/BomCompare.tsx:423
 msgid "Select an assembly to view Bill of Materials comparison"
@@ -9043,7 +9344,7 @@ msgstr "Pricing Not Set"
 
 #: src/pages/part/pricing/PricingOverviewPanel.tsx:299
 msgid "Pricing data has not been calculated for this part"
-msgstr "Pricing data has not been calculated for this product"
+msgstr "Pricing data has not been calculated for this medicine"
 
 #: src/pages/part/pricing/PricingOverviewPanel.tsx:303
 msgid "Pricing Actions"
@@ -9102,7 +9403,7 @@ msgstr "Supplier Price"
 #: src/pages/part/pricing/VariantPricingPanel.tsx:32
 #: src/pages/part/pricing/VariantPricingPanel.tsx:97
 msgid "Variant Part"
-msgstr "Variant Product"
+msgstr "Variant Medicine"
 
 #: src/pages/purchasing/PurchaseOrderDetail.tsx:91
 msgid "Edit Purchase Order"
@@ -9405,7 +9706,7 @@ msgstr "Sublocations"
 
 #: src/pages/stock/LocationDetail.tsx:199
 msgid "Default Parts"
-msgstr "Default Products"
+msgstr "Default Medicines"
 
 #: src/pages/stock/LocationDetail.tsx:224
 #: src/pages/stock/LocationDetail.tsx:385
@@ -9553,7 +9854,7 @@ msgstr "Disassemble"
 
 #: src/pages/stock/StockDetail.tsx:602
 msgid "Disassemble this stock item into its component parts"
-msgstr "Disassemble this stock item into its component products"
+msgstr "Disassemble this stock item into its component medicines"
 
 #: src/pages/stock/StockDetail.tsx:627
 msgid "Stock Item Actions"
@@ -9565,7 +9866,7 @@ msgstr "Convert"
 
 #: src/pages/stock/StockDetail.tsx:639
 msgid "Convert this stock item to a different part"
-msgstr "Convert this stock item to a different product"
+msgstr "Convert this stock item to a different medicine"
 
 #: src/pages/stock/StockDetail.tsx:704
 #: src/tables/stock/StockItemTable.tsx:279
@@ -9583,7 +9884,7 @@ msgstr "Unavailable"
 
 #: src/pages/stock/StockDetailsPanel.tsx:85
 msgid "Base Part"
-msgstr "Base Product"
+msgstr "Base Medicine"
 
 #: src/pages/stock/StockDetailsPanel.tsx:144
 msgid "Previous serial number"
@@ -9675,7 +9976,7 @@ msgstr "This BOM item has not been validated"
 
 #: src/tables/bom/BomTable.tsx:156
 msgid "Part Information"
-msgstr "Product Information"
+msgstr "Medicine Information"
 
 #: src/tables/bom/BomTable.tsx:276
 msgid "Substitutes"
@@ -9717,7 +10018,7 @@ msgstr "Show trackable items"
 #: src/tables/purchasing/ManufacturerPartTable.tsx:161
 #: src/tables/purchasing/SupplierPartTable.tsx:264
 msgid "Active Part"
-msgstr "Active Product"
+msgstr "Active Medicine"
 
 #: src/tables/bom/BomTable.tsx:473
 #: src/tables/settings/ProjectCodeTable.tsx:105
@@ -9849,7 +10150,7 @@ msgstr "Finish Editing BOM"
 
 #: src/tables/bom/BomTable.tsx:732
 msgid "Bill of materials cannot be edited, as the part is locked"
-msgstr "Bill of materials cannot be edited, as the product is locked"
+msgstr "Bill of materials cannot be edited, as the medicine is locked"
 
 #: src/tables/bom/UsedInTable.tsx:47
 #: src/tables/build/BuildLineTable.tsx:226
@@ -10089,7 +10390,7 @@ msgstr "Stock has been deallocated"
 
 #: src/tables/build/BuildLineTable.tsx:821
 msgid "Trackable parts must be allocated via the Build Outputs tab"
-msgstr "Trackable products must be allocated via the Build Outputs tab"
+msgstr "Trackable medicines must be allocated via the Build Outputs tab"
 
 #: src/tables/build/BuildLineTable.tsx:861
 msgid "Build Stock"
@@ -10099,7 +10400,7 @@ msgstr "Build Stock"
 #: src/tables/sales/SalesOrderLineItemTable.tsx:596
 #: src/tables/stock/TransferOrderLineItemTable.tsx:450
 msgid "View Part"
-msgstr "View Product"
+msgstr "View Medicine"
 
 #: src/tables/build/BuildLineTable.tsx:895
 msgid "Build order must be issued before stock can be allocated"
@@ -10743,7 +11044,7 @@ msgstr "Assembly IPN"
 
 #: src/tables/part/PartBuildAllocationsTable.tsx:74
 msgid "Part IPN"
-msgstr "Product IPN"
+msgstr "Medicine IPN"
 
 #: src/tables/part/PartBuildAllocationsTable.tsx:92
 msgid "Required Stock"
@@ -10777,7 +11078,7 @@ msgstr "Show categories to which the user is subscribed"
 
 #: src/tables/part/PartCategoryTable.tsx:105
 msgid "New Part Category"
-msgstr "New Product Category"
+msgstr "New Category"
 
 #: src/tables/part/PartCategoryTable.tsx:132
 msgid "Set Parent Category"
@@ -10794,7 +11095,7 @@ msgstr "Set parent category for the selected items"
 
 #: src/tables/part/PartCategoryTable.tsx:163
 msgid "Add Part Category"
-msgstr "Add Product Category"
+msgstr "Add Category"
 
 #: src/tables/part/PartCategoryTemplateTable.tsx:56
 #: src/tables/part/PartCategoryTemplateTable.tsx:152
@@ -10811,11 +11112,11 @@ msgstr "Delete Category Parameter"
 
 #: src/tables/part/PartCategoryTemplateTable.tsx:167
 msgid "Part Category Parameters Templates"
-msgstr "Product Category Parameters Templates"
+msgstr "Category Parameters Templates"
 
 #: src/tables/part/PartCategoryTemplateTable.tsx:170
 msgid "Parts which are created within this category will inherit the default values specified here."
-msgstr "Products which are created within this category will inherit the default values specified here."
+msgstr "Medicines which are created within this category will inherit the default values specified here."
 
 #: src/tables/part/PartPurchaseOrdersTable.tsx:132
 msgid "Show pending orders"
@@ -10838,34 +11139,42 @@ msgstr "Show outstanding orders"
 msgid "Show completed line items"
 msgstr "Show completed line items"
 
-#: src/tables/part/PartTable.tsx:215
-#: src/tables/part/PartTable.tsx:258
+#: src/tables/part/PartTable.tsx:101
+msgid "MRP"
+msgstr "MRP"
+
+#: src/tables/part/PartTable.tsx:249
+#: src/tables/part/PartTable.tsx:292
 msgid "Set Category"
 msgstr "Set Category"
 
-#: src/tables/part/PartTable.tsx:260
+#: src/tables/part/PartTable.tsx:294
 msgid "Set category for selected parts"
-msgstr "Set category for selected products"
+msgstr "Set category for selected medicines"
 
-#: src/tables/part/PartTable.tsx:270
+#: src/tables/part/PartTable.tsx:304
 msgid "Order selected parts"
-msgstr "Order selected products"
+msgstr "Order selected medicines"
 
-#: src/tables/part/PartTable.tsx:277
+#: src/tables/part/PartTable.tsx:311
 msgid "Delete Selected"
 msgstr "Delete Selected"
 
-#: src/tables/part/PartTable.tsx:279
+#: src/tables/part/PartTable.tsx:313
 msgid "Delete the selected products"
-msgstr "Delete the selected products"
+msgstr "Delete the selected medicines"
+
+#: src/tables/part/PartTable.tsx:347
+msgid "Search by medicine or generic name"
+msgstr "Search by medicine or generic name"
 
 #: src/tables/part/PartTableFilters.tsx:14
 msgid "Filter by part active status"
-msgstr "Filter by product active status"
+msgstr "Filter by medicine active status"
 
 #: src/tables/part/PartTableFilters.tsx:20
 msgid "Filter by part locked status"
-msgstr "Filter by product locked status"
+msgstr "Filter by medicine locked status"
 
 #: src/tables/part/PartTableFilters.tsx:26
 msgid "Filter by assembly attribute"
@@ -10877,11 +11186,11 @@ msgstr "BOM Valid"
 
 #: src/tables/part/PartTableFilters.tsx:32
 msgid "Filter by parts with a valid BOM"
-msgstr "Filter by products with a valid BOM"
+msgstr "Filter by medicines with a valid BOM"
 
 #: src/tables/part/PartTableFilters.tsx:38
 msgid "Include parts in subcategories"
-msgstr "Include products in subcategories"
+msgstr "Include medicines in subcategories"
 
 #: src/tables/part/PartTableFilters.tsx:44
 msgid "Filter by component attribute"
@@ -10897,7 +11206,7 @@ msgstr "Filter by trackable attribute"
 
 #: src/tables/part/PartTableFilters.tsx:62
 msgid "Filter by parts which have units"
-msgstr "Filter by products which have units"
+msgstr "Filter by medicines which have units"
 
 #: src/tables/part/PartTableFilters.tsx:67
 msgid "Has IPN"
@@ -10905,7 +11214,7 @@ msgstr "Has IPN"
 
 #: src/tables/part/PartTableFilters.tsx:68
 msgid "Filter by parts which have an internal part number"
-msgstr "Filter by products which have an internal product number"
+msgstr "Filter by medicines which have an our medicine number"
 
 #: src/tables/part/PartTableFilters.tsx:73
 msgid "Has Stock"
@@ -10913,15 +11222,15 @@ msgstr "Has Stock"
 
 #: src/tables/part/PartTableFilters.tsx:74
 msgid "Filter by parts which have stock"
-msgstr "Filter by products which have stock"
+msgstr "Filter by medicines which have stock"
 
 #: src/tables/part/PartTableFilters.tsx:80
 msgid "Filter by parts which have low stock"
-msgstr "Filter by products which have low stock"
+msgstr "Filter by medicines which have low stock"
 
 #: src/tables/part/PartTableFilters.tsx:86
 msgid "Filter by parts which have high stock"
-msgstr "Filter by products which have high stock"
+msgstr "Filter by medicines which have high stock"
 
 #: src/tables/part/PartTableFilters.tsx:91
 msgid "Purchaseable"
@@ -10929,7 +11238,7 @@ msgstr "Purchaseable"
 
 #: src/tables/part/PartTableFilters.tsx:92
 msgid "Filter by parts which are purchaseable"
-msgstr "Filter by products which are purchaseable"
+msgstr "Filter by medicines which are purchaseable"
 
 #: src/tables/part/PartTableFilters.tsx:97
 msgid "Salable"
@@ -10937,15 +11246,15 @@ msgstr "Salable"
 
 #: src/tables/part/PartTableFilters.tsx:98
 msgid "Filter by parts which are salable"
-msgstr "Filter by products which are salable"
+msgstr "Filter by medicines which are salable"
 
 #: src/tables/part/PartTableFilters.tsx:104
 msgid "Filter by parts which are virtual"
-msgstr "Filter by products which are virtual"
+msgstr "Filter by medicines which are virtual"
 
 #: src/tables/part/PartTableFilters.tsx:110
 msgid "Filter by parts which are consumable"
-msgstr "Filter by products which are consumable"
+msgstr "Filter by medicines which are consumable"
 
 #: src/tables/part/PartTableFilters.tsx:115
 msgid "Is Template"
@@ -10953,7 +11262,7 @@ msgstr "Is Template"
 
 #: src/tables/part/PartTableFilters.tsx:116
 msgid "Filter by parts which are templates"
-msgstr "Filter by products which are templates"
+msgstr "Filter by medicines which are templates"
 
 #: src/tables/part/PartTableFilters.tsx:121
 msgid "Is Variant"
@@ -10961,7 +11270,7 @@ msgstr "Is Variant"
 
 #: src/tables/part/PartTableFilters.tsx:122
 msgid "Filter by parts which are variants"
-msgstr "Filter by products which are variants"
+msgstr "Filter by medicines which are variants"
 
 #: src/tables/part/PartTableFilters.tsx:127
 msgid "Is Revision"
@@ -10969,7 +11278,7 @@ msgstr "Is Revision"
 
 #: src/tables/part/PartTableFilters.tsx:128
 msgid "Filter by parts which are revisions"
-msgstr "Filter by products which are revisions"
+msgstr "Filter by medicines which are revisions"
 
 #: src/tables/part/PartTableFilters.tsx:132
 msgid "Has Revisions"
@@ -10977,23 +11286,23 @@ msgstr "Has Revisions"
 
 #: src/tables/part/PartTableFilters.tsx:133
 msgid "Filter by parts which have revisions"
-msgstr "Filter by products which have revisions"
+msgstr "Filter by medicines which have revisions"
 
 #: src/tables/part/PartTableFilters.tsx:138
 msgid "Filter by parts which have pricing information"
-msgstr "Filter by products which have pricing information"
+msgstr "Filter by medicines which have pricing information"
 
 #: src/tables/part/PartTableFilters.tsx:144
 msgid "Filter by parts which have available stock"
-msgstr "Filter by products which have available stock"
+msgstr "Filter by medicines which have available stock"
 
 #: src/tables/part/PartTableFilters.tsx:150
 msgid "Filter by parts which are on order"
-msgstr "Filter by products which are on order"
+msgstr "Filter by medicines which are on order"
 
 #: src/tables/part/PartTableFilters.tsx:156
 msgid "Filter by parts to which the user is subscribed"
-msgstr "Filter by products to which the user is subscribed"
+msgstr "Filter by medicines to which the user is subscribed"
 
 #: src/tables/part/PartTestResultTable.tsx:107
 #: src/tables/part/PartTestResultTable.tsx:185
@@ -11029,7 +11338,7 @@ msgstr "Show build outputs currently in production"
 
 #: src/tables/part/PartTestTemplateTable.tsx:60
 msgid "Test is defined for a parent template part"
-msgstr "Test is defined for a parent template product"
+msgstr "Test is defined for a parent template medicine"
 
 #: src/tables/part/PartTestTemplateTable.tsx:74
 msgid "Template Details"
@@ -11102,11 +11411,11 @@ msgstr "Any tests results associated with this template will be deleted"
 
 #: src/tables/part/PartTestTemplateTable.tsx:213
 msgid "View Parent Part"
-msgstr "View Parent Product"
+msgstr "View Parent Medicine"
 
 #: src/tables/part/PartTestTemplateTable.tsx:267
 msgid "Part templates cannot be edited, as the part is locked"
-msgstr "Product templates cannot be edited, as the product is locked"
+msgstr "Medicine templates cannot be edited, as the medicine is locked"
 
 #: src/tables/part/PartThumbTable.tsx:123
 msgid "Image updated"
@@ -11143,15 +11452,15 @@ msgstr "Show trackable variants"
 #: src/tables/part/RelatedPartTable.tsx:105
 #: src/tables/part/RelatedPartTable.tsx:138
 msgid "Add Related Part"
-msgstr "Add Related Product"
+msgstr "Add Related Medicine"
 
 #: src/tables/part/RelatedPartTable.tsx:120
 msgid "Delete Related Part"
-msgstr "Delete Related Product"
+msgstr "Delete Related Medicine"
 
 #: src/tables/part/RelatedPartTable.tsx:127
 msgid "Edit Related Part"
-msgstr "Edit Related Product"
+msgstr "Edit Related Medicine"
 
 #: src/tables/plugin/PluginErrorTable.tsx:31
 msgid "Stage"
@@ -11315,7 +11624,7 @@ msgstr "MPN"
 #: src/tables/purchasing/ManufacturerPartParametricTable.tsx:47
 #: src/tables/purchasing/ManufacturerPartTable.tsx:162
 msgid "Show manufacturer parts for active internal parts."
-msgstr "Show manufacturer products for active internal products."
+msgstr "Show manufacturer medicines for active internal medicines."
 
 #: src/tables/purchasing/ManufacturerPartParametricTable.tsx:52
 #: src/tables/purchasing/ManufacturerPartTable.tsx:167
@@ -11325,7 +11634,7 @@ msgstr "Active Manufacturer"
 #: src/tables/purchasing/ManufacturerPartParametricTable.tsx:53
 #: src/tables/purchasing/ManufacturerPartTable.tsx:169
 msgid "Show manufacturer parts for active manufacturers."
-msgstr "Show manufacturer products for active manufacturers."
+msgstr "Show manufacturer medicines for active manufacturers."
 
 #: src/tables/purchasing/PurchaseOrderLineItemTable.tsx:244
 msgid "Supplier Code"
@@ -11357,23 +11666,23 @@ msgstr "Base units"
 
 #: src/tables/purchasing/SupplierPartTable.tsx:231
 msgid "Add supplier part"
-msgstr "Add supplier product"
+msgstr "Add supplier medicine"
 
 #: src/tables/purchasing/SupplierPartTable.tsx:239
 msgid "Import supplier part"
-msgstr "Import supplier product"
+msgstr "Import supplier medicine"
 
 #: src/tables/purchasing/SupplierPartTable.tsx:255
 msgid "Show active supplier parts"
-msgstr "Show active supplier products"
+msgstr "Show active supplier medicines"
 
 #: src/tables/purchasing/SupplierPartTable.tsx:260
 msgid "Show primary supplier parts"
-msgstr "Show primary supplier products"
+msgstr "Show primary supplier medicines"
 
 #: src/tables/purchasing/SupplierPartTable.tsx:265
 msgid "Show active internal parts"
-msgstr "Show active internal products"
+msgstr "Show active internal medicines"
 
 #: src/tables/purchasing/SupplierPartTable.tsx:269
 msgid "Active Supplier"
@@ -11385,7 +11694,7 @@ msgstr "Show active suppliers"
 
 #: src/tables/purchasing/SupplierPartTable.tsx:275
 msgid "Show supplier parts with stock"
-msgstr "Show supplier products with stock"
+msgstr "Show supplier medicines with stock"
 
 #: src/tables/sales/ReturnOrderLineItemTable.tsx:148
 msgid "Set Outcome"
@@ -12225,11 +12534,11 @@ msgstr "Stocktake Date"
 
 #: src/tables/stock/StockItemTable.tsx:198
 msgid "Show stock for active parts"
-msgstr "Show stock for active products"
+msgstr "Show stock for active medicines"
 
 #: src/tables/stock/StockItemTable.tsx:209
 msgid "Show stock for assembled parts"
-msgstr "Show stock for assembled products"
+msgstr "Show stock for assembled medicines"
 
 #: src/tables/stock/StockItemTable.tsx:214
 msgid "Show items which have been allocated"

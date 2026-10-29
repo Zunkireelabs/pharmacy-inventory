@@ -18,7 +18,7 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { api } from '../../App';
-import { formatMoney, formatQty } from '../../components/nexa/format';
+import { formatExpiry, formatMoney, formatQty } from '../../components/nexa/format';
 import { SLOW_REQUEST } from '../../components/nexa/slow';
 
 type Bill = {
@@ -32,8 +32,13 @@ type Bill = {
     pharmacy_pan: string;
     pharmacy_dda_reg: string;
     pharmacy_phone: string;
+    bill_title: string;
+    pharmacist_npc_no: string;
     bill_footer: string;
   };
+  date_bs: string;
+  date_ad: string;
+  time: string;
   customer: { name: string; address: string; phone: string; pan: string };
   prescriber: string;
   prescription_ref: string;
@@ -54,6 +59,7 @@ type Bill = {
   discount: string;
   discount_reason: string;
   net_amount: string;
+  rounding: string;
   amount_in_words: string;
   dispensed_by: string;
 };
@@ -65,13 +71,14 @@ const PAYMENT_LABEL: Record<string, string> = {
   other: 'Other'
 };
 
-// Print only the bill, not the app chrome around it
+// Print only the bill, not the app chrome around it. A5 (half A4), the
+// size of the pharmacy's paper bills.
 const PRINT_CSS = `
-@page { size: A4; margin: 0; }
+@page { size: A5 portrait; margin: 6mm; }
 @media print {
   body * { visibility: hidden !important; }
   #nexa-bill, #nexa-bill * { visibility: visible !important; }
-  #nexa-bill { position: absolute; left: 0; top: 0; width: 100%; max-width: none !important; box-sizing: border-box; padding: 14mm !important; box-shadow: none !important; border: none !important; }
+  #nexa-bill { position: absolute; left: 0; top: 0; width: 100%; max-width: none !important; box-sizing: border-box; padding: 0 !important; box-shadow: none !important; border: none !important; }
   .nexa-no-print { display: none !important; }
 }
 `;
@@ -163,9 +170,34 @@ function ReturnDialog({
   );
 }
 
-const cell = { border: '1px solid #444', padding: '4px 8px' } as const;
+// Printed-bill look: typewriter font and dashed rules, like dot-matrix bills
+const FONT = "'Courier New', Courier, monospace";
+const DASH = '1px dashed #000';
+const rule = { borderTop: DASH, margin: '4px 0' } as const;
+const doubleRule = { borderTop: DASH, borderBottom: DASH, height: 2, margin: '4px 0' } as const;
+const th = { textAlign: 'left', fontWeight: 700, padding: '2px 4px' } as const;
+const td = { padding: '2px 4px', verticalAlign: 'top' } as const;
+const right = { textAlign: 'right' } as const;
 
-/** Customer bill, laid out like the pharmacy's patient bill, ready to print. */
+/** Plain amount as on paper bills: 1,234.50 (no currency sign). */
+function amt(value: string | number) {
+  return Number(value).toLocaleString('en-IN', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+}
+
+/** One "Label : value" line; nothing when the value is empty. */
+function Info({ label, value }: Readonly<{ label: string; value?: string }>) {
+  if (!value) return null;
+  return (
+    <div>
+      {label} : {value}
+    </div>
+  );
+}
+
+/** Customer bill, laid out like the pharmacy's paper bills, ready to print. */
 export default function BillPage() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -186,7 +218,13 @@ export default function BillPage() {
 
   const bill = query.data;
   const h = bill.header;
-  const hasDiscount = Number(bill.discount) > 0;
+  const printedAt = new Date().toLocaleTimeString('en-US');
+  const totalRow = (label: string, value: string, bold = false) => (
+    <tr style={bold ? { fontWeight: 700 } : undefined}>
+      <td style={{ ...td, ...right, width: '100%' }}>{label} :</td>
+      <td style={{ ...td, ...right, whiteSpace: 'nowrap' }}>{value}</td>
+    </tr>
+  );
 
   return (
     <Stack gap='md'>
@@ -218,61 +256,92 @@ export default function BillPage() {
         style={{
           background: 'white',
           color: 'black',
-          maxWidth: 800,
-          padding: 24,
+          maxWidth: 560,
+          padding: 20,
           border: '1px solid #ccc',
-          fontSize: 14,
-          lineHeight: 1.4
+          fontFamily: FONT,
+          fontSize: 12,
+          lineHeight: 1.35
         }}
       >
-        <div style={{ textAlign: 'center', marginBottom: 12 }}>
-          <div style={{ fontSize: 22, fontWeight: 800 }}>{h.pharmacy_name}</div>
+        {/* Pharmacy */}
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ fontSize: 17, fontWeight: 700, letterSpacing: 1 }}>
+            {h.pharmacy_name}
+          </div>
           {h.pharmacy_address && <div>{h.pharmacy_address}</div>}
-          {h.pharmacy_pan && <div>PAN: {h.pharmacy_pan}</div>}
-          {h.pharmacy_dda_reg && <div>DDA REG. NO.: {h.pharmacy_dda_reg}</div>}
-          {h.pharmacy_phone && <div>Phone No.: {h.pharmacy_phone}</div>}
+          <div>
+            {[
+              h.pharmacy_dda_reg && `DDA No: ${h.pharmacy_dda_reg}`,
+              h.pharmacy_pan && `PAN: ${h.pharmacy_pan}`
+            ]
+              .filter(Boolean)
+              .join(' , ')}
+          </div>
+          {h.pharmacy_phone && <div>Phone: {h.pharmacy_phone}</div>}
+          <div style={{ fontWeight: 700, marginTop: 6 }}>{h.bill_title || 'INVOICE'}</div>
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+        {/* Bill and customer */}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            gap: 12,
+            marginTop: 8
+          }}
+        >
           <div>
-            <div>Customer&apos;s name: {bill.customer.name}</div>
-            <div>Customer&apos;s Address: {bill.customer.address}</div>
-            <div>Contact No: {bill.customer.phone}</div>
-            <div>Customer&apos;s PAN: {bill.customer.pan}</div>
-            {bill.prescriber && <div>Prescribed By: {bill.prescriber}</div>}
-            {bill.prescription_ref && <div>NMC No: {bill.prescription_ref}</div>}
+            <Info label='Invoice No.' value={bill.reference} />
+            <Info label='Name' value={bill.customer.name} />
+            <Info label='Add' value={bill.customer.address} />
+            <Info label='Contact' value={bill.customer.phone} />
+            <Info label='PAN' value={bill.customer.pan} />
+            <Info label='Prescribed By' value={bill.prescriber} />
+            <Info label='NMC No.' value={bill.prescription_ref} />
           </div>
           <div style={{ textAlign: 'right' }}>
-            <div style={{ fontWeight: 700 }}>Bill No: {bill.reference}</div>
-            <div>{new Date(bill.created_at).toLocaleString('en-GB')}</div>
-            {bill.branch && <div>Branch: {bill.branch}</div>}
-            <div>Mode of Payment: {PAYMENT_LABEL[bill.payment_mode] ?? bill.payment_mode}</div>
+            <Info label='Date (B.S.)' value={bill.date_bs} />
+            <Info label='Date (A.D.)' value={bill.date_ad} />
+            <Info label='Time' value={bill.time} />
+            <Info label='Branch' value={bill.branch} />
+            <Info
+              label='Payment Mode'
+              value={PAYMENT_LABEL[bill.payment_mode] ?? bill.payment_mode}
+            />
           </div>
         </div>
 
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        {/* Medicines */}
+        <div style={doubleRule} />
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12 }}>
           <thead>
             <tr>
-              {['SN.', 'Particulars', 'Batch No.', 'Expiry Date', 'Quantity', 'Rate', 'Amount'].map(
-                (head) => (
-                  <th key={head} style={{ ...cell, textAlign: 'left' }}>
-                    {head}
-                  </th>
-                )
-              )}
+              <th style={th}>Sn.</th>
+              <th style={th}>Particular</th>
+              <th style={th}>Batch</th>
+              <th style={th}>Expiry</th>
+              <th style={{ ...th, ...right }}>Qty</th>
+              <th style={{ ...th, ...right }}>Rate</th>
+              <th style={{ ...th, ...right }}>Amount</th>
+            </tr>
+            <tr>
+              <td colSpan={7} style={{ padding: 0 }}>
+                <div style={rule} />
+              </td>
             </tr>
           </thead>
           <tbody>
             {bill.lines.map((l) => (
               <tr key={l.sn}>
-                <td style={cell}>{l.sn}</td>
-                <td style={cell}>{l.particulars}</td>
-                <td style={cell}>{l.batch}</td>
-                <td style={cell}>{l.expiry_date ?? ''}</td>
-                <td style={{ ...cell, textAlign: 'right' }}>
+                <td style={td}>{l.sn}.</td>
+                <td style={td}>{l.particulars}</td>
+                <td style={td}>{l.batch}</td>
+                <td style={{ ...td, whiteSpace: 'nowrap' }}>{formatExpiry(l.expiry_date)}</td>
+                <td style={{ ...td, ...right }}>
                   {formatQty(l.quantity)}
                   {Number(l.returned_quantity) > 0 && (
-                    <div style={{ fontSize: 11 }}>
+                    <div style={{ fontSize: 10 }}>
                       (returned {formatQty(l.returned_quantity)})
                     </div>
                   )}
@@ -287,50 +356,62 @@ export default function BillPage() {
                     </Button>
                   )}
                 </td>
-                <td style={{ ...cell, textAlign: 'right' }}>{formatMoney(l.rate)}</td>
-                <td style={{ ...cell, textAlign: 'right' }}>{formatMoney(l.amount)}</td>
+                <td style={{ ...td, ...right }}>{amt(l.rate)}</td>
+                <td style={{ ...td, ...right }}>{amt(l.amount)}</td>
               </tr>
             ))}
+          </tbody>
+        </table>
+        <div style={rule} />
+
+        {/* Totals */}
+        <table style={{ marginLeft: 'auto', borderCollapse: 'collapse', fontSize: 12 }}>
+          <tbody>
+            {totalRow('TOTAL', amt(bill.subtotal))}
+            {totalRow('DISCOUNT', amt(bill.discount))}
+            {totalRow('ROUNDING', amt(bill.rounding))}
             <tr>
-              <td colSpan={5} style={{ ...cell, border: 'none' }} />
-              <td style={{ ...cell, textAlign: 'right' }}>Sub total</td>
-              <td style={{ ...cell, textAlign: 'right' }}>{formatMoney(bill.subtotal)}</td>
-            </tr>
-            <tr>
-              <td colSpan={5} style={{ ...cell, border: 'none' }}>
-                {hasDiscount && bill.discount_reason
-                  ? `Discount reason: ${bill.discount_reason}`
-                  : ''}
+              <td />
+              <td style={{ padding: 0 }}>
+                <div style={rule} />
               </td>
-              <td style={{ ...cell, textAlign: 'right' }}>Discount</td>
-              <td style={{ ...cell, textAlign: 'right' }}>{formatMoney(bill.discount)}</td>
             </tr>
+            {totalRow('NET AMOUNT', amt(bill.net_amount), true)}
             <tr>
-              <td colSpan={5} style={{ ...cell, border: 'none' }}>
-                Amount in words: {bill.amount_in_words}
-              </td>
-              <td style={{ ...cell, textAlign: 'right', fontWeight: 700 }}>Net Amount</td>
-              <td style={{ ...cell, textAlign: 'right', fontWeight: 700 }}>
-                {formatMoney(bill.net_amount)}
+              <td />
+              <td style={{ padding: 0 }}>
+                <div style={doubleRule} />
               </td>
             </tr>
           </tbody>
         </table>
+        {Number(bill.discount) > 0 && bill.discount_reason && (
+          <div>Discount reason : {bill.discount_reason}</div>
+        )}
 
-        <div style={{ marginTop: 8 }}>E. &amp; O. E.</div>
-        {h.bill_footer && <div style={{ marginTop: 8, fontSize: 12 }}>{h.bill_footer}</div>}
+        <div style={{ marginTop: 6, fontWeight: 700 }}>CUSTOMER COPY</div>
+        <div>In Words : {bill.amount_in_words.toUpperCase()}.</div>
+        <div style={rule} />
+
+        {/* Footer */}
+        {h.bill_footer && <div>{h.bill_footer}</div>}
+        <div>E. &amp; O. E.</div>
 
         <div
           style={{
             display: 'flex',
             justifyContent: 'space-between',
-            marginTop: 40,
-            fontSize: 13
+            alignItems: 'flex-end',
+            gap: 12,
+            marginTop: 28
           }}
         >
-          <div>Customer&apos;s Signature</div>
-          <div>Dispensed By: {bill.dispensed_by}</div>
-          <div>Authorized signature</div>
+          <div>Received By : ____________</div>
+          <div style={{ textAlign: 'right' }}>
+            <div>Dispensed By : {bill.dispensed_by}</div>
+            {h.pharmacist_npc_no && <div>NPC No. : {h.pharmacist_npc_no}</div>}
+            <div>Printed : {printedAt}</div>
+          </div>
         </div>
       </div>
     </Stack>

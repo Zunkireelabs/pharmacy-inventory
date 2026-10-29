@@ -7,7 +7,7 @@ import {
   IconPackageImport,
   IconPlus
 } from '@tabler/icons-react';
-import { type RefObject, useMemo } from 'react';
+import { type RefObject, useMemo, useState } from 'react';
 import { dataImporterSessionFields } from '../../forms/ImporterForms';
 import { usePartFields } from '../../forms/PartForms';
 import { useCreateApiFormModal } from '../../hooks/UseForm';
@@ -15,6 +15,7 @@ import { usePluginsWithMixin } from '../../hooks/UsePlugins';
 import { openGlobalImporter } from '../../states/ImporterState';
 import { useUserState } from '../../states/UserState';
 import ImportPartWizard from '../wizards/ImportPartWizard';
+import { MedicineEntryModal } from '../nexa/MedicineEntryModal';
 import { ActionDropdown } from './ActionDropdown';
 
 export function PartCreationMenu({
@@ -70,8 +71,20 @@ export function PartCreationMenu({
   const supplierPlugins = usePluginsWithMixin('supplier');
   const importPartWizard = ImportPartWizard({ categoryId });
 
+  // Nexa: medicines are added with the pharmacy form (medicine + first
+  // batch in one save). The generic part form stays for edit / duplicate.
+  const [medicineOpen, setMedicineOpen] = useState(false);
+  const isStaff = user.isStaff() || user.isSuperuser();
+
   return (
     <>
+      <MedicineEntryModal
+        opened={medicineOpen}
+        onClose={() => setMedicineOpen(false)}
+        initialMode='new'
+        initialCategoryId={categoryId ?? initialData?.category}
+        onSaved={() => refreshRef?.current?.()}
+      />
       {newPart.modal}
       {importParts.modal}
       {importPartWizard.wizard}
@@ -83,9 +96,17 @@ export function PartCreationMenu({
         hidden={!user.hasAddRole(UserRoles.part)}
         actions={[
           {
+            name: t`New Medicine`,
+            icon: <IconPlus />,
+            tooltip: t`Add a new medicine and its first batch`,
+            hidden: !isStaff,
+            onClick: () => setMedicineOpen(true)
+          },
+          {
             name: t`Create Part`,
             icon: <IconPlus />,
             tooltip: t`Create a new part`,
+            hidden: true,
             onClick: () => newPart.open()
           },
           {

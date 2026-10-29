@@ -3,6 +3,7 @@ import {
   ActionIcon,
   Alert,
   Button,
+  Card,
   Divider,
   Group,
   Modal,
@@ -33,7 +34,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { api } from '../../App';
 import { CustomerPicker } from './CustomerPicker';
-import { formatMoney } from './format';
+import { formatMoney, formatQty } from './format';
 import {
   BatchPreview,
   ProductPicker,
@@ -130,14 +131,16 @@ function LineEditor({
   const flags = flagsFor(useMedicineFlags(), line.partId);
   const sellable = line.partId === null ? null : sellableQuantity(batches.data);
 
-  // Prefill the unit price from the medicine's selling price (editable)
+  // Prefill the unit price from the medicine's selling price, or its MRP
+  // when no selling price is set (editable)
   const info = useQuery({
     queryKey: ['nexa-medicine', line.partId],
     enabled: line.partId !== null,
     queryFn: async () =>
       (await api.get(`/plugin/nexainventory/medicine/${line.partId}/`)).data
   });
-  const sellingPrice = info.data?.selling_price;
+  const mrp = info.data?.mrp;
+  const sellingPrice = info.data?.selling_price || mrp;
 
   useEffect(() => {
     if (sellingPrice && line.unitValue === '') {
@@ -159,13 +162,19 @@ function LineEditor({
     }
   }, [sellable, flags.requiresPrescription, flags.isControlled]);
 
+  const stockText = String(formatQty(sellable));
+
+  const aboveMrp =
+    !!mrp && typeof line.unitValue === 'number' && line.unitValue > Number(mrp);
+
   const tooMany =
     typeof line.quantity === 'number' &&
     sellable !== null &&
     line.quantity > sellable;
 
   return (
-    <Stack gap='xs'>
+    <Card withBorder radius='md' padding='sm'>
+    <Stack gap='sm'>
       {count > 1 && (
         <Group justify='space-between'>
           <Text size='xs' c='dimmed' fw={700}>
@@ -195,6 +204,7 @@ function LineEditor({
         }
       />
       {line.partId !== null && <BatchPreview batches={batches.data} />}
+      {/* Hints sit under the boxes, so both boxes stay on one line */}
       <SimpleGrid cols={{ base: 1, xs: 2 }}>
         <NumberInput
           label={t`Quantity`}
@@ -202,19 +212,30 @@ function LineEditor({
           onChange={(v) => onChange({ quantity: v as number })}
           min={0}
           required
+          inputWrapperOrder={['label', 'input', 'description', 'error']}
+          description={
+            sellable !== null ? t`${stockText} in stock` : undefined
+          }
           error={tooMany ? t`More than the ${sellable} available` : undefined}
         />
         <NumberInput
-          label={t`Unit Value`}
+          label={t`Sale Rate (per unit)`}
           value={line.unitValue}
           onChange={(v) => onChange({ unitValue: v as number })}
           min={0}
           decimalScale={2}
           required
+          inputWrapperOrder={['label', 'input', 'description', 'error']}
+          description={mrp ? t`MRP ${formatMoney(mrp)} per unit` : undefined}
+          // A warning only: the sale can still be saved
+          error={
+            aboveMrp ? t`Above the MRP of ${formatMoney(mrp)}` : undefined
+          }
+          styles={aboveMrp ? { error: { color: 'var(--mantine-color-orange-7)' } } : undefined}
         />
       </SimpleGrid>
-      {index < count - 1 && <Divider variant='dashed' />}
     </Stack>
+    </Card>
   );
 }
 
@@ -538,8 +559,6 @@ export default function RecordSaleButton({
               ))}
             </SimpleGrid>
 
-            <Divider />
-
             {errorDetail && (
               <Alert color='red' icon={<IconAlertCircle size={16} />}>
                 {errorDetail}
@@ -557,13 +576,17 @@ export default function RecordSaleButton({
             )}
 
             {isB2B && (
+              <Divider label={t`Customer`} labelPosition='left' mt='xs' />
+            )}
+            {isB2B && (
               <CustomerPicker
                 value={form.customerId}
                 onChange={(customerId) => setForm((f) => ({ ...f, customerId }))}
               />
             )}
 
-            <Stack gap='md'>
+            <Divider label={t`Medicines`} labelPosition='left' mt='xs' />
+            <Stack gap='sm'>
               {lines.map((line, index) => (
                 <LineEditor
                   key={line.key}
@@ -577,12 +600,13 @@ export default function RecordSaleButton({
               ))}
 
               <Button
-                variant='subtle'
+                variant='light'
                 size='sm'
                 leftSection={<IconPlus size={16} />}
                 onClick={() => setLines((ls) => [...ls, newLine()])}
+                style={{ alignSelf: 'flex-start' }}
               >
-                {t`Add Medicine`}
+                {t`Add another medicine`}
               </Button>
             </Stack>
 
@@ -592,6 +616,9 @@ export default function RecordSaleButton({
               </Alert>
             )}
 
+            {isRx && (
+              <Divider label={t`Prescription`} labelPosition='left' mt='xs' />
+            )}
             {isRx && (
               <SimpleGrid cols={{ base: 1, xs: 2 }}>
                 <TextInput
@@ -629,6 +656,7 @@ export default function RecordSaleButton({
 
             {!isB2B && (
               <>
+                <Divider label={t`Customer`} labelPosition='left' mt='xs' />
                 <SimpleGrid cols={{ base: 1, xs: 2 }}>
                   <TextInput
                     label={t`Customer Name`}
@@ -663,6 +691,7 @@ export default function RecordSaleButton({
                   }}
                   />
                 </SimpleGrid>
+                <Divider label={t`Payment`} labelPosition='left' mt='xs' />
                 <SimpleGrid cols={{ base: 1, xs: 3 }}>
                   <Select
                     label={t`Payment Mode`}

@@ -20,19 +20,27 @@ export function TransactionTypeCard({
   onClick: () => void;
 }>) {
   return (
-    <UnstyledButton onClick={onClick} style={{ flex: 1, minWidth: 120 }}>
+    <UnstyledButton
+      onClick={onClick}
+      style={{ flex: 1, minWidth: 120, height: '100%' }}
+    >
+      {/* Same height for every card, so one- and two-line labels line up */}
       <Card
         withBorder
-        padding='lg'
+        padding='md'
         radius='md'
+        h='100%'
         bg={active ? `${color}.0` : undefined}
         style={{
-          borderColor: active ? `var(--mantine-color-${color}-6)` : undefined,
-          borderWidth: active ? 2 : 1,
+          borderColor: active
+            ? `var(--mantine-color-${color}-6)`
+            : 'var(--mantine-color-default-border)',
+          // always 2px, so selecting a card does not shift the others
+          borderWidth: 2,
           textAlign: 'center'
         }}
       >
-        <Stack align='center' gap='xs'>
+        <Stack align='center' justify='center' gap='xs' h='100%' mih={96}>
           {icon}
           <Text fw={700} size='sm' c={active ? color : undefined}>
             {label}

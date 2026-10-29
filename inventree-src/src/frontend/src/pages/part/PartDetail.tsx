@@ -303,9 +303,11 @@ export default function PartDetail() {
       },
       {
         name: 'pharmacy',
-        label: t`Pharmacy`,
+        label: t`Medicine Details`,
         icon: <IconPill />,
-        content: <MedicineFlagsPanel partId={part.pk} />
+        content: (
+          <MedicineFlagsPanel partId={part.pk} onRenamed={refreshInstance} />
+        )
       },
       {
         name: 'stock',
@@ -541,7 +543,7 @@ export default function PartDetail() {
 
   const breadcrumbs = useMemo(() => {
     return [
-      { name: t`Parts`, url: '/part' },
+      { name: t`Products`, url: '/part' },
       ...(part.category_path ?? []).map((c: any) => ({
         name: c.name,
         url: getDetailUrl(ModelType.partcategory, c.pk)

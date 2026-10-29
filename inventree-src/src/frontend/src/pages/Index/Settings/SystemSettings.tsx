@@ -214,7 +214,7 @@ export default function SystemSettings() {
       },
       {
         name: 'parts',
-        label: t`Parts`,
+        label: t`Products`,
         icon: <IconBox />,
         content: (
           <Stack gap='xs'>

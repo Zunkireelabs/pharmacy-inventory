@@ -123,6 +123,14 @@ class ReceiveStockTest(PluginRegistryMixin, APITestCase):
         self.assertEqual([r['invoice_no'] for r in unpaid.data['results']], ['INV-2'])
         self.assertEqual(self.client.get(url, {'payment_status': 'x'}).status_code, 400)
 
+    def test_purchase_shows_its_branch(self):
+        self.assertEqual(self.receive().data['branch'], 'Main Branch')
+        # stock put on a shelf still shows the branch the shelf belongs to
+        shelf = StockLocation.objects.create(name='Shelf A', parent=self.location)
+        self.assertEqual(self.receive(batch='B2', location_id=shelf.pk).data['branch'], 'Main Branch')
+        rows = self.client.get(reverse('plugin:nexainventory:purchase-list')).data['results']
+        self.assertEqual({r['branch'] for r in rows}, {'Main Branch'})
+
     def test_requires_login(self):
         self.client.logout()
         self.assertEqual(self.receive().status_code, 401)

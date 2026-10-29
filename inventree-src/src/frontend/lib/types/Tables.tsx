@@ -206,6 +206,8 @@ export type InvenTreeTableProps<T = any> = {
   enableFilters?: boolean;
   enableSelection?: boolean;
   enableSearch?: boolean;
+  searchPlaceholder?: string;
+  searchMinWidth?: number;
   enablePagination?: boolean;
   enableRefresh?: boolean;
   enableColumnSwitching?: boolean;

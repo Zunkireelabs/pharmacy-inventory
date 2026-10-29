@@ -54,6 +54,16 @@ class NexaInventoryPlugin(ScheduleMixin, SettingsMixin, AppMixin, UrlsMixin, Inv
             'description': 'Phone number shown on printed bills',
             'default': '',
         },
+        'BILL_TITLE': {
+            'name': 'Bill Title',
+            'description': 'Title printed above the bill details, e.g. INVOICE or TAX INVOICE',
+            'default': 'INVOICE',
+        },
+        'PHARMACIST_NPC_NO': {
+            'name': 'Pharmacist NPC No.',
+            'description': 'Nepal Pharmacy Council number printed next to "Dispensed By"',
+            'default': '',
+        },
         'BILL_FOOTER': {
             'name': 'Bill Footer',
             'description': 'Return / refund policy text printed at the bottom of bills',
@@ -169,6 +179,18 @@ class NexaInventoryPlugin(ScheduleMixin, SettingsMixin, AppMixin, UrlsMixin, Inv
             return ReceiveStockView.as_view()(request, *args, **kwargs)
 
         @csrf_exempt
+        def add_medicine_view(request, *args, **kwargs):
+            from nexa_inventory.api import AddMedicineView
+
+            return AddMedicineView.as_view()(request, *args, **kwargs)
+
+        @csrf_exempt
+        def supplier_list_view(request, *args, **kwargs):
+            from nexa_inventory.api import SupplierListView
+
+            return SupplierListView.as_view()(request, *args, **kwargs)
+
+        @csrf_exempt
         def purchase_list_view(request, *args, **kwargs):
             from nexa_inventory.api import PurchaseListView
 
@@ -236,6 +258,9 @@ class NexaInventoryPlugin(ScheduleMixin, SettingsMixin, AppMixin, UrlsMixin, Inv
             path('sales-return/', sales_return_view, name='sales-return'),
             path('sales-returns/', sales_return_list_view, name='sales-return-list'),
             path('receive-stock/', receive_stock_view, name='receive-stock'),
+            path('add-medicine/', add_medicine_view, name='add-medicine'),
+            path('suppliers/', supplier_list_view, name='supplier-list'),
+            path('suppliers/<int:pk>/', supplier_list_view, name='supplier-detail'),
             path('purchases/', purchase_list_view, name='purchase-list'),
             path('branches/', branch_list_view, name='branch-list'),
             path('record-bill/', record_bill_view, name='record-bill'),

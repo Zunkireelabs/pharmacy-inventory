@@ -5,11 +5,13 @@ import { useEffect, useState } from 'react';
 
 import { api } from '../../App';
 import { PageDetail } from '../../components/nav/PageDetail';
-import { formatMoney, formatQty } from '../../components/nexa/format';
+import { formatExpiry, formatMoney, formatQty } from '../../components/nexa/format';
+import RestockButton from '../../components/nexa/RestockButton';
 
 type Row = {
   id: number;
   part_name: string;
+  branch: string;
   supplier: string;
   invoice_no: string;
   purchase_date: string;
@@ -56,8 +58,9 @@ export default function PurchaseListPage() {
     <Stack gap='md'>
       <PageDetail title={t`Purchase Entries`} />
       <Stack gap='xs' maw={420}>
+        <RestockButton />
         <TextInput
-          placeholder={t`Search medicine, supplier, invoice or batch`}
+          placeholder={t`Search medicine, supplier, supplier invoice no. or batch`}
           value={search}
           onChange={(e) => setSearch(e.currentTarget.value)}
         />
@@ -78,17 +81,18 @@ export default function PurchaseListPage() {
           {query.isFetching ? t`Loading...` : t`No purchases recorded yet — use Receive Stock`}
         </Text>
       ) : (
-        <Table.ScrollContainer minWidth={820}>
+        <Table.ScrollContainer minWidth={920}>
           <Table highlightOnHover>
             <Table.Thead>
               <Table.Tr>
                 <Table.Th>{t`Date`}</Table.Th>
-                <Table.Th>{t`Invoice`}</Table.Th>
+                <Table.Th>{t`Supplier Invoice No.`}</Table.Th>
                 <Table.Th>{t`Supplier`}</Table.Th>
                 <Table.Th>{t`Medicine`}</Table.Th>
+                <Table.Th>{t`Branch`}</Table.Th>
                 <Table.Th>{t`Batch`}</Table.Th>
                 <Table.Th>{t`Expiry`}</Table.Th>
-                <Table.Th ta='right'>{t`Qty (+free)`}</Table.Th>
+                <Table.Th ta='right'>{t`Qty (+ Free Qty)`}</Table.Th>
                 <Table.Th ta='right'>{t`Total`}</Table.Th>
                 <Table.Th>{t`Payment`}</Table.Th>
               </Table.Tr>
@@ -100,8 +104,9 @@ export default function PurchaseListPage() {
                   <Table.Td>{r.invoice_no || '-'}</Table.Td>
                   <Table.Td>{r.supplier || '-'}</Table.Td>
                   <Table.Td>{r.part_name}</Table.Td>
+                  <Table.Td>{r.branch || '-'}</Table.Td>
                   <Table.Td>{r.batch}</Table.Td>
-                  <Table.Td>{r.expiry_date}</Table.Td>
+                  <Table.Td>{formatExpiry(r.expiry_date)}</Table.Td>
                   <Table.Td ta='right'>
                     {formatQty(r.quantity)}
                     {Number(r.bonus_quantity) > 0 ? ` (+${formatQty(r.bonus_quantity)})` : ''}

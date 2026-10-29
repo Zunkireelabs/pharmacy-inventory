@@ -1,6 +1,7 @@
 """Customer bills: grouping, discount rules, prescription rules, printing data."""
 
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
+from datetime import timezone as dt_timezone
 from decimal import Decimal
 
 from django.contrib.auth import get_user_model
@@ -156,6 +157,23 @@ class BillApiTest(PluginRegistryMixin, APITestCase):
         self.assertEqual([b['reference'] for b in listing.data['results']], [created.data['reference']])
         missing = self.client.get(reverse('plugin:nexainventory:bill-detail', args=[99999]))
         self.assertEqual(missing.status_code, 404)
+
+    def test_printed_bill_dates_title_and_rounding(self):
+        created = self.bill(customer_name='Gita Rai')
+        bill = SaleBill.objects.get(pk=created.data['id'])
+        # 23:30 UTC on 28 Oct 2026 is 05:15 on 29 Oct in Nepal = 2083/07/12 B.S.
+        SaleBill.objects.filter(pk=bill.pk).update(
+            created_at=datetime(2026, 10, 28, 23, 30, tzinfo=dt_timezone.utc)
+        )
+        detail = self.client.get(reverse('plugin:nexainventory:bill-detail', args=[bill.pk])).data
+        self.assertEqual(detail['date_bs'], '2083/07/12')
+        self.assertEqual(detail['date_ad'], '29-10-2026')
+        self.assertEqual(detail['time'], '05:15:00 AM')
+        self.assertEqual(detail['header']['bill_title'], 'INVOICE')
+        self.assertEqual(detail['header']['pharmacist_npc_no'], '')
+        # the rounding line is shown but never changes the amount
+        self.assertEqual(detail['rounding'], '0.00')
+        self.assertEqual(detail['net_amount'], '15.00')
 
     def test_requires_login(self):
         self.client.logout()

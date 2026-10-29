@@ -16,10 +16,10 @@ export function openBulkDeleteProducts(
   onDone: () => void
 ) {
   modals.openConfirmModal({
-    title: t`Delete ${ids.length} products?`,
+    title: t`Delete ${ids.length} medicines?`,
     children: (
       <Text size='sm'>
-        {t`Products that were never stocked or sold are deleted. Products with stock or sales history are made inactive instead, so old bills stay correct.`}
+        {t`Medicines that were never stocked or sold are deleted. Medicines with stock or sales history are made inactive instead, so old bills stay correct.`}
       </Text>
     ),
     labels: { confirm: t`Delete`, cancel: t`Cancel` },
@@ -33,13 +33,13 @@ export function openBulkDeleteProducts(
         );
         const { deleted, deactivated } = response.data;
         notifications.show({
-          title: t`Products updated`,
+          title: t`Medicines updated`,
           message: t`${deleted} deleted, ${deactivated} made inactive`,
           color: 'green'
         });
       } catch (error: any) {
         notifications.show({
-          title: t`Could not delete products`,
+          title: t`Could not delete medicines`,
           message: error?.response?.data?.detail ?? t`Please try again`,
           color: 'red'
         });

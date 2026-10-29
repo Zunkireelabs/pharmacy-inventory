@@ -66,7 +66,7 @@ export function PartCategoryDetailsPanel({
       {
         type: 'text',
         name: 'part_count',
-        label: t`Parts`,
+        label: t`Products`,
         icon: 'part',
         value_formatter: () => instance?.part_count || '0'
       },

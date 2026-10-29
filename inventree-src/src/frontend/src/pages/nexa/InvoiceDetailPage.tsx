@@ -30,6 +30,7 @@ type InvoiceLine = {
   id: number;
   sale_type_movement_id: number;
   quantity: string;
+  medicine: string;
   unit_price: string;
   line_total: string;
 };
@@ -161,14 +162,16 @@ export default function InvoiceDetailPage() {
           <Table striped highlightOnHover>
             <Table.Thead>
               <Table.Tr>
+                <Table.Th>{t`Medicine`}</Table.Th>
                 <Table.Th>{t`Quantity`}</Table.Th>
-                <Table.Th>{t`Unit Price`}</Table.Th>
+                <Table.Th>{t`Sale Rate`}</Table.Th>
                 <Table.Th>{t`Line Total`}</Table.Th>
               </Table.Tr>
             </Table.Thead>
             <Table.Tbody>
               {invoice.lines.map((line) => (
                 <Table.Tr key={line.id}>
+                  <Table.Td>{line.medicine}</Table.Td>
                   <Table.Td>{formatQty(line.quantity)}</Table.Td>
                   <Table.Td>{formatMoney(line.unit_price)}</Table.Td>
                   <Table.Td>{formatMoney(line.line_total)}</Table.Td>

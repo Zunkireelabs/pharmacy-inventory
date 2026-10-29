@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { api } from '../../App';
 import { PageDetail } from '../../components/nav/PageDetail';
-import { formatQty } from '../../components/nexa/format';
+import { formatExpiry, formatQty } from '../../components/nexa/format';
 import { useBranches } from '../../components/nexa/ProductPicker';
 import { ReportTabs } from '../../components/nexa/ReportTabs';
 import { StatCard } from '../../components/nexa/StatCard';
@@ -64,8 +64,8 @@ function BatchTable({
             <Table.Th>{t`Batch`}</Table.Th>
             <Table.Th>{t`Expiry`}</Table.Th>
             <Table.Th>{t`Days`}</Table.Th>
-            <Table.Th ta='right'>{t`Quantity`}</Table.Th>
-            <Table.Th>{t`Location`}</Table.Th>
+            <Table.Th ta='right'>{t`In Stock`}</Table.Th>
+            <Table.Th>{t`Branch`}</Table.Th>
           </Table.Tr>
         </Table.Thead>
         <Table.Tbody>
@@ -81,7 +81,7 @@ function BatchTable({
                 </Anchor>
               </Table.Td>
               <Table.Td>{r.batch || '-'}</Table.Td>
-              <Table.Td>{r.expiry_date}</Table.Td>
+              <Table.Td>{formatExpiry(r.expiry_date)}</Table.Td>
               <Table.Td>
                 <Badge
                   variant='light'

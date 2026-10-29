@@ -267,6 +267,8 @@ export default function InvenTreeTableHeader({
         <Group justify='right' gap={5} wrap='nowrap'>
           {tableProps.enableSearch && (
             <SearchInput
+              placeholder={tableProps.searchPlaceholder}
+              minWidth={tableProps.searchMinWidth}
               disabled={hasCustomSearch}
               searchCallback={(term: string) => tableState.setSearchTerm(term)}
             />

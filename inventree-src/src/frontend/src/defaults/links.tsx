@@ -40,7 +40,7 @@ export function getNavTabs(user: UserStateProps): NavTab[] {
     },
     {
       name: 'part',
-      title: t`Parts`,
+      title: t`Products`,
       icon: <IconBox />,
       visible:
         user.hasViewRole(UserRoles.part) ||

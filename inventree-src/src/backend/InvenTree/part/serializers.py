@@ -69,8 +69,8 @@ class CategoryDeleteSerializer(serializers.Serializer):
     )
 
     delete_parts = serializers.BooleanField(
-        label=_('Delete Products'),
-        help_text=_('Delete all products contained within this category'),
+        label=_('Delete Medicines'),
+        help_text=_('Delete all medicines contained within this category'),
         required=True,
     )
 
@@ -128,11 +128,11 @@ class CategorySerializer(
         required=False,
         allow_null=True,
         label=_('Parent Category'),
-        help_text=_('Parent product category'),
+        help_text=_('Parent category'),
     )
 
     part_count = serializers.IntegerField(
-        read_only=True, allow_null=True, label=_('Products')
+        read_only=True, allow_null=True, label=_('Medicines')
     )
 
     subcategories = serializers.IntegerField(
@@ -379,7 +379,7 @@ class PartBriefSerializer(
     IPN = serializers.CharField(
         required=False,
         allow_null=True,
-        help_text=_('Internal Product Number'),
+        help_text=_('Our Medicine Number'),
         max_length=100,
     )
 
@@ -433,7 +433,7 @@ class InitialStockSerializer(serializers.Serializer):
     location = serializers.PrimaryKeyRelatedField(
         queryset=stock.models.StockLocation.objects.all(),
         label=_('Initial Stock Location'),
-        help_text=_('Specify initial stock location for this Product'),
+        help_text=_('Specify initial stock location for this Medicine'),
         allow_null=True,
         required=False,
     )
@@ -476,7 +476,7 @@ class InitialSupplierSerializer(serializers.Serializer):
         required=False,
         allow_blank=True,
         label=_('MPN'),
-        help_text=_('Manufacturer product number'),
+        help_text=_('Manufacturer medicine number'),
     )
 
     def validate_supplier(self, company):
@@ -503,14 +503,14 @@ class InitialSupplierSerializer(serializers.Serializer):
             manufacturer=data.get('manufacturer', None), MPN=data.get('mpn', '')
         ).exists():
             raise serializers.ValidationError({
-                'mpn': _('Manufacturer product matching this MPN already exists')
+                'mpn': _('Manufacturer medicine matching this MPN already exists')
             })
 
         if company.models.SupplierPart.objects.filter(
             supplier=data.get('supplier', None), SKU=data.get('sku', '')
         ).exists():
             raise serializers.ValidationError({
-                'sku': _('Supplier product matching this SKU already exists')
+                'sku': _('Supplier medicine matching this SKU already exists')
             })
 
         return data
@@ -824,14 +824,14 @@ class PartSerializer(
         read_only=True,
         allow_null=True,
         label=_('Building'),
-        help_text=_('Quantity of this product currently being in production'),
+        help_text=_('Quantity of this medicine currently being in production'),
     )
 
     scheduled_to_build = serializers.FloatField(
         read_only=True,
         allow_null=True,
         label=_('Scheduled to Build'),
-        help_text=_('Outstanding quantity of this product scheduled to be built'),
+        help_text=_('Outstanding quantity of this medicine scheduled to be built'),
     )
 
     in_stock = serializers.FloatField(
@@ -951,32 +951,32 @@ class PartSerializer(
     # Extra fields used only for creation of a new Part instance
     duplicate = InvenTree.serializers.DuplicateOptionsSerializer(
         Part.objects.all(),
-        label=_('Duplicate Product'),
-        help_text=_('Copy initial data from another Product'),
+        label=_('Duplicate Medicine'),
+        help_text=_('Copy initial data from another Medicine'),
         copy_parameters=True,
         copy_fields=[
             {
                 'name': 'copy_image',
                 'label': _('Copy Image'),
-                'help_text': _('Copy image from original product'),
+                'help_text': _('Copy image from original medicine'),
                 'default': False,
             },
             {
                 'name': 'copy_bom',
                 'label': _('Copy BOM'),
-                'help_text': _('Copy bill of materials from original product'),
+                'help_text': _('Copy bill of materials from original medicine'),
                 'default': False,
             },
             {
                 'name': 'copy_notes',
                 'label': _('Copy Notes'),
-                'help_text': _('Copy notes from original product'),
+                'help_text': _('Copy notes from original medicine'),
                 'default': True,
             },
             {
                 'name': 'copy_tests',
                 'label': _('Copy Tests'),
-                'help_text': _('Copy test templates from original product'),
+                'help_text': _('Copy test templates from original medicine'),
                 'default': False,
             },
         ],
@@ -984,14 +984,14 @@ class PartSerializer(
 
     initial_stock = InitialStockSerializer(
         label=_('Initial Stock'),
-        help_text=_('Create Product with initial stock quantity'),
+        help_text=_('Create Medicine with initial stock quantity'),
         write_only=True,
         required=False,
     )
 
     initial_supplier = InitialSupplierSerializer(
         label=_('Supplier Information'),
-        help_text=_('Add initial supplier information for this product'),
+        help_text=_('Add initial supplier information for this medicine'),
         write_only=True,
         required=False,
     )
@@ -1001,13 +1001,13 @@ class PartSerializer(
         required=False,
         write_only=True,
         label=_('Copy Category Parameters'),
-        help_text=_('Copy parameter templates from selected product category'),
+        help_text=_('Copy parameter templates from selected category'),
     )
 
     # Allow selection of an existing part image file
     existing_image = serializers.CharField(
         label=_('Existing Image'),
-        help_text=_('Filename of an existing product image'),
+        help_text=_('Filename of an existing medicine image'),
         write_only=True,
         required=False,
         allow_blank=False,
@@ -1277,18 +1277,18 @@ class PartStocktakeSerializer(
     cost_max_currency = InvenTree.serializers.InvenTreeCurrencySerializer()
 
     part_name = serializers.CharField(
-        source='part.name', read_only=True, label=_('Product Name')
+        source='part.name', read_only=True, label=_('Medicine Name')
     )
 
     part_ipn = serializers.CharField(
-        source='part.IPN', read_only=True, allow_null=True, label=_('Product IPN')
+        source='part.IPN', read_only=True, allow_null=True, label=_('Medicine IPN')
     )
 
     part_description = serializers.CharField(
         source='part.description',
         read_only=True,
         allow_null=True,
-        label=_('Product Description'),
+        label=_('Medicine Description'),
     )
 
     part_detail = OptionalField(
@@ -1330,7 +1330,7 @@ class PartStocktakeGenerateSerializer(serializers.Serializer):
 
     part = serializers.PrimaryKeyRelatedField(
         queryset=Part.objects.all(),
-        label=_('Product'),
+        label=_('Medicine'),
         help_text=_(
             'Select a part to generate stocktake information for that part (and any variant parts)'
         ),
@@ -1360,7 +1360,7 @@ class PartStocktakeGenerateSerializer(serializers.Serializer):
 
     generate_entry = serializers.BooleanField(
         label=_('Generate Stocktake Entries'),
-        help_text=_('Save stocktake entries for the selected products'),
+        help_text=_('Save stocktake entries for the selected medicines'),
         write_only=True,
         required=False,
         default=False,
@@ -1368,7 +1368,7 @@ class PartStocktakeGenerateSerializer(serializers.Serializer):
 
     generate_report = serializers.BooleanField(
         label=_('Generate Report'),
-        help_text=_('Generate a stocktake report for the selected products'),
+        help_text=_('Generate a stocktake report for the selected medicines'),
         write_only=True,
         required=False,
         default=False,
@@ -1526,7 +1526,7 @@ class PartPricingSerializer(InvenTree.serializers.InvenTreeModelSerializer):
     update = serializers.BooleanField(
         write_only=True,
         label=_('Update'),
-        help_text=_('Update pricing for this product'),
+        help_text=_('Update pricing for this medicine'),
         default=False,
         required=False,
         allow_null=True,
@@ -1759,7 +1759,7 @@ class BomItemSerializer(
     sub_part = serializers.PrimaryKeyRelatedField(
         queryset=Part.objects.filter(component=True),
         label=_('Component'),
-        help_text=_('Select the component product'),
+        help_text=_('Select the component medicine'),
     )
 
     sub_part_detail = OptionalField(
@@ -2007,8 +2007,8 @@ class PartCopyBOMSerializer(serializers.Serializer):
         many=False,
         required=True,
         allow_null=False,
-        label=_('Product'),
-        help_text=_('Select product to copy BOM from'),
+        label=_('Medicine'),
+        help_text=_('Select medicine to copy BOM from'),
     )
 
     def validate_part(self, part):
@@ -2023,7 +2023,7 @@ class PartCopyBOMSerializer(serializers.Serializer):
 
     include_inherited = serializers.BooleanField(
         label=_('Include Inherited'),
-        help_text=_('Include BOM items which are inherited from templated products'),
+        help_text=_('Include BOM items which are inherited from templated medicines'),
         default=False,
     )
 
@@ -2034,8 +2034,8 @@ class PartCopyBOMSerializer(serializers.Serializer):
     )
 
     copy_substitutes = serializers.BooleanField(
-        label=_('Copy Substitute Products'),
-        help_text=_('Copy substitute products when duplicate BOM items'),
+        label=_('Copy Substitute Medicines'),
+        help_text=_('Copy substitute medicines when duplicate BOM items'),
         default=True,
     )
 
