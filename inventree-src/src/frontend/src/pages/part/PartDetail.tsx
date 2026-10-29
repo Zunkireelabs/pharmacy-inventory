@@ -303,7 +303,7 @@ export default function PartDetail() {
       },
       {
         name: 'pharmacy',
-        label: t`Medicine Details`,
+        label: t`Product Details`,
         icon: <IconPill />,
         content: (
           <MedicineFlagsPanel partId={part.pk} onRenamed={refreshInstance} />

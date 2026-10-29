@@ -178,14 +178,14 @@ function LineEditor({
       {count > 1 && (
         <Group justify='space-between'>
           <Text size='xs' c='dimmed' fw={700}>
-            {t`Medicine`} {index + 1}
+            {t`Product`} {index + 1}
           </Text>
           <ActionIcon
             color='red'
             variant='subtle'
             size='sm'
             onClick={onRemove}
-            aria-label={t`Remove medicine`}
+            aria-label={t`Remove product`}
           >
             <IconTrash size={14} />
           </ActionIcon>
@@ -585,7 +585,7 @@ export default function RecordSaleButton({
               />
             )}
 
-            <Divider label={t`Medicines`} labelPosition='left' mt='xs' />
+            <Divider label={t`Products`} labelPosition='left' mt='xs' />
             <Stack gap='sm'>
               {lines.map((line, index) => (
                 <LineEditor
@@ -606,13 +606,13 @@ export default function RecordSaleButton({
                 onClick={() => setLines((ls) => [...ls, newLine()])}
                 style={{ alignSelf: 'flex-start' }}
               >
-                {t`Add another medicine`}
+                {t`Add another product`}
               </Button>
             </Stack>
 
             {otcBlockedByRx && (
               <Alert color='orange' icon={<IconAlertCircle size={16} />}>
-                {t`Prescription-only medicine in this sale. Choose Prescription as the sale type.`}
+                {t`Prescription-only product in this sale. Choose Prescription as the sale type.`}
               </Alert>
             )}
 

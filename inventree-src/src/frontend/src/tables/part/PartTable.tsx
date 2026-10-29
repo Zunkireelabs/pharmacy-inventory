@@ -344,7 +344,7 @@ export function PartListTable({
         columns={tableColumns}
         props={{
           ...props,
-          searchPlaceholder: t`Search by medicine or generic name`,
+          searchPlaceholder: t`Search by product or generic name`,
           searchMinWidth: 300,
           enableDownload: true,
           modelType: ModelType.part,

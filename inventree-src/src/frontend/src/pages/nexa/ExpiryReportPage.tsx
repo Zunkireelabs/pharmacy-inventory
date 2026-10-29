@@ -60,7 +60,7 @@ function BatchTable({
       <Table highlightOnHover verticalSpacing='xs'>
         <Table.Thead>
           <Table.Tr>
-            <Table.Th>{t`Medicine`}</Table.Th>
+            <Table.Th>{t`Product`}</Table.Th>
             <Table.Th>{t`Batch`}</Table.Th>
             <Table.Th>{t`Expiry`}</Table.Th>
             <Table.Th>{t`Days`}</Table.Th>

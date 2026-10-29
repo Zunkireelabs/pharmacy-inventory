@@ -162,7 +162,7 @@ export default function InvoiceDetailPage() {
           <Table striped highlightOnHover>
             <Table.Thead>
               <Table.Tr>
-                <Table.Th>{t`Medicine`}</Table.Th>
+                <Table.Th>{t`Product`}</Table.Th>
                 <Table.Th>{t`Quantity`}</Table.Th>
                 <Table.Th>{t`Sale Rate`}</Table.Th>
                 <Table.Th>{t`Line Total`}</Table.Th>

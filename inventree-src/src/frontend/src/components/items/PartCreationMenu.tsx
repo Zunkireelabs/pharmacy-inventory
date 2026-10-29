@@ -96,9 +96,9 @@ export function PartCreationMenu({
         hidden={!user.hasAddRole(UserRoles.part)}
         actions={[
           {
-            name: t`New Medicine`,
+            name: t`New Product`,
             icon: <IconPlus />,
-            tooltip: t`Add a new medicine and its first batch`,
+            tooltip: t`Add a new product and its first batch`,
             hidden: !isStaff,
             onClick: () => setMedicineOpen(true)
           },

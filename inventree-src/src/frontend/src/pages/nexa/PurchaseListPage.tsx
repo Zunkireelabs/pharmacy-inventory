@@ -60,7 +60,7 @@ export default function PurchaseListPage() {
       <Stack gap='xs' maw={420}>
         <RestockButton />
         <TextInput
-          placeholder={t`Search medicine, supplier, supplier invoice no. or batch`}
+          placeholder={t`Search product, supplier, supplier invoice no. or batch`}
           value={search}
           onChange={(e) => setSearch(e.currentTarget.value)}
         />
@@ -88,7 +88,7 @@ export default function PurchaseListPage() {
                 <Table.Th>{t`Date`}</Table.Th>
                 <Table.Th>{t`Supplier Invoice No.`}</Table.Th>
                 <Table.Th>{t`Supplier`}</Table.Th>
-                <Table.Th>{t`Medicine`}</Table.Th>
+                <Table.Th>{t`Product`}</Table.Th>
                 <Table.Th>{t`Branch`}</Table.Th>
                 <Table.Th>{t`Batch`}</Table.Th>
                 <Table.Th>{t`Expiry`}</Table.Th>

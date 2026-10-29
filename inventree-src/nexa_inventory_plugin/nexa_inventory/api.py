@@ -902,7 +902,7 @@ class MedicineInfoView(APIView):
             return Response([self._serialize(r.part_id, r, r.part.description) for r in rows])
         part = Part.objects.filter(pk=part_id).first()
         if part is None:
-            return Response({'detail': 'Medicine not found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'detail': 'Product not found'}, status=status.HTTP_404_NOT_FOUND)
         return Response(self._serialize(
             part_id, MedicineInfo.objects.filter(part_id=part_id).first(), part.description
         ))
@@ -920,7 +920,7 @@ class MedicineInfoView(APIView):
         try:
             part = Part.objects.get(pk=part_id)
         except Part.DoesNotExist:
-            return Response({'detail': 'Medicine not found'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'detail': 'Product not found'}, status=status.HTTP_404_NOT_FOUND)
 
         info = MedicineInfo.objects.filter(part=part).first() or MedicineInfo(part=part)
         try:
@@ -947,7 +947,7 @@ class MedicineInfoView(APIView):
         if ('brand' in request.data or 'strength' in request.data) and info.brand:
             name = medicine_display_name(info.brand, info.strength)
             if len(name) > Part._meta.get_field('name').max_length:
-                return Response({'detail': 'Brand and strength are too long'}, status=400)
+                return Response({'detail': 'Product name and strength are too long'}, status=400)
             part_changes['name'] = name
         if any(f in request.data for f in ('generic_name', 'brand', 'manufacturer')):
             part_changes['keywords'] = medicine_keywords(info)
@@ -1444,7 +1444,8 @@ def _parse_stock_line(data):
         raise ValueError('location_id is required (the branch / shelf)') from exc
 
     supplier = None
-    if data.get('supplier_id') not in (None, ''):
+    new_supplier = _parse_new_supplier(data)
+    if new_supplier is None and data.get('supplier_id') not in (None, ''):
         try:
             supplier = Company.objects.get(pk=data.get('supplier_id'), is_supplier=True)
         except (Company.DoesNotExist, ValueError, TypeError) as exc:
@@ -1472,16 +1473,67 @@ def _parse_stock_line(data):
         'payment_status': payment_status,
         'location': location,
         'supplier': supplier,
+        'new_supplier': new_supplier,
         'purchase_date': purchase_date,
         'invoice_no': (data.get('invoice_no') or '').strip(),
         'notes': (data.get('notes') or '').strip(),
     }
 
 
+def _parse_new_supplier(data):
+    """Optional quick-add supplier from the product form: new_supplier_name
+    (+ new_supplier_phone, new_supplier_dda). Returns a dict or None; raises
+    ValueError for bad input. Created later, inside the save transaction.
+    """
+    name = data.get('new_supplier_name')
+    if name in (None, ''):
+        return None
+    fields = {
+        'name': name,
+        'phone': data.get('new_supplier_phone') or '',
+        'dda': data.get('new_supplier_dda') or '',
+    }
+    limits = {'name': 100, 'phone': 50, 'dda': 100}
+    for key, value in fields.items():
+        if not isinstance(value, str):
+            raise ValueError(f'Supplier {key} must be text')
+        fields[key] = value.strip()
+        if len(fields[key]) > limits[key]:
+            raise ValueError(f'Supplier {key} is too long (max {limits[key]} characters)')
+    if not fields['name']:
+        raise ValueError('Supplier name is required')
+    return fields
+
+
+def _supplier_for(line, user):
+    """The purchase line's supplier; a quick-add one is created here (or an
+    existing supplier with the same name is reused). Staff / admin only.
+    """
+    spec = line.get('new_supplier')
+    if spec is None:
+        return line['supplier']
+    if not _is_staff(user):
+        raise PermissionError('Only an owner or admin can add new suppliers')
+    company = Company.objects.filter(name__iexact=spec['name'], is_supplier=True).first()
+    if company is None:
+        company = Company.objects.create(
+            name=spec['name'], phone=spec['phone'], is_supplier=True, is_customer=False
+        )
+    elif spec['phone'] and not company.phone:
+        company.phone = spec['phone']
+        company.save()
+    if spec['dda'] and not supplier_dda(company):
+        data = company.get_metadata(DDA_METADATA_KEY) or {}
+        data['dda_reg_no'] = spec['dda']
+        company.set_metadata(DDA_METADATA_KEY, data)
+    return company
+
+
 def _create_batch(part, line, user, request_id=''):
     """New StockItem (quantity + bonus) and its PurchaseReceipt. Call inside
     a transaction. Earlier batches of the part are never touched.
     """
+    supplier = _supplier_for(line, user)
     total_units = line['quantity'] + line['bonus']
     item = StockItem.objects.create(
         part=part,
@@ -1497,7 +1549,7 @@ def _create_batch(part, line, user, request_id=''):
     return PurchaseReceipt.objects.create(
         part=part,
         stock_item=item,
-        supplier=line['supplier'],
+        supplier=supplier,
         invoice_no=line['invoice_no'],
         purchase_date=line['purchase_date'],
         batch=line['batch'],
@@ -1565,7 +1617,8 @@ class ReceiveStockView(APIView):
     Body: part_id, batch, expiry_month + expiry_year (stored as the last day
     of the month) or expiry_date (ISO), quantity, bonus_quantity (free stock,
     optional), unit_cost, discount, tax, payment_status (unpaid | partial |
-    paid), location_id (required), supplier_id (optional), invoice_no,
+    paid), location_id (required), supplier_id (optional) or new_supplier_name
+    (+ new_supplier_phone, new_supplier_dda; staff only, reused by name), invoice_no,
     purchase_date (default today), notes, mrp (optional, staff only if it
     changes), request_id (optional, makes a repeat harmless). Creates the
     StockItem (quantity + bonus) and a PurchaseReceipt atomically.
@@ -1642,7 +1695,7 @@ def _validation_text(exc):
     messages = getattr(exc, 'message_dict', None)
     if messages:
         return '; '.join(m for msgs in messages.values() for m in msgs)
-    return ' '.join(exc.messages) or 'Could not save the medicine'
+    return ' '.join(exc.messages) or 'Could not save the product'
 
 
 def _resolve_category(data):
@@ -1692,14 +1745,14 @@ class AddMedicineView(APIView):
     def post(self, request):
         if not _is_staff(request.user):
             return Response(
-                {'detail': 'Only an owner or admin can add new medicines'},
+                {'detail': 'Only an owner or admin can add new products'},
                 status=status.HTTP_403_FORBIDDEN,
             )
         data = request.data
 
         brand = data.get('brand')
         if not isinstance(brand, str) or not brand.strip():
-            return Response({'detail': 'Brand / product name is required'}, status=400)
+            return Response({'detail': 'Product name is required'}, status=400)
 
         no_stock = data.get('no_stock', False)
         if not isinstance(no_stock, bool):
@@ -1715,7 +1768,7 @@ class AddMedicineView(APIView):
 
         name = medicine_display_name(info.brand, info.strength)
         if len(name) > Part._meta.get_field('name').max_length:
-            return Response({'detail': 'Brand and strength are too long'}, status=400)
+            return Response({'detail': 'Product name and strength are too long'}, status=400)
 
         request_id = _request_id(data)
         try:

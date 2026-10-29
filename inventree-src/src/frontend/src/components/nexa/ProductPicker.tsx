@@ -218,8 +218,8 @@ export function ProductPicker({
   return (
     <Stack gap={4}>
       <Select
-        label={t`Medicine`}
-        placeholder={t`Search by medicine or generic name...`}
+        label={t`Product`}
+        placeholder={t`Search by product or generic name...`}
         autoComplete='off'
         searchable
         searchValue={search}
@@ -241,7 +241,7 @@ export function ProductPicker({
           onChange(val ? Number(val) : null, selected?.partName ?? null);
         }}
         nothingFoundMessage={
-          query.isFetching ? t`Searching...` : t`No medicines found`
+          query.isFetching ? t`Searching...` : t`No products found`
         }
         required
       />

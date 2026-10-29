@@ -110,7 +110,7 @@ export default function MedicineFlagsPanel({
   if (query.isError) {
     return (
       <Alert color='red' icon={<IconAlertCircle size={16} />}>
-        {t`Could not load the pharmacy settings for this medicine`}
+        {t`Could not load the pharmacy settings for this product`}
       </Alert>
     );
   }
@@ -122,7 +122,7 @@ export default function MedicineFlagsPanel({
   return (
     <Card withBorder maw={720}>
       <Stack>
-        <Text fw={700}>{t`Medicine details`}</Text>
+        <Text fw={700}>{t`Product Details`}</Text>
         {!isStaff && (
           <Text size='sm' c='dimmed'>
             {t`Only an owner or admin can change these settings.`}
@@ -130,7 +130,7 @@ export default function MedicineFlagsPanel({
         )}
         <SimpleGrid cols={{ base: 1, xs: 2 }}>
           <TextInput
-            label={t`Brand`}
+            label={t`Product`}
             value={details.brand}
             onChange={(e) => set('brand')(e.currentTarget.value)}
             disabled={!isStaff}
@@ -202,7 +202,7 @@ export default function MedicineFlagsPanel({
           }
         />
         <Switch
-          label={t`Controlled medicine`}
+          label={t`Controlled product`}
           description={t`Always prescription-only, and the prescription reference is mandatory.`}
           checked={!!flags?.is_controlled}
           disabled={!isStaff || !flags || mutation.isPending}

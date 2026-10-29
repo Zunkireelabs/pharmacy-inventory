@@ -144,6 +144,56 @@ class AddMedicineTest(PluginRegistryMixin, APITestCase):
         self.assertEqual(StockItem.objects.count(), 1)
         self.assertEqual(PurchaseReceipt.objects.count(), 1)
 
+    def test_new_supplier_from_the_form(self):
+        response = self.add(
+            supplier_id=None, new_supplier_name='Himal Pharma Traders',
+            new_supplier_phone='9811111111', new_supplier_dda='DDA-777',
+        )
+        self.assertEqual(response.status_code, 201, response.content)
+        supplier = Company.objects.get(name='Himal Pharma Traders')
+        self.assertTrue(supplier.is_supplier)
+        self.assertEqual(supplier.phone, '9811111111')
+        self.assertEqual(supplier.get_metadata('nexa')['dda_reg_no'], 'DDA-777')
+        self.assertEqual(response.data['receipt']['supplier'], 'Himal Pharma Traders')
+
+        # same name in any case is reused, not duplicated
+        again = self.add(brand='Cetamol', batch='CT-1', new_supplier_name='himal pharma traders')
+        self.assertEqual(again.status_code, 201, again.content)
+        self.assertEqual(Company.objects.filter(name__iexact='himal pharma traders').count(), 1)
+        self.assertEqual(again.data['receipt']['supplier'], 'Himal Pharma Traders')
+
+    def test_new_supplier_fills_missing_details_of_existing_one(self):
+        bare = Company.objects.create(name='Bare Supplier', is_supplier=True)
+        self.add(new_supplier_name='BARE SUPPLIER', new_supplier_phone='01-555',
+                 new_supplier_dda='DDA-1')
+        bare.refresh_from_db()
+        self.assertEqual(bare.phone, '01-555')
+        self.assertEqual(bare.get_metadata('nexa')['dda_reg_no'], 'DDA-1')
+
+    def test_new_supplier_rolled_back_when_save_fails(self):
+        with mock.patch(
+            'nexa_inventory.api.PurchaseReceipt.objects.create', side_effect=ValueError('boom')
+        ):
+            response = self.add(new_supplier_name='Ghost Supplier')
+        self.assertEqual(response.status_code, 400)
+        self.assertFalse(Company.objects.filter(name='Ghost Supplier').exists())
+        # bad input is rejected before anything is written
+        self.assertEqual(self.add(new_supplier_name='x' * 101).status_code, 400)
+        # "+ New supplier" chosen but only spaces typed: a name is required
+        self.assertEqual(self.add(new_supplier_name='   ').status_code, 400)
+        self.assertEqual(Company.objects.filter(is_supplier=True).count(), 1)
+
+    def test_clerk_cannot_add_a_supplier_when_receiving(self):
+        part_id = self.add().data['part_id']
+        self.client.force_login(self.clerk)
+        response = self.client.post(self.receive_url, {
+            'part_id': part_id, 'batch': 'NC-09', 'expiry_month': 1, 'expiry_year': NEXT_YEAR,
+            'quantity': 5, 'location_id': self.location.pk, 'new_supplier_name': 'Sneaky Ltd',
+        }, format='json')
+        self.assertEqual(response.status_code, 403)
+        self.assertFalse(Company.objects.filter(name='Sneaky Ltd').exists())
+        self.assertEqual(StockItem.objects.filter(part_id=part_id).count(), 1)
+
     def test_second_batch_leaves_first_untouched(self):
         part_id = self.add().data['part_id']
         first = StockItem.objects.get(part_id=part_id)

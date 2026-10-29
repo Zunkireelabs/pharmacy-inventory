@@ -173,7 +173,7 @@ export default function AdjustStockButton({
             onChange={setStockItemId}
             disabled={!partId}
             nothingFoundMessage={
-              isWriteoff ? t`No expired batches in stock` : t`No batches of this medicine`
+              isWriteoff ? t`No expired batches in stock` : t`No batches of this product`
             }
             required
           />

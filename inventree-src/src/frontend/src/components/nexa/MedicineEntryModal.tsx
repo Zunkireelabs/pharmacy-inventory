@@ -39,6 +39,7 @@ import { SLOW_REQUEST } from './slow';
 export type EntryMode = 'new' | 'existing';
 
 const NEW_CATEGORY = '__new__';
+const NEW_SUPPLIER = '__new_supplier__';
 
 const PAYMENT_STATUS = [
   { value: 'unpaid', label: t`Unpaid` },
@@ -159,6 +160,8 @@ export function MedicineEntryModal({
   // Supplier
   const [supplierId, setSupplierId] = useState<string | null>(null);
   const [dda, setDda] = useState('');
+  const [newSupplier, setNewSupplier] = useState({ name: '', phone: '', dda: '' });
+  const addingSupplier = supplierId === NEW_SUPPLIER;
   // More details
   const [moreOpen, setMoreOpen] = useState(false);
   const [invoiceNo, setInvoiceNo] = useState('');
@@ -233,6 +236,7 @@ export function MedicineEntryModal({
     setRate('');
     setMrp('');
     setSupplierId(null);
+    setNewSupplier({ name: '', phone: '', dda: '' });
     setInvoiceNo('');
     setBonus('');
     setDiscount('');
@@ -266,7 +270,16 @@ export function MedicineEntryModal({
             expiry_year: expiry.year,
             quantity,
             unit_cost: num(rate),
-            supplier_id: supplierId ? Number(supplierId) : undefined,
+            supplier_id:
+              supplierId && !addingSupplier ? Number(supplierId) : undefined,
+            // a new supplier is created in the same save (staff only)
+            ...(addingSupplier
+              ? {
+                  new_supplier_name: newSupplier.name.trim(),
+                  new_supplier_phone: newSupplier.phone.trim(),
+                  new_supplier_dda: newSupplier.dda.trim()
+                }
+              : {}),
             location_id: location ? Number(location) : undefined,
             bonus_quantity: num(bonus),
             discount: num(discount),
@@ -315,8 +328,8 @@ export function MedicineEntryModal({
       notifications.show({
         message: isNew
           ? noStock
-            ? t`Medicine added`
-            : t`Medicine and stock added to ${branchName}`
+            ? t`Product added`
+            : t`Product and stock added to ${branchName}`
           : t`Stock received at ${branchName}`,
         color: 'green'
       });
@@ -328,7 +341,8 @@ export function MedicineEntryModal({
         'nexa-medicine',
         'nexa-medicine-details',
         'nexa-dashboard-expiry',
-        'nexa-categories'
+        'nexa-categories',
+        'nexa-suppliers'
       ]) {
         queryClient.invalidateQueries({ queryKey: [key] });
       }
@@ -358,7 +372,8 @@ export function MedicineEntryModal({
       !!expiry.year &&
       typeof quantity === 'number' &&
       quantity > 0 &&
-      !!location);
+      !!location &&
+      (!addingSupplier || !!newSupplier.name.trim()));
   const canSubmit = medicineReady && stockReady && !mutation.isPending;
 
   const locked = medicine.data;
@@ -367,7 +382,7 @@ export function MedicineEntryModal({
     <Modal
       opened={opened}
       onClose={close}
-      title={isNew ? t`New Medicine` : t`Receive Stock`}
+      title={isNew ? t`New Product` : t`Receive Stock`}
       centered
       size='lg'
       fullScreen={isMobile}
@@ -389,13 +404,13 @@ export function MedicineEntryModal({
               setErrorDetail(null);
             }}
             data={[
-              { value: 'new', label: t`New medicine` },
-              { value: 'existing', label: t`Existing medicine` }
+              { value: 'new', label: t`New product` },
+              { value: 'existing', label: t`Existing product` }
             ]}
           />
         )}
 
-        <Divider label={t`Medicine`} labelPosition='left' />
+        <Divider label={t`Product`} labelPosition='left' />
         {isNew ? (
           <>
             <Select
@@ -419,7 +434,7 @@ export function MedicineEntryModal({
               />
             )}
             <TextInput
-              label={t`Brand`}
+              label={t`Product`}
               placeholder={t`e.g. Nico`}
               value={brand}
               onChange={(e) => setBrand(e.currentTarget.value)}
@@ -447,7 +462,7 @@ export function MedicineEntryModal({
               maxLength={250}
             />
             <Switch
-              label={t`No stock yet (add the medicine only)`}
+              label={t`No stock yet (add the product only)`}
               checked={noStock}
               onChange={(e) => setNoStock(e.currentTarget.checked)}
             />
@@ -523,7 +538,7 @@ export function MedicineEntryModal({
           decimalScale={2}
           disabled={!isStaff}
           description={
-            !isNew && isStaff ? t`Changing it updates this medicine's MRP` : undefined
+            !isNew && isStaff ? t`Changing it updates this product's MRP` : undefined
           }
         />
 
@@ -535,16 +550,51 @@ export function MedicineEntryModal({
           <>
             <Select
               label={t`Supplier`}
-              data={(suppliers.data ?? []).map((s) => ({
-                value: String(s.id),
-                label: s.name
-              }))}
+              data={[
+                ...(suppliers.data ?? []).map((s) => ({
+                  value: String(s.id),
+                  label: s.name
+                })),
+                ...(isStaff ? [{ value: NEW_SUPPLIER, label: t`+ New supplier` }] : [])
+              ]}
               value={supplierId}
               onChange={setSupplierId}
               searchable
               clearable
               nothingFoundMessage={t`No suppliers — add one under Purchasing`}
             />
+            {addingSupplier && (
+              <SimpleGrid cols={{ base: 1, xs: 3 }}>
+                <TextInput
+                  label={t`Supplier Name`}
+                  value={newSupplier.name}
+                  onChange={(e) => {
+                    const name = e.currentTarget.value;
+                    setNewSupplier((n) => ({ ...n, name }));
+                  }}
+                  maxLength={100}
+                  required
+                />
+                <TextInput
+                  label={t`Supplier Phone`}
+                  value={newSupplier.phone}
+                  onChange={(e) => {
+                    const phone = e.currentTarget.value;
+                    setNewSupplier((n) => ({ ...n, phone }));
+                  }}
+                  maxLength={50}
+                />
+                <TextInput
+                  label={t`Supplier DDA Reg. No.`}
+                  value={newSupplier.dda}
+                  onChange={(e) => {
+                    const dda = e.currentTarget.value;
+                    setNewSupplier((n) => ({ ...n, dda }));
+                  }}
+                  maxLength={100}
+                />
+              </SimpleGrid>
+            )}
             {supplier && (
               <SimpleGrid cols={{ base: 1, xs: 2 }}>
                 <TextInput
@@ -644,7 +694,7 @@ export function MedicineEntryModal({
           loading={mutation.isPending}
           onClick={() => mutation.mutate()}
         >
-          {isNew ? (noStock ? t`Save Medicine` : t`Save Medicine & Stock`) : t`Add Stock`}
+          {isNew ? (noStock ? t`Save Product` : t`Save Product & Stock`) : t`Add Stock`}
         </Button>
       </Stack>
     </Modal>
